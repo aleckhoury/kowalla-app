@@ -1,4 +1,4 @@
-# kowalla
+# kowalla-app
 
 > My beautiful Nuxt.js project
 

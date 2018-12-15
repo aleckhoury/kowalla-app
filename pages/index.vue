@@ -2,22 +2,9 @@
   <section class="container">
     <div>
       <logo/>
-      <h1 class="title">
-        kowalla
-      </h1>
       <h2 class="subtitle">
-        My beautiful Nuxt.js project
+        It's a startup hub, on the net!
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
     </div>
   </section>
 </template>
@@ -40,6 +27,7 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-color: #39C9A0;
 }
 
 .title {
