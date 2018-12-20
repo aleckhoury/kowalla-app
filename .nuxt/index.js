@@ -11,6 +11,9 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
+import nuxt_plugin_onesignal_38f41be8 from 'nuxt_plugin_onesignal_38f41be8' // Source: ./onesignal.js (ssr: false)
+import nuxt_plugin_swplugin_6beadc19 from 'nuxt_plugin_swplugin_6beadc19' // Source: ./sw.plugin.js (ssr: false)
+import nuxt_plugin_nuxticons_101ce2c8 from 'nuxt_plugin_nuxticons_101ce2c8' // Source: ./nuxt-icons.js
 import nuxt_plugin_axios_f65f5300 from 'nuxt_plugin_axios_f65f5300' // Source: ./axios.js
 import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui
 
@@ -130,8 +133,14 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
+  if (typeof nuxt_plugin_nuxticons_101ce2c8 === 'function') await nuxt_plugin_nuxticons_101ce2c8(app.context, inject)
   if (typeof nuxt_plugin_axios_f65f5300 === 'function') await nuxt_plugin_axios_f65f5300(app.context, inject)
   if (typeof nuxt_plugin_elementui_d905880e === 'function') await nuxt_plugin_elementui_d905880e(app.context, inject)
+
+  if (process.client) {
+    if (typeof nuxt_plugin_onesignal_38f41be8 === 'function') await nuxt_plugin_onesignal_38f41be8(app.context, inject)
+    if (typeof nuxt_plugin_swplugin_6beadc19 === 'function') await nuxt_plugin_swplugin_6beadc19(app.context, inject)
+  }
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {
