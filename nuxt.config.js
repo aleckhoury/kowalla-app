@@ -42,7 +42,9 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/onesignal'
   ],
   /*
   ** Axios module configuration
@@ -50,6 +52,42 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
+
+
+
+  /*
+  ** PWA Setup
+  */
+
+  manifest: {
+    // https://pwa.nuxtjs.org/modules/manifest
+    name: 'kowalla',
+    shortname: 'kowalla',
+    dir: 'rtl',
+    lang: 'en-US',
+  },
+
+  workbox: {
+    // https://pwa.nuxtjs.org/modules/workbox
+  },
+
+  icon: {
+    // https://pwa.nuxtjs.org/modules/icon
+  },
+
+  meta: {
+    // https://pwa.nuxtjs.org/modules/meta
+  },
+
+  oneSignal: {
+    // https://pwa.nuxtjs.org/modules/onesignal
+  }
+
+
+
+
+
+
 
   /*
   ** Build configuration
