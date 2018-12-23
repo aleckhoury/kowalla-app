@@ -34,7 +34,7 @@ export default {
 }
 
 .title {
-  font-family: 'Nunito-Black';
+  font-family: 'Nunito';
   display: block;
   font-weight: 300;
   font-size: 5em;
@@ -44,7 +44,7 @@ export default {
 
 .subtitle {
   font-weight: 300;
-  font-family: 'Nunito-Black';
+  font-family: 'Nunito';
   font-size: 2em;
   color: #2F8168;
   word-spacing: 5px;
