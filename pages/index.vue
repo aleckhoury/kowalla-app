@@ -1,23 +1,24 @@
 <template>
   <section class="container">
     <div>
-      <div class="title">
-        kowalla
-      </div>
-      <h2 class="subtitle">
-        It's a startup hub, on the net!
-      </h2>
+      <el-col :span="24">
+        <div class="title">
+          kowalla
+        </div>
+      </el-col>
+
+      <el-col :span="18" :offset="3">
+        <div class="subtitle">
+          It's a startup hub, on the net!
+        </div>
+      </el-col>
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
-  }
+  name: 'Index'
 }
 </script>
 
@@ -33,18 +34,18 @@ export default {
 }
 
 .title {
-  font-family: 'Nunito-Black';
+  font-family: 'Nunito';
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 5em;
   color: #fff;
   letter-spacing: 1px;
 }
 
 .subtitle {
   font-weight: 300;
-  font-family: 'Nunito-Black';
-  font-size: 42px;
+  font-family: 'Nunito';
+  font-size: 2em;
   color: #2F8168;
   word-spacing: 5px;
   padding-bottom: 15px;
