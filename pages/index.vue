@@ -1,24 +1,21 @@
 <template>
   <section class="container">
     <div>
-      <el-col :span="24">
-        <div class="title">
-          kowalla
-        </div>
-      </el-col>
-
-      <el-col :span="18" :offset="3">
-        <div class="subtitle">
-          It's a startup hub, on the net!
-        </div>
-      </el-col>
+      <logo/>
+      <h2 class="subtitle">
+        It's a startup hub, on the net!
+      </h2>
     </div>
   </section>
 </template>
 
 <script>
+import Logo from '~/components/Logo.vue'
+
 export default {
-  name: 'Index'
+  components: {
+    Logo
+  }
 }
 </script>
 
@@ -34,20 +31,24 @@ export default {
 }
 
 .title {
-  font-family: 'Nunito-Black';
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 5em;
-  color: #fff;
+  font-size: 100px;
+  color: #35495e;
   letter-spacing: 1px;
 }
 
 .subtitle {
   font-weight: 300;
-  font-family: 'Nunito-Black';
-  font-size: 2em;
-  color: #2F8168;
+  font-size: 42px;
+  color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+
+.links {
+  padding-top: 15px;
 }
 </style>
