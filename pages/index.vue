@@ -1,9 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <div class="title">
-        kowalla
-      </div>
+      <logo/>
       <h2 class="subtitle">
         It's a startup hub, on the net!
       </h2>
@@ -33,20 +31,24 @@ export default {
 }
 
 .title {
-  font-family: 'Nunito-Black';
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
-  color: #fff;
+  color: #35495e;
   letter-spacing: 1px;
 }
 
 .subtitle {
   font-weight: 300;
-  font-family: 'Nunito-Black';
   font-size: 42px;
-  color: #2F8168;
+  color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+
+.links {
+  padding-top: 15px;
 }
 </style>
