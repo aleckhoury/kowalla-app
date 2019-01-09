@@ -13,6 +13,7 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_onesignal_290b246a from 'nuxt_plugin_onesignal_290b246a' // Source: ./onesignal.js (ssr: false)
+import nuxt_plugin_swplugin_1e712dfc from 'nuxt_plugin_swplugin_1e712dfc' // Source: ./sw.plugin.js (ssr: false)
 import nuxt_plugin_nuxticons_a33e6576 from 'nuxt_plugin_nuxticons_a33e6576' // Source: ./nuxt-icons.js
 import nuxt_plugin_axios_1ab911e3 from 'nuxt_plugin_axios_1ab911e3' // Source: ./axios.js
 import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui
@@ -162,6 +163,7 @@ async function createApp(ssrContext) {
 
   if (process.client) {
     if (typeof nuxt_plugin_onesignal_290b246a === 'function') await nuxt_plugin_onesignal_290b246a(app.context, inject)
+    if (typeof nuxt_plugin_swplugin_1e712dfc === 'function') await nuxt_plugin_swplugin_1e712dfc(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first
