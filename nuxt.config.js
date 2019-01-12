@@ -46,7 +46,7 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
-    '@nuxtjs/onesignal'
+    //'@nuxtjs/onesignal'
   ],
   /*
   ** Axios module configuration
@@ -67,7 +67,7 @@ module.exports = {
   },
 
   router: {
-    middleware: ['auth']
+    //middleware: ['auth']
   },
 
   /* ------------------------------------------------------------
@@ -93,10 +93,11 @@ module.exports = {
   meta: {
     // https://pwa.nuxtjs.org/modules/meta
   },
-
+  /*
   oneSignal: {
     // https://pwa.nuxtjs.org/modules/onesignal
   }
+  */
 
 
 

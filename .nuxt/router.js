@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
+const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
+const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -62,8 +65,20 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/about",
+      component: _20bda2ce,
+      name: "about"
+    }, {
+      path: "/dev",
+      component: _90e13c38,
+      name: "dev"
+    }, {
+      path: "/dev/u/:username?",
+      component: _979bcba6,
+      name: "dev-u-username"
+    }, {
       path: "/",
-      component: _3687ba5b,
+      component: _0f59095e,
       name: "index"
     }],
 
