@@ -52,15 +52,15 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+        https: 'http://kowalla-backend-tob.herokuapp.com'
   },
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+          login: { url: '/api/v1/users/login', method: 'post', propertyName: 'data.token' },
+          logout: false,
+          user: { url: '/api/v1/users/me', method: 'get', propertyName: 'data' }
         }
       }
     }

@@ -11,6 +11,7 @@
         <div class="subtitle">
           It's a startup hub, on the net!
         </div>
+        <nuxt-link to="/login">Login</nuxt-link>
       </el-col>
     </div>
   </section>
@@ -18,7 +19,8 @@
 
 <script>
 export default {
-  name: 'Index'
+  name: 'Index',
+  auth: false,
 }
 </script>
 
