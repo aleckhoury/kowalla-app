@@ -1,8 +1,7 @@
-const pkg = require('./package')
+const pkg = require('./package');
 
 module.exports = {
   mode: 'universal',
-
   /*
   ** Headers of the page
   */
@@ -46,21 +45,23 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
-    '@nuxtjs/onesignal'
+    '@nuxtjs/onesignal',
   ],
   /*
   ** Axios module configuration
   */
   axios: {
-        https: 'http://kowalla-backend-tob.herokuapp.com'
+        // baseURL: 'http://kowalla-backend-tob.herokuapp.com',
+    baseURL: 'http://localhost:8080'
   },
   auth: {
+    fetchUserOnLogin: false,
     strategies: {
       local: {
         endpoints: {
           login: { url: '/api/v1/users/login', method: 'post', propertyName: 'data.token' },
           logout: false,
-          user: { url: '/api/v1/users/me', method: 'get', propertyName: 'data' }
+          user: { url: '/api/v1/users/me', method: 'post', propertyName: 'data' },
         }
       }
     }

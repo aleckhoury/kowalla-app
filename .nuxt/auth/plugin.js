@@ -7,7 +7,7 @@ import scheme_003d9a64 from './schemes/local.js'
 
 export default function (ctx, inject) {
   // Options
-  const options = {"resetOnError":false,"scopeKey":"scope","rewriteRedirects":true,"fullPathRedirect":false,"watchLoggedIn":true,"redirect":{"login":"/login","logout":"/","home":"/","callback":"/login"},"vuex":{"namespace":"auth"},"cookie":{"prefix":"auth.","options":{"path":"/"}},"localStorage":{"prefix":"auth."},"token":{"prefix":"_token."},"refresh_token":{"prefix":"_refresh_token."},"defaultStrategy":"local"}
+  const options = {"resetOnError":false,"scopeKey":"scope","rewriteRedirects":true,"fullPathRedirect":false,"watchLoggedIn":true,"redirect":{"login":"/login","logout":"/","home":"/","callback":"/login"},"vuex":{"namespace":"auth"},"cookie":{"prefix":"auth.","options":{"path":"/"}},"localStorage":{"prefix":"auth."},"token":{"prefix":"_token."},"refresh_token":{"prefix":"_refresh_token."},"defaultStrategy":"local","fetchUserOnLogin":false}
 
   // Create a new Auth instance
   const $auth = new Auth(ctx, options)
@@ -18,7 +18,7 @@ export default function (ctx, inject) {
   // Register strategies
 
   // local
-  $auth.registerStrategy('local', new scheme_003d9a64($auth, {"endpoints":{"login":{"url":"/api/v1/users/login","method":"post","propertyName":"data.token"},"logout":false,"user":{"url":"/api/v1/users/me","method":"get","propertyName":"data"}},"_name":"local"}))
+  $auth.registerStrategy('local', new scheme_003d9a64($auth, {"endpoints":{"login":{"url":"/api/v1/users/login","method":"post","propertyName":"data.token"},"logout":false,"user":{"url":"/api/v1/users/me","method":"post","propertyName":"data"}},"_name":"local"}))
 
   // Initialize auth
   return $auth.init().catch(error => {
