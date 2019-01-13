@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="nav-subheader-parent">
     <div class="nav-subheader-child">
-      <NavSubHeaderLeft></NavSubHeaderLeft>
+      <SortingOptions></SortingOptions>
       <div v-if="messages.length > 0" class="message-container">
         <div class="message" v-for="message in messages">
           <b>{{ message }}</b>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import NavSubHeaderLeft from './NavSubHeaderLeft';
+import SortingOptions from './SortingOptions';
 
 export default {
   name: 'NavSubHeader',
-  components: { NavSubHeaderLeft },
+  components: { SortingOptions },
   data() {
     return {
       messages: ["Join our newsletter!"]
@@ -37,7 +37,6 @@ export default {
 }
 
 .nav-subheader-child {
-  border: 1px solid black;
   height: 100%;
   width: 70%;
   display: flex;

@@ -5,7 +5,7 @@
     </el-header>
 
     <el-main class="no-padding">
-      <PlaceholderText>home</PlaceholderText>
+      <PlaceholderText>dev test</PlaceholderText>
     </el-main>
   </el-container>
 </template>
