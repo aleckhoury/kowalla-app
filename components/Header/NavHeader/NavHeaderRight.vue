@@ -42,15 +42,4 @@ export default {
   display: flex;
   align-items: center;
 }
-
-.override {
-  color: #39C9A0;
-  border: 2px solid #2F8168;
-  margin: 6px;
-  font-family: "Helvetica Neue";
-  border-radius: 6px;
-}
-
-
-
 </style>
