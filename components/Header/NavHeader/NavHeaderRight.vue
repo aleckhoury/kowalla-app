@@ -5,7 +5,7 @@
     </Button>
     <Searchbar></Searchbar>
 
-    <el-badge :is-dot="hasNotifications" class="notif-dot"><font-awesome-icon icon="bell" class="theme-color"></font-awesome-icon></el-badge>
+    <NavNotifications :hasNotifications="true"/>
 
     <NavProfilePicture
       profilePicture="https://media.licdn.com/dms/image/C5603AQHR9b4T-gMdDA/profile-displayphoto-shrink_200_200/0?e=1552521600&v=beta&t=OCqWMbZEViWI0AEtPBdiA0-VlrUFfC-wJCR900OQaBE"
@@ -19,10 +19,11 @@
 import Searchbar from './Searchbar';
 import Button from './Button';
 import NavProfilePicture from './NavProfilePicture';
+import NavNotifications from './NavNotifications';
 
 export default {
   name: "NavHeaderRight",
-  components: { Searchbar, Button, NavProfilePicture },
+  components: { Searchbar, Button, NavProfilePicture, NavNotifications },
   data() {
     return {
       hasNotifications: false
@@ -40,14 +41,6 @@ export default {
 .nav-right-container {
   display: flex;
   align-items: center;
-}
-
-.theme-color {
-  color: #2F8168;
-}
-
-.notif-dot {
-  margin: 6px;
 }
 
 .override {
