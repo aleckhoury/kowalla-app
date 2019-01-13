@@ -5,7 +5,7 @@
     </Button>
     <Searchbar></Searchbar>
 
-    <i class="el-icon-bell theme-color" ></i>
+    <el-badge :is-dot="hasNotifications" class="notif-dot"><font-awesome-icon icon="bell" class="theme-color"></font-awesome-icon></el-badge>
 
     <NavProfilePicture
       profilePicture="https://media.licdn.com/dms/image/C5603AQHR9b4T-gMdDA/profile-displayphoto-shrink_200_200/0?e=1552521600&v=beta&t=OCqWMbZEViWI0AEtPBdiA0-VlrUFfC-wJCR900OQaBE"
@@ -23,6 +23,11 @@ import NavProfilePicture from './NavProfilePicture';
 export default {
   name: "NavHeaderRight",
   components: { Searchbar, Button, NavProfilePicture },
+  data() {
+    return {
+      hasNotifications: false
+    }
+  },
   methods: {
     newPostModal(event) {
       this.$alert('this is a new post modal');
@@ -39,6 +44,9 @@ export default {
 
 .theme-color {
   color: #2F8168;
+}
+
+.notif-dot {
   margin: 6px;
 }
 

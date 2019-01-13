@@ -12,7 +12,7 @@
 export default {
   name: 'NavProfilePicture',
   props: {
-    profileId: String,
+    username: String,
     profilePicture: String,
     dropdownDisabled: Boolean,
   },

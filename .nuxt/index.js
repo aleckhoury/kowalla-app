@@ -14,6 +14,7 @@ import { createStore } from './store.js'
 
 import nuxt_plugin_swplugin_6beadc19 from 'nuxt_plugin_swplugin_6beadc19' // Source: ./sw.plugin.js (ssr: false)
 import nuxt_plugin_nuxticons_101ce2c8 from 'nuxt_plugin_nuxticons_101ce2c8' // Source: ./nuxt-icons.js
+import nuxt_plugin_templatesplugin07ea14c3_546381cc from 'nuxt_plugin_templatesplugin07ea14c3_546381cc' // Source: ./templates.plugin.07ea14c3.js
 import nuxt_plugin_axios_f65f5300 from 'nuxt_plugin_axios_f65f5300' // Source: ./axios.js
 import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui
 import nuxt_plugin_plugin_301c83bc from 'nuxt_plugin_plugin_301c83bc' // Source: ./auth/plugin.js
@@ -156,6 +157,7 @@ async function createApp(ssrContext) {
   // Plugin execution
 
   if (typeof nuxt_plugin_nuxticons_101ce2c8 === 'function') await nuxt_plugin_nuxticons_101ce2c8(app.context, inject)
+  if (typeof nuxt_plugin_templatesplugin07ea14c3_546381cc === 'function') await nuxt_plugin_templatesplugin07ea14c3_546381cc(app.context, inject)
   if (typeof nuxt_plugin_axios_f65f5300 === 'function') await nuxt_plugin_axios_f65f5300(app.context, inject)
   if (typeof nuxt_plugin_elementui_d905880e === 'function') await nuxt_plugin_elementui_d905880e(app.context, inject)
   if (typeof nuxt_plugin_plugin_301c83bc === 'function') await nuxt_plugin_plugin_301c83bc(app.context, inject)

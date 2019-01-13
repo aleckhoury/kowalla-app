@@ -44,6 +44,7 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    'nuxt-fontawesome',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
     //'@nuxtjs/onesignal'
@@ -84,6 +85,15 @@ module.exports = {
 
   workbox: {
     // https://pwa.nuxtjs.org/modules/workbox
+  },
+
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
+    ]
   },
 
   icon: {
