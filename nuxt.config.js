@@ -44,9 +44,10 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    'nuxt-fontawesome',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
-    '@nuxtjs/onesignal'
+    //'@nuxtjs/onesignal'
   ],
   /*
   ** Axios module configuration
@@ -67,7 +68,7 @@ module.exports = {
   },
 
   router: {
-    middleware: ['auth']
+    //middleware: ['auth']
   },
 
   /* ------------------------------------------------------------
@@ -86,6 +87,15 @@ module.exports = {
     // https://pwa.nuxtjs.org/modules/workbox
   },
 
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
+    ]
+  },
+
   icon: {
     // https://pwa.nuxtjs.org/modules/icon
   },
@@ -93,10 +103,11 @@ module.exports = {
   meta: {
     // https://pwa.nuxtjs.org/modules/meta
   },
-
+  /*
   oneSignal: {
     // https://pwa.nuxtjs.org/modules/onesignal
   }
+  */
 
 
 
