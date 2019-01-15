@@ -59,12 +59,15 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/v1/users/login', method: 'post', propertyName: 'data.token' },
+          login: { url: '/api/v1/users/login', method: 'post', propertyName: 'token' },
           logout: false,
-          user: { url: '/api/v1/users/me', method: 'get', propertyName: 'data' },
+          register: { url: '/api/v1/users', method: 'post', propertyName: false },
+          user: false,
         }
       }
-    }
+    },
+    tokenRequired: true,
+    tokenType: 'Bearer'
   },
 
   router: {
