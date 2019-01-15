@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .nav-profile-picture {
   height: 48px;
   width: 48px;
@@ -37,11 +37,11 @@ export default {
   border-radius: 6px;
   margin-left: 6px
 }
+
 .page-link {
   font-family: "Helvetica Neue";
   font-size: 1em;
   color: black;
   text-decoration: none;
 }
-
 </style>

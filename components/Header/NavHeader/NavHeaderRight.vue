@@ -1,16 +1,15 @@
 <template lang="html">
   <div class="nav-right-container">
-    <Button @kow-button-click="newPostModal">
-      <b>New</b>
-    </Button>
-    <Searchbar></Searchbar>
+    <Button @kow-button-click="newPostModal"><b>New</b></Button>
 
-    <NavNotifications :hasNotifications="true"/>
+    <Searchbar />
+
+    <NavNotifications
+      :hasNotifications="this.$store.state.user.hasNotifications" />
 
     <NavProfilePicture
-      profilePicture="https://media.licdn.com/dms/image/C5603AQHR9b4T-gMdDA/profile-displayphoto-shrink_200_200/0?e=1552521600&v=beta&t=OCqWMbZEViWI0AEtPBdiA0-VlrUFfC-wJCR900OQaBE"
-      username="tob"
-    />
+      :profilePicture="this.$store.state.user.profilePicture"
+      :username="this.$store.state.user.username" />
 
   </div>
 </template>

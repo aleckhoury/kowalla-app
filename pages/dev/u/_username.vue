@@ -17,7 +17,7 @@ import Header from '~/components/Header/Header';
 
 
 export default {
-  name: "user page test",
+  name: "user-page-test",
   components: { PlaceholderText, Header },
   data() {
     return {

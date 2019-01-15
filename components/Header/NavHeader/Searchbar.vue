@@ -1,5 +1,4 @@
 <template lang="html">
-
     <el-autocomplete
       class="searchbar-container"
       placeholder="Search"
@@ -8,8 +7,6 @@
       @select="handleSelect"
       :fetch-suggestions="querySearchAsync"
     ></el-autocomplete>
-
-
 </template>
 
 <script>

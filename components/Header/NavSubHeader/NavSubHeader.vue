@@ -2,9 +2,9 @@
   <div class="nav-subheader-parent">
     <div class="nav-subheader-child">
       <SortingOptions></SortingOptions>
-      <div v-if="messages.length > 0" class="message-container">
-        <div class="message" v-for="message in messages">
-          <b>{{ message }}</b>
+      <div v-if="$store.state.messages.messages.length > 0" class="message-container">
+        <div class="message" v-for="item in $store.state.messages.messages">
+          <b>{{ item }}</b>
         </div>
       </div>
     </div>
@@ -17,11 +17,6 @@ import SortingOptions from './SortingOptions';
 export default {
   name: 'NavSubHeader',
   components: { SortingOptions },
-  data() {
-    return {
-      messages: ["Join our newsletter!"]
-    }
-  }
 }
 </script>
 
@@ -56,6 +51,6 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 1em;
   color: #39C9A0;
-  padding-right: 12px;
+  padding-left: 12px;
 }
 </style>

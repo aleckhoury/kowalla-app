@@ -1,17 +1,13 @@
 <template lang="html">
-  <div>
-    <div class="nav-header-container">
-      <NavHeaderLeft></NavHeaderLeft>
-      <NavHeaderRight></NavHeaderRight>
-    </div>
+  <div class="nav-header-container">
+    <NavHeaderLeft></NavHeaderLeft>
+    <NavHeaderRight></NavHeaderRight>
   </div>
-
 </template>
 
 <script>
 import NavHeaderLeft from './NavHeaderLeft';
 import NavHeaderRight from './NavHeaderRight';
-
 
 export default {
   name: "NavHeader",
