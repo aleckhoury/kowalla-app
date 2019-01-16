@@ -11,6 +11,7 @@
         <div class="subtitle">
           It's a startup hub, on the net!
         </div>
+        <nuxt-link to="/dev">link to dev</nuxt-link>
         <nuxt-link to="/login">Login</nuxt-link>
       </el-col>
     </div>
@@ -32,7 +33,7 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #39C9A0;
+  background-color: #fff;
 }
 
 .title {
@@ -40,7 +41,7 @@ export default {
   display: block;
   font-weight: 300;
   font-size: 5em;
-  color: #fff;
+  color: #000;
   letter-spacing: 1px;
 }
 
@@ -48,7 +49,7 @@ export default {
   font-weight: 300;
   font-family: 'Nunito';
   font-size: 2em;
-  color: #2F8168;
+  color: #000;
   word-spacing: 5px;
   padding-bottom: 15px;
 }
