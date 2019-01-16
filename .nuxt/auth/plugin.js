@@ -18,7 +18,7 @@ export default function (ctx, inject) {
   // Register strategies
 
   // local
-  $auth.registerStrategy('local', new scheme_003d9a64($auth, {"endpoints":{"login":{"url":"/api/v1/users/login","method":"post","propertyName":"token"},"logout":false,"user":false,"register":{"url":"/api/v1/users","method":"post","propertyName":false}},"_name":"local"}))
+  $auth.registerStrategy('local', new scheme_003d9a64($auth, {"endpoints":{"login":{"url":"/api/v1/users/login","method":"post","propertyName":"token"},"logout":false,"user":{"url":"/api/v1/users/me","method":"get","propertyName":false},"register":{"url":"/api/v1/users","method":"post","propertyName":false}},"_name":"local"}))
 
   // Initialize auth
   return $auth.init().catch(error => {

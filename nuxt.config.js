@@ -62,7 +62,7 @@ module.exports = {
           login: { url: '/api/v1/users/login', method: 'post', propertyName: 'token' },
           logout: false,
           register: { url: '/api/v1/users', method: 'post', propertyName: false },
-          user: false,
+          user: { url: '/api/v1/users/me', method: 'get', propertyName: false },
         }
       }
     },
