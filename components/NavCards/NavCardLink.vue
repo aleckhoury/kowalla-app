@@ -4,7 +4,7 @@
       <img class="picture" src="pictureURL"/>
     </nuxt-link>
 
-    <div class="content">
+    <div class="nav-card-link-content">
       <nuxt-link :to="getRoute" class="name">
         <b>{{getPrefix}}{{name}}</b>
       </nuxt-link>
@@ -20,7 +20,7 @@ export default {
   name: "NavCardLink",
   props: {
     name: String,
-    numSubs: String,
+    numSubs: Number,
     pictureURL: String,
     projectId: String,
     communityId: String,
@@ -51,7 +51,7 @@ export default {
   cursor: pointer;
 }
 
-.content {
+.nav-card-link-content {
   display: flex;
   flex-direction: column;
   margin-left: 8px;

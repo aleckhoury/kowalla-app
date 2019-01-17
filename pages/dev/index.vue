@@ -6,15 +6,15 @@
 
     <el-main class="main-margin background-tint">
       <el-row type="flex" justify="center">
-        <el-col type="flex" justify="center" :span="5" class="side-pane">
+        <el-col :span="6" class="side-pane">
           <NavPane></NavPane>
         </el-col>
 
-        <el-col :span="12" class="central-pane">
+        <el-col :span="12" class="no-margin central-pane">
           post feed
         </el-col>
 
-        <el-col :span="5" class="side-pane">info cards</el-col>
+        <el-col :span="6" class="side-pane">info cards</el-col>
       </el-row>
     </el-main>
   </el-container>
@@ -36,7 +36,11 @@ export default {
   padding: 0px;
 }
 
-.main_margin {
+.no-margin {
+  margin: 0px;
+}
+
+.main-margin {
   padding-top: 20px;
   padding-left: 0px;
   padding-right: 0px;
@@ -53,9 +57,7 @@ export default {
 }
 
 .central-pane {
-  background-color: white;
-  margin-right: 15px;
-  margin-left: 15px;
+  border: 1px solid green;
 }
 
 .screen {
