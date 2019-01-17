@@ -5,7 +5,7 @@
     </el-header>
 
     <el-main class="no-padding">
-      <PlaceholderText>{{getUsername}}</PlaceholderText>
+      <PlaceholderText>{{getProjectName}}</PlaceholderText>
     </el-main>
   </el-container>
 </template>
@@ -14,20 +14,22 @@
 import PlaceholderText from '~/components/PlaceholderText';
 import Header from '~/components/Header/Header';
 
+
+
 export default {
   name: "user-page-test",
   components: { PlaceholderText, Header },
   data() {
     return {
-      username: null,
+      projectname: null,
     }
   },
   created() {
-    this.username = this.$route.params.username;
+    this.projectname = this.$route.params.projectname;
   },
   computed: {
-    getUsername() {
-      return this.username;
+    getProjectName() {
+      return this.projectname;
     }
   }
 }

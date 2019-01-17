@@ -1,7 +1,7 @@
 export const state = () => ({
   newsfeed: 'Newest',
   profile: 'Newest',
-  project: 'Newest',
+  project: 'Trending',
   community: 'Newest'
 });
 

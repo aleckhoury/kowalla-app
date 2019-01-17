@@ -5,7 +5,7 @@
     </el-header>
 
     <el-main class="no-padding">
-      <PlaceholderText>{{getUsername}}</PlaceholderText>
+      <PlaceholderText>{{getCommunityName}}</PlaceholderText>
     </el-main>
   </el-container>
 </template>
@@ -19,15 +19,15 @@ export default {
   components: { PlaceholderText, Header },
   data() {
     return {
-      username: null,
+      communityname: null,
     }
   },
   created() {
-    this.username = this.$route.params.username;
+    this.communityname = this.$route.params.communityname;
   },
   computed: {
-    getUsername() {
-      return this.username;
+    getCommunityName() {
+      return this.communityname;
     }
   }
 }

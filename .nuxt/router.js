@@ -4,6 +4,8 @@ import { interopDefault } from './utils'
 
 const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _8f25cd02 = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
+const _06e0a102 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
 const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
 const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -72,6 +74,14 @@ export function createRouter() {
       path: "/dev",
       component: _90e13c38,
       name: "dev"
+    }, {
+      path: "/dev/c/:communityname?",
+      component: _8f25cd02,
+      name: "dev-c-communityname"
+    }, {
+      path: "/dev/p/:projectname?",
+      component: _06e0a102,
+      name: "dev-p-projectname"
     }, {
       path: "/dev/u/:username?",
       component: _979bcba6,

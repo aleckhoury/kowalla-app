@@ -16,7 +16,7 @@
 
       <div v-if="(type === '/p/')||(type === '/u/')" class='font margin predicate'>from</div>
       <div v-if="(type === '/c/')||(type === '/')" class='font margin predicate'>in</div>
-      <div v-if="(type !== '/')"class="font margin subject"><b>{{getPrefix}}tob</b></div>
+      <div v-if="(type !== '/')"class="font margin subject"><b>{{getPrefix}}{{getSuffix}}</b></div>
       <div v-if="(type === '/')" class='font margin predicate'>your timeline</div>
     </div>
   </div>
@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       type: null,
-      selectedOption: '',
+      target: null,
+      selectedOption: null,
       options: [{
           value: 'Trending',
           label: 'Trending'
@@ -50,7 +51,7 @@ export default {
       }
 
       else if (this.type === '/u/') {
-        console.log('trying profile sorting change');
+        //console.log('trying profile sorting change');
         this.$store.commit('sorting/updateProfileSortingOption', command);
       }
 
@@ -66,6 +67,24 @@ export default {
   computed: {
     getPrefix() {
       return ((this.type === '/p/')||(this.type === '/u/')) ?  '@' :  '#';
+    },
+
+    getSuffix() {
+      if (this.type === '/p/') {
+        return this.$route.params.projectname;
+      }
+
+      else if (this.type === '/u/') {
+        return this.$route.params.username;
+      }
+
+      else if (this.type === '/c/') {
+        return this.$route.params.communityname;
+      }
+
+      else {
+        return '';
+      }
     }
   },
   created() {
@@ -76,7 +95,7 @@ export default {
       this.type = this.$route.fullPath.match(re)[0];
 
       if (this.type === '/p/') {
-        this.selectedOption = this.$store.state.sorting.profile;
+        this.selectedOption = this.$store.state.sorting.project;
       }
 
       else if (this.type === '/u/') {
@@ -87,9 +106,6 @@ export default {
         this.selectedOption = this.$store.state.sorting.community;
       }
 
-      else {
-        this.selectedOption = this.$store.state.sorting.newsfeed;
-      }
     } catch {
         this.type = '/';
         this.selectedOption = this.$store.state.sorting.newsfeed;
