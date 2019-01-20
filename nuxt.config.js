@@ -8,34 +8,33 @@ module.exports = {
   head: {
     title: pkg.name,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { charset: 'utf-8', },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1', },
+      { hid: 'description', name: 'description', content: pkg.description, },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Nunito:Black' }
-    ]
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico', },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Nunito:Black',
+      },
+    ],
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#fff', },
 
   /*
   ** Global CSS
   */
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
+  css: ['element-ui/lib/theme-chalk/index.css',],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    '@/plugins/element-ui'
-  ],
+  plugins: ['@/plugins/element-ui',],
 
   /*
   ** Nuxt.js modules
@@ -46,33 +45,37 @@ module.exports = {
     'nuxt-fontawesome',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
-<<<<<<< HEAD
     '@nuxtjs/onesignal',
-=======
-    //'@nuxtjs/onesignal'
->>>>>>> develop
   ],
   /*
   ** Axios module configuration
   */
   axios: {
-        // baseURL: 'http://kowalla-backend-tob.herokuapp.com',
-    baseURL: 'http://localhost:8080'
+    // baseURL: 'http://kowalla-backend-tob.herokuapp.com',
+    baseURL: 'http://localhost:8080',
   },
   auth: {
-    fetchUserOnLogin: false,
     strategies: {
       local: {
+        fetchUserOnLogin: false,
         endpoints: {
-          login: { url: '/api/v1/users/login', method: 'post', propertyName: 'token' },
+          login: {
+            url: '/api/v1/users/login',
+            method: 'post',
+            propertyName: 'token',
+          },
           logout: false,
-          register: { url: '/api/v1/users', method: 'post', propertyName: false },
-          user: { url: '/api/v1/users/me', method: 'get', propertyName: false },
-        }
-      }
+          register: {
+            url: '/api/v1/users',
+            method: 'post',
+            propertyName: false,
+          },
+          user: false,
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer',
+      },
     },
-    tokenRequired: true,
-    tokenType: 'Bearer'
   },
 
   router: {
@@ -99,9 +102,9 @@ module.exports = {
     imports: [
       {
         set: '@fortawesome/free-solid-svg-icons',
-        icons: ['fas']
-      }
-    ]
+        icons: ['fas',],
+      },
+    ],
   },
 
   icon: {
@@ -117,29 +120,23 @@ module.exports = {
   }
   */
 
-
-
-
-
-
-
   /*
   ** Build configuration
   */
-  // build: {
-  //   /*
-  //   ** You can extend webpack config here
-  //   */
-  //   extend(config, ctx) {
-  //     // Run ESLint on save
-  //     if (ctx.isDev && ctx.isClient) {
-  //       config.module.rules.push({
-  //         enforce: 'pre',
-  //         test: /\.(js|vue)$/,
-  //         loader: 'eslint-loader',
-  //         exclude: /(node_modules)/
-  //       })
-  //     }
-  //   }
-  // }
-}
+  build: {
+    //   /*
+    //   ** You can extend webpack config here
+    //   */
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+        });
+      }
+    },
+  },
+};

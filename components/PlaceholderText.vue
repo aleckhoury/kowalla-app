@@ -1,14 +1,13 @@
 <template lang="html">
-  <div class='placeholder-text-container'>
+  <div class="placeholder-text-container">
     <h1 v-if="$slots.default">
-      <slot></slot>
+      <slot/>
     </h1>
   </div>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style lang="css" scoped>

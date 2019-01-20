@@ -7,7 +7,9 @@
         </div>
       </el-col>
 
-      <el-col :span="18" :offset="3">
+      <el-col 
+        :span="18" 
+        :offset="3">
         <div class="subtitle">
           It's a startup hub, on the net!
         </div>
@@ -22,11 +24,10 @@
 export default {
   name: 'Index',
   auth: false,
-}
+};
 </script>
 
 <style>
-
 .container {
   min-height: 100vh;
   display: flex;
@@ -37,7 +38,7 @@ export default {
 }
 
 .title {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   display: block;
   font-weight: 300;
   font-size: 5em;
@@ -47,7 +48,7 @@ export default {
 
 .subtitle {
   font-weight: 300;
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-size: 2em;
   color: #000;
   word-spacing: 5px;

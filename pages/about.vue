@@ -1,7 +1,9 @@
 <template lang="html">
   <el-container>
-    <el-header class="no-padding" height="90px">
-      <Header></Header>
+    <el-header 
+      class="no-padding" 
+      height="90px">
+      <Header/>
     </el-header>
 
     <el-main class="no-padding">
@@ -15,9 +17,9 @@ import PlaceholderText from '~/components/PlaceholderText';
 import Header from '~/components/Header/Header';
 
 export default {
-  name: "about",
-  components: { PlaceholderText, Header },
-}
+  name: 'About',
+  components: { PlaceholderText, Header, },
+};
 </script>
 
 <style lang="css">

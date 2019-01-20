@@ -1,18 +1,22 @@
 <template lang="html">
   <el-dropdown>
-    <nuxt-link :to="`/dev/u/${this.username}`">
+    <nuxt-link :to="`/dev/u/${username}`">
       <img
-        class="nav-profile-picture"
         :src="profilePicture"
-      />
+        class="nav-profile-picture"
+      >
     </nuxt-link>
 
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item>
-        <nuxt-link class="page-link" :to="`/dev/u/${this.username}`"><b>Profile</b></nuxt-link>
+        <nuxt-link 
+          :to="`/dev/u/${username}`" 
+          class="page-link"><b>Profile</b></nuxt-link>
       </el-dropdown-item>
-      <el-dropdown-item disabled divided>
-        <nuxt-link class="page-link" to="/dev"><b>Logout</b></nuxt-link>
+      <el-dropdown-item 
+        divided 
+        @click.native="logout()">
+        <b class="page-link">Logout</b>
       </el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
@@ -26,7 +30,12 @@ export default {
     profilePicture: String,
     dropdown: Boolean,
   },
-}
+  methods: {
+    logout() {
+      this.$auth.logout();
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>

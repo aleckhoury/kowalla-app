@@ -1,0 +1,6 @@
+/.nuxt/*
+/.idea/*
+/static/*
+/node_modules/*
+**/node_modules/*
+/plugins/*
