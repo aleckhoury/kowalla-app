@@ -147,7 +147,8 @@
 </template>
 
 <script>
-  import { Editor, EditorContent, EditorMenuBar, Icon } from 'tiptap'
+  import Icon from './icon.vue';
+  import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
   import {
     Blockquote,
     CodeBlock,
