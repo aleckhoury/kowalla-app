@@ -10,7 +10,7 @@
         </div>
 
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="item in options" :command="item.value">{{ item.value }}</el-dropdown-item>
+          <el-dropdown-item v-for="item in options" :key="item" :command="item.value">{{ item.value }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
