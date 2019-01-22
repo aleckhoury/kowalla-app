@@ -13,11 +13,6 @@
                 <p>
                     Posted in <span><b>#ClubPal</b></span>
                 </p>
-                <b-icon
-                        pack="fa"
-                        icon="fa-comment"
-                        size="is-large">
-                </b-icon>
             </div>
         </div>
     </section>
