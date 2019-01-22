@@ -5,40 +5,83 @@
         <div class="dropdown-container">
           <div class="dropdown-selector">
             <b class="font theme-color selector-child">{{ selectedOption }}</b>
-            <font-awesome-icon icon="angle-down" class="theme-color selector-child"></font-awesome-icon>
+            <font-awesome-icon 
+              icon="angle-down" 
+              class="theme-color selector-child"/>
           </div>
         </div>
 
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="item in options" :key="item" :command="item.value">{{ item.value }}</el-dropdown-item>
+          <el-dropdown-item 
+            v-for="item in options" 
+            :key="item.value" 
+            :command="item.value">{{ item.value }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
 
-      <div v-if="(type === '/p/')||(type === '/u/')" class='font margin predicate'>from</div>
-      <div v-if="(type === '/c/')||(type === '/')" class='font margin predicate'>in</div>
-      <div v-if="(type !== '/')"class="font margin subject"><b>{{getPrefix}}tob</b></div>
-      <div v-if="(type === '/')" class='font margin predicate'>your timeline</div>
+      <div 
+        v-if="(type === '/p/')||(type === '/u/')" 
+        class="font margin predicate">from</div>
+      <div 
+        v-if="(type === '/c/')||(type === '/')" 
+        class="font margin predicate">in</div>
+      <div 
+        v-if="(type !== '/')" 
+        class="font margin subject"><b>{{ getPrefix }}tob</b></div>
+      <div 
+        v-if="(type === '/')" 
+        class="font margin predicate">your timeline</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SortingOptions",
+  name: 'SortingOptions',
   data() {
     return {
       type: null,
       selectedOption: '',
-      options: [{
+      options: [
+        {
           value: 'Trending',
-          label: 'Trending'
-        }, {
+          label: 'Trending',
+        },
+        {
           value: 'Newest',
-          label: 'Newest'
-        }, {
+          label: 'Newest',
+        },
+        {
           value: 'Rising',
-          label: 'Rising'
-      }],
+          label: 'Rising',
+        },
+      ],
+    };
+  },
+  computed: {
+    getPrefix() {
+      return this.type === '/p/' || this.type === '/u/' ? '@' : '#';
+    },
+  },
+  created() {
+    // sort the current route and see what type of
+    // page we're on
+    try {
+      let re = new RegExp('/[u,p,c]/');
+      this.type = this.$route.fullPath.match(re)[0];
+
+      if (this.type === '/p/') {
+        this.selectedOption = this.$store.state.sorting.profile;
+      } else if (this.type === '/u/') {
+        this.selectedOption = this.$store.state.sorting.profile;
+      } else if (this.type === '/c/') {
+        this.selectedOption = this.$store.state.sorting.community;
+      } else {
+        this.selectedOption = this.$store.state.sorting.newsfeed;
+      }
+    } catch {
+      this.type = '/';
+      this.selectedOption = this.$store.state.sorting.newsfeed;
     }
   },
   methods: {
@@ -47,55 +90,17 @@ export default {
 
       if (this.type === '/p/') {
         this.$store.commit('sorting/updateProjectSortingOption', command);
-      }
-
-      else if (this.type === '/u/') {
+      } else if (this.type === '/u/') {
         console.log('trying profile sorting change');
         this.$store.commit('sorting/updateProfileSortingOption', command);
-      }
-
-      else if (this.type === '/c/') {
+      } else if (this.type === '/c/') {
         this.$store.commit('sorting/updateCommunitySortingOption', command);
-      }
-
-      else {
+      } else {
         this.$store.commit('sorting/updateNewsfeedSortingOption', command);
       }
-    }
+    },
   },
-  computed: {
-    getPrefix() {
-      return ((this.type === '/p/')||(this.type === '/u/')) ?  '@' :  '#';
-    }
-  },
-  created() {
-    // sort the current route and see what type of
-    // page we're on
-    try {
-      let re = new RegExp('\/[u,p,c]\/');
-      this.type = this.$route.fullPath.match(re)[0];
-
-      if (this.type === '/p/') {
-        this.selectedOption = this.$store.state.sorting.profile;
-      }
-
-      else if (this.type === '/u/') {
-        this.selectedOption = this.$store.state.sorting.profile;
-      }
-
-      else if (this.type === '/c/') {
-        this.selectedOption = this.$store.state.sorting.community;
-      }
-
-      else {
-        this.selectedOption = this.$store.state.sorting.newsfeed;
-      }
-    } catch {
-        this.type = '/';
-        this.selectedOption = this.$store.state.sorting.newsfeed;
-    }
-  }
-}
+};
 </script>
 
 <style lang="css" scoped>

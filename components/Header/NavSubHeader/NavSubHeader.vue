@@ -1,9 +1,14 @@
 <template lang="html">
   <div class="nav-subheader-parent">
     <div class="nav-subheader-child">
-      <SortingOptions></SortingOptions>
-      <div v-if="$store.state.messages.messages.length > 0" class="message-container">
-        <div class="message" v-for="item in $store.state.messages.messages">
+      <SortingOptions/>
+      <div 
+        v-if="$store.state.messages.messages.length > 0" 
+        class="message-container">
+        <div 
+          v-for="item in $store.state.messages.messages" 
+          :key="item" 
+          class="message">
           <b>{{ item }}</b>
         </div>
       </div>
@@ -16,8 +21,8 @@ import SortingOptions from './SortingOptions';
 
 export default {
   name: 'NavSubHeader',
-  components: { SortingOptions },
-}
+  components: { SortingOptions, },
+};
 </script>
 
 <style lang="css" scoped>

@@ -7,11 +7,14 @@
         </div>
       </el-col>
 
-      <el-col :span="18" :offset="3">
+      <el-col 
+        :span="18" 
+        :offset="3">
         <div class="subtitle">
           It's a startup hub, on the net!
         </div>
         <nuxt-link to="/dev">link to dev</nuxt-link>
+        <nuxt-link to="/login">Login</nuxt-link>
       </el-col>
     </div>
   </section>
@@ -19,12 +22,12 @@
 
 <script>
 export default {
-  name: 'Index'
-}
+  name: 'Index',
+  auth: false,
+};
 </script>
 
 <style>
-
 .container {
   min-height: 100vh;
   display: flex;
@@ -35,7 +38,7 @@ export default {
 }
 
 .title {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   display: block;
   font-weight: 300;
   font-size: 5em;
@@ -45,7 +48,7 @@ export default {
 
 .subtitle {
   font-weight: 300;
-  font-family: 'Nunito';
+  font-family: "Nunito";
   font-size: 2em;
   color: #000;
   word-spacing: 5px;
