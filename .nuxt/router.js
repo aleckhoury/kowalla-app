@@ -5,6 +5,7 @@ import { interopDefault } from './utils'
 const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
 const _002f5d72 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _03b98859 = () => interopDefault(import('../pages/testPost.vue' /* webpackChunkName: "pages/testPost" */))
 const _ca6d1a2c = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
 const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -77,6 +78,10 @@ export function createRouter() {
       path: "/login",
       component: _002f5d72,
       name: "login"
+    }, {
+      path: "/testPost",
+      component: _03b98859,
+      name: "testPost"
     }, {
       path: "/dev/u/:username?",
       component: _ca6d1a2c,

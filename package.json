@@ -21,11 +21,14 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/onesignal": "^2.6.0",
     "@nuxtjs/pwa": "^2.6.0",
+    "buefy": "^0.7.2",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "express": "^4.16.3",
     "nuxt": "^2.3.4",
-    "nuxt-fontawesome": "^0.4.0"
+    "nuxt-fontawesome": "^0.4.0",
+    "tiptap": "^1.8.0",
+    "tiptap-extensions": "^1.8.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
