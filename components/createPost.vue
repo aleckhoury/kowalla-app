@@ -240,7 +240,7 @@ span {
     border-color: transparent;
     box-sizing: border-box;
 }
-.editor__content:focus {
+.ProseMirror-focused {
     outline: 0;
 }
 </style>
