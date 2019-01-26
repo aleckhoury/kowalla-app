@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
-const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
-const _002f5d72 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _03b98859 = () => interopDefault(import('../pages/testPost.vue' /* webpackChunkName: "pages/testPost" */))
-const _ca6d1a2c = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
-const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+=======
+
+const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
+const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _8f25cd02 = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
+const _06e0a102 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
+const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
+const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -75,6 +77,7 @@ export function createRouter() {
       component: _55d34c61,
       name: "dev"
     }, {
+<<<<<<< HEAD
       path: "/login",
       component: _002f5d72,
       name: "login"
@@ -82,6 +85,15 @@ export function createRouter() {
       path: "/testPost",
       component: _03b98859,
       name: "testPost"
+=======
+      path: "/dev/c/:communityname?",
+      component: _8f25cd02,
+      name: "dev-c-communityname"
+    }, {
+      path: "/dev/p/:projectname?",
+      component: _06e0a102,
+      name: "dev-p-projectname"
+>>>>>>> nav-cards
     }, {
       path: "/dev/u/:username?",
       component: _ca6d1a2c,
