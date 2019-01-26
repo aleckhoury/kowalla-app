@@ -12,9 +12,15 @@
 
         <el-col :span="18">
 
-          <el-col :span="24">
-            <Banner></Banner>
-          </el-col>
+            <Banner
+              bannerURL="https://i0.wp.com/9gauge.com/wp-content/uploads/2018/11/aceable.jpg?ssl=1"
+              :bannerTitle="projectName"
+              bannerTitlePrefix="@"
+              :isSubscribed="isSubscribed"
+              :isOwner="isOwner"
+              @subscription-button-clicked="updateSubscriptions"
+            />
+
 
 
           <el-row>
@@ -44,15 +50,54 @@ export default {
   components: { PlaceholderText, Header, NavPane, Banner },
   data() {
     return {
-      projectname: null,
+      projectName: null,
+      pictureURL: '',
+      isSubscribed: false,
+      isOwner: false,
+      numSubs: 0,
+      projectId: ''
     }
   },
   created() {
-    this.projectname = this.$route.params.projectname;
+    this.projectName = this.$route.params.projectname;
+  },
+  mounted() {
+    //let projectObj = axiosCallToDatabase();
+    let projectObj = {
+      name: "Aceable",
+      numSubs: 1000,
+      projectId: '1111',
+      pictureURL: '',
+    }
+
+    // get info from obj
+    this.pictureURL = projectObj.pictureURL;
+    this.numSubs = projectObj.numSubs;
+    this.projectId = projectObj.projectId;
+
+    // get info from state
+    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
+    this.isOwner = this.$store.getters['user/isUserOwner'];
+
   },
   computed: {
     getProjectName() {
-      return this.projectname;
+      return this.projectName;
+    }
+  },
+  methods: {
+    updateSubscriptions(subBool) {
+      let subInfo = {
+        name: this.projectName,
+        pictureURL: this.pictureURL,
+        numSubs: Number(this.numSubs),
+        projectId: this.projectId,
+      };
+
+      let subObj = { subBool, ...subInfo };
+
+      this.$store.dispatch('user/updateSubscriptions', subObj)
+      this.isSubscribed = subObj.subBool;
     }
   }
 }

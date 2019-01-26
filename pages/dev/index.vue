@@ -6,15 +6,15 @@
 
     <el-main class="main-margin background-tint">
       <el-row type="flex" justify="center">
-        <el-col :span="6" class="side-pane">
+        <el-col :span="6" :md="8" class="hidden-sm-and-down side-pane">
           <NavPane></NavPane>
         </el-col>
 
-        <el-col :span="12" class="no-margin central-pane">
+        <el-col :span="12" :md="16" :sm="24" :xs="24" class="no-margin central-pane">
           post feed
         </el-col>
 
-        <el-col :span="6" class="side-pane">info cards</el-col>
+        <el-col :span="6" class="hidden-md-and-down side-pane">info pane</el-col>
       </el-row>
     </el-main>
   </el-container>
@@ -24,6 +24,7 @@
 import Header from '~/components/Header/Header';
 import PlaceholderText from '~/components/PlaceholderText';
 import NavPane from '~/components/NavCards/NavPane';
+import 'element-ui/lib/theme-chalk/display.css'
 
 export default {
   name: "test",
