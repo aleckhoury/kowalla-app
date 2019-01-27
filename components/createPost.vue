@@ -140,9 +140,11 @@
                     </div>
                     </div>
                 </section>
-                <footer class="modal-card-foot">
-                    <a class="button action" @click="createDialog = !createDialog">Cancel</a>
-                </footer>
+                <div class="level">
+                    <div class="level-left">
+                        <a class="button action level-item" @click="createDialog = !createDialog">Cancel</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -222,9 +224,14 @@
 span {
     color: #39C9A0;
 }
+.level {
+    
+}
 .modal-card {
     width: 55%;
     border-radius: 6px;
+    height: 70%;
+    background: white;
 }
 .button.action {
     width: 12em;
@@ -239,8 +246,5 @@ span {
     height: 5em;
     border-color: transparent;
     box-sizing: border-box;
-}
-.ProseMirror-focused {
-    outline: 0;
 }
 </style>

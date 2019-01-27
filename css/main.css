@@ -1,3 +1,6 @@
 body {
     background: #E9EBEE;
 }
+*:focus {
+    outline: none;
+}
