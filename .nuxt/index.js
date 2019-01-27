@@ -161,12 +161,12 @@ async function createApp(ssrContext) {
   if (typeof nuxt_plugin_templatesplugina6edc000_10a6dbd2 === 'function') await nuxt_plugin_templatesplugina6edc000_10a6dbd2(app.context, inject)
   if (typeof nuxt_plugin_axios_1ab911e3 === 'function') await nuxt_plugin_axios_1ab911e3(app.context, inject)
   if (typeof nuxt_plugin_elementui_d905880e === 'function') await nuxt_plugin_elementui_d905880e(app.context, inject)
+  if (typeof nuxt_plugin_buefy_22359951 === 'function') await nuxt_plugin_buefy_22359951(app.context, inject)
   if (typeof nuxt_plugin_plugin_5a55e8df === 'function') await nuxt_plugin_plugin_5a55e8df(app.context, inject)
+
   if (process.client) {
     if (typeof nuxt_plugin_onesignal_290b246a === 'function') await nuxt_plugin_onesignal_290b246a(app.context, inject)
   }
-  if (typeof nuxt_plugin_buefy_22359951 === 'function') await nuxt_plugin_buefy_22359951(app.context, inject)
-  if (typeof nuxt_plugin_plugin_5a55e8df === 'function') await nuxt_plugin_plugin_5a55e8df(app.context, inject)
 
   // If server-side, wait for async component to be resolved first
   if (process.server && ssrContext && ssrContext.url) {
