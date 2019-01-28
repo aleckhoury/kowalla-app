@@ -2,7 +2,7 @@ export const state = () => ({
   newsfeed: 'Newest',
   profile: 'Newest',
   project: 'Newest',
-  community: 'Newest'
+  community: 'Newest',
 });
 
 export const mutations = {
@@ -20,5 +20,5 @@ export const mutations = {
 
   updateNewsfeedSortingOption(state, string) {
     state.newsfeed = string;
-  }
+  },
 };

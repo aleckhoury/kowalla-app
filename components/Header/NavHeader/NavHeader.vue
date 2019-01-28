@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="nav-header-container">
-    <NavHeaderLeft></NavHeaderLeft>
-    <NavHeaderRight></NavHeaderRight>
+    <NavHeaderLeft/>
+    <NavHeaderRight/>
   </div>
 </template>
 
@@ -10,9 +10,9 @@ import NavHeaderLeft from './NavHeaderLeft';
 import NavHeaderRight from './NavHeaderRight';
 
 export default {
-  name: "NavHeader",
-  components: { NavHeaderLeft, NavHeaderRight }
-}
+  name: 'NavHeader',
+  components: { NavHeaderLeft, NavHeaderRight, },
+};
 </script>
 
 <style lang="css" scoped>

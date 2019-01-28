@@ -1,14 +1,18 @@
 <template lang="html">
-  <el-badge :is-dot="hasNotifications" class="notif-dot">
-    <font-awesome-icon icon="bell" class="theme-color"></font-awesome-icon>
+  <el-badge 
+    :is-dot="hasNotifications" 
+    class="notif-dot">
+    <font-awesome-icon 
+      icon="bell" 
+      class="theme-color"/>
   </el-badge>
 </template>
 
 <script>
 export default {
-  name: "NavNotifications",
-  props: { hasNotifications: Boolean }
-}
+  name: 'NavNotifications',
+  props: { hasNotifications: Boolean, },
+};
 </script>
 
 <style lang="css" scoped>
