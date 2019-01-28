@@ -4,3 +4,10 @@ body {
 *:focus {
     outline: none;
 }
+.button {
+    border: none;
+}
+div.dropdown div.button {
+    border: 2px solid;
+    color: #39C9A0;
+}
