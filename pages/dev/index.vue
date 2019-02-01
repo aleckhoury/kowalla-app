@@ -3,13 +3,13 @@
 
     <Header></Header>
 
-    <div class="columns is-marginless">
+    <div class="columns is-marginless main-margin">
       <div class="column is-one-quarter is-paddingless test-outline side-pane">
         <NavPane></NavPane>
       </div>
 
 
-      <div class="column is-one-half is-paddingless no-margin test-outline central-pane">
+      <div class="column is-one-half is-paddingless no-margin test-outline">
         post feed
       </div>
 
@@ -52,17 +52,9 @@ export default {
   background-color: #E9EBEE;
 }
 
-.test-outline {
-  border: 1px solid black;
-}
-
 .side-pane {
   display: flex;
   justify-content: center;
-}
-
-.central-pane {
-  border: 1px solid green;
 }
 
 .screen {

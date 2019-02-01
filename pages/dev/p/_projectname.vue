@@ -6,11 +6,11 @@
 
     <div class="columns is-marginless main-margin background-tint">
 
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+        <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane></NavPane>
         </div>
 
-        <div class="column is-three-quarters is-paddingless test-outline">
+        <div class="column is-three-quarters is-paddingless">
 
             <Banner
               bannerURL=""
@@ -22,10 +22,10 @@
             />
 
             <div class="columns is-marginless">
-              <div class="column is-two-thirds test-outline">
+              <div class="column is-two-thirds">
                 post content
               </div>
-              <div class="column is-one-third test-outline">
+              <div class="column is-one-third">
                 info
               </div>
             </div>
@@ -115,19 +115,11 @@ export default {
 }
 </script>
 
-<style lang="css">
-.no-padding {
-  padding: 0px;
-}
+<style lang="css" scoped>
 
 .background-tint {
   background-color: #E9EBEE;
 }
-
-.test-outline {
-  border: 1px solid black;
-}
-
 
 .main_margin {
   padding-top: 20px;
