@@ -1,15 +1,12 @@
 <template lang="html">
-  <el-container>
-    <el-header 
-      class="no-padding" 
-      height="90px">
-      <Header/>
-    </el-header>
+  <div class="screen">
+    <Header></Header>
 
-    <el-main class="no-padding">
+
+    <div class="columns is-marginless">
       <PlaceholderText>{{ getUsername }}</PlaceholderText>
-    </el-main>
-  </el-container>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -38,5 +35,13 @@ export default {
 <style lang="css">
 .no-padding {
   padding: 0px;
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

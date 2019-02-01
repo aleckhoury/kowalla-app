@@ -44,6 +44,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .banner-container {
+  position: relative;
   margin-right: 60px;
   height: 300px;
   border: 1px solid black;
@@ -59,9 +60,9 @@ export default {
 }
 
 .banner-title {
-  position: relative;
+  position: absolute;
   left: 0px;
-  bottom: 75px;
+  bottom: 0px;
   margin-right: 60px;
   padding-left: 15px;
   width: 100%;
@@ -73,9 +74,8 @@ export default {
 
 .banner-subscription-button-container {
   position: absolute;
-  bottom: 275px;
+  top: 15px;
   right: 15px;
-  margin-right: 60px;
 }
 
 </style>

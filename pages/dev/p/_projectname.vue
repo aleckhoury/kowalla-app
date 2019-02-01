@@ -1,19 +1,19 @@
 <template lang="html">
-  <el-container class="screen">
-    <el-header class="no-padding" height="90px">
-      <Header></Header>
-    </el-header>
+  <div class="screen">
 
-    <el-main class="main-margin background-tint">
-      <el-row type="flex" justify="center">
-        <el-col :span="6" class="side-pane">
+    <Header></Header>
+
+
+    <div class="columns is-marginless main-margin background-tint">
+
+        <div class="column is-one-quarter is-paddingless test-outline side-pane">
           <NavPane></NavPane>
-        </el-col>
+        </div>
 
-        <el-col :span="18">
+        <div class="column is-three-quarters is-paddingless test-outline">
 
             <Banner
-              bannerURL="https://i0.wp.com/9gauge.com/wp-content/uploads/2018/11/aceable.jpg?ssl=1"
+              bannerURL=""
               :bannerTitle="projectName"
               bannerTitlePrefix="@"
               :isSubscribed="isSubscribed"
@@ -21,22 +21,34 @@
               @subscription-button-clicked="updateSubscriptions"
             />
 
+            <div class="columns is-marginless">
+              <div class="column is-two-thirds test-outline">
+                post content
+              </div>
+              <div class="column is-one-third test-outline">
+                info
+              </div>
+            </div>
+
+        </div>
 
 
-          <el-row>
-            <el-col :span="16" class="content">
-              post feed
-            </el-col>
 
-            <el-col :span="8" class="side-pane content">
-              info cards
-            </el-col>
-          </el-row>
+
+      <el-row>
+        <el-col :span="16" class="content">
+          post feed
         </el-col>
 
+        <el-col :span="8" class="side-pane content">
+          info cards
+        </el-col>
       </el-row>
-    </el-main>
-  </el-container>
+
+
+
+    </div>
+  </div>
 </template>
 
 <script>
@@ -111,6 +123,11 @@ export default {
 .background-tint {
   background-color: #E9EBEE;
 }
+
+.test-outline {
+  border: 1px solid black;
+}
+
 
 .main_margin {
   padding-top: 20px;

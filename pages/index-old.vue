@@ -1,23 +1,23 @@
 <template lang="html">
-  <div class="screen background-tint">
+  <el-container class="screen">
+    <el-header class="no-padding" height="90px">
+      <Header></Header>
+    </el-header>
 
-    <Header></Header>
+    <el-main class="main-margin background-tint">
+      <el-row type="flex" justify="center">
+        <el-col :span="6" :md="8" class="hidden-sm-and-down side-pane">
+          <NavPane></NavPane>
+        </el-col>
 
-    <div class="columns is-marginless">
-      <div class="column is-one-quarter is-paddingless test-outline side-pane">
-        <NavPane></NavPane>
-      </div>
+        <el-col :span="12" :md="16" :sm="24" :xs="24" class="no-margin central-pane">
+          post feed
+        </el-col>
 
-
-      <div class="column is-one-half is-paddingless no-margin test-outline central-pane">
-        post feed
-      </div>
-
-      <div class="column is-one-quarter is-paddingless test-outline side-pane">
-        info
-      </div>
-    </div>
-  </div>
+        <el-col :span="6" class="hidden-md-and-down side-pane">info pane</el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -50,10 +50,6 @@ export default {
 
 .background-tint {
   background-color: #E9EBEE;
-}
-
-.test-outline {
-  border: 1px solid black;
 }
 
 .side-pane {

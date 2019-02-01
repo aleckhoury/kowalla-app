@@ -1,16 +1,14 @@
 <template lang="html">
-  <el-container class="screen">
-    <el-header class="no-padding" height="90px">
-      <Header></Header>
-    </el-header>
+  <div class="screen">
+    <Header></Header>
 
-    <el-main class="main-margin background-tint">
-      <el-row type="flex" justify="center">
-        <el-col :span="6" class="side-pane">
+    <div class="columns is-marginless main-margin background-tint">
+
+        <div class="column is-one-quarter is-paddingless test-outline side-pane">
           <NavPane></NavPane>
-        </el-col>
+        </div>
 
-        <el-col :span="18">
+        <div class="column is-three-quarters is-paddingless test-outline">
             <Banner
               :bannerURL="communityPictureUrl"
               :bannerTitle="communityName"
@@ -20,20 +18,18 @@
               @subscription-button-clicked="updateSubscriptions"
             />
 
-          <el-row>
-            <el-col :span="16" class="content">
-              post feed
-            </el-col>
 
-            <el-col :span="8" class="side-pane content">
-              info cards
-            </el-col>
-          </el-row>
-        </el-col>
-
-      </el-row>
-    </el-main>
-  </el-container>
+          <div class="columns is-marginless">
+            <div class="column is-two-thirds test-outline">
+              post content
+            </div>
+            <div class="column is-one-third test-outline">
+              info
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -65,7 +61,7 @@ export default {
     let communityObj = {
       name: "EarlyAdopters",
       numSubs: '10',
-      pictureURL: 'http://thedigitalunion.com/wp-content/uploads/2015/08/maxresdefault.jpg',
+      pictureURL: '',
       communityId: '2222',
     };
     this.communityPictureUrl = communityObj.pictureURL;
@@ -114,6 +110,10 @@ so we can properly add things
 
 .background-tint {
   background-color: #E9EBEE;
+}
+
+.test-outline {
+  border: 1px solid black;
 }
 
 .main-margin {

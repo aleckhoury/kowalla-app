@@ -2,12 +2,12 @@
   <div class="nav-subheader-parent">
     <div class="nav-subheader-child">
       <SortingOptions/>
-      <div 
-        v-if="$store.state.messages.messages.length > 0" 
+      <div
+        v-if="$store.state.messages.messages.length > 0"
         class="message-container">
-        <div 
-          v-for="item in $store.state.messages.messages" 
-          :key="item" 
+        <div
+          v-for="item in $store.state.messages.messages"
+          :key="item"
           class="message">
           <b>{{ item }}</b>
         </div>
@@ -28,6 +28,7 @@ export default {
 <style lang="css" scoped>
 .nav-subheader-parent {
   border: 1px solid #E0DDDD;
+  background-color: white;
   height: 35px;
   padding-right: 60px;
   display: flex;
