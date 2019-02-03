@@ -45,7 +45,6 @@ export default {
 <style lang="css" scoped>
 .banner-container {
   position: relative;
-  margin-right: 60px;
   height: 300px;
   border: 1px solid black;
   display: flex;

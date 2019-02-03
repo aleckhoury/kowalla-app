@@ -1,52 +1,42 @@
 <template lang="html">
-  <div class="screen">
-
+  <div class="screen background-tint">
     <Header></Header>
 
+    <div class="container is-fullhd">
+      <!--
+          we'll want to dial in the container fullhd breakpoint
+          right now it isn't contained to just ultra-wides, and effects
+          normal laptop resolution
+      -->
 
-    <div class="columns is-marginless main-margin background-tint">
+      <div class="columns is-hidden-touch is-marginless main-margin">
 
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane></NavPane>
-        </div>
+          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+            <NavPane></NavPane>
+          </div>
 
-        <div class="column is-three-quarters is-paddingless">
+          <div class="column is-three-quarters is-paddingless">
 
-            <Banner
-              bannerURL=""
-              :bannerTitle="projectName"
-              bannerTitlePrefix="@"
-              :isSubscribed="isSubscribed"
-              :isOwner="isOwner"
-              @subscription-button-clicked="updateSubscriptions"
-            />
+              <Banner
+                bannerURL=""
+                :bannerTitle="projectName"
+                bannerTitlePrefix="@"
+                :isSubscribed="isSubscribed"
+                :isOwner="isOwner"
+                @subscription-button-clicked="updateSubscriptions"
+              />
 
-            <div class="columns is-marginless">
-              <div class="column is-two-thirds">
-                post content
+              <div class="columns is-marginless">
+                <div class="column is-two-thirds test-outline">
+                  post content
+                </div>
+                <div class="column is-one-third test-outline">
+                  info
+                </div>
               </div>
-              <div class="column is-one-third">
-                info
-              </div>
-            </div>
 
-        </div>
-
-
-
-
-      <el-row>
-        <el-col :span="16" class="content">
-          post feed
-        </el-col>
-
-        <el-col :span="8" class="side-pane content">
-          info cards
-        </el-col>
-      </el-row>
-
-
-
+          </div>
+      </div>
     </div>
   </div>
 </template>
@@ -133,9 +123,17 @@ export default {
   justify-content: center;
 }
 
+.test-outline {
+  border: 1px solid black;
+}
+
 .content {
   margin-top: 15px;
   background-color: white;
+}
+
+.max-width {
+  max-width: 1440px;
 }
 
 .screen {
@@ -143,6 +141,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+
   height: 100%;
 }
 </style>

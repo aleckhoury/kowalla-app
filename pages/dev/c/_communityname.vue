@@ -1,33 +1,40 @@
 <template lang="html">
-  <div class="screen">
+  <div class="screen background-tint">
     <Header></Header>
 
-    <div class="columns is-marginless main-margin background-tint">
+    <div class="container is-fullhd">
+      <!--
+          we'll want to dial in the container fullhd breakpoint
+          right now it isn't contained to just ultra-wides, and effects
+          normal laptop resolution
+      -->
+      <div class="columns is-marginless is-hidden-touch main-margin">
 
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane></NavPane>
-        </div>
+          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+            <NavPane></NavPane>
+          </div>
 
-        <div class="column is-three-quarters is-paddingless">
-            <Banner
-              :bannerURL="communityPictureUrl"
-              :bannerTitle="communityName"
-              bannerTitlePrefix="#"
-              :isSubscribed="isSubscribed"
-              :isOwner="isOwner"
-              @subscription-button-clicked="updateSubscriptions"
-            />
+          <div class="column is-three-quarters is-paddingless">
+              <Banner
+                :bannerURL="communityPictureUrl"
+                :bannerTitle="communityName"
+                bannerTitlePrefix="#"
+                :isSubscribed="isSubscribed"
+                :isOwner="isOwner"
+                @subscription-button-clicked="updateSubscriptions"
+              />
 
 
-          <div class="columns is-marginless">
-            <div class="column is-two-thirds">
-              post content
-            </div>
-            <div class="column is-one-third">
-              info
+            <div class="columns is-marginless">
+              <div class="column is-two-thirds test-outline">
+                post content
+              </div>
+              <div class="column is-one-third test-outline">
+                info
+              </div>
             </div>
           </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>

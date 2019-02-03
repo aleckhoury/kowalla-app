@@ -3,18 +3,26 @@
 
     <Header></Header>
 
-    <div class="columns is-marginless main-margin">
-      <div class="column is-one-quarter is-paddingless test-outline side-pane">
-        <NavPane></NavPane>
-      </div>
+    <div class="container is-fullhd">
+      <!--
+          we'll want to dial in the container fullhd breakpoint
+          right now it isn't contained to just ultra-wides, and effects
+          normal laptop resolution
+      -->
+
+      <div class="columns is-centered is-marginless main-margin">
+        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+          <NavPane></NavPane>
+        </div>
 
 
-      <div class="column is-one-half is-paddingless no-margin test-outline">
-        post feed
-      </div>
+        <div class="column is-one-half is-paddingless no-margin test-outline">
+          post feed
+        </div>
 
-      <div class="column is-one-quarter is-paddingless test-outline side-pane">
-        info
+        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+          info
+        </div>
       </div>
     </div>
   </div>
@@ -39,6 +47,10 @@ export default {
 
 .no-margin {
   margin: 0px;
+}
+
+.test-outline {
+  border: 1px solid black;
 }
 
 .main-margin {

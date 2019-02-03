@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="test-outline">
+  <div class="size">
     <NavHeader/>
     <NavSubHeader/>
   </div>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.test-outline {
+.size {
   height: 90px;
 }
 </style>
