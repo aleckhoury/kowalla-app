@@ -140,7 +140,7 @@
                                             <editor-content class="editor__content" :editor="editor" />
                                 </div>
                                 <div class="level is-paddingless">
-                                    <a class="level-item button action post" @click="closeDialog()"><b>Post</b></a>
+                                    <a class="level-item button action post" @click="createPost()"><b>Post</b></a>
                                     <div class="level-right">
                                     <span class="level-item has-text-grey">as</span>
                                     <div class="level-item dropdown" @click="userDropdown = !userDropdown" :class="{ 'is-active': userDropdown }">
@@ -181,7 +181,7 @@
     Underline,
     History,
   } from 'tiptap-extensions'
-  import Dropdown from "./dropdown";
+  import Dropdown from "./dropdownItems";
 
   export default {
     name: "createPost",
@@ -200,8 +200,13 @@
       };
     },
     methods: {
-      async closeDialog() {
-        console.log(this.html);
+      async createPost() {
+        const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
+        await this.$axios.post(`/api/v1/communities/1234567890/posts`, {
+          profileId: this.$store.state.user._id,
+          communityId: community._id,
+          content: this.html,
+        });
         this.createDialog = !this.createDialog;
       }
     },
@@ -255,12 +260,13 @@ span {
 .field {
     margin: 1em 0;
 }
-.modal-content {
+div .modal-content {
     width: 55%;
     border-radius: 6px;
-    min-height: 40%;
-    max-height: 70%;
     overflow: visible;
+}
+.modal-content.box {
+    min-height: 80%;
 }
 .button.action {
     width: 12em;
