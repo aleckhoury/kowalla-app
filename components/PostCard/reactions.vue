@@ -31,7 +31,6 @@
     },
     async created() {
       try {
-        console.log(this.post);
         this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.post._id}`);
       } catch {
         console.log('some kind of error idk');
