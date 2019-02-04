@@ -126,6 +126,10 @@ so we can properly add things
   padding-bottom: 0px;
 }
 
+.test-outline {
+  border: 1px solid black;
+}
+
 .content {
   margin-top: 15px;
   border: 1px solid black;

@@ -69,6 +69,9 @@ export default {
   background-color: rgb(0,0,0,0.5);
   color: white;
   font-size: 3.75em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .banner-subscription-button-container {
