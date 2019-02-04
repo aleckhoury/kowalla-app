@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="nav-left-container">
-    <nuxt-link 
-      class="kowalla-logo" 
+    <nuxt-link
+      class="kowalla-logo"
       to="/dev">kowalla</nuxt-link>
-    <nuxt-link 
-      class="page-link" 
+    <nuxt-link
+      class="page-link"
       to="/dev"><b>Home</b></nuxt-link>
-    <nuxt-link 
-      class="page-link" 
+    <nuxt-link
+      class="page-link"
       to="/about"><b>About</b></nuxt-link>
   </div>
 </template>

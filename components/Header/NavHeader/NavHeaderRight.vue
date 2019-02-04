@@ -1,7 +1,7 @@
 <template lang="html">
-  <div 
-    v-if="this.$auth.loggedIn" 
-    class="nav-right-container">
+  <div
+    v-if="this.$auth.loggedIn"
+    >
     <Button @kow-button-click="newPostModal"><b>New</b></Button>
 
     <Searchbar />
@@ -12,12 +12,12 @@
       :profile-picture="this.$store.state.user.profilePicture"
       :username="this.$store.state.user.username" />
   </div>
-  <div 
-    v-else 
+  <div
+    v-else
     class="nav-right-container">
     <Searchbar />
-    <nuxt-link 
-      class="page-link" 
+    <nuxt-link
+      class="page-link"
       to="/login"><b>Login</b></nuxt-link>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     newPostModal(event) {
-      this.$alert('this is a new post modal');
+      this.$toast.open('Something happened');
     },
   },
 };
