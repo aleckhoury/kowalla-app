@@ -14,10 +14,9 @@ import { createStore } from './store.js'
 
 import nuxt_plugin_onesignal_290b246a from 'nuxt_plugin_onesignal_290b246a' // Source: ./onesignal.js (ssr: false)
 import nuxt_plugin_nuxticons_a33e6576 from 'nuxt_plugin_nuxticons_a33e6576' // Source: ./nuxt-icons.js
+import nuxt_plugin_buefy_46cfdd98 from 'nuxt_plugin_buefy_46cfdd98' // Source: ./buefy.js
 import nuxt_plugin_templatesplugina6edc000_10a6dbd2 from 'nuxt_plugin_templatesplugina6edc000_10a6dbd2' // Source: ./templates.plugin.a6edc000.js
 import nuxt_plugin_axios_1ab911e3 from 'nuxt_plugin_axios_1ab911e3' // Source: ./axios.js
-import nuxt_plugin_elementui_d905880e from 'nuxt_plugin_elementui_d905880e' // Source: ../plugins/element-ui
-import nuxt_plugin_buefy_22359951 from 'nuxt_plugin_buefy_22359951' // Source: ../plugins/buefy
 import nuxt_plugin_plugin_5a55e8df from 'nuxt_plugin_plugin_5a55e8df' // Source: ./auth/plugin.js
 
 // Component: <no-ssr>
@@ -158,10 +157,9 @@ async function createApp(ssrContext) {
   // Plugin execution
 
   if (typeof nuxt_plugin_nuxticons_a33e6576 === 'function') await nuxt_plugin_nuxticons_a33e6576(app.context, inject)
+  if (typeof nuxt_plugin_buefy_46cfdd98 === 'function') await nuxt_plugin_buefy_46cfdd98(app.context, inject)
   if (typeof nuxt_plugin_templatesplugina6edc000_10a6dbd2 === 'function') await nuxt_plugin_templatesplugina6edc000_10a6dbd2(app.context, inject)
   if (typeof nuxt_plugin_axios_1ab911e3 === 'function') await nuxt_plugin_axios_1ab911e3(app.context, inject)
-  if (typeof nuxt_plugin_elementui_d905880e === 'function') await nuxt_plugin_elementui_d905880e(app.context, inject)
-  if (typeof nuxt_plugin_buefy_22359951 === 'function') await nuxt_plugin_buefy_22359951(app.context, inject)
   if (typeof nuxt_plugin_plugin_5a55e8df === 'function') await nuxt_plugin_plugin_5a55e8df(app.context, inject)
 
   if (process.client) {
