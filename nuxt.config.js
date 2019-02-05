@@ -31,9 +31,8 @@ module.exports = {
   */
 
   css: [
-    'element-ui/lib/theme-chalk/index.css',
     'bulma/css/bulma.css',
-    '~/css/main.css'
+    '~/css/main.css',
   ],
 
   /*
@@ -41,8 +40,6 @@ module.exports = {
   */
 
   plugins: [
-    '@/plugins/element-ui',
-    '@/plugins/buefy',
   ],
 
   /*
@@ -55,6 +52,7 @@ module.exports = {
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
     '@nuxtjs/onesignal',
+    'nuxt-buefy',
   ],
   /*
   ** Axios module configuration
