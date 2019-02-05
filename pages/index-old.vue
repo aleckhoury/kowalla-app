@@ -1,31 +1,23 @@
 <template lang="html">
-  <div class="screen background-tint">
+  <el-container class="screen">
+    <el-header class="no-padding" height="90px">
+      <Header></Header>
+    </el-header>
 
-    <Header></Header>
-
-    <div class="container is-fullhd">
-      <!--
-          we'll want to dial in the container fullhd breakpoint
-          right now it isn't contained to just ultra-wides, and effects
-          normal laptop resolution
-      -->
-
-      <div class="columns is-centered is-marginless main-margin">
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+    <el-main class="main-margin background-tint">
+      <el-row type="flex" justify="center">
+        <el-col :span="6" :md="8" class="hidden-sm-and-down side-pane">
           <NavPane></NavPane>
-        </div>
+        </el-col>
 
-
-        <div class="column is-one-half is-paddingless no-margin test-outline">
+        <el-col :span="12" :md="16" :sm="24" :xs="24" class="no-margin central-pane">
           post feed
-        </div>
+        </el-col>
 
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
-          info
-        </div>
-      </div>
-    </div>
-  </div>
+        <el-col :span="6" class="hidden-md-and-down side-pane">info pane</el-col>
+      </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -49,10 +41,6 @@ export default {
   margin: 0px;
 }
 
-.test-outline {
-  border: 1px solid black;
-}
-
 .main-margin {
   padding-top: 20px;
   padding-left: 0px;
@@ -67,6 +55,10 @@ export default {
 .side-pane {
   display: flex;
   justify-content: center;
+}
+
+.central-pane {
+  border: 1px solid green;
 }
 
 .screen {

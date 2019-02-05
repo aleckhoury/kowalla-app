@@ -54,4 +54,8 @@ export default {
 .kow-button:hover {
   background-color: rgb(255,255,255,.75);
 }
+
+.kow-button:focus {
+  outline: none;
+}
 </style>

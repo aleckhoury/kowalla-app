@@ -1,23 +1,33 @@
 <template lang="html">
   <div>
     <div class="sorting-container">
-      <el-dropdown @command="handleCommand">
-        <div class="dropdown-container">
-          <div class="dropdown-selector">
-            <b class="font theme-color selector-child">{{ selectedOption }}</b>
-            <font-awesome-icon
-              icon="angle-down"
-              class="theme-color selector-child"/>
-          </div>
+      <div class="dropdown-container">
+        <div class="dropdown-selector">
+          <b class="font theme-color selector-child">{{ selectedOption }}</b>
+          <font-awesome-icon
+            icon="angle-down"
+            class="theme-color selector-child"/>
         </div>
+      </div>
+      <!-- TODO replace this with buefy dropdown later
+        <el-dropdown @command="handleCommand">
+          <div class="dropdown-container">
+            <div class="dropdown-selector">
+              <b class="font theme-color selector-child">{{ selectedOption }}</b>
+              <font-awesome-icon
+                icon="angle-down"
+                class="theme-color selector-child"/>
+            </div>
+          </div>
 
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            v-for="item in options"
-            :key="item.value"
-            :command="item.value">{{ item.value }}</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-for="item in options"
+              :key="item.value"
+              :command="item.value">{{ item.value }}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      -->
 
       <div v-if="(type === '/p/')||(type === '/u/')" class='font margin predicate'>from</div>
       <div v-if="(type === '/c/')||(type === '/')" class='font margin predicate'>in</div>
@@ -144,7 +154,7 @@ export default {
 }
 
 .dropdown-container {
-  height: 25px;
+  height: 30px;
   border: 2px solid #39C9A0;
   border-radius: 6px;
   cursor: pointer;

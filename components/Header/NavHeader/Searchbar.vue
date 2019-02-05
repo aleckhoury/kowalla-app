@@ -1,12 +1,26 @@
 <template lang="html">
-  <el-autocomplete
-    :fetch-suggestions="querySearchAsync"
-    class="searchbar-container"
-    placeholder="Search"
-    prefix-icon="el-icon-search"
-    size="small"
-    @select="handleSelect"
-  />
+
+  <div>
+    <b-autocomplete
+      v-model="name"
+      class="searchbar-container"
+      placeholder="Search"
+      icon="magnify"
+      @select="option => selected = option">
+      <template slot="empty">No results found</template>
+    </b-autocomplete>
+  </div>
+
+  <!--
+    <el-autocomplete
+      :fetch-suggestions="querySearchAsync"
+      class="searchbar-container"
+      placeholder="Search"
+      prefix-icon="el-icon-search"
+      size="small"
+      @select="handleSelect"
+    />
+  -->
 </template>
 
 <script>
@@ -63,5 +77,9 @@ export default {
   border-radius: 6px;
   margin: 6px;
   border: 2px solid #2F8168;
+}
+
+.searchbar-container:focus {
+  outline: none;
 }
 </style>

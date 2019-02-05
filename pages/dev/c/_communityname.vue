@@ -1,39 +1,42 @@
 <template lang="html">
-  <el-container class="screen">
-    <el-header class="no-padding" height="90px">
-      <Header></Header>
-    </el-header>
+  <div class="screen background-tint">
+    <Header></Header>
 
-    <el-main class="main-margin background-tint">
-      <el-row type="flex" justify="center">
-        <el-col :span="6" class="side-pane">
-          <NavPane></NavPane>
-        </el-col>
+    <div class="container is-fullhd">
+      <!--
+          we'll want to dial in the container fullhd breakpoint
+          right now it isn't contained to just ultra-wides, and effects
+          normal laptop resolution
+      -->
+      <div class="columns is-marginless is-hidden-touch main-margin">
 
-        <el-col :span="18">
-            <Banner
-              :bannerURL="communityPictureUrl"
-              :bannerTitle="communityName"
-              bannerTitlePrefix="#"
-              :isSubscribed="isSubscribed"
-              :isOwner="isOwner"
-              @subscription-button-clicked="updateSubscriptions"
-            />
+          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+            <NavPane></NavPane>
+          </div>
 
-          <el-row>
-            <el-col :span="16" class="content">
-              post feed
-            </el-col>
+          <div class="column is-three-quarters is-paddingless">
+              <Banner
+                :bannerURL="communityPictureUrl"
+                :bannerTitle="communityName"
+                bannerTitlePrefix="#"
+                :isSubscribed="isSubscribed"
+                :isOwner="isOwner"
+                @subscription-button-clicked="updateSubscriptions"
+              />
 
-            <el-col :span="8" class="side-pane content">
-              info cards
-            </el-col>
-          </el-row>
-        </el-col>
 
-      </el-row>
-    </el-main>
-  </el-container>
+            <div class="columns is-marginless">
+              <div class="column is-two-thirds test-outline">
+                post content
+              </div>
+              <div class="column is-one-third test-outline">
+                info
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -65,7 +68,7 @@ export default {
     let communityObj = {
       name: "EarlyAdopters",
       numSubs: '10',
-      pictureURL: 'http://thedigitalunion.com/wp-content/uploads/2015/08/maxresdefault.jpg',
+      pictureURL: '',
       communityId: '2222',
     };
     this.communityPictureUrl = communityObj.pictureURL;
@@ -123,6 +126,10 @@ so we can properly add things
   padding-bottom: 0px;
 }
 
+.test-outline {
+  border: 1px solid black;
+}
+
 .content {
   margin-top: 15px;
   border: 1px solid black;
@@ -131,7 +138,6 @@ so we can properly add things
 .side-pane {
   display: flex;
   justify-content: center;
-  border: 1px solid black;
 }
 
 .screen {

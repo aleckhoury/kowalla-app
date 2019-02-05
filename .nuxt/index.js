@@ -19,6 +19,7 @@ import nuxt_plugin_templatesplugina6edc000_10a6dbd2 from 'nuxt_plugin_templatesp
 import nuxt_plugin_axios_1ab911e3 from 'nuxt_plugin_axios_1ab911e3' // Source: ./axios.js
 import nuxt_plugin_plugin_5a55e8df from 'nuxt_plugin_plugin_5a55e8df' // Source: ./auth/plugin.js
 
+
 // Component: <no-ssr>
 Vue.component(NoSSR.name, NoSSR)
 
@@ -162,8 +163,10 @@ async function createApp(ssrContext) {
   if (typeof nuxt_plugin_axios_1ab911e3 === 'function') await nuxt_plugin_axios_1ab911e3(app.context, inject)
   if (typeof nuxt_plugin_plugin_5a55e8df === 'function') await nuxt_plugin_plugin_5a55e8df(app.context, inject)
 
+
   if (process.client) {
-    if (typeof nuxt_plugin_onesignal_290b246a === 'function') await nuxt_plugin_onesignal_290b246a(app.context, inject)
+    if (typeof nuxt_plugin_onesignal_38f41be8 === 'function') await nuxt_plugin_onesignal_38f41be8(app.context, inject)
+    if (typeof nuxt_plugin_swplugin_6beadc19 === 'function') await nuxt_plugin_swplugin_6beadc19(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

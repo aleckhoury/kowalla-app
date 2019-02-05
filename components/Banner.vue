@@ -44,7 +44,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .banner-container {
-  margin-right: 60px;
+  position: relative;
   height: 300px;
   border: 1px solid black;
   display: flex;
@@ -59,9 +59,9 @@ export default {
 }
 
 .banner-title {
-  position: relative;
+  position: absolute;
   left: 0px;
-  bottom: 75px;
+  bottom: 0px;
   margin-right: 60px;
   padding-left: 15px;
   width: 100%;
@@ -69,13 +69,15 @@ export default {
   background-color: rgb(0,0,0,0.5);
   color: white;
   font-size: 3.75em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .banner-subscription-button-container {
   position: absolute;
-  bottom: 275px;
+  top: 15px;
   right: 15px;
-  margin-right: 60px;
 }
 
 </style>

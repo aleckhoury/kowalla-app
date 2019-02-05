@@ -1,42 +1,44 @@
 <template lang="html">
-  <el-container class="screen">
-    <el-header class="no-padding" height="90px">
-      <Header></Header>
-    </el-header>
+  <div class="screen background-tint">
+    <Header></Header>
 
-    <el-main class="main-margin background-tint">
-      <el-row type="flex" justify="center">
-        <el-col :span="6" class="side-pane">
-          <NavPane></NavPane>
-        </el-col>
+    <div class="container is-fullhd">
+      <!--
+          we'll want to dial in the container fullhd breakpoint
+          right now it isn't contained to just ultra-wides, and effects
+          normal laptop resolution
+      -->
 
-        <el-col :span="18">
+      <div class="columns is-hidden-touch is-marginless main-margin">
 
-            <Banner
-              bannerURL="https://i0.wp.com/9gauge.com/wp-content/uploads/2018/11/aceable.jpg?ssl=1"
-              :bannerTitle="projectName"
-              bannerTitlePrefix="@"
-              :isSubscribed="isSubscribed"
-              :isOwner="isOwner"
-              @subscription-button-clicked="updateSubscriptions"
-            />
+          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+            <NavPane></NavPane>
+          </div>
 
+          <div class="column is-three-quarters is-paddingless">
 
+              <Banner
+                bannerURL=""
+                :bannerTitle="projectName"
+                bannerTitlePrefix="@"
+                :isSubscribed="isSubscribed"
+                :isOwner="isOwner"
+                @subscription-button-clicked="updateSubscriptions"
+              />
 
-          <el-row>
-            <el-col :span="16" class="content">
-              post feed
-            </el-col>
+              <div class="columns is-marginless">
+                <div class="column is-two-thirds test-outline">
+                  post content
+                </div>
+                <div class="column is-one-third test-outline">
+                  info
+                </div>
+              </div>
 
-            <el-col :span="8" class="side-pane content">
-              info cards
-            </el-col>
-          </el-row>
-        </el-col>
-
-      </el-row>
-    </el-main>
-  </el-container>
+          </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -103,10 +105,7 @@ export default {
 }
 </script>
 
-<style lang="css">
-.no-padding {
-  padding: 0px;
-}
+<style lang="css" scoped>
 
 .background-tint {
   background-color: #E9EBEE;
@@ -124,9 +123,17 @@ export default {
   justify-content: center;
 }
 
+.test-outline {
+  border: 1px solid black;
+}
+
 .content {
   margin-top: 15px;
   background-color: white;
+}
+
+.max-width {
+  max-width: 1440px;
 }
 
 .screen {
@@ -134,6 +141,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+
   height: 100%;
 }
 </style>

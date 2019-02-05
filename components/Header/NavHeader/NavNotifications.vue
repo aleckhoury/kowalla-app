@@ -1,11 +1,9 @@
 <template lang="html">
-  <el-badge 
-    :is-dot="hasNotifications" 
-    class="notif-dot">
-    <font-awesome-icon 
-      icon="bell" 
-      class="theme-color"/>
-  </el-badge>
+  <!-- TODO want to put a badge here for notification dot -->
+  <font-awesome-icon
+    icon="bell"
+    class="theme-color margin"/>
+
 </template>
 
 <script>
@@ -16,11 +14,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.notif-dot {
-  margin: 6px;
-}
-
 .theme-color {
   color: #2F8168;
+}
+
+.margin {
+  margin: 6px;
 }
 </style>

@@ -9,6 +9,7 @@
 </template>
 <script>
 export default {
+  // TODO: subscription button has blue outline after interractions, need to fix
   name: "SubscriptionButton",
   props: {
     isSubscribed: Boolean,
@@ -41,6 +42,10 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 0.875em;
   cursor: pointer;
+}
+
+.sub-button:focus {
+  outline: none;
 }
 
 .is-subscribed {

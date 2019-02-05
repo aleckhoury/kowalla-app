@@ -1,14 +1,16 @@
 <template lang="html">
   <div class="nav-header-container">
-    <NavHeaderLeft/>
-    <NavHeaderRight/>
+
   </div>
 </template>
 
 <script>
 import NavHeaderLeft from './NavHeaderLeft';
 import NavHeaderRight from './NavHeaderRight';
-
+/*
+<NavHeaderLeft/>
+<NavHeaderRight/>
+*/
 export default {
   name: 'NavHeader',
   components: { NavHeaderLeft, NavHeaderRight, },

@@ -1,3 +1,3 @@
 export const state = () => ({
-  messages: ['test message',],
+  messages: ['test message', 'test message 2'],
 });
