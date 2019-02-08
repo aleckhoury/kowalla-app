@@ -3,7 +3,9 @@
   <Card
     headerString="Description"
     :subheaderString="subheaderString"
-    :subheaderURL="subheaderURL">
+    :subheaderURL="subheaderURL"
+    subheaderOn
+    headerOn>
 
     <div class="description-string">
       <slot></slot>
@@ -31,10 +33,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.description-pane-container {
-  width: 100%;
-}
-
 .description-string {
   font-family: "Helvetica Neue";
   font-size: 0.75em;

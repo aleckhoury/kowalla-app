@@ -11,51 +11,22 @@
       <b>{{username}}</b>
     </div>
 
-
-
     <div class="level is-marginless">
-      <div
-        class="level-item stat-container is-paddingless"
-        v-for="item in stats"
-        >
-
+      <div v-for="item in stats" class="level-item stat-container is-paddingless">
         <div class="stat-title">
           <b>{{item.name}}</b>
         </div>
 
-
-
-
         <div class="stat-info">
           <b>{{item.stat}}</b>
         </div>
-
-
-
-
-
       </div>
-      <!--
-      <div
-        class="column test-outline is-paddingless is-one-third"
-        v-for="item in stats"
-        >
-        <div class="level stats-container is-marginless">
-          <b>{{item.name}}</b>
-        </div>
-        <div class="level stats-container is-margliness">
-          {{item.stat}}
-        </div>
-      </div>
-      -->
-
     </div>
 
     <div class="subheader">
       <nuxt-link to="subheaderURL" class="subheader-content">
         <b>Subheader content</b>
       </nuxt-link>
-
     </div>
   </div>
 
@@ -77,10 +48,9 @@ export default {
       return this.stats[i].name;
     }
   }
-
-
 }
 </script>
+
 <style lang="css" scoped>
 .profile-card-container {
   display: flex;
@@ -113,13 +83,9 @@ export default {
 }
 
 .username {
-  margin-top: -2px;
+  margin-top: -4px;
   font-size: 0.75em;
   color: #999
-}
-
-.negative-margin {
-  margin-top: -2px;
 }
 
 .username:hover {
@@ -143,7 +109,6 @@ export default {
 }
 
 .stat-title {
-  margin-top: -2px;
   font-size: 0.75em;
   color: black;
 }

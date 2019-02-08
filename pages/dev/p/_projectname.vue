@@ -9,7 +9,8 @@
           normal laptop resolution
       -->
 
-      <div class="columns is-hidden-touch is-marginless main-margin">
+      <!-- two columns, navpane and banner -->
+      <div class="columns is-marginless is-hidden-touch main-margin">
 
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
             <NavPane></NavPane>
@@ -26,8 +27,8 @@
                 @subscription-button-clicked="updateSubscriptions"
               />
 
-              <!-- this is going to be the description, profile and project card -->
-              <div class="columns is-marginless">
+              <!-- new columns for description, profile and project cards -->
+              <div class="columns is-marginless main-margin">
                 <div class="column is-half is-paddingless test-outline">
                   <DescriptionCard
                     subheaderString="test substring"
@@ -61,12 +62,19 @@
 
               </div>
 
+                <!-- new columns for content and info pane -->
               <div class="columns is-marginless">
                 <div class="column is-two-thirds test-outline">
                   <b>test</b>
                 </div>
                 <div class="column is-one-third test-outline">
-                  info
+                  <DescriptionCard
+                    subheaderString="test substring"
+                    subheaderURL="/about"
+                  >
+                  Test content
+
+                </DescriptionCard>
                 </div>
               </div>
 
@@ -77,18 +85,15 @@
 </template>
 
 <script>
-import PlaceholderText from '~/components/PlaceholderText';
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
-
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
 
 export default {
   name: "user-page-test",
   components: {
-    PlaceholderText,
     Header,
     NavPane,
     Banner,
@@ -157,42 +162,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-.background-tint {
-  background-color: #E9EBEE;
-}
-
-.main_margin {
-  padding-top: 20px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 0px;
-}
-
-.side-pane {
-  display: flex;
-  justify-content: center;
-}
-
-.test-outline {
-  border: 1px solid black;
-}
-
-.content {
-  margin-top: 15px;
-  background-color: white;
-}
-
-.max-width {
-  max-width: 1440px;
-}
-
-.screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-
-  height: 100%;
-}
 </style>

@@ -8,6 +8,8 @@
           right now it isn't contained to just ultra-wides, and effects
           normal laptop resolution
       -->
+
+      <!-- three columns, navpane, content, infopane -->
       <div class="columns is-marginless is-hidden-touch main-margin">
 
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
@@ -40,7 +42,6 @@
 </template>
 
 <script>
-import PlaceholderText from '~/components/PlaceholderText';
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
@@ -49,7 +50,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",
-  components: { PlaceholderText, Header, NavPane, Banner },
+  components: { Header, NavPane, Banner },
   data() {
     return {
       communityName: '',
@@ -111,40 +112,4 @@ so we can properly add things
 </script>
 
 <style lang="css">
-.no-padding {
-  padding: 0px;
-}
-
-.background-tint {
-  background-color: #E9EBEE;
-}
-
-.main-margin {
-  padding-top: 20px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 0px;
-}
-
-.test-outline {
-  border: 1px solid black;
-}
-
-.content {
-  margin-top: 15px;
-  border: 1px solid black;
-}
-
-.side-pane {
-  display: flex;
-  justify-content: center;
-}
-
-.screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 </style>
