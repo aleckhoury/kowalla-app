@@ -26,9 +26,44 @@
                 @subscription-button-clicked="updateSubscriptions"
               />
 
+              <!-- this is going to be the description, profile and project card -->
+              <div class="columns is-marginless">
+                <div class="column is-half is-paddingless test-outline">
+                  <DescriptionCard
+                    subheaderString="test substring"
+                    subheaderURL="/about"
+                  >
+                  Test content
+
+                  </DescriptionCard>
+                </div>
+
+                <div class="column is-half is-paddingless test-outline">
+                  <div class="level">
+                    <div class="level-item">
+                      <ProfileCard
+                        name="Aceable"
+                        username="@Aceable"
+                        :stats="stats"
+                      ></ProfileCard>
+                    </div>
+
+                    <div class="level-item">
+                      <ProfileCard
+                        name="Tyler O'Briant"
+                        username="@cowboy_morty"
+                        :stats="stats"
+                      ></ProfileCard>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
               <div class="columns is-marginless">
                 <div class="column is-two-thirds test-outline">
-                  post content
+                  <b>test</b>
                 </div>
                 <div class="column is-one-third test-outline">
                   info
@@ -47,9 +82,19 @@ import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 
+import DescriptionCard from '~/components/InfoCards/DescriptionCard';
+import ProfileCard from '~/components/InfoCards/ProfileCard';
+
 export default {
   name: "user-page-test",
-  components: { PlaceholderText, Header, NavPane, Banner },
+  components: {
+    PlaceholderText,
+    Header,
+    NavPane,
+    Banner,
+    DescriptionCard,
+    ProfileCard,
+  },
   data() {
     return {
       projectName: null,
@@ -57,7 +102,12 @@ export default {
       isSubscribed: false,
       isOwner: false,
       numSubs: 0,
-      projectId: ''
+      projectId: '',
+      stats: [
+        { "name": "one", "stat": "7"},
+        { "name": "two", "stat": "7"},
+        { "name": "three", "stat": "7"}
+      ]
     }
   },
   created() {
@@ -73,6 +123,7 @@ export default {
     }
 
     // get info from obj
+    this.name = projectObj.name;
     this.pictureURL = projectObj.pictureURL;
     this.numSubs = projectObj.numSubs;
     this.projectId = projectObj.projectId;

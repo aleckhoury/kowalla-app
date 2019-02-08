@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-card-container">
+  <div>
     <NavCardLink
       v-for="item in this.$store.state.user[type]"
       :name="item.name"
