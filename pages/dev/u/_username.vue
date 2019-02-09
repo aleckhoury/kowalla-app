@@ -29,10 +29,22 @@
             >about tob</DescriptionCard>
 
             <Card
+              v-if="profileSubs.hasOwnProperty('owned')"
               headerString="Tyler's Projects"
               headerOn
+              :subheaderOn="false"
             >
               <!-- need to make NavCard more flexible -->
+              <NavCard type="profile" selector="owned" :profileSubs="profileSubs"></NavCard>
+            </Card>
+
+            <Card
+              v-if="profileSubs.hasOwnProperty('subscriptions')"
+              headerString="Tyler's Subscriptions"
+              subheaderString="More communities you'll love"
+            >
+              <!-- need to make NavCard more flexible -->
+              <NavCard type="profile" selector="subscriptions" :profileSubs="profileSubs"></NavCard>
             </Card>
 
           </InfoPane>
@@ -49,10 +61,11 @@ import ProfileCard from '~/components/InfoCards/ProfileCard';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import Card from '~/components/Card';
+import NavCard from '~/components/NavCards/NavCard';
 
 export default {
   name: 'UserPageTest',
-  components: { NavPane, Card, Header, ProfileCard, InfoPane, DescriptionCard },
+  components: { NavPane, NavCard, Card, Header, ProfileCard, InfoPane, DescriptionCard },
   data() {
     return {
       username: null,
@@ -60,7 +73,17 @@ export default {
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
         { "name": "three", "stat": "7"}
-      ]
+      ],
+      profileSubs: {
+        subscriptions: [
+          {name: "TestProject", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
+          {name: "TestCommunity", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
+        ],
+        owned: [
+          {name: "TestProject", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
+          {name: "TestCommunity", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
+        ]
+      }
     };
   },
   computed: {

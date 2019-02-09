@@ -33,8 +33,7 @@
                 <div class="column is-half is-paddingless test-outline">
                   <DescriptionCard
                     headerString="Description"
-                    subheaderString="test substring"
-                    subheaderURL="/about"
+                    :subheaderOn="false"
                   >
                   Test content
 
@@ -73,15 +72,11 @@
                 </div>
 
                 <!-- info pane -->
-                <div class="column is-one-third test-outline">
-                  <DescriptionCard
-                    headerString="test description card"
-                    subheaderString="test substring"
-                    subheaderURL="/about"
-                  >
-                  Test content
-
-                </DescriptionCard>
+                <div class="column is-one-third test-outline side-pane">
+                  <InfoPane>
+                    <!-- fill with children components -->
+                    info pane
+                  </InfoPane>
                 </div>
               </div>
 
@@ -97,6 +92,7 @@ import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
+import InfoPane from '~/components/InfoCards/InfoPane';
 
 export default {
   name: "user-page-test",
@@ -106,6 +102,7 @@ export default {
     Banner,
     DescriptionCard,
     ProfileCard,
+    InfoPane,
   },
   data() {
     return {
