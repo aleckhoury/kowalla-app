@@ -25,7 +25,7 @@
           <div class="level-right">
 
             <div v-if="this.$auth.loggedIn" class="level-item">
-              <Button @kow-button-click="newPostModal"><b>New</b></Button>
+              <Button @kow-button-click=""><b>New</b></Button>
 
               <Searchbar />
 

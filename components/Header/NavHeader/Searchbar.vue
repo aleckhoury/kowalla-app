@@ -2,7 +2,7 @@
 
   <div>
     <b-autocomplete
-      v-model="name"
+      v-model="search"
       class="searchbar-container"
       placeholder="Search"
       icon="magnify"
@@ -30,6 +30,7 @@ export default {
   name: 'Searchbar',
   data() {
     return {
+      search: '',
       links: [],
       state4: '',
       timeout: null,

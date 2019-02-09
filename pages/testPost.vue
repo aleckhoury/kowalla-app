@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="columns">
+        <!--<Header></Header>-->
+        <div class="columns is-mobile">
             <div class="column is-one-quarter is-paddingless">
                 <nav-card />
             </div>
@@ -12,7 +12,6 @@
                 <nav-card />
             </div>
         </div>
-    </div>
 </template>
 
 <script>

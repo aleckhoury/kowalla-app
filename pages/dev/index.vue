@@ -17,7 +17,8 @@
 
 
         <div class="column is-one-half is-paddingless no-margin test-outline">
-          post feed
+          <CreatePost></CreatePost>
+          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
@@ -33,10 +34,20 @@ import Header from '~/components/Header/Header';
 import PlaceholderText from '~/components/PlaceholderText';
 import NavPane from '~/components/NavCards/NavPane';
 import 'element-ui/lib/theme-chalk/display.css'
+import CreatePost from "../../components/createPost";
+import Post from "../../components/PostCard/Post"
 
 export default {
   name: "test",
-  components: { Header, PlaceholderText, NavPane }
+  components: { CreatePost, Header, PlaceholderText, NavPane, Post },
+  data() {
+    return {
+      postList: [],
+    }
+  },
+  async created() {
+    this.postList = await this.$axios.$get('/api/v1/posts');
+  }
 }
 </script>
 

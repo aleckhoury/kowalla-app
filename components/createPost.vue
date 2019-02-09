@@ -1,5 +1,5 @@
 <template>
-    <section class="section">
+    <div>
         <div class="box level">
             <span class="level-left is-size-4"><b>Create a post...</b></span>
             <a class="button action" @click="createDialog = !createDialog"><b>Create</b></a>
@@ -137,7 +137,7 @@
                                     </div>
                                 </editor-menu-bar>
                                 <div class="editor content">
-                                            <editor-content class="editor__content" :editor="editor" />
+                                            <editor-content class="editor__content" :editor="editor"  />
                                 </div>
                                 <div class="level is-paddingless">
                                     <a class="level-item button action post" @click="createPost()"><b>Post</b></a>
@@ -157,7 +157,7 @@
                     </div>
                 </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -215,7 +215,7 @@
     },
     mounted() {
       this.editor = new Editor({
-        autoFocus: true,
+        focus: () => true,
         extensions: [
           new Blockquote(),
           new BulletList(),
@@ -235,7 +235,7 @@
           new Underline(),
           new History(),
         ],
-        content: '<p>This is just a boring paragraph</p>',
+        content: '',
         onUpdate: ({ getHTML }) => {
           this.html = getHTML()
         },
