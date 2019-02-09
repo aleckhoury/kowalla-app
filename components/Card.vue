@@ -66,8 +66,6 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 0.75em;
   color: #39C9A0;
-
-
 }
 
 .subheader-content:hover {

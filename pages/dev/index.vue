@@ -11,15 +11,18 @@
       -->
 
       <div class="columns is-centered is-marginless main-margin">
+
+        <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
           <NavPane></NavPane>
         </div>
 
-
+        <!-- post feed -->
         <div class="column is-one-half is-paddingless test-outline">
           post feed
         </div>
 
+        <!-- info pane -->
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
           info
         </div>

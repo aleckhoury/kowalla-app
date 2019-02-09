@@ -4,8 +4,8 @@
     :headerString="headerString"
     :subheaderString="subheaderString"
     :subheaderURL="subheaderURL"
-    subheaderOn
-    headerOn>
+    :subheaderOn="subheaderOn"
+    :headerOn="headerOn">
 
     <div class="description-string">
       <slot></slot>
@@ -24,9 +24,11 @@ export default {
     Card
   },
   props: {
-    headerString: String,
-    subheaderString: String,
-    subheaderURL: String,
+    headerString: { type: String, default: "" },
+    subheaderString: { type: String, default: "" },
+    subheaderURL: { type: String, default: "" },
+    headerOn: { type: Boolean, default: true },
+    subheaderOn: { type: Boolean, default: true },
   }
 }
 </script>

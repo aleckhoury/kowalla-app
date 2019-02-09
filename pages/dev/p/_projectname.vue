@@ -12,6 +12,7 @@
       <!-- two columns, navpane and banner -->
       <div class="columns is-marginless is-hidden-touch main-margin">
 
+          <!-- nav pane -->
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
             <NavPane></NavPane>
           </div>
@@ -65,11 +66,16 @@
 
                 <!-- new columns for content and info pane -->
               <div class="columns is-marginless">
+
+                <!-- post feed -->
                 <div class="column is-two-thirds test-outline">
                   <b>test</b>
                 </div>
+
+                <!-- info pane -->
                 <div class="column is-one-third test-outline">
                   <DescriptionCard
+                    headerString="test description card"
                     subheaderString="test substring"
                     subheaderURL="/about"
                   >
