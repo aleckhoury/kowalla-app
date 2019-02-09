@@ -9,7 +9,8 @@
           normal laptop resolution
       -->
 
-      <div class="columns is-hidden-touch is-marginless main-margin">
+      <!-- two columns, navpane and banner -->
+      <div class="columns is-marginless is-hidden-touch main-margin">
 
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
             <NavPane></NavPane>
@@ -26,12 +27,55 @@
                 @subscription-button-clicked="updateSubscriptions"
               />
 
+              <!-- new columns for description, profile and project cards -->
+              <div class="columns is-marginless main-margin">
+                <div class="column is-half is-paddingless test-outline">
+                  <DescriptionCard
+                    headerString="Description"
+                    subheaderString="test substring"
+                    subheaderURL="/about"
+                  >
+                  Test content
+
+                  </DescriptionCard>
+                </div>
+
+                <div class="column is-half is-paddingless test-outline">
+                  <div class="level">
+                    <div class="level-item">
+                      <ProfileCard
+                        name="Aceable"
+                        username="@Aceable"
+                        :stats="projectStats"
+                      ></ProfileCard>
+                    </div>
+
+                    <div class="level-item">
+                      <ProfileCard
+                        name="Tyler O'Briant"
+                        username="@cowboy_morty"
+                        :stats="profileStats"
+                      ></ProfileCard>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+                <!-- new columns for content and info pane -->
               <div class="columns is-marginless">
                 <div class="column is-two-thirds test-outline">
-                  post content
+                  <b>test</b>
                 </div>
                 <div class="column is-one-third test-outline">
-                  info
+                  <DescriptionCard
+                    subheaderString="test substring"
+                    subheaderURL="/about"
+                  >
+                  Test content
+
+                </DescriptionCard>
                 </div>
               </div>
 
@@ -42,14 +86,21 @@
 </template>
 
 <script>
-import PlaceholderText from '~/components/PlaceholderText';
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
+import DescriptionCard from '~/components/InfoCards/DescriptionCard';
+import ProfileCard from '~/components/InfoCards/ProfileCard';
 
 export default {
   name: "user-page-test",
-  components: { PlaceholderText, Header, NavPane, Banner },
+  components: {
+    Header,
+    NavPane,
+    Banner,
+    DescriptionCard,
+    ProfileCard,
+  },
   data() {
     return {
       projectName: null,
@@ -57,7 +108,17 @@ export default {
       isSubscribed: false,
       isOwner: false,
       numSubs: 0,
-      projectId: ''
+      projectId: '',
+      projectStats: [
+        { "name": "one", "stat": "7"},
+        { "name": "two", "stat": "7"},
+        { "name": "three", "stat": "7"}
+      ],
+      profileStats: [
+        { "name": "one", "stat": "7"},
+        { "name": "two", "stat": "7"},
+        { "name": "three", "stat": "7"}
+      ]
     }
   },
   created() {
@@ -73,6 +134,7 @@ export default {
     }
 
     // get info from obj
+    this.name = projectObj.name;
     this.pictureURL = projectObj.pictureURL;
     this.numSubs = projectObj.numSubs;
     this.projectId = projectObj.projectId;
@@ -106,42 +168,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-.background-tint {
-  background-color: #E9EBEE;
-}
-
-.main_margin {
-  padding-top: 20px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 0px;
-}
-
-.side-pane {
-  display: flex;
-  justify-content: center;
-}
-
-.test-outline {
-  border: 1px solid black;
-}
-
-.content {
-  margin-top: 15px;
-  background-color: white;
-}
-
-.max-width {
-  max-width: 1440px;
-}
-
-.screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-
-  height: 100%;
-}
 </style>

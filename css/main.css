@@ -4,10 +4,36 @@ body {
 *:focus {
     outline: none;
 }
-.button {
-    border: none;
-}
+
 div.dropdown div.button {
     border: 2px solid;
     color: #39C9A0;
+}
+
+.test-outline {
+  border: 1px solid black;
+}
+
+.background-tint {
+  background-color: #E9EBEE;
+}
+
+.main-margin {
+  padding-top: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+}
+
+.side-pane {
+  display: flex;
+  justify-content: center;
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

@@ -4,6 +4,8 @@
       headerString="Projects and Communities"
       subheaderString="Create a new space"
       subheaderURL="/about"
+      subheaderOn
+      headerOn
     >
       <NavCard type="owned"></NavCard>
     </Card>
@@ -12,6 +14,8 @@
       headerString="Subscriptions"
       subheaderString="More things you'll love"
       subheaderURL="/about"
+      subheaderOn
+      headerOn
     >
       <NavCard type="subscriptions"></NavCard>
     </Card>

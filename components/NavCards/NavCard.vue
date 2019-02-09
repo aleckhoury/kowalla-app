@@ -1,7 +1,8 @@
 <template>
-  <div class="nav-card-container">
+  <div>
     <NavCardLink
       v-for="item in this.$store.state.user[type]"
+      :key="item.name"
       :name="item.name"
       :numSubs="item.numSubs"
       :pictureURL="item.pictureURL"
