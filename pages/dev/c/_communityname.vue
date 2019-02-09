@@ -27,12 +27,19 @@
               />
 
 
-            <div class="columns is-marginless">
+            <div class="columns is-marginless main-margin">
               <div class="column is-two-thirds test-outline">
                 post content
               </div>
               <div class="column is-one-third test-outline">
-                info
+                <DescriptionCard
+                  headerString="Description"
+                  subheaderString="test substring"
+                  subheaderURL="/about"
+                >
+                Test content
+
+              </DescriptionCard>
               </div>
             </div>
           </div>
@@ -45,12 +52,13 @@
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
+import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 
 import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",
-  components: { Header, NavPane, Banner },
+  components: { Header, NavPane, Banner, DescriptionCard },
   data() {
     return {
       communityName: '',

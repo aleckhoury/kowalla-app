@@ -1,7 +1,7 @@
 <template>
 
   <Card
-    headerString="Description"
+    :headerString="headerString"
     :subheaderString="subheaderString"
     :subheaderURL="subheaderURL"
     subheaderOn
@@ -19,12 +19,11 @@
 import Card from '~/components/Card';
 
 export default {
-  name: "Description Card",
+  name: "Description-Card",
   components: {
     Card
   },
   props: {
-    descriptionString: String,
     headerString: String,
     subheaderString: String,
     subheaderURL: String,

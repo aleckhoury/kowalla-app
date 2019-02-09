@@ -31,6 +31,7 @@
               <div class="columns is-marginless main-margin">
                 <div class="column is-half is-paddingless test-outline">
                   <DescriptionCard
+                    headerString="Description"
                     subheaderString="test substring"
                     subheaderURL="/about"
                   >
@@ -45,7 +46,7 @@
                       <ProfileCard
                         name="Aceable"
                         username="@Aceable"
-                        :stats="stats"
+                        :stats="projectStats"
                       ></ProfileCard>
                     </div>
 
@@ -53,7 +54,7 @@
                       <ProfileCard
                         name="Tyler O'Briant"
                         username="@cowboy_morty"
-                        :stats="stats"
+                        :stats="profileStats"
                       ></ProfileCard>
                     </div>
                   </div>
@@ -108,7 +109,12 @@ export default {
       isOwner: false,
       numSubs: 0,
       projectId: '',
-      stats: [
+      projectStats: [
+        { "name": "one", "stat": "7"},
+        { "name": "two", "stat": "7"},
+        { "name": "three", "stat": "7"}
+      ],
+      profileStats: [
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
         { "name": "three", "stat": "7"}
