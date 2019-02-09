@@ -12,6 +12,7 @@
       <!-- two columns, navpane and banner -->
       <div class="columns is-marginless is-hidden-touch main-margin">
 
+          <!-- nav pane -->
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
             <NavPane></NavPane>
           </div>
@@ -32,8 +33,7 @@
                 <div class="column is-half is-paddingless test-outline">
                   <DescriptionCard
                     headerString="Description"
-                    subheaderString="test substring"
-                    subheaderURL="/about"
+                    :subheaderOn="false"
                   >
                   Test content
 
@@ -65,17 +65,18 @@
 
                 <!-- new columns for content and info pane -->
               <div class="columns is-marginless">
+
+                <!-- post feed -->
                 <div class="column is-two-thirds test-outline">
                   <b>test</b>
                 </div>
-                <div class="column is-one-third test-outline">
-                  <DescriptionCard
-                    subheaderString="test substring"
-                    subheaderURL="/about"
-                  >
-                  Test content
 
-                </DescriptionCard>
+                <!-- info pane -->
+                <div class="column is-one-third test-outline side-pane">
+                  <InfoPane>
+                    <!-- fill with children components -->
+                    info pane
+                  </InfoPane>
                 </div>
               </div>
 
@@ -91,6 +92,7 @@ import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
+import InfoPane from '~/components/InfoCards/InfoPane';
 
 export default {
   name: "user-page-test",
@@ -100,6 +102,7 @@ export default {
     Banner,
     DescriptionCard,
     ProfileCard,
+    InfoPane,
   },
   data() {
     return {

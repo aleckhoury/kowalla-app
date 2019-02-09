@@ -24,11 +24,11 @@
 export default {
   name: "Card",
   props: {
-    headerString: String,
-    subheaderString: String,
-    subheaderURL: String,
-    headerOn: Boolean,
-    subheaderOn: Boolean,
+    headerString: { type: String, default: "" },
+    subheaderString: { type: String, default: "" },
+    subheaderURL: { type: String, default: "" },
+    headerOn: { type: Boolean, default: true },
+    subheaderOn: { type: Boolean, default: true },
   }
 }
 </script>
@@ -66,8 +66,6 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 0.75em;
   color: #39C9A0;
-
-
 }
 
 .subheader-content:hover {

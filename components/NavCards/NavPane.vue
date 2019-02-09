@@ -7,7 +7,7 @@
       subheaderOn
       headerOn
     >
-      <NavCard type="owned"></NavCard>
+      <NavCard type="user" selector="owned"></NavCard>
     </Card>
 
     <Card
@@ -17,7 +17,7 @@
       subheaderOn
       headerOn
     >
-      <NavCard type="subscriptions"></NavCard>
+      <NavCard type="user" selector="subscriptions"></NavCard>
     </Card>
   </div>
 </template>

@@ -31,15 +31,18 @@
               <div class="column is-two-thirds test-outline">
                 post content
               </div>
-              <div class="column is-one-third test-outline">
-                <DescriptionCard
-                  headerString="Description"
-                  subheaderString="test substring"
-                  subheaderURL="/about"
-                >
-                Test content
+              <div class="column is-one-third is-paddingless test-outline side-pane">
+                <InfoPane>
+                  <DescriptionCard
+                    headerString="Description"
+                    :subheaderOn="false"
+                  >
+                    test
 
-              </DescriptionCard>
+                  </DescriptionCard>
+                </InfoPane>
+
+
               </div>
             </div>
           </div>
@@ -53,12 +56,13 @@ import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
+import InfoPane from '~/components/InfoCards/InfoPane';
 
 import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",
-  components: { Header, NavPane, Banner, DescriptionCard },
+  components: { Header, NavPane, Banner, DescriptionCard, InfoPane },
   data() {
     return {
       communityName: '',
