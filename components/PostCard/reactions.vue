@@ -8,10 +8,10 @@
                 @click="toggleReaction(react.emoji, index)">
                 <b>{{ react.emoji }}{{ react.count }}</b>
             </a>
-            <a class="button is-outlined level-item is-hidden-mobile" v-if="reactionCount">
+            <a class="button is-outlined level-item is-hidden-mobile" v-if="reactionCount" @click="cardModal()">
                 <b>··· {{ reactionCount }}</b>
             </a>
-            <a v-if="reactionsFormatted.length" class="button is-outlined iterator level-item is-hidden-tablet">
+            <a v-if="reactionsFormatted.length" class="button is-outlined iterator level-item is-hidden-tablet" @click="cardModal()">
                 <b><span
                         class="is-marginless is-paddingless"
                         v-for="(react, index) in reactionsFormatted.slice(0, 3)">{{ react.emoji }}</span>{{ reactionCountMobile }}</b>
@@ -33,10 +33,11 @@
 
 <script>
   import { Picker } from 'emoji-mart-vue';
+  import ReactionModal from "./reactionModal";
 
   export default {
     name: "reactions",
-    components: { Picker },
+    components: { ReactionModal, Picker },
     props: {
       post: Object,
     },
@@ -58,9 +59,9 @@
         if (this.userReacted[index] || this.userReacted[objectEmojiIndex] && objectEmojiIndex !== -1) {
           await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
             data: {
-            emoji: savedEmoji,
-          }
-        });
+              emoji: savedEmoji,
+            }
+          });
           this.reactionsFormatted[index || objectEmojiIndex].count--;
           this.userReacted[index || objectEmojiIndex] = false;
           if (this.reactionsFormatted[index || objectEmojiIndex].count === 0) {
@@ -79,16 +80,27 @@
             this.reactionsFormatted[index].count++;
           } else if (typeof emoji === 'object') {
             this.$refs.dropdown.toggle()
-             if (objectEmojiIndex === -1) {
-               this.reactionsFormatted.push({ emoji: emoji.native, count: 1});
-               objectEmojiIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
-                 this.userReacted[objectEmojiIndex] = true;
-             } else {
-               this.userReacted[objectEmojiIndex] = true;
-               this.reactionsFormatted[objectEmojiIndex].count++;
-             }
+            if (objectEmojiIndex === -1) {
+              this.reactionsFormatted.push({ emoji: emoji.native, count: 1 });
+              objectEmojiIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
+              this.userReacted[objectEmojiIndex] = true;
+            } else {
+              this.userReacted[objectEmojiIndex] = true;
+              this.reactionsFormatted[objectEmojiIndex].count++;
+            }
           }
         }
+      },
+      cardModal() {
+        this.$modal.open({
+          parent: this,
+          component: ReactionModal,
+          props: {
+            reactionsFormatted: this.reactionsFormatted,
+          },
+          hasModalCard: true,
+        },
+      )
       },
     },
     computed: {
@@ -162,9 +174,6 @@
     }
     div.dropdown-item, .is-active.is-mobile-modal div.dropdown-item {
         padding: 0;
-    }
-    .emoji-mart-category {
-        white-space: pre-wrap;
     }
     .is-hidden-tablet {
         width: 6em;
