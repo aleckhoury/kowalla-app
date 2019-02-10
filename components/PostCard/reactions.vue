@@ -54,8 +54,7 @@
     methods: {
       async toggleReaction(emoji, index) {
         const savedEmoji = typeof emoji === 'string' ? emoji : emoji.native;
-        let objectEmojiIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
-        console.log(this.userReacted[objectEmojiIndex]);
+        let objectEmojiIndex = await this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
         if (this.userReacted[index] || this.userReacted[objectEmojiIndex] && objectEmojiIndex !== -1) {
           await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
             data: {
@@ -81,8 +80,8 @@
           } else if (typeof emoji === 'object') {
             this.$refs.dropdown.toggle()
              if (objectEmojiIndex === -1) {
-               await this.reactionsFormatted.push({ emoji: emoji.native, count: 1});
-               objectEmojiIndex = await this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
+               this.reactionsFormatted.push({ emoji: emoji.native, count: 1});
+               objectEmojiIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
                  this.userReacted[objectEmojiIndex] = true;
              } else {
                this.userReacted[objectEmojiIndex] = true;
@@ -119,11 +118,14 @@
             const index = this.reactionsFormatted.map(x => x.emoji).indexOf(x.emoji);
             if (index === -1) {
               this.reactionsFormatted.push({ emoji: x.emoji, count: 1});
+              if (userReacted) {
+                this.userReacted[0] = true;
+              }
             } else {
-              this.reactionsFormatted[index].count++
-            }
-            if (userReacted) {
-              this.userReacted[index] = true;
+              this.reactionsFormatted[index].count++;
+              if (userReacted) {
+                this.userReacted[index] = true;
+              }
             }
           })
         }

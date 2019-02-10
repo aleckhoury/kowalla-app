@@ -2,7 +2,6 @@
 
   <div>
     <b-autocomplete
-      v-model="search"
       class="searchbar-container"
       placeholder="Search"
       icon="magnify"

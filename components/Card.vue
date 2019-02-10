@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div class="header">
+    <div v-if="headerOn" class="header">
       <div class="header-content">
         <b>{{headerString}}</b>
       </div>
@@ -10,7 +10,8 @@
       <slot></slot>
     </div>
 
-    <div class="subheader">
+    <!-- TODO add v-if and update -->
+    <div v-if="subheaderOn" class="subheader">
       <nuxt-link :to="subheaderURL" class="subheader-content">
         <b>{{subheaderString}}</b>
       </nuxt-link>
@@ -23,9 +24,11 @@
 export default {
   name: "Card",
   props: {
-    headerString: String,
-    subheaderString: String,
-    subheaderURL: String,
+    headerString: { type: String, default: "" },
+    subheaderString: { type: String, default: "" },
+    subheaderURL: { type: String, default: "" },
+    headerOn: { type: Boolean, default: true },
+    subheaderOn: { type: Boolean, default: true },
   }
 }
 </script>
@@ -63,8 +66,6 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 0.75em;
   color: #39C9A0;
-  text-decoration: none;
-
 }
 
 .subheader-content:hover {

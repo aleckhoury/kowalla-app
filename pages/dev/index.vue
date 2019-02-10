@@ -11,16 +11,18 @@
       -->
 
       <div class="columns is-centered is-marginless main-margin">
+
+        <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
           <NavPane></NavPane>
         </div>
-
 
         <div class="column is-one-half is-paddingless no-margin test-outline">
           <CreatePost></CreatePost>
           <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
+        <!-- info pane -->
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
           info
         </div>
@@ -31,15 +33,13 @@
 
 <script>
 import Header from '~/components/Header/Header';
-import PlaceholderText from '~/components/PlaceholderText';
 import NavPane from '~/components/NavCards/NavPane';
-import 'element-ui/lib/theme-chalk/display.css'
-import CreatePost from "../../components/createPost";
 import Post from "../../components/PostCard/Post"
+import CreatePost from "../../components/createPost";
 
 export default {
   name: "test",
-  components: { CreatePost, Header, PlaceholderText, NavPane, Post },
+  components: { CreatePost, Header, NavPane, Post },
   data() {
     return {
       postList: [],
@@ -70,11 +70,6 @@ export default {
   padding-right: 0px;
   padding-bottom: 0px;
 }
-
-.background-tint {
-  background-color: #E9EBEE;
-}
-
 .side-pane {
   display: flex;
   justify-content: center;
