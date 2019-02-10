@@ -19,18 +19,22 @@
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
           <InfoPane>
             <ProfileCard
-              name="Tyler O'Briant"
+              :name="`${this.firstName} ${this.lastName}`"
+              :profilePictureURL="profilePictureURL"
               :username="username"
               :stats="profileStats"></ProfileCard>
 
             <DescriptionCard
-              headerString="About Tyler"
-              :subheaderOn="false"
-            >about tob</DescriptionCard>
+              :headerString="`About ${this.firstName}`"
+              :subheaderOn="false">
+
+              {{profileDescription}}
+
+            </DescriptionCard>
 
             <Card
-              v-if="profileSubs.hasOwnProperty('owned')"
-              headerString="Tyler's Projects"
+              v-if="profileSubs.owned.length > 0"
+              :headerString="`${this.firstName}'s Projects`"
               headerOn
               :subheaderOn="false"
             >
@@ -39,8 +43,8 @@
             </Card>
 
             <Card
-              v-if="profileSubs.hasOwnProperty('subscriptions')"
-              headerString="Tyler's Subscriptions"
+              v-if="profileSubs.subscriptions.length > 0"
+              :headerString="`${this.firstName}'s Subscriptions`"
               subheaderString="More communities you'll love"
             >
               <!-- need to make NavCard more flexible -->
@@ -69,21 +73,18 @@ export default {
   data() {
     return {
       username: null,
+      profileId: '',
+      firstName: '',
+      lastName: '',
+      profilePictureURL: '',
+      profileDescription: '',
+
       profileStats: [
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
         { "name": "three", "stat": "7"}
       ],
-      profileSubs: {
-        subscriptions: [
-          {name: "TestProject", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
-          {name: "TestCommunity", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
-        ],
-        owned: [
-          {name: "TestProject", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
-          {name: "TestCommunity", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
-        ]
-      }
+      profileSubs: {subscriptions: [], owned: []},
     };
   },
   computed: {
@@ -92,8 +93,49 @@ export default {
     },
   },
   created() {
+
     this.username = this.$route.params.username;
   },
+  mounted() {
+    this.$axios.get(`/api/v1/profiles/u/${this.username}`)
+      .then(({data}) => {
+
+        // get name
+        if (data.hasOwnProperty('firstName')) {
+          this.firstName = data.firstName;
+        }
+        if (data.hasOwnProperty('lastName')) {
+          this.lastName = data.lastName;
+        }
+
+        // profile description
+        if (data.hasOwnProperty('description')) {
+          this.profileDescription = data.description;
+        }
+
+        // profile picture
+        if (data.hasOwnProperty('profilePicture')) {
+          this.profilePictureURL = data.profilePicture;
+        }
+
+        // profile Id
+        if (data.hasOwnProperty('_id')) {
+          this.profileId = data._id;
+        }
+      }) // end first .then
+      .then(() => {
+
+        this.$axios.get(`/api/v1/profiles/CSme8eylU/subs`)
+        .then(({data}) => {
+          // setup profile Subscriptions
+          if (data.hasOwnProperty('profileSubscriptions')) {
+            this.profileSubs = data.profileSubscriptions;
+          }
+        });
+      });
+
+
+  }
 };
 </script>
 

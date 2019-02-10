@@ -2,7 +2,7 @@ export const state = () => ({
   authUser: null,
   isUserLoggedIn: true,
   name: "Tyler O'Briant",
-  username: 'tob',
+  username: 'cowboy_morty',
   description: '',
   uiColor: '',
   hasNotifications: false,

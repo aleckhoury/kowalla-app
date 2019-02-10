@@ -1,7 +1,7 @@
 <template>
   <div class="profile-card-container">
 
-    <img class="image" :src="this.$store.state.user.profilePicture" />
+    <img class="image" :src="profilePictureURL" />
 
     <div class="name font-family">
       <b>{{name}}</b>
@@ -39,6 +39,7 @@ export default {
   props: {
     name: String,
     username: String,
+    profilePictureURL: {type: String, default: ''},
     subheaderString: String,
     subheaderURL: String,
     stats: Array,
