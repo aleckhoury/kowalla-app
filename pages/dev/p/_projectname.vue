@@ -20,7 +20,7 @@
           <div class="column is-three-quarters is-paddingless">
 
               <Banner
-                bannerURL=""
+                :bannerURL="bannerPictureURL"
                 :bannerTitle="projectName"
                 bannerTitlePrefix="@"
                 :isSubscribed="isSubscribed"
@@ -35,7 +35,7 @@
                     headerString="Description"
                     :subheaderOn="false"
                   >
-                  Test content
+                  {{projectDescription}}
 
                   </DescriptionCard>
                 </div>
@@ -44,16 +44,18 @@
                   <div class="level">
                     <div class="level-item">
                       <ProfileCard
-                        name="Aceable"
-                        username="@Aceable"
+                        :name="projectName"
+                        :username="`@${projectName}`"
+                        :subheaderString="`View ${projectName}'s stats`"
                         :stats="projectStats"
                       ></ProfileCard>
                     </div>
 
                     <div class="level-item">
                       <ProfileCard
-                        name="Tyler O'Briant"
-                        username="@cowboy_morty"
+                        :name="`${adminFirstName} ${adminLastName}`"
+                        :username="`@${adminUsername}`"
+                        :subheaderString="`View ${adminFirstName}'s profile`"
                         :stats="profileStats"
                       ></ProfileCard>
                     </div>
@@ -107,11 +109,18 @@ export default {
   data() {
     return {
       projectName: null,
-      pictureURL: '',
+      bannerPictureURL: '',
+      profilePictureURL: '',
+      projectDescription: '',
+      admins: null,
       isSubscribed: false,
       isOwner: false,
       numSubs: 0,
       projectId: '',
+      adminFirstName: '',
+      adminLastName: '',
+      adminUsername: '',
+      adminProfilePictureURL: '',
       projectStats: [
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
@@ -128,24 +137,42 @@ export default {
     this.projectName = this.$route.params.projectname;
   },
   mounted() {
-    //let projectObj = axiosCallToDatabase();
-    let projectObj = {
-      name: "Aceable",
-      numSubs: 1000,
-      projectId: '1111',
-      pictureURL: '',
-    }
-
-    // get info from obj
-    this.name = projectObj.name;
-    this.pictureURL = projectObj.pictureURL;
-    this.numSubs = projectObj.numSubs;
-    this.projectId = projectObj.projectId;
-
-    // get info from state
-    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
     this.isOwner = this.$store.getters['user/isUserOwner'];
 
+    this.$axios.get(`/api/v1/projects/p/${this.projectName}`)
+      .then(({data}) => {
+        if (data.hasOwnProperty('headerPicture')) {
+          this.bannerPictureURL = data.headerPicture;
+        }
+        if (data.hasOwnProperty('profilePicture')) {
+          this.profilePictureURL = data.profilePicture;
+        }
+        if (data.hasOwnProperty('_id')) {
+          this.projectId = data._id;
+        }
+        if (data.hasOwnProperty('description')) {
+          this.projectDescription = data.description;
+        }
+        if (data.hasOwnProperty('admins')) {
+          this.admins = data.admins;
+        }
+    }).then(() => {
+      this.$axios.get(`/api/v1/profiles/${this.admins[0]}`)
+        .then(({data}) => {
+          if (data.hasOwnProperty('firstName')) {
+            this.adminFirstName = data.firstName;
+          }
+          if (data.hasOwnProperty('lastName')) {
+            this.adminLastName = data.lastName;
+          }
+          if (data.hasOwnProperty('username')) {
+            this.adminUsername = data.username;
+          }
+          if (data.hasOwnProperty('profilePicture')) {
+            this.adminProfilePictureURL = data.adminProfilePictureURL;
+          }
+        });
+    });
   },
   computed: {
     getProjectName() {
@@ -156,7 +183,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
-        pictureURL: this.pictureURL,
+        bannerPictureURL: this.bannerPictureURL,
         numSubs: Number(this.numSubs),
         projectId: this.projectId,
       };

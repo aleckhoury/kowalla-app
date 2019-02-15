@@ -24,8 +24,8 @@
     </div>
 
     <div class="subheader">
-      <nuxt-link to="subheaderURL" class="subheader-content">
-        <b>Subheader content</b>
+      <nuxt-link :to="subheaderURL" class="subheader-content">
+        <b>{{subheaderString}}</b>
       </nuxt-link>
     </div>
   </div>
@@ -40,8 +40,8 @@ export default {
     name: String,
     username: String,
     profilePictureURL: {type: String, default: ''},
-    subheaderString: String,
-    subheaderURL: String,
+    subheaderString: {type: String, default: 'test'},
+    subheaderURL: {type: String, default: '/about'},
     stats: Array,
   },
   computed: {

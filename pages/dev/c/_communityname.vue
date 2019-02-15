@@ -18,7 +18,7 @@
 
           <div class="column is-three-quarters is-paddingless">
               <Banner
-                :bannerURL="communityPictureUrl"
+                :bannerURL="bannerPictureURL"
                 :bannerTitle="communityName"
                 bannerTitlePrefix="#"
                 :isSubscribed="isSubscribed"
@@ -37,7 +37,7 @@
                     headerString="Description"
                     :subheaderOn="false"
                   >
-                    test
+                    {{communityDescription}}
 
                   </DescriptionCard>
                 </InfoPane>
@@ -66,7 +66,9 @@ export default {
   data() {
     return {
       communityName: '',
-      communityPictureUrl: '',
+      bannerPictureURL: '',
+      profilePictureURL: '',
+      communityDescription: '',
       isSubscribed: false,
       isOwner: false,
       numSubs: '',
@@ -77,18 +79,29 @@ export default {
     this.communityName = this.$route.params.communityname;
   },
   mounted() {
-    //let communityObj = axiosCallToDatabase();
-    let communityObj = {
-      name: "EarlyAdopters",
-      numSubs: '10',
-      pictureURL: '',
-      communityId: '2222',
-    };
-    this.communityPictureUrl = communityObj.pictureURL;
-    this.numSubs = communityObj.numSubs;
-    this.communityId = communityObj.communityId;
-    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
     this.isOwner = this.$store.getters['user/isUserOwner'];
+
+    this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
+      .then(({data}) => {
+        console.log(data);
+
+        if (data.hasOwnProperty('headerPicture')) {
+          this.bannerPictureURL = data.headerPicture;
+        }
+
+        if (data.hasOwnProperty('profilePicture')) {
+          this.profilePictureURL = data.profilePicture;
+        }
+
+        if (data.hasOwnProperty('_id')) {
+          this.communityId = data._id;
+        }
+
+        if (data.hasOwnProperty('description')) {
+          this.communityDescription = data.description;
+        }
+
+      });
   },
   computed: {
     getCommunityName() {
@@ -101,7 +114,7 @@ export default {
 
       let subInfo = {
         name: this.communityName,
-        pictureURL: this.communityPictureUrl,
+        pictureURL: this.bannerPictureURL,
         numSubs: Number(this.numSubs),
         communityId: this.communityId,
       };

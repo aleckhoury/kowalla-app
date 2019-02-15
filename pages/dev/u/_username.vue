@@ -125,7 +125,7 @@ export default {
       }) // end first .then
       .then(() => {
 
-        this.$axios.get(`/api/v1/profiles/CSme8eylU/subs`)
+        this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`)
         .then(({data}) => {
           // setup profile Subscriptions
           if (data.hasOwnProperty('profileSubscriptions')) {
