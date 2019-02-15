@@ -6,7 +6,7 @@ export const state = () => ({
   description: '',
   uiColor: '',
   hasNotifications: false,
-  _id: 1234567890,
+  _id: 1234567890, // need to update before playing with sub axios calls
   profilePicture: "https://media.licdn.com/dms/image/C5603AQHR9b4T-gMdDA/profile-displayphoto-shrink_200_200/0?e=1552521600&v=beta&t=OCqWMbZEViWI0AEtPBdiA0-VlrUFfC-wJCR900OQaBE",
   subscriptions: [
     {name: "Aceable", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
@@ -20,14 +20,32 @@ export const state = () => ({
 
 export const actions = ({
   async updateSubscriptions({ commit, state }, subObj) {
-
     // call axios to update
     if (subObj.subBool) {
       // send create subscription
+
+      /* createSub - untested, needs completing
+      this.$axios.post(`/api/v1/profiles/${state._id}/subs`);
+      */
       commit('addSubscription', subObj);
     } else {
       // send delete subscription
       commit('removeSubscription', subObj);
+
+
+      /* deleteSub - untested
+      let type = '';
+      let typeId = '';
+      if (subObj.hasOwnProperty('projectId')) {
+        type = projects;
+        typeId = subObj.projectId;
+      } else {
+        type = communities;
+        typeId = subObj.communityId;
+      }
+
+      this.$axios.delete(`/api/v1/profiles/${state._id}/subs/${type}/${typeId}`);
+      */
     }
   }
 });

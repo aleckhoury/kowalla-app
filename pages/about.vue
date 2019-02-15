@@ -1,29 +1,35 @@
 <template lang="html">
-  <el-container>
-    <el-header 
-      class="no-padding" 
-      height="90px">
-      <Header/>
-    </el-header>
+  <div class="screen background-tint">
 
-    <el-main class="no-padding">
-      <PlaceholderText>about</PlaceholderText>
-    </el-main>
-  </el-container>
+    <Header></Header>
+
+    <div class="container is-fullhd">
+      <!--
+          we'll want to dial in the container fullhd breakpoint
+          right now it isn't contained to just ultra-wides, and effects
+          normal laptop resolution
+      -->
+
+      <div class="columns is-centered is-marginless main-margin">
+
+        <!-- post feed -->
+        <div class="column is-one-half is-paddingless test-outline">
+          about
+        </div>
+
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import PlaceholderText from '~/components/PlaceholderText';
 import Header from '~/components/Header/Header';
 
 export default {
   name: 'About',
-  components: { PlaceholderText, Header, },
+  components: { Header },
 };
 </script>
 
 <style lang="css">
-.no-padding {
-  padding: 0px;
-}
 </style>

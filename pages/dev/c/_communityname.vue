@@ -80,11 +80,10 @@ export default {
   },
   mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
+    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
     this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
       .then(({data}) => {
-        console.log(data);
-
         if (data.hasOwnProperty('headerPicture')) {
           this.bannerPictureURL = data.headerPicture;
         }

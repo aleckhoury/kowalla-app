@@ -138,6 +138,7 @@ export default {
   },
   mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
+    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
     this.$axios.get(`/api/v1/projects/p/${this.projectName}`)
       .then(({data}) => {
