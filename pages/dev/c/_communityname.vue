@@ -18,7 +18,7 @@
 
           <div class="column is-three-quarters is-paddingless">
               <Banner
-                :bannerURL="communityPictureUrl"
+                :bannerURL="bannerPictureURL"
                 :bannerTitle="communityName"
                 bannerTitlePrefix="#"
                 :isSubscribed="isSubscribed"
@@ -37,7 +37,7 @@
                     headerString="Description"
                     :subheaderOn="false"
                   >
-                    test
+                    {{communityDescription}}
 
                   </DescriptionCard>
                 </InfoPane>
@@ -66,7 +66,9 @@ export default {
   data() {
     return {
       communityName: '',
-      communityPictureUrl: '',
+      bannerPictureURL: '',
+      profilePictureURL: '',
+      communityDescription: '',
       isSubscribed: false,
       isOwner: false,
       numSubs: '',
@@ -76,19 +78,28 @@ export default {
   created() {
     this.communityName = this.$route.params.communityname;
   },
-  mounted() {
-    //let communityObj = axiosCallToDatabase();
-    let communityObj = {
-      name: "EarlyAdopters",
-      numSubs: '10',
-      pictureURL: '',
-      communityId: '2222',
-    };
-    this.communityPictureUrl = communityObj.pictureURL;
-    this.numSubs = communityObj.numSubs;
-    this.communityId = communityObj.communityId;
-    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
+  async mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
+    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
+
+    let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
+
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    if (infoRes.data.hasOwnProperty('headerPicture')) {
+      this.bannerPictureURL = infoRes.data.headerPicture;
+    }
+    if (infoRes.data.hasOwnProperty('profilePicture')) {
+      this.profilePictureURL = infoRes.data.profilePicture;
+    }
+    if (infoRes.data.hasOwnProperty('_id')) {
+      this.communityId = infoRes.data._id;
+    }
+    if (infoRes.data.hasOwnProperty('description')) {
+      this.communityDescription = infoRes.data.description;
+    }
   },
   computed: {
     getCommunityName() {
@@ -101,7 +112,7 @@ export default {
 
       let subInfo = {
         name: this.communityName,
-        pictureURL: this.communityPictureUrl,
+        pictureURL: this.bannerPictureURL,
         numSubs: Number(this.numSubs),
         communityId: this.communityId,
       };

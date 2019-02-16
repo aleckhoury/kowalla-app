@@ -1,7 +1,7 @@
 <template>
   <div class="profile-card-container">
 
-    <img class="image" :src="this.$store.state.user.profilePicture" />
+    <img class="image" :src="profilePictureURL" />
 
     <div class="name font-family">
       <b>{{name}}</b>
@@ -24,8 +24,8 @@
     </div>
 
     <div class="subheader">
-      <nuxt-link to="subheaderURL" class="subheader-content">
-        <b>Subheader content</b>
+      <nuxt-link :to="subheaderURL" class="subheader-content">
+        <b>{{subheaderString}}</b>
       </nuxt-link>
     </div>
   </div>
@@ -39,8 +39,9 @@ export default {
   props: {
     name: String,
     username: String,
-    subheaderString: String,
-    subheaderURL: String,
+    profilePictureURL: {type: String, default: ''},
+    subheaderString: {type: String, default: 'test'},
+    subheaderURL: {type: String, default: '/about'},
     stats: Array,
   },
   computed: {
