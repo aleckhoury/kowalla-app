@@ -9,7 +9,9 @@
             <!--</p>-->
         <!--</figure>-->
         <br />
-        <reactions :post="post"/>
+        <!--
+        <Reactions :post="post"/>
+      -->
     </div>
 </template>
 
@@ -27,7 +29,8 @@
       }
     },
     methods: {},
-    async created() {
+    created() {
+      console.log('post made');
     },
   };
 </script>
