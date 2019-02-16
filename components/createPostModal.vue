@@ -179,15 +179,15 @@
         photoUrl: '',
       };
     },
-    beforeDestroy() {
+    async beforeDestroy() {
       if (this.clearPhoto === true) {
-        const fileName = (this.photoUrl.split('post-pics/'))[1];
-        this.$axios.post('/api/v1/posts/imageDelete', {
+        const fileName = await (this.photoUrl.split('post-pics/'))[1];
+        await this.$axios.post('/api/v1/posts/imageDelete', {
           bucket: 'kowalla-dev/user/post-pics',
           fileName,
           });
       }
-      this.editor.destroy()
+      await this.editor.destroy();
     },
     methods: {
       async createPost() {
