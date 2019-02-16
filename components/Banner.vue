@@ -33,6 +33,9 @@ export default {
     isSubscribed: Boolean,
     isOwner: Boolean,
   },
+  mounted() {
+    console.log(this.bannerURL);
+  },
   methods: {
     handleClick(subBool) {
       //const subObj = { subBool };

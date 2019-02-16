@@ -21,7 +21,7 @@
             <ProfileCard
               :name="`${this.firstName} ${this.lastName}`"
               :profilePictureURL="profilePictureURL"
-              :username="username"
+              :username="`@${this.username}`"
               :stats="profileStats"></ProfileCard>
 
             <DescriptionCard
@@ -34,7 +34,7 @@
 
             <Card
               v-if="profileSubs.owned.length > 0"
-              :headerString="`${this.firstName}'s Projects`"
+              :headerString="`Made by ${this.firstName}`"
               headerOn
               :subheaderOn="false"
             >
@@ -127,8 +127,9 @@ export default {
     }
 
     let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-
+    console.log(subRes);
     if (subRes.data.hasOwnProperty('profileSubscriptions')) {
+      console.log(subRes.data.profileSubscriptions);
       this.profileSubs = subRes.data.profileSubscriptions;
     }
   }
