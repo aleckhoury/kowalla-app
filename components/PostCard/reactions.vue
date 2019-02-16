@@ -4,7 +4,7 @@
             <a
                 class="button is-outlined iterator level-item is-hidden-mobile"
                 v-for="(react, index) in reactionsFormatted.slice(0, 3)"
-                :class="{ 'user-reacted': userReacted[index] }"
+                :class="{ 'user-reacted': react.userReacted }"
                 @click="toggleReaction(react.emoji, index)">
                 <b>{{ react.emoji }}{{ react.count }}</b>
             </a>
@@ -45,51 +45,47 @@
       return {
         reactionList: [],
         reactionsFormatted: [],
-        userReacted: [
-          false,
-          false,
-          false,
-        ],
       }
     },
     methods: {
-      async toggleReaction(emoji, index) {
+      async toggleReaction(emoji) {
         const savedEmoji = typeof emoji === 'string' ? emoji : emoji.native;
-        let objectEmojiIndex = await this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
-        if (this.userReacted[index] || this.userReacted[objectEmojiIndex] && objectEmojiIndex !== -1) {
-          await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
-            data: {
-              emoji: savedEmoji,
-            }
-          });
-          this.reactionsFormatted[index || objectEmojiIndex].count--;
-          this.userReacted[index || objectEmojiIndex] = false;
-          if (this.reactionsFormatted[index || objectEmojiIndex].count === 0) {
-            this.reactionsFormatted.splice(index || objectEmojiIndex, 1)
-          }
-          if (objectEmojiIndex === -1) {
-            this.$refs.dropdown.toggle()
-          }
-        } else {
+        let emojiIndex = await this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
+        const isEmojiObject = typeof emoji === 'object';
+        if (emojiIndex === -1 || this.reactionsFormatted[emojiIndex].userReacted === false) {
+          return this.toggleReactionTrue(savedEmoji, emojiIndex, isEmojiObject);
+        } else if (emojiIndex !== -1 && this.reactionsFormatted[emojiIndex].userReacted === true) {
+          return this.toggleReactionFalse(savedEmoji, emojiIndex);
+        }
+      },
+      async toggleReactionTrue(emoji, index, isEmojiObject) {
           await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
-            emoji: savedEmoji,
+            emoji: emoji,
             postId: this.post._id,
           });
-          if (typeof emoji === 'string') {
-            this.userReacted[index] = true;
-            this.reactionsFormatted[index].count++;
-          } else if (typeof emoji === 'object') {
-            this.$refs.dropdown.toggle()
-            if (objectEmojiIndex === -1) {
-              this.reactionsFormatted.push({ emoji: emoji.native, count: 1 });
-              objectEmojiIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
-              this.userReacted[objectEmojiIndex] = true;
-            } else {
-              this.userReacted[objectEmojiIndex] = true;
-              this.reactionsFormatted[objectEmojiIndex].count++;
-            }
+          if (index === -1) {
+            this.reactionsFormatted.push({ emoji: emoji, count: 1, userReacted: false });
+            const newIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(emoji);
+            this.reactionsFormatted[newIndex].userReacted = true;
+          } else {
+              this.reactionsFormatted[index].userReacted = true;
+              this.reactionsFormatted[index].count++;
           }
+          if (isEmojiObject) {
+            this.$refs.dropdown.toggle();
         }
+      },
+      async toggleReactionFalse(emoji, index) {
+          await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
+            data: {
+              emoji: emoji,
+            }
+          });
+          this.reactionsFormatted[index].count--;
+          this.reactionsFormatted[index].userReacted = false;
+          if (this.reactionsFormatted[index].count === 0) {
+            this.reactionsFormatted.splice(index, 1)
+          }
       },
       cardModal() {
         this.$modal.open({
@@ -99,8 +95,7 @@
             reactionsFormatted: this.reactionsFormatted,
           },
           hasModalCard: true,
-        },
-      )
+        });
       },
     },
     computed: {
@@ -127,16 +122,17 @@
         if (this.reactionList.length) {
           this.reactionList.forEach((x) => {
             const userReacted = x.profileId === this.$store.state.user._id;
-            const index = this.reactionsFormatted.map(x => x.emoji).indexOf(x.emoji);
+            let index = this.reactionsFormatted.map(y => y.emoji).indexOf(x.emoji);
             if (index === -1) {
-              this.reactionsFormatted.push({ emoji: x.emoji, count: 1});
+              this.reactionsFormatted.push({ emoji: x.emoji, count: 1, userReacted: false });
               if (userReacted) {
-                this.userReacted[0] = true;
+                index = this.reactionsFormatted.map(y => y.emoji).indexOf(x.emoji);
+                this.reactionsFormatted[index].userReacted = true;
               }
             } else {
               this.reactionsFormatted[index].count++;
               if (userReacted) {
-                this.userReacted[index] = true;
+                this.reactionsFormatted[index].userReacted = true;
               }
             }
           })

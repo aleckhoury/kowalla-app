@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Post from '~/components/PostCard/post.vue';
+import Post from '~/components/PostCard/Post.vue';
 import NavCard from '../components/NavCard';
 import Header from '../components/Header/Header';
 import CreatePost from "../components/createPost";
