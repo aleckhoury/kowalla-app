@@ -8,7 +8,9 @@
     </div>
 
     <div class="username font-family">
-      <b>{{username}}</b>
+      <nuxt-link :to="getRoute" class="username-link">
+        <b>@{{username}}</b>
+      </nuxt-link>
     </div>
 
     <div class="level is-marginless">
@@ -43,12 +45,17 @@ export default {
     subheaderString: {type: String, default: 'test'},
     subheaderURL: {type: String, default: '/about'},
     stats: Array,
+    type: String,
   },
   computed: {
     getStatInfoByIndex(i) {
       return this.stats[i].name;
+    },
+    getRoute() {
+      return (this.type === "project") ? `/dev/p/${this.username}` : `/dev/u/${this.username}`;
+
     }
-  }
+  },
 }
 </script>
 
@@ -138,5 +145,18 @@ export default {
 
 .subheader-content:hover {
   text-decoration: underline;
+}
+
+.username-link {
+  font-family: "Helvetica Neue";
+  font-size: 1em;
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.username-link:hover {
+  text-decoration: underline;
+  color: #39C9A0;
 }
 </style>

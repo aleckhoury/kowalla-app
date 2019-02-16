@@ -100,6 +100,8 @@ export default {
     if (infoRes.data.hasOwnProperty('description')) {
       this.communityDescription = infoRes.data.description;
     }
+
+    document.title = `kowalla - #${this.communityName}`;
   },
   computed: {
     getCommunityName() {

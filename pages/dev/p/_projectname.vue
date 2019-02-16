@@ -45,20 +45,22 @@
                     <div class="level-item">
                       <ProfileCard
                         :name="projectName"
-                        :username="`@${projectName}`"
+                        :username="projectName"
                         :profilePictureURL="projectProfilePictureURL"
                         :subheaderString="`View ${projectName}'s stats`"
                         :stats="projectStats"
+                        type="project"
                       ></ProfileCard>
                     </div>
 
                     <div class="level-item">
                       <ProfileCard
                         :name="`${adminFirstName} ${adminLastName}`"
-                        :username="`@${adminUsername}`"
+                        :username="adminUsername"
                         :profilePictureURL="adminProfilePictureURL"
                         :subheaderString="`View ${adminFirstName}'s profile`"
                         :stats="profileStats"
+                        type="user"
                       ></ProfileCard>
                     </div>
                   </div>
@@ -179,6 +181,8 @@ export default {
     if (adminRes.data.hasOwnProperty('profilePicture')) {
       this.adminProfilePictureURL = adminRes.data.profilePicture;
     }
+
+    document.title = `kowalla - @${this.projectName}`;
   },
   computed: {
     getProjectName() {

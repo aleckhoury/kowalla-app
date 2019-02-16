@@ -1,7 +1,7 @@
 <template>
   <div class="nav-card-link-container">
     <nuxt-link :to="getRoute">
-      <img class="picture" src="pictureURL"/>
+      <img class="picture" :src="pictureURL"/>
     </nuxt-link>
 
     <div class="nav-card-link-content">
