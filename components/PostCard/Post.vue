@@ -9,9 +9,9 @@
             <!--</p>-->
         <!--</figure>-->
         <br />
-        <!--
+
         <Reactions :post="post"/>
-      -->
+
     </div>
 </template>
 
