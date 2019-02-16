@@ -114,7 +114,7 @@ export default {
 
       let subInfo = {
         name: this.communityName,
-        pictureURL: this.bannerPictureURL,
+        pictureURL: this.profilePictureURL,
         numSubs: Number(this.numSubs),
         communityId: this.communityId,
       };

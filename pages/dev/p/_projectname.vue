@@ -59,6 +59,7 @@
                         :username="adminUsername"
                         :profilePictureURL="adminProfilePictureURL"
                         :subheaderString="`View ${adminFirstName}'s profile`"
+                        :subheaderURL="`/dev/u/${this.adminUsername}`"
                         :stats="profileStats"
                         type="user"
                       ></ProfileCard>
@@ -193,7 +194,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
-        bannerPictureURL: this.bannerPictureURL,
+        bannerPictureURL: this.projectProfilePictureURL,
         numSubs: Number(this.numSubs),
         projectId: this.projectId,
       };

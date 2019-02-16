@@ -1,8 +1,9 @@
 <template>
   <div class="profile-card-container">
-
-    <img class="image" :src="profilePictureURL" />
-
+    <nuxt-link :to="getRoute">
+      <img class="image" :src="profilePictureURL" />
+    </nuxt-link>
+    
     <div class="name font-family">
       <b>{{name}}</b>
     </div>
