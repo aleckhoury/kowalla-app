@@ -6,7 +6,7 @@ export const state = () => ({
   description: '',
   uiColor: '',
   hasNotifications: false,
-  _id: '1234567890',
+  _id: '1234567890', // need to update before playing with sub axios calls
   profilePicture: "https://media.licdn.com/dms/image/C5603AQHR9b4T-gMdDA/profile-displayphoto-shrink_200_200/0?e=1552521600&v=beta&t=OCqWMbZEViWI0AEtPBdiA0-VlrUFfC-wJCR900OQaBE",
   subscriptions: [
     {name: "Aceable", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
