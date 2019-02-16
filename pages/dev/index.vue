@@ -17,9 +17,9 @@
           <NavPane></NavPane>
         </div>
 
-        <!-- post feed -->
-        <div class="column is-one-half is-paddingless test-outline">
-          post feed
+        <div class="column is-one-half is-paddingless no-margin test-outline">
+          <CreatePost></CreatePost>
+          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
@@ -34,12 +34,52 @@
 <script>
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
+import Post from "../../components/PostCard/Post"
+import CreatePost from "../../components/createPost";
 
 export default {
   name: "test",
-  components: { Header, NavPane }
+  components: { CreatePost, Header, NavPane, Post },
+  data() {
+    return {
+      postList: [],
+    }
+  },
+  async created() {
+    this.postList = await this.$axios.$get('/api/v1/posts');
+  }
 }
 </script>
 
 <style lang="css">
+.no-padding {
+  padding: 0px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.test-outline {
+  border: 1px solid black;
+}
+
+.main-margin {
+  padding-top: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+}
+.side-pane {
+  display: flex;
+  justify-content: center;
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>

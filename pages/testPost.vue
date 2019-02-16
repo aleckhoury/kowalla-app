@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="columns">
+        <!--<Header></Header>-->
+        <div class="columns is-mobile">
             <div class="column is-one-quarter is-paddingless">
                 <nav-card />
             </div>
@@ -12,11 +12,10 @@
                 <nav-card />
             </div>
         </div>
-    </div>
 </template>
 
 <script>
-import Post from '~/components/PostCard/post.vue';
+import Post from '~/components/PostCard/Post.vue';
 import NavCard from '../components/NavCard';
 import Header from '../components/Header/Header';
 import CreatePost from "../components/createPost";

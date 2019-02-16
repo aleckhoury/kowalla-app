@@ -31,7 +31,7 @@ module.exports = {
   */
 
   css: [
-    'bulma/css/bulma.css',
+    // 'bulma/css/bulma.css',
     '~/css/main.css',
   ],
 
