@@ -2,7 +2,7 @@
   <div
     v-if="this.$auth.loggedIn"
     >
-    <Button @kow-button-click="newPostModal"><b>New</b></Button>
+    <Button @kow-button-click=""><b>New</b></Button>
 
     <Searchbar />
 
@@ -37,9 +37,9 @@ export default {
     };
   },
   methods: {
-    newPostModal(event) {
-      this.$toast.open('Something happened');
-    },
+    // newPostModal(event) {
+    //   return alert('Something happened');
+    // },
   },
 };
 </script>

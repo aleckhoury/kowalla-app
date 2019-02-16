@@ -29,6 +29,7 @@ export default {
   name: 'Searchbar',
   data() {
     return {
+      search: '',
       links: [],
       state4: '',
       timeout: null,

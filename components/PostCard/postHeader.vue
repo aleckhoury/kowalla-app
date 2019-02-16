@@ -9,9 +9,12 @@
             <p>
                 <strong>{{ profile.name }}</strong> <small>@{{ profile.username }} · {{ createdAtFormatted }}</small>
             </p>
-            <p>
+            <p class="communityOfPost">
                 Posted in <span><b>#{{ community.name }}</b></span>
             </p>
+        </div>
+        <div class="media-right">
+            <font-awesome-icon icon="angle-down"></font-awesome-icon>
         </div>
     </div>
 </template>
@@ -46,8 +49,14 @@
 </script>
 
 <style scoped>
+    /*.communityOfPost {*/
+        /*margin-top: 1em;*/
+    /*}*/
     .media-left {
         margin-right: 0.5em;
+    }
+    .media-right {
+        margin-left: auto;
     }
     .card-header {
         padding: 10px;

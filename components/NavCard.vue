@@ -1,5 +1,4 @@
 <template>
-    <section class="section">
         <div class="box">
             <figure class="media-left">
                 <p class="image is-64x64 profilePic">
@@ -15,7 +14,6 @@
                 </p>
             </div>
         </div>
-    </section>
 </template>
 
 <script>
