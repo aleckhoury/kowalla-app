@@ -2,7 +2,7 @@ export const state = () => ({
   authUser: null,
   isUserLoggedIn: true,
   name: "Tyler O'Briant",
-  username: 'tob',
+  username: 'cowboy_morty',
   description: '',
   uiColor: '',
   hasNotifications: false,
@@ -20,14 +20,32 @@ export const state = () => ({
 
 export const actions = ({
   async updateSubscriptions({ commit, state }, subObj) {
-
     // call axios to update
     if (subObj.subBool) {
       // send create subscription
+
+      /* createSub - untested, needs completing
+      this.$axios.post(`/api/v1/profiles/${state._id}/subs`);
+      */
       commit('addSubscription', subObj);
     } else {
       // send delete subscription
       commit('removeSubscription', subObj);
+
+
+      /* deleteSub - untested
+      let type = '';
+      let typeId = '';
+      if (subObj.hasOwnProperty('projectId')) {
+        type = projects;
+        typeId = subObj.projectId;
+      } else {
+        type = communities;
+        typeId = subObj.communityId;
+      }
+
+      this.$axios.delete(`/api/v1/profiles/${state._id}/subs/${type}/${typeId}`);
+      */
     }
   }
 });

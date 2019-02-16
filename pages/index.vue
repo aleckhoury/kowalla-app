@@ -1,23 +1,30 @@
 <template>
-  <section class="container">
-    <div>
-      <el-col :span="24">
-        <div class="title">
-          kowalla
-        </div>
-      </el-col>
+  <div class="screen">
 
-      <el-col 
-        :span="18" 
-        :offset="3">
-        <div class="subtitle">
-          It's a startup hub, on the net!
+    <div class="container">
+
+      <div class="columns is-centered is-marginless main-margin">
+
+        <!-- post feed -->
+        <div class="column is-narrow is-paddingless ">
+          <div class="title">
+            kowalla
+          </div>
+
+          <div class="subtitle">
+            build together here
+          </div>
+
+          <nuxt-link to="/dev">link to dev</nuxt-link>
+          <nuxt-link to="/login">Login</nuxt-link>
         </div>
-        <nuxt-link to="/dev">link to dev</nuxt-link>
-        <nuxt-link to="/login">Login</nuxt-link>
-      </el-col>
+
+      </div>
+
+
+
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -28,15 +35,6 @@ export default {
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #fff;
-}
-
 .title {
   font-family: "Nunito";
   display: block;

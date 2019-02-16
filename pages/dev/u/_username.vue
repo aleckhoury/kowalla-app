@@ -19,18 +19,22 @@
         <div class="column is-one-quarter is-paddingless test-outline side-pane">
           <InfoPane>
             <ProfileCard
-              name="Tyler O'Briant"
+              :name="`${this.firstName} ${this.lastName}`"
+              :profilePictureURL="profilePictureURL"
               :username="username"
               :stats="profileStats"></ProfileCard>
 
             <DescriptionCard
-              headerString="About Tyler"
-              :subheaderOn="false"
-            >about tob</DescriptionCard>
+              :headerString="`About ${this.firstName}`"
+              :subheaderOn="false">
+
+              {{profileDescription}}
+
+            </DescriptionCard>
 
             <Card
-              v-if="profileSubs.hasOwnProperty('owned')"
-              headerString="Tyler's Projects"
+              v-if="profileSubs.owned.length > 0"
+              :headerString="`${this.firstName}'s Projects`"
               headerOn
               :subheaderOn="false"
             >
@@ -39,8 +43,8 @@
             </Card>
 
             <Card
-              v-if="profileSubs.hasOwnProperty('subscriptions')"
-              headerString="Tyler's Subscriptions"
+              v-if="profileSubs.subscriptions.length > 0"
+              :headerString="`${this.firstName}'s Subscriptions`"
               subheaderString="More communities you'll love"
             >
               <!-- need to make NavCard more flexible -->
@@ -69,21 +73,18 @@ export default {
   data() {
     return {
       username: null,
+      profileId: '',
+      firstName: '',
+      lastName: '',
+      profilePictureURL: '',
+      profileDescription: '',
+
       profileStats: [
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
         { "name": "three", "stat": "7"}
       ],
-      profileSubs: {
-        subscriptions: [
-          {name: "TestProject", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
-          {name: "TestCommunity", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
-        ],
-        owned: [
-          {name: "TestProject", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
-          {name: "TestCommunity", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
-        ]
-      }
+      profileSubs: {subscriptions: [], owned: []},
     };
   },
   computed: {
@@ -92,8 +93,45 @@ export default {
     },
   },
   created() {
+
     this.username = this.$route.params.username;
   },
+  async mounted() {
+    let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
+
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    // get name
+    if (infoRes.data.hasOwnProperty('firstName')) {
+      this.firstName = infoRes.data.firstName;
+    }
+    if (infoRes.data.hasOwnProperty('lastName')) {
+      this.lastName = infoRes.data.lastName;
+    }
+
+    // profile description
+    if (infoRes.data.hasOwnProperty('description')) {
+      this.profileDescription = infoRes.data.description;
+    }
+
+    // profile picture
+    if (infoRes.data.hasOwnProperty('profilePicture')) {
+      this.profilePictureURL = infoRes.data.profilePicture;
+    }
+
+    // profile Id
+    if (infoRes.data.hasOwnProperty('_id')) {
+      this.profileId = infoRes.data._id;
+    }
+
+    let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
+
+    if (subRes.data.hasOwnProperty('profileSubscriptions')) {
+      this.profileSubs = subRes.data.profileSubscriptions;
+    }
+  }
 };
 </script>
 
