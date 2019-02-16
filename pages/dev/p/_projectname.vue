@@ -136,44 +136,46 @@ export default {
   created() {
     this.projectName = this.$route.params.projectname;
   },
-  mounted() {
+  async mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
-    this.$axios.get(`/api/v1/projects/p/${this.projectName}`)
-      .then(({data}) => {
-        if (data.hasOwnProperty('headerPicture')) {
-          this.bannerPictureURL = data.headerPicture;
-        }
-        if (data.hasOwnProperty('profilePicture')) {
-          this.profilePictureURL = data.profilePicture;
-        }
-        if (data.hasOwnProperty('_id')) {
-          this.projectId = data._id;
-        }
-        if (data.hasOwnProperty('description')) {
-          this.projectDescription = data.description;
-        }
-        if (data.hasOwnProperty('admins')) {
-          this.admins = data.admins;
-        }
-    }).then(() => {
-      this.$axios.get(`/api/v1/profiles/${this.admins[0]}`)
-        .then(({data}) => {
-          if (data.hasOwnProperty('firstName')) {
-            this.adminFirstName = data.firstName;
-          }
-          if (data.hasOwnProperty('lastName')) {
-            this.adminLastName = data.lastName;
-          }
-          if (data.hasOwnProperty('username')) {
-            this.adminUsername = data.username;
-          }
-          if (data.hasOwnProperty('profilePicture')) {
-            this.adminProfilePictureURL = data.adminProfilePictureURL;
-          }
-        });
-    });
+    let infoRes = await this.$axios.get(`/api/v1/projects/p/${this.projectName}`);
+
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    if (infoRes.data.hasOwnProperty('headerPicture')) {
+      this.bannerPictureURL = infoRes.data.headerPicture;
+    }
+    if (infoRes.data.hasOwnProperty('profilePicture')) {
+      this.profilePictureURL = infoRes.data.profilePicture;
+    }
+    if (infoRes.data.hasOwnProperty('_id')) {
+      this.projectId = infoRes.data._id;
+    }
+    if (infoRes.data.hasOwnProperty('description')) {
+      this.projectDescription = infoRes.data.description;
+    }
+    if (infoRes.data.hasOwnProperty('admins')) {
+      this.admins = infoRes.data.admins;
+    }
+
+    let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
+
+    if (adminRes.data.hasOwnProperty('firstName')) {
+      this.adminFirstName = adminRes.data.firstName;
+    }
+    if (adminRes.data.hasOwnProperty('lastName')) {
+      this.adminLastName = adminRes.data.lastName;
+    }
+    if (adminRes.data.hasOwnProperty('username')) {
+      this.adminUsername = adminRes.data.username;
+    }
+    if (adminRes.data.hasOwnProperty('profilePicture')) {
+      this.adminProfilePictureURL = adminRes.data.adminProfilePictureURL;
+    }
   },
   computed: {
     getProjectName() {

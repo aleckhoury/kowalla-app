@@ -96,45 +96,41 @@ export default {
 
     this.username = this.$route.params.username;
   },
-  mounted() {
-    this.$axios.get(`/api/v1/profiles/u/${this.username}`)
-      .then(({data}) => {
+  async mounted() {
+    let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
 
-        // get name
-        if (data.hasOwnProperty('firstName')) {
-          this.firstName = data.firstName;
-        }
-        if (data.hasOwnProperty('lastName')) {
-          this.lastName = data.lastName;
-        }
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    // get name
+    if (infoRes.data.hasOwnProperty('firstName')) {
+      this.firstName = infoRes.data.firstName;
+    }
+    if (infoRes.data.hasOwnProperty('lastName')) {
+      this.lastName = infoRes.data.lastName;
+    }
 
-        // profile description
-        if (data.hasOwnProperty('description')) {
-          this.profileDescription = data.description;
-        }
+    // profile description
+    if (infoRes.data.hasOwnProperty('description')) {
+      this.profileDescription = infoRes.data.description;
+    }
 
-        // profile picture
-        if (data.hasOwnProperty('profilePicture')) {
-          this.profilePictureURL = data.profilePicture;
-        }
+    // profile picture
+    if (infoRes.data.hasOwnProperty('profilePicture')) {
+      this.profilePictureURL = infoRes.data.profilePicture;
+    }
 
-        // profile Id
-        if (data.hasOwnProperty('_id')) {
-          this.profileId = data._id;
-        }
-      }) // end first .then
-      .then(() => {
+    // profile Id
+    if (infoRes.data.hasOwnProperty('_id')) {
+      this.profileId = infoRes.data._id;
+    }
 
-        this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`)
-        .then(({data}) => {
-          // setup profile Subscriptions
-          if (data.hasOwnProperty('profileSubscriptions')) {
-            this.profileSubs = data.profileSubscriptions;
-          }
-        });
-      });
+    let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
 
-
+    if (subRes.data.hasOwnProperty('profileSubscriptions')) {
+      this.profileSubs = subRes.data.profileSubscriptions;
+    }
   }
 };
 </script>

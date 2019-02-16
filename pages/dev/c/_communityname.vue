@@ -78,29 +78,28 @@ export default {
   created() {
     this.communityName = this.$route.params.communityname;
   },
-  mounted() {
+  async mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
-    this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
-      .then(({data}) => {
-        if (data.hasOwnProperty('headerPicture')) {
-          this.bannerPictureURL = data.headerPicture;
-        }
+    let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
 
-        if (data.hasOwnProperty('profilePicture')) {
-          this.profilePictureURL = data.profilePicture;
-        }
-
-        if (data.hasOwnProperty('_id')) {
-          this.communityId = data._id;
-        }
-
-        if (data.hasOwnProperty('description')) {
-          this.communityDescription = data.description;
-        }
-
-      });
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    if (infoRes.data.hasOwnProperty('headerPicture')) {
+      this.bannerPictureURL = infoRes.data.headerPicture;
+    }
+    if (infoRes.data.hasOwnProperty('profilePicture')) {
+      this.profilePictureURL = infoRes.data.profilePicture;
+    }
+    if (infoRes.data.hasOwnProperty('_id')) {
+      this.communityId = infoRes.data._id;
+    }
+    if (infoRes.data.hasOwnProperty('description')) {
+      this.communityDescription = infoRes.data.description;
+    }
   },
   computed: {
     getCommunityName() {
