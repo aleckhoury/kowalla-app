@@ -34,8 +34,8 @@
 <script>
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
-import Post from "../../components/PostCard/Post"
-import CreatePost from "../../components/createPost";
+import Post from "~/components/PostCard/Post"
+import CreatePost from "~/components/createPost";
 
 export default {
   name: "test",
@@ -45,7 +45,7 @@ export default {
       postList: [],
     }
   },
-  async created() {
+  async mounted() {
     this.postList = await this.$axios.$get('/api/v1/posts');
   }
 }

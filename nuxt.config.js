@@ -51,7 +51,7 @@ module.exports = {
     'nuxt-fontawesome',
     '@nuxtjs/auth',
     '@nuxtjs/pwa',
-    '@nuxtjs/onesignal',
+    //'@nuxtjs/onesignal',
     'nuxt-buefy',
   ],
   /*

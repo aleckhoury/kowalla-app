@@ -2,17 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-<<<<<<< HEAD
-const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
-const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
-const _18c57296 = () => interopDefault(import('../pages/index-old.vue' /* webpackChunkName: "pages/index-old" */))
-const _002f5d72 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _03b98859 = () => interopDefault(import('../pages/testPost.vue' /* webpackChunkName: "pages/testPost" */))
-const _759ea23c = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
-const _2d403325 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
-const _ca6d1a2c = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
-const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
-=======
 const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
 const _4dfea716 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
@@ -21,7 +10,6 @@ const _8f25cd02 = () => interopDefault(import('../pages/dev/c/_communityname.vue
 const _06e0a102 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
 const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
 const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
->>>>>>> develop
 
 Vue.use(Router)
 
@@ -82,42 +70,35 @@ export function createRouter() {
 
     routes: [{
       path: "/about",
-      component: _16cfdf96,
+      component: _20bda2ce,
       name: "about"
     }, {
       path: "/dev",
-      component: _55d34c61,
+      component: _90e13c38,
       name: "dev"
     }, {
-<<<<<<< HEAD
-      path: "/index-old",
-      component: _18c57296,
-      name: "index-old"
-    }, {
-=======
->>>>>>> develop
       path: "/login",
-      component: _002f5d72,
+      component: _4dfea716,
       name: "login"
     }, {
       path: "/testPost",
-      component: _03b98859,
+      component: _51333676,
       name: "testPost"
     }, {
       path: "/dev/c/:communityname?",
-      component: _759ea23c,
+      component: _8f25cd02,
       name: "dev-c-communityname"
     }, {
       path: "/dev/p/:projectname?",
-      component: _2d403325,
+      component: _06e0a102,
       name: "dev-p-projectname"
     }, {
       path: "/dev/u/:username?",
-      component: _ca6d1a2c,
+      component: _979bcba6,
       name: "dev-u-username"
     }, {
       path: "/",
-      component: _3687ba5b,
+      component: _0f59095e,
       name: "index"
     }],
 
