@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" @mouseover="loadPicker = true">
         <post-header :post="post"/>
         <div class="content is-marginless" v-html="post.content">
         </div>
@@ -9,7 +9,7 @@
             <!--</p>-->
         <!--</figure>-->
         <br />
-        <reactions :post="post"/>
+        <reactions :post="post" :load-picker="loadPicker" />
     </div>
 </template>
 
@@ -17,18 +17,16 @@
   import Reactions from "./reactions";
   import PostHeader from "./postHeader";
   export default {
-    name: "testPost",
+    name: "Post",
     components: { PostHeader, Reactions },
     props: {
       post: Object,
     },
     data() {
       return {
+        loadPicker: false,
       }
-    },
-    methods: {},
-    async created() {
-    },
+    }
   };
 </script>
 
