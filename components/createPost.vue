@@ -73,6 +73,7 @@ div .modal-content {
     background-color: #39C9A0;
     border-color: #39C9A0;
 }
+
 .post {
     margin-right: 0.75em;
 }

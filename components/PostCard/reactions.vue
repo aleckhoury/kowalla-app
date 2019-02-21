@@ -124,9 +124,14 @@
         return count;
       },
     },
+    created() {
+      console.log('reactions made');
+    },
     async mounted() {
       try {
+        console.log('getting reactions')
         this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.post._id}`);
+        console.log('reactions received')
         if (this.reactionList.length) {
           this.reactionList.forEach((x) => {
             const userReacted = x.profileId === this.$store.state.user._id;

@@ -69,31 +69,32 @@ export function createRouter() {
 
     routes: [{
       path: "/about",
-      component: _16cfdf96,
+      component: _20bda2ce,
       name: "about"
     }, {
       path: "/dev",
-      component: _55d34c61,
+      component: _90e13c38,
       name: "dev"
     }, {
       path: "/login",
-      component: _002f5d72,
+      component: _4dfea716,
       name: "login"
     }, {
+
       path: "/dev/c/:communityname?",
-      component: _759ea23c,
+      component: _8f25cd02,
       name: "dev-c-communityname"
     }, {
       path: "/dev/p/:projectname?",
-      component: _2d403325,
+      component: _06e0a102,
       name: "dev-p-projectname"
     }, {
       path: "/dev/u/:username?",
-      component: _ca6d1a2c,
+      component: _979bcba6,
       name: "dev-u-username"
     }, {
       path: "/",
-      component: _3687ba5b,
+      component: _0f59095e,
       name: "index"
     }],
 

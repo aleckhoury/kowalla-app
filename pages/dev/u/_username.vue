@@ -21,8 +21,9 @@
             <ProfileCard
               :name="`${this.firstName} ${this.lastName}`"
               :profilePictureURL="profilePictureURL"
-              :username="username"
-              :stats="profileStats"></ProfileCard>
+              :username="this.username"
+              :stats="profileStats"
+              type="user"></ProfileCard>
 
             <DescriptionCard
               :headerString="`About ${this.firstName}`"
@@ -34,7 +35,7 @@
 
             <Card
               v-if="profileSubs.owned.length > 0"
-              :headerString="`${this.firstName}'s Projects`"
+              :headerString="`Made by ${this.firstName}`"
               headerOn
               :subheaderOn="false"
             >
@@ -97,6 +98,8 @@ export default {
     this.username = this.$route.params.username;
   },
   async mounted() {
+
+
     let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
 
     //------------------
@@ -127,10 +130,13 @@ export default {
     }
 
     let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-
+    console.log(subRes);
     if (subRes.data.hasOwnProperty('profileSubscriptions')) {
+      console.log(subRes.data.profileSubscriptions);
       this.profileSubs = subRes.data.profileSubscriptions;
     }
+
+    document.title = `kowalla - ${this.firstName} ${this.lastName}`;
   }
 };
 </script>

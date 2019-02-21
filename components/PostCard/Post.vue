@@ -9,7 +9,9 @@
             <!--</p>-->
         <!--</figure>-->
         <br />
+
         <reactions :post="post" :load-picker="loadPicker" />
+
     </div>
 </template>
 
@@ -26,6 +28,7 @@
       return {
         loadPicker: false,
       }
+
     }
   };
 </script>

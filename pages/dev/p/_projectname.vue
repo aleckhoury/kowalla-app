@@ -45,18 +45,23 @@
                     <div class="level-item">
                       <ProfileCard
                         :name="projectName"
-                        :username="`@${projectName}`"
+                        :username="projectName"
+                        :profilePictureURL="projectProfilePictureURL"
                         :subheaderString="`View ${projectName}'s stats`"
                         :stats="projectStats"
+                        type="project"
                       ></ProfileCard>
                     </div>
 
                     <div class="level-item">
                       <ProfileCard
                         :name="`${adminFirstName} ${adminLastName}`"
-                        :username="`@${adminUsername}`"
+                        :username="adminUsername"
+                        :profilePictureURL="adminProfilePictureURL"
                         :subheaderString="`View ${adminFirstName}'s profile`"
+                        :subheaderURL="`/dev/u/${this.adminUsername}`"
                         :stats="profileStats"
+                        type="user"
                       ></ProfileCard>
                     </div>
                   </div>
@@ -110,7 +115,7 @@ export default {
     return {
       projectName: null,
       bannerPictureURL: '',
-      profilePictureURL: '',
+      projectProfilePictureURL: '',
       projectDescription: '',
       admins: null,
       isSubscribed: false,
@@ -147,10 +152,11 @@ export default {
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
     //------------------
     if (infoRes.data.hasOwnProperty('headerPicture')) {
+      console.log(infoRes.data.headerPicture)
       this.bannerPictureURL = infoRes.data.headerPicture;
     }
     if (infoRes.data.hasOwnProperty('profilePicture')) {
-      this.profilePictureURL = infoRes.data.profilePicture;
+      this.projectProfilePictureURL = infoRes.data.profilePicture;
     }
     if (infoRes.data.hasOwnProperty('_id')) {
       this.projectId = infoRes.data._id;
@@ -163,7 +169,7 @@ export default {
     }
 
     let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
-
+    console.log(adminRes.data);
     if (adminRes.data.hasOwnProperty('firstName')) {
       this.adminFirstName = adminRes.data.firstName;
     }
@@ -174,8 +180,10 @@ export default {
       this.adminUsername = adminRes.data.username;
     }
     if (adminRes.data.hasOwnProperty('profilePicture')) {
-      this.adminProfilePictureURL = adminRes.data.adminProfilePictureURL;
+      this.adminProfilePictureURL = adminRes.data.profilePicture;
     }
+
+    document.title = `kowalla - @${this.projectName}`;
   },
   computed: {
     getProjectName() {
@@ -186,7 +194,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
-        bannerPictureURL: this.bannerPictureURL,
+        bannerPictureURL: this.projectProfilePictureURL,
         numSubs: Number(this.numSubs),
         projectId: this.projectId,
       };
