@@ -16,12 +16,18 @@
                         class="is-marginless is-paddingless"
                         v-for="(react, index) in reactionsFormatted.slice(0, 3)">{{ react.emoji }}</span>{{ reactionCountMobile }}</b>
             </a>
-            <BDropdown ref="dropdown">
+            <BDropdown ref="dropdown" mobile-modal>
                 <a class="button is-outlined level-item" slot="trigger">
                     <font-awesome-icon icon="smile" />
                 </a>
                 <BDropdownItem custom>
-                    <Picker :native="true" :showSkinTones="false" :showPreview="false" @select="toggleReaction" />
+                    <Picker
+                        v-if="loadPicker"
+                        set="apple"
+                        :showSkinTones="false"
+                        :showPreview="false"
+                        @select="toggleReaction"
+                    ></Picker>
                 </BDropdownItem>
             </BDropdown>
             <a class="comments level-item">
@@ -32,14 +38,16 @@
 </template>
 
 <script>
-  import { Picker } from 'emoji-mart-vue';
   import ReactionModal from "./reactionModal";
+  import { Picker } from 'emoji-mart-vue'
+  import data from 'emoji-mart-vue/data/apple.json'
 
   export default {
     name: "reactions",
     components: { ReactionModal, Picker },
     props: {
       post: Object,
+      loadPicker: Boolean,
     },
     data() {
       return {
