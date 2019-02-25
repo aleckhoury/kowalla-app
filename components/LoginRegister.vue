@@ -1,0 +1,75 @@
+<template>
+    <div>
+        <div class="box level">
+            <span class="level-left is-size-4"><b>Log In</b></span>
+            <a class="button action" @click="cardModal()"><b>Create</b></a>
+        </div>
+    </div>
+</template>
+
+<script>
+  import LoginRegisterModal from "./LoginRegisterModal";
+
+  export default {
+    name: "LoginRegister",
+    data() {
+      return {
+        userDropdown: false,
+        commDropdown: false,
+      };
+    },
+    methods: {
+      cardModal() {
+        this.$modal.open({
+            parent: this,
+            component: LoginRegisterModal,
+            width: 900,
+            hasModalCard: true,
+          },
+        )
+      },
+    },
+  };
+</script>
+
+<style scoped>
+    .section {
+        padding-bottom: 0;
+    }
+    span {
+        color: #39C9A0;
+    }
+    .level {
+        padding: 1rem;
+    }
+    .modal-card-body {
+        overflow: visible;
+    }
+    .field {
+        margin: 1em 0;
+    }
+    div .modal-content {
+        width: 55%;
+        border-radius: 6px;
+        overflow: visible;
+    }
+    .modal-content.box {
+        min-height: 80%;
+    }
+    .button.action {
+        width: 12em;
+        color: white;
+        background-color: #39C9A0;
+        border-color: #39C9A0;
+    }
+
+    .post {
+        margin-right: 0.75em;
+    }
+    .is-white:hover {
+        background-color: #E9EBEE;
+    }
+    .dropdown-content {
+        overflow: visible;
+    }
+</style>

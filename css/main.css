@@ -37,3 +37,11 @@ div.dropdown div.button {
   width: 100%;
   height: 100%;
 }
+.tabs ul li.is-active a {
+    color: #39C9A0;
+    border-bottom-color: #39C9A0;
+
+}
+.has-text-primary i {
+    color: #39C9A0;
+}
