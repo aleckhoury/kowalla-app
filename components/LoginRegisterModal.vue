@@ -103,7 +103,7 @@
           console.log('test');
           console.log(user);
           this.$store.commit('user/setUser', user.data);
-
+          this.$parent.close();
           this.$router.push('/dev');
         } catch (e) {
           console.log(e);
@@ -124,6 +124,7 @@
             },
           });
           this.$store.commit('user/setUser', user.data);
+          this.$parent.close();
           this.$router.push('/dev');
         } catch (err) {
           console.log(err);
