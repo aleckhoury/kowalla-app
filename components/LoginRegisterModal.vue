@@ -145,7 +145,6 @@
     }
     .modal-content {
         border-radius: 6px;
-        overflow: visible;
         margin: 0;
         color: #39C9A0;
         width: auto;
