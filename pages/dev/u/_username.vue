@@ -130,9 +130,9 @@ export default {
     }
 
     let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-    console.log(subRes);
+    // console.log(subRes);
     if (subRes.data.hasOwnProperty('profileSubscriptions')) {
-      console.log(subRes.data.profileSubscriptions);
+      // console.log(subRes.data.profileSubscriptions);
       this.profileSubs = subRes.data.profileSubscriptions;
     }
 
