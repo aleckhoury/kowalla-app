@@ -20,7 +20,7 @@
             </b-field>
 
             <b-field label="Description">
-                <b-input v-model="spaceForm.description" maxlength="200" type="textarea"></b-input>
+                <b-input v-model="spaceForm.description" maxlength="500" type="textarea"></b-input>
             </b-field>
             <a class="button action" @click="createProject(spaceForm)">
                 Create

@@ -13,8 +13,8 @@ export const state = () => ({
     {name: "ExNI", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
   ],
   owned: [
-    {name: "kowalla", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
-    {name: "EarlyAdopters", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
+    {name: "kowalla", pictureURL: 'aaa', projectId: "5ujOxFHEK", numSubs: 1000},
+    {name: "EarlyAdopters", pictureURL: 'bbb', communityId: "upRnGdx-8", numSubs: 10},
   ]
 });
 
@@ -54,7 +54,23 @@ export const actions = ({
     } else {
       commit('removeOwned', subObj);
     }
-  }
+  },
+  /*
+  editOwned({ commit, state }, subObj) {
+    if (subObj.hasOwnProperty('communityId')) {
+      // search by communityId
+    }
+
+    if (subObj.hasOwnProperty('projectId')) {
+      // search by projectId
+      for (let i=0; i<owned.length; i++) {
+        if (owned[i].projectId === subObj.projectId) {
+          owned[i].name = subObj.name;
+          owned[i].pictureURL = subObj.pictureURL;
+        }
+      }
+    }
+  }*/
 });
 
 export const getters = ({
@@ -134,6 +150,32 @@ export const mutations = {
       }
     }
   },
+  editOwned(state, subObj) {
+    console.log('in mutation');
+    console.log(subObj);
+    if (subObj.hasOwnProperty('communityId')) {
+      // search by communityId
+      for (let i=0; i<state.owned.length; i++) {
+        console.log(i);
+        if (state.owned[i].communityId === subObj.communityId) {
+          state.owned[i].name = subObj.name;
+          state.owned[i].pictureURL = subObj.pictureURL;
+        }
+      }
+    }
+
+    if (subObj.hasOwnProperty('projectId')) {
+      // search by projectId
+
+      for (let i=0; i<state.owned.length; i++) {
+        console.log(i);
+        if (state.owned[i].projectId === subObj.projectId) {
+          state.owned[i].name = subObj.name;
+          state.owned[i].pictureURL = subObj.pictureURL;
+        }
+      }
+    }
+  }
 };
 
 
