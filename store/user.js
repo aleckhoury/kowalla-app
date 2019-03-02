@@ -47,6 +47,13 @@ export const actions = ({
       this.$axios.delete(`/api/v1/profiles/${state._id}/subs/${type}/${typeId}`);
       */
     }
+  },
+  async updateOwned({ commit, state }, subObj) {
+    if (subObj.subBool) {
+      commit('addOwned', subObj);
+    } else {
+      commit('removeOwned', subObj);
+    }
   }
 });
 
@@ -109,7 +116,24 @@ export const mutations = {
         state.subscriptions.splice(i, 1);
       }
     }
-  }
+  },
+  addOwned(state, subObj) {
+    console.log('adding owned')
+    console.log(`subObj: ${subObj}`)
+    state.owned.push(subObj);
+  },
+  removeOwned(state, subObj) {
+    console.log(state);
+    console.log(subObj);
+    console.log('removing owned');
+    for (let i=0; i<state.owned.length; i++) {
+      console.log('searching owned');
+      if (state.owned[i].name === subObj.name) {
+        console.log('splicing owned');
+        state.owned.splice(i, 1);
+      }
+    }
+  },
 };
 
 

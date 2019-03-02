@@ -194,7 +194,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
-        bannerPictureURL: this.projectProfilePictureURL,
+        pictureURL: this.projectProfilePictureURL,
         numSubs: Number(this.numSubs),
         projectId: this.projectId,
       };
