@@ -9,42 +9,23 @@
                         <br>
                         {{ comment.content }}
                         <br>
-                        <small v-if="nestLevel < 2" @click="toggleReply"><a>Reply</a></small>
+                        <small v-if="nestLevel < 2" @click="toggleReply(reply)"><a>Reply</a></small>
                     </p>
-                    <AddComment v-if="reply" :commentId="comment._id" :updateComment="updateComment" :postId="comment.postId" />
+                    <AddComment
+                        v-if="reply && activeCommentId === comment._id"
+                        :commentId="comment._id"
+                        :updateComment="updateComment"
+                        :postId="comment.postId" />
                 </div>
-                <Comment v-if="nestLevel < 2" v-for="nestComment in replyList" :key="nestComment._id" :comment="nestComment" :nest-level="nextNestLevel" :toggle="toggleNestedReply" />
-
-                <!--<article class="media">-->
-                    <!--<font-awesome-icon icon="arrow-up" class="media-left upvote2" />-->
-                    <!--<div class="media-content">-->
-                        <!--<div class="content">-->
-                            <!--<p>-->
-                                <!--<small>@{{ profile.username }} · {{ createdAtFormatted }}</small>-->
-                                <!--<br>-->
-                                <!--{{ comment.content }}-->
-                                <!--<br>-->
-                                <!--<small><a>Reply</a></small>-->
-                            <!--</p>-->
-                        <!--</div>-->
-
-                        <!--<article class="media">-->
-                            <!--<font-awesome-icon icon="arrow-up" class="media-left upvote2" />-->
-                            <!--<div class="media-content">-->
-                                <!--<div class="content">-->
-                                    <!--<p>-->
-                                        <!--<small>@{{ profile.username }} · {{ createdAtFormatted }}</small>-->
-                                        <!--<br>-->
-                                        <!--{{ comment.content }}-->
-                                        <!--<br>-->
-                                        <!--<small><a>Reply</a></small>-->
-                                    <!--</p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</article>-->
-
-                    <!--</div>-->
-                <!--</article>-->
+                <Comment
+                    v-if="nestLevel < 2"
+                    :nested="true"
+                    v-for="nestComment in replyList"
+                    :key="nestComment._id"
+                    :comment="nestComment"
+                    :nest-level="nextNestLevel"
+                    :toggle="toggle"
+                    :toggleNested="nestedToggleReply" />
             </div>
         </article>
     </div>
@@ -60,7 +41,9 @@ const { format, render, cancel, register } = require('timeago.js');
       comment: Object,
       nestLevel: Number,
       toggle: Function,
-      reply: Boolean,
+      toggleNested: Function,
+      activeComment: String,
+      nested: Boolean,
     },
     components: {
       AddComment
@@ -69,7 +52,6 @@ const { format, render, cancel, register } = require('timeago.js');
       try {
         this.profile = await this.$axios.$get(`/api/v1/profiles/${this.comment.profileId}`);
         this.replyList = await this.$axios.$get(`/api/v1/comments/${this.comment.postId}/${this.comment._id}`);
-        // this.community = await this.$axios.$get(`/api/v1/communities/${this.post.communityId}`);
       } catch {
         console.log('error grabbing some values');
       }
@@ -78,23 +60,30 @@ const { format, render, cancel, register } = require('timeago.js');
       return {
         profile: {},
         replyList: [],
+        reply: false,
+        activeNestedCommentId: '',
       }
     },
     methods: {
       updateComment(comment) {
         this.replyList.unshift(comment)
       },
-      toggleReply() {
-        console.log('not nested' + this.reply);
-        this.reply = !this.reply;
-        this.toggle(this.reply);
+      toggleReply(reply) {
+        this.reply = !reply;
+        this.toggle(!reply, this.comment._id);
+        if (this.nested) {
+          this.nestedToggleReply(this.comment._id);
+        }
       },
-      toggleNestedReply(reply) {
-        console.log('nested' + reply);
-        this.reply = reply;
+      nestedToggleReply(commentId) {
+        console.log(this);
+        this.activeNestedCommentId = commentId;
       }
     },
     computed: {
+      activeCommentId() {
+        return this.activeComment ? this.activeComment : this.activeNestedCommentId
+      },
       createdAtFormatted() {
         return format(this.comment.createdAt, 'en_US');
       },

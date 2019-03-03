@@ -1,9 +1,17 @@
 <template>
     <div class="modal-content">
         <div class="box is-paddingless">
-            <post :post="post" :toggleComment="toggleComment" />
-            <AddComment v-if="!hideCommenter" :postId="post._id" :updateComment="updateComment" />
-            <Comment v-for="comment in commentList" :reply="toggleComment" :key="comment._id" :comment="comment" :nest-level="0" :toggle="toggleLevelOneComment" />
+            <post :post="post" />
+            <AddComment v-if="!otherReplies" :postId="post._id" :updateComment="updateComment" />
+            <Comment
+                v-for="comment in commentList"
+                :nested="false"
+                :activeComment="activeCommentId"
+                :reply="otherReplies"
+                :key="comment._id"
+                :comment="comment"
+                :nest-level="0"
+                :toggle="toggleComment" />
         </div>
     </div>
 </template>
@@ -22,7 +30,8 @@ import AddComment from "./addComment";
     data() {
       return {
         commentList: [],
-        hideCommenter: false,
+        otherReplies: false,
+        activeCommentId: '',
       }
     },
     async mounted() {
@@ -32,8 +41,9 @@ import AddComment from "./addComment";
       updateComment(comment) {
         this.commentList.unshift(comment)
       },
-      toggleComment(toggleValue) {
-        this.hideCommenter = toggleValue;
+      toggleComment(toggleValue, activeCommentId) {
+        this.activeCommentId = activeCommentId;
+        this.otherReplies = toggleValue;
       },
     }
   };
