@@ -18,6 +18,7 @@
         </div>
 
         <div class="column is-one-half is-paddingless no-margin test-outline">
+          <LoginRegister></LoginRegister>
           <CreatePost></CreatePost>
           <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
@@ -36,10 +37,11 @@ import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Post from "~/components/PostCard/feedPost"
 import CreatePost from "~/components/createPost";
+import LoginRegister from "../../components/LoginRegister";
 
 export default {
   name: "test",
-  components: { CreatePost, Header, NavPane, Post },
+  components: { LoginRegister, CreatePost, Header, NavPane, Post },
   data() {
     return {
       postList: [],

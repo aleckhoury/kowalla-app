@@ -12,10 +12,13 @@
 
     <!-- TODO add v-if and update -->
     <div v-if="subheaderOn" class="subheader">
-      <nuxt-link :to="subheaderURL" class="subheader-content">
+      <nuxt-link v-if="!subheaderIsButton" :to="subheaderURL" class="subheader-content">
         <b>{{subheaderString}}</b>
       </nuxt-link>
 
+      <span v-if="subheaderIsButton" class="subheader-content" @click="$emit('subheader-clicked')">
+        <b>{{subheaderString}}</b>
+      </span>
     </div>
   </div>
 </template>
@@ -29,7 +32,8 @@ export default {
     subheaderURL: { type: String, default: "" },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
-  }
+    subheaderIsButton: { type: Boolean, default: false },
+  },
 }
 </script>
 
