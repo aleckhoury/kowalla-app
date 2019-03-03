@@ -9,6 +9,12 @@
     <nuxt-link
       class="page-link"
       to="/about"><b>About</b></nuxt-link>
+    <nuxt-link
+      class="page-link"
+      to="/about"><b>About</b></nuxt-link>
+    <div class="page-link">
+      <b>Help</b>
+    </div>
   </div>
 </template>
 
