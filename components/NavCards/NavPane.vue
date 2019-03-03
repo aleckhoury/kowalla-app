@@ -5,6 +5,8 @@
       subheaderString="Create a new space"
       subheaderURL="/about"
       subheaderOn
+      subheaderIsButton
+      @subheader-clicked="callCreateSpaceModal"
       headerOn
     >
       <NavCard type="user" selector="owned"></NavCard>
@@ -25,10 +27,22 @@
 <script>
 import Card from '~/components/Card';
 import NavCard from './NavCard';
+import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
 
 export default {
   name: "NavPane",
-  components: { Card, NavCard }
+  components: { Card, NavCard, CreateSpaceModal },
+  methods: {
+    callCreateSpaceModal() {
+      console.log('button pressed')
+      this.$modal.open({
+        parent: this,
+        component: CreateSpaceModal,
+        width: 900,
+        hasModalCard: true
+      });
+    }
+  }
 }
 </script>
 

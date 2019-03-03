@@ -20,6 +20,10 @@
                 class="page-link"
                 to="/about"><b>About</b></nuxt-link>
             </div>
+
+            <div class="level-item" @click="callHelpModal">
+              <div class="page-link"><b>Help</b></div>
+            </div>
           </div>
 
           <div class="level-right">
@@ -52,29 +56,32 @@
 </template>
 
 <script>
-import NavHeaderLeft from './NavHeaderLeft';
-import NavHeaderRight from './NavHeaderRight';
 import Button from './Button';
 import Searchbar from './Searchbar';
 import NavProfilePicture from './NavProfilePicture';
 import NavNotifications from './NavNotifications';
-/*
-<NavHeaderLeft/>
-<NavHeaderRight/>
-*/
+import HelpModal from '~/components/Modals/Other/HelpModal';
+
 export default {
   name: 'NavHeader',
   components: {
-    NavHeaderLeft,
-    NavHeaderRight,
     Button,
     Searchbar,
     NavProfilePicture,
     NavNotifications,
+    HelpModal,
   },
   methods: {
     newPostModal() {
       console.log('create new postmodal');
+    },
+    callHelpModal() {
+      this.$modal.open({
+        parent: this,
+        component: HelpModal,
+        width: 900,
+        hasModalCard: true
+      });
     }
   }
 
@@ -104,6 +111,7 @@ export default {
   align-items: center;
   padding: 6px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .test-outline {

@@ -38,6 +38,13 @@
                   {{projectDescription}}
 
                   </DescriptionCard>
+
+                  <EditButton
+                    v-if="this.$store.state.user.username === this.adminUsername"
+                    @edit-button-clicked="callEditProjectModal"
+                  >
+                    <b>Edit Settings</b>
+                  </EditButton>
                 </div>
 
                 <div class="column is-half is-paddingless test-outline">
@@ -82,7 +89,6 @@
                 <div class="column is-one-third test-outline side-pane">
                   <InfoPane>
                     <!-- fill with children components -->
-                    info pane
                   </InfoPane>
                 </div>
               </div>
@@ -100,6 +106,8 @@ import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
+import EditButton from '~/components/InfoCards/EditButton';
+import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 
 export default {
   name: "user-page-test",
@@ -110,6 +118,8 @@ export default {
     DescriptionCard,
     ProfileCard,
     InfoPane,
+    EditButton,
+    EditProjectModal,
   },
   data() {
     return {
@@ -194,7 +204,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
-        bannerPictureURL: this.projectProfilePictureURL,
+        pictureURL: this.projectProfilePictureURL,
         numSubs: Number(this.numSubs),
         projectId: this.projectId,
       };
@@ -203,6 +213,22 @@ export default {
 
       this.$store.dispatch('user/updateSubscriptions', subObj)
       this.isSubscribed = subObj.subBool;
+    },
+    callEditProjectModal() {
+      console.log('edit project settings pressed')
+      this.$modal.open({
+        parent: this,
+        component: EditProjectModal,
+        props: {
+          name: this.projectName,
+          headerPicture: this.bannerPictureURL,
+          profilePicture: this.projectProfilePictureURL,
+          description: this.projectDescription,
+          projectId: this.projectId,
+        },
+        width: 900,
+        hasModalCard: true
+      });
     }
   }
 }

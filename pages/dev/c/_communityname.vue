@@ -38,8 +38,15 @@
                     :subheaderOn="false"
                   >
                     {{communityDescription}}
-
                   </DescriptionCard>
+
+                  <EditButton
+                    v-if="this.$store.state.user._id === this.adminId"
+                    @edit-button-clicked="callEditCommunityModal"
+                  >
+                    <b>Edit Settings</b>
+                  </EditButton>
+
                 </InfoPane>
 
 
@@ -57,18 +64,29 @@ import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
+import EditButton from '~/components/InfoCards/EditButton';
+import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 
 import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",
-  components: { Header, NavPane, Banner, DescriptionCard, InfoPane },
+  components: {
+    Header,
+    NavPane,
+    Banner,
+    DescriptionCard,
+    InfoPane,
+    EditButton,
+    EditCommunityModal
+  },
   data() {
     return {
       communityName: '',
       bannerPictureURL: '',
       profilePictureURL: '',
       communityDescription: '',
+      adminId: '',
       isSubscribed: false,
       isOwner: false,
       numSubs: '',
@@ -83,7 +101,7 @@ export default {
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
     let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
-
+    console.log(infoRes.data);
     //------------------
     // remove if statements, but keep assignments in production.
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
@@ -99,6 +117,10 @@ export default {
     }
     if (infoRes.data.hasOwnProperty('description')) {
       this.communityDescription = infoRes.data.description;
+    }
+    if (infoRes.data.hasOwnProperty('admins')) {
+      console.log(infoRes.data.admins[0]);
+      this.adminId = infoRes.data.admins[0];
     }
 
     document.title = `kowalla - #${this.communityName}`;
@@ -123,6 +145,22 @@ export default {
       this.$store.dispatch('user/updateSubscriptions', subObj)
       this.isSubscribed = subObj.subBool;
     },
+    callEditCommunityModal() {
+      console.log('edit project settings pressed')
+      this.$modal.open({
+        parent: this,
+        component: EditCommunityModal,
+        props: {
+          name: this.communityName,
+          headerPicture: this.bannerPictureURL,
+          profilePicture: this.profilePictureURL,
+          description: this.communityDescription,
+          communityId: this.communityId,
+        },
+        width: 900,
+        hasModalCard: true
+      });
+    }
     /*isUserSubscrbed() {
       return this.$store.getters['user/isUserSubscribed'];
     }*/

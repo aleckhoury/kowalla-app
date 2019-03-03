@@ -1,7 +1,7 @@
 <template>
     <div class="modal-content">
         <div class="box">
-
+          
         </div>
     </div>
 </template>

@@ -33,8 +33,15 @@
 
             </DescriptionCard>
 
+            <EditButton
+              v-if="(this.$store.state.user.username === this.username)"
+              @edit-button-clicked="callEditProfileModal"
+            >
+              <b>Edit Settings</b>
+            </EditButton>
+
             <Card
-              v-if="profileSubs.owned.length > 0"
+              v-if="((profileSubs.owned.length > 0) && (this.$store.state.user.username !== this.username))"
               :headerString="`Made by ${this.firstName}`"
               headerOn
               :subheaderOn="false"
@@ -44,7 +51,7 @@
             </Card>
 
             <Card
-              v-if="profileSubs.subscriptions.length > 0"
+              v-if="((profileSubs.subscriptions.length > 0) && (this.$store.state.user.username !== this.username))"
               :headerString="`${this.firstName}'s Subscriptions`"
               subheaderString="More communities you'll love"
             >
@@ -67,10 +74,12 @@ import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import Card from '~/components/Card';
 import NavCard from '~/components/NavCards/NavCard';
+import EditButton from '~/components/InfoCards/EditButton';
+import EditProfileModal from '~/components/Modals/Edit/EditProfileModal';
 
 export default {
   name: 'UserPageTest',
-  components: { NavPane, NavCard, Card, Header, ProfileCard, InfoPane, DescriptionCard },
+  components: { NavPane, NavCard, Card, Header, ProfileCard, InfoPane, DescriptionCard, EditButton, EditProfileModal },
   data() {
     return {
       username: null,
@@ -92,6 +101,26 @@ export default {
     getUsername() {
       return this.username;
     },
+  },
+  methods: {
+    callEditProfileModal() {
+      console.log('edit profile settings pressed')
+      
+      this.$modal.open({
+        parent: this,
+        component: EditProfileModal,
+        props: {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          profilePicture: this.profilePictureURL,
+          description: this.profileDescription,
+          profileId: this.profileId,
+        },
+        width: 900,
+        hasModalCard: true
+      });
+    }
   },
   created() {
 
