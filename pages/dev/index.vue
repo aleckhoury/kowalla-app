@@ -34,7 +34,7 @@
 <script>
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
-import Post from "~/components/PostCard/Post"
+import Post from "~/components/PostCard/feedPost"
 import CreatePost from "~/components/createPost";
 
 export default {

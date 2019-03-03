@@ -22,7 +22,6 @@
                 </a>
                 <BDropdownItem custom>
                     <Picker
-                            v-if="loadPicker"
                             set="apple"
                             :showSkinTones="false"
                             :showPreview="false"
@@ -30,9 +29,6 @@
                     ></Picker>
                 </BDropdownItem>
             </BDropdown>
-            <a class="comments level-item" @click="showPost()">
-                <font-awesome-icon icon="comments" /> Comments
-            </a>
         </div>
     </div>
 </template>
@@ -40,14 +36,13 @@
 <script>
   import ReactionModal from "./reactionModal";
   import { Picker } from 'emoji-mart-vue'
-  import PostModal from './PostModal.vue';
+  import PostModal from './modalPost.vue';
 
   export default {
     name: "reactionNoComments",
     components: { ReactionModal, Picker },
     props: {
       post: Object,
-      loadPicker: Boolean,
       hideComments: {
         type: Boolean,
         default: false,
@@ -139,14 +134,9 @@
         return count;
       },
     },
-    created() {
-      console.log('reactions made');
-    },
     async mounted() {
       try {
-        console.log('getting reactions')
         this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.post._id}`);
-        console.log('reactions received')
         if (this.reactionList.length) {
           this.reactionList.forEach((x) => {
             const userReacted = x.profileId === this.$store.state.user._id;
