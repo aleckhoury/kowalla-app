@@ -1,10 +1,10 @@
 <template>
-    <div class="card">
+    <div class="card" @mouseover="loadPicker = true">
         <post-header :post="post"/>
         <div class="content is-marginless" v-html="post.content">
         </div>
         <br />
-        <reactions :post="post" />
+        <reactions :post="post" :load-picker="loadPicker" />
     </div>
 </template>
 
@@ -18,6 +18,7 @@ import PostHeader from "./postHeader";
     },
     data() {
       return {
+        loadPicker: false,
       }
     },
     components: { Reactions, PostHeader },

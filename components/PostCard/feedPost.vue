@@ -25,7 +25,6 @@
       return {
         loadPicker: false,
       }
-
     }
   };
 </script>

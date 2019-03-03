@@ -2,12 +2,10 @@
     <div class="modal-content">
         <div class="box is-paddingless">
             <post :post="post" />
-            <AddComment v-if="!otherReplies" :postId="post._id" :updateComment="updateComment" />
+            <AddComment v-if="!activeCommentId" :postId="post._id" :updateComment="updateComment" />
             <Comment
                 v-for="comment in commentList"
-                :nested="false"
                 :activeComment="activeCommentId"
-                :reply="otherReplies"
                 :key="comment._id"
                 :comment="comment"
                 :nest-level="0"
@@ -30,20 +28,21 @@ import AddComment from "./addComment";
     data() {
       return {
         commentList: [],
-        otherReplies: false,
         activeCommentId: '',
       }
     },
     async mounted() {
       this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
+      this.commentList.map(async (comment, idx) => {
+        this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/upvotes/${comment._id}/${this.$store.state.user._id}`)
+      })
     },
     methods: {
       updateComment(comment) {
         this.commentList.unshift(comment)
       },
-      toggleComment(toggleValue, activeCommentId) {
+      toggleComment(activeCommentId) {
         this.activeCommentId = activeCommentId;
-        this.otherReplies = toggleValue;
       },
     }
   };

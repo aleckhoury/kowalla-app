@@ -1,7 +1,13 @@
 <template>
     <div>
         <article class="media">
-            <font-awesome-icon icon="arrow-up" class="media-left upvote" />
+            <a @click="toggleUpvote()">
+                <font-awesome-icon
+                    icon="arrow-up"
+                    class="media-left upvote icon"
+                    :class="{ 'user-upvoted': !!userUpvoted }"
+                />
+            </a>
             <div class="media-content">
                 <div class="content">
                     <p>
@@ -9,23 +15,23 @@
                         <br>
                         {{ comment.content }}
                         <br>
-                        <small v-if="nestLevel < 2" @click="toggleReply(reply)"><a>Reply</a></small>
+                        <small v-if="nestLevel < 2" @click="toggleReply()"><a>Reply</a></small>
                     </p>
                     <AddComment
-                        v-if="reply && activeCommentId === comment._id"
+                        v-if="activeComment === comment._id"
                         :commentId="comment._id"
                         :updateComment="updateComment"
                         :postId="comment.postId" />
                 </div>
                 <Comment
                     v-if="nestLevel < 2"
-                    :nested="true"
                     v-for="nestComment in replyList"
+                    :activeComment="activeComment"
                     :key="nestComment._id"
                     :comment="nestComment"
+                    :commentUpvote="nestComment.upvote"
                     :nest-level="nextNestLevel"
-                    :toggle="toggle"
-                    :toggleNested="nestedToggleReply" />
+                    :toggle="toggle" />
             </div>
         </article>
     </div>
@@ -33,7 +39,7 @@
 
 <script>
   import AddComment from "./addComment";
-const { format, render, cancel, register } = require('timeago.js');
+const { format } = require('timeago.js');
 
   export default {
     name: "Comment",
@@ -41,9 +47,7 @@ const { format, render, cancel, register } = require('timeago.js');
       comment: Object,
       nestLevel: Number,
       toggle: Function,
-      toggleNested: Function,
       activeComment: String,
-      nested: Boolean,
     },
     components: {
       AddComment
@@ -51,7 +55,11 @@ const { format, render, cancel, register } = require('timeago.js');
     async mounted() {
       try {
         this.profile = await this.$axios.$get(`/api/v1/profiles/${this.comment.profileId}`);
-        this.replyList = await this.$axios.$get(`/api/v1/comments/${this.comment.postId}/${this.comment._id}`);
+          this.replyList = await this.$axios.$get(`/api/v1/comments/${this.comment.postId}/${this.comment._id}`);
+          // this.replyList.map(async (nestComment, idx) => {
+          //   this.replyList[idx].upvote =
+          // });
+          this.upvote = await this.$axios.$get(`/api/v1/upvotes/${this.comment._id}/${this.$store.state.user._id}`)
       } catch {
         console.log('error grabbing some values');
       }
@@ -60,29 +68,39 @@ const { format, render, cancel, register } = require('timeago.js');
       return {
         profile: {},
         replyList: [],
-        reply: false,
         activeNestedCommentId: '',
+        upvote: {},
       }
     },
     methods: {
       updateComment(comment) {
         this.replyList.unshift(comment)
       },
-      toggleReply(reply) {
-        this.reply = !reply;
-        this.toggle(!reply, this.comment._id);
-        if (this.nested) {
-          this.nestedToggleReply(this.comment._id);
+      toggleReply() {
+        if (this.activeComment === this.comment._id) {
+          this.toggle('');
+        } else {
+          this.toggle(this.comment._id);
         }
       },
-      nestedToggleReply(commentId) {
-        console.log(this);
-        this.activeNestedCommentId = commentId;
+      toggleUpvote() {
+        if (this.upvote.userUpvoted) {
+          this.$axios.delete(`/api/v1/upvotes/${this.$store.state.user._id}/${this.comment._id}`);
+        } else {
+          this.$axios.post(`/api/v1/upvotes/${this.$store.state.user._id}`, {
+            commentId: this.comment._id,
+          });
+        }
+        this.upvote.userUpvoted = !this.upvote.userUpvoted;
+
       }
     },
     computed: {
-      activeCommentId() {
-        return this.activeComment ? this.activeComment : this.activeNestedCommentId
+      userUpvoted() {
+        if (this.upvote.userUpvoted) {
+          return true;
+        }
+        return false;
       },
       createdAtFormatted() {
         return format(this.comment.createdAt, 'en_US');
@@ -97,9 +115,7 @@ const { format, render, cancel, register } = require('timeago.js');
 <style scoped>
 .upvote {
     margin: 0.35em 0.5em 0 0.5em;
-}
-.upvote2 {
-    margin: 0.35em 0.5em 0 0;
+    color: black;
 }
 p small {
     color: #999;
@@ -107,5 +123,8 @@ p small {
 small a {
     color: #39C9A0;
     font-weight: bold;
+}
+.upvote.user-upvoted {
+    color: #39C9A0;
 }
 </style>
