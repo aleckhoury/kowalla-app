@@ -13,7 +13,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .box {
-    width: 800px;
+    margin: 25px;
     max-width: 100%;
     text-align: center;
 }

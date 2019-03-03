@@ -56,23 +56,15 @@
 </template>
 
 <script>
-import NavHeaderLeft from './NavHeaderLeft';
-import NavHeaderRight from './NavHeaderRight';
 import Button from './Button';
 import Searchbar from './Searchbar';
 import NavProfilePicture from './NavProfilePicture';
 import NavNotifications from './NavNotifications';
 import HelpModal from '~/components/Modals/Other/HelpModal';
 
-/*
-<NavHeaderLeft/>
-<NavHeaderRight/>
-*/
 export default {
   name: 'NavHeader',
   components: {
-    NavHeaderLeft,
-    NavHeaderRight,
     Button,
     Searchbar,
     NavProfilePicture,
