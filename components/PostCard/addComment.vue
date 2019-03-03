@@ -28,15 +28,24 @@
     },
     methods: {
       createComment() {
-        const commentObj = {
+        if (this.comment.length) {
+          const commentObj = {
             profileId: this.$store.state.user._id,
             postId: this.postId,
             content: this.comment,
             commentId: this.commentId ? this.commentId : '',
-        };
-        this.$axios.post('/api/v1/comments', commentObj);
-        this.updateComment(commentObj);
-        this.comment = '';
+          };
+          this.$axios.post('/api/v1/comments', commentObj);
+          this.updateComment(commentObj);
+          this.comment = '';
+        } else {
+          this.$toast.open({
+            duration: 4000,
+            message: 'You cannot post a blank comment.',
+            position: 'is-top',
+            type: 'is-danger'
+          })
+        }
       },
     }
   };
