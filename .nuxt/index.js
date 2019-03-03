@@ -17,6 +17,7 @@ import nuxt_plugin_nuxticons_101ce2c8 from 'nuxt_plugin_nuxticons_101ce2c8' // S
 import nuxt_plugin_buefy_46af55d1 from 'nuxt_plugin_buefy_46af55d1' // Source: ./buefy.js
 import nuxt_plugin_templatesplugin07ea14c3_546381cc from 'nuxt_plugin_templatesplugin07ea14c3_546381cc' // Source: ./templates.plugin.07ea14c3.js
 import nuxt_plugin_axios_f65f5300 from 'nuxt_plugin_axios_f65f5300' // Source: ./axios.js
+import nuxt_plugin_localStorage_830ec59e from 'nuxt_plugin_localStorage_830ec59e' // Source: ../plugins/localStorage.js (ssr: false)
 import nuxt_plugin_plugin_301c83bc from 'nuxt_plugin_plugin_301c83bc' // Source: ./auth/plugin.js
 
 // Component: <no-ssr>
@@ -164,6 +165,7 @@ async function createApp(ssrContext) {
 
   if (process.client) {
     if (typeof nuxt_plugin_swplugin_6beadc19 === 'function') await nuxt_plugin_swplugin_6beadc19(app.context, inject)
+    if (typeof nuxt_plugin_localStorage_830ec59e === 'function') await nuxt_plugin_localStorage_830ec59e(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

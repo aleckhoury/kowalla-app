@@ -1,7 +1,8 @@
 export const state = () => ({
   authUser: null,
   isUserLoggedIn: true,
-  name: "Tyler O'Briant",
+  firstName: "Tyler",
+  lastName: "O'Briant",
   username: 'cowboy_morty',
   description: '',
   uiColor: '',
@@ -137,6 +138,12 @@ export const mutations = {
     console.log('adding owned')
     console.log(`subObj: ${subObj}`)
     state.owned.push(subObj);
+  },
+  editProfile(state, editObj) {
+    state.firstName= editObj.firstName;
+    state.lastName= editObj.lastName;
+    state.username= editObj.username;
+    state.description= editObj.description;
   },
   removeOwned(state, subObj) {
     console.log(state);

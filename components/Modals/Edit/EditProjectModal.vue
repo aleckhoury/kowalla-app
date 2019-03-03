@@ -79,7 +79,7 @@ export default {
 
 
           //this.$store.dispatch('user/editOwned', subObj)
-          this.$store.commit('user/editOwned', subObj)
+          this.$store.commit('user/editOwned', subObj);
 
           // if name returned isn't the same as we started with
           if (projectData.data.name !== this.name) {

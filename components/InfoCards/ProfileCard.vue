@@ -3,10 +3,11 @@
     <nuxt-link :to="getRoute">
       <img class="image" :src="profilePictureURL" />
     </nuxt-link>
-    
-    <div class="name font-family">
+
+
+    <nuxt-link :to="getRoute" class="name font-family">
       <b>{{name}}</b>
-    </div>
+    </nuxt-link>
 
     <div class="username font-family">
       <nuxt-link :to="getRoute" class="username-link">
@@ -89,6 +90,8 @@ export default {
 
 .name {
   font-size: 1em;
+  color: black;
+  text-decoration: none;
 }
 
 .username {
@@ -100,10 +103,6 @@ export default {
 .username:hover {
   color: #39C9A0;
   cursor: pointer;
-}
-
-.test-outline {
-  border: 1px solid black;
 }
 
 .stats-container {
