@@ -157,7 +157,7 @@
     Underline,
     History,
   } from 'tiptap-extensions'
-  import Dropdown from "./dropdownItems";
+  import Dropdown from "../../dropdownItems";
 
   export default {
     name: "createPostModal",

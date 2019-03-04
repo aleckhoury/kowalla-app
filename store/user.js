@@ -10,12 +10,12 @@ export const state = () => ({
   _id: 'C4xtgKOIu', // need to update before playing with sub axios calls
   profilePicture: "https://media.licdn.com/dms/image/C5603AQHR9b4T-gMdDA/profile-displayphoto-shrink_200_200/0?e=1552521600&v=beta&t=OCqWMbZEViWI0AEtPBdiA0-VlrUFfC-wJCR900OQaBE",
   subscriptions: [
-    {name: "Aceable", pictureURL: 'aaa', projectId: "1111", numSubs: 1000},
-    {name: "ExNI", pictureURL: 'bbb', communityId: "2222", numSubs: 10},
+    {name: "Aceable", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', projectId: "1111", numSubs: 1000},
+    {name: "ExNI", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', communityId: "2222", numSubs: 10},
   ],
   owned: [
-    {name: "kowalla", pictureURL: 'aaa', projectId: "5ujOxFHEK", numSubs: 1000},
-    {name: "EarlyAdopters", pictureURL: 'bbb', communityId: "upRnGdx-8", numSubs: 10},
+    {name: "kowalla", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', projectId: "5ujOxFHEK", numSubs: 1000},
+    {name: "EarlyAdopters", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', communityId: "upRnGdx-8", numSubs: 10},
   ]
 });
 

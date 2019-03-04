@@ -2,10 +2,10 @@
     <div class="level is-mobile">
         <div class="reactions level-left">
             <a
-                class="button is-outlined iterator level-item is-hidden-mobile"
-                v-for="(react, index) in reactionsFormatted.slice(0, 3)"
-                :class="{ 'user-reacted': react.userReacted }"
-                @click="toggleReaction(react.emoji, index)">
+                    class="button is-outlined iterator level-item is-hidden-mobile"
+                    v-for="(react, index) in reactionsFormatted.slice(0, 3)"
+                    :class="{ 'user-reacted': react.userReacted }"
+                    @click="toggleReaction(react.emoji, index)">
                 <b>{{ react.emoji }}{{ react.count }}</b>
             </a>
             <a class="button is-outlined level-item is-hidden-mobile" v-if="reactionCount" @click="cardModal()">
@@ -22,17 +22,14 @@
                 </a>
                 <BDropdownItem custom>
                     <Picker
-                        v-if="loadPicker"
-                        set="apple"
-                        :showSkinTones="false"
-                        :showPreview="false"
-                        @select="toggleReaction"
+                            v-if="loadPicker"
+                            set="apple"
+                            :showSkinTones="false"
+                            :showPreview="false"
+                            @select="toggleReaction"
                     ></Picker>
                 </BDropdownItem>
             </BDropdown>
-            <a class="comments level-item" @click="showPost()">
-                <font-awesome-icon icon="comments" /> Comments
-            </a>
         </div>
     </div>
 </template>
@@ -43,7 +40,7 @@
   import PostModal from './modalPost.vue';
 
   export default {
-    name: "reactions",
+    name: "reactionNoComments",
     components: { ReactionModal, Picker },
     props: {
       post: Object,
@@ -71,33 +68,33 @@
         }
       },
       async toggleReactionTrue(emoji, index, isEmojiObject) {
-          await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
-            emoji: emoji,
-            postId: this.post._id,
-          });
-          if (index === -1) {
-            this.reactionsFormatted.push({ emoji: emoji, count: 1, userReacted: false });
-            const newIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(emoji);
-            this.reactionsFormatted[newIndex].userReacted = true;
-          } else {
-              this.reactionsFormatted[index].userReacted = true;
-              this.reactionsFormatted[index].count++;
-          }
-          if (isEmojiObject) {
-            this.$refs.dropdown.toggle();
+        await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
+          emoji: emoji,
+          postId: this.post._id,
+        });
+        if (index === -1) {
+          this.reactionsFormatted.push({ emoji: emoji, count: 1, userReacted: false });
+          const newIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(emoji);
+          this.reactionsFormatted[newIndex].userReacted = true;
+        } else {
+          this.reactionsFormatted[index].userReacted = true;
+          this.reactionsFormatted[index].count++;
+        }
+        if (isEmojiObject) {
+          this.$refs.dropdown.toggle();
         }
       },
       async toggleReactionFalse(emoji, index) {
-          await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
-            data: {
-              emoji: emoji,
-            }
-          });
-          this.reactionsFormatted[index].count--;
-          this.reactionsFormatted[index].userReacted = false;
-          if (this.reactionsFormatted[index].count === 0) {
-            this.reactionsFormatted.splice(index, 1)
+        await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
+          data: {
+            emoji: emoji,
           }
+        });
+        this.reactionsFormatted[index].count--;
+        this.reactionsFormatted[index].userReacted = false;
+        if (this.reactionsFormatted[index].count === 0) {
+          this.reactionsFormatted.splice(index, 1)
+        }
       },
       cardModal() {
         this.$modal.open({
@@ -105,7 +102,6 @@
           component: ReactionModal,
           props: {
             reactionsFormatted: this.reactionsFormatted,
-            toggleReaction: this.toggleReaction,
           },
           hasModalCard: true,
         });
@@ -134,9 +130,9 @@
       },
       reactionCountMobile() {
         let count = 0;
-          this.reactionsFormatted.map(x => {
-            count = x.count + count;
-          });
+        this.reactionsFormatted.map(x => {
+          count = x.count + count;
+        });
         return count;
       },
     },

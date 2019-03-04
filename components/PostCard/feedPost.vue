@@ -3,15 +3,8 @@
         <post-header :post="post"/>
         <div class="content is-marginless" v-html="post.content">
         </div>
-        <!--<figure class="media-content">-->
-            <!--<p class="image is-4by3">-->
-                <!--<img src="https://cdn.makeawebsitehub.com/wp-content/uploads/2016/02/learn-code-e1455713167295.jpg">-->
-            <!--</p>-->
-        <!--</figure>-->
         <br />
-
         <reactions :post="post" :load-picker="loadPicker" />
-
     </div>
 </template>
 
@@ -23,12 +16,15 @@
     components: { PostHeader, Reactions },
     props: {
       post: Object,
+      hideComments: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
         loadPicker: false,
       }
-
     }
   };
 </script>

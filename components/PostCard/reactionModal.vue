@@ -6,8 +6,8 @@
                     <div class="message-header">
                         Reactions
                     </div>
-                    <ul class="menu-list" v-for="react in reactionsFormatted">
-                        <li class="is-size-4"><a>{{react.emoji}} <span>{{react.count}}</span></a></li>
+                    <ul class="menu-list" v-for="(react, index) in reactionsFormatted">
+                        <li class="is-size-4" :class="{ 'user-reacted': react.userReacted }" @click="toggleReaction(react.emoji, index)"><a>{{react.emoji}} <span>{{react.count}}</span></a></li>
                     </ul>
 
                 </aside>
@@ -20,6 +20,7 @@
   export default {
     name: "reactionModal",
     props: {
+      toggleReaction: Function,
       reactionsFormatted: Array,
     },
   };
@@ -32,6 +33,9 @@
     }
     .message-header {
         background: #39C9A0;
+    }
+    .user-reacted {
+        background-color: rgba(57,201,160,0.3);
     }
     .menu-list li a {
         display: flex;

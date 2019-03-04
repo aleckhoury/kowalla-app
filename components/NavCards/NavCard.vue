@@ -32,10 +32,6 @@ export default {
     selector: String,
     profileSubs: { type: Object, default: () => {return {owned: [], subscriptions: []}}} // if profile, we'll populate this with an object with two arrays of subscriptions, mimicking the user state
   },
-  mounted() {
-    // console.log('navcard');
-    // console.log(this.profileSubs);
-  },
   methods: {
     getProjectId(item) {
       return (item.hasOwnProperty('projectId')) ? item.projectId : null;
