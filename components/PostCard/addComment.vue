@@ -20,6 +20,7 @@
       updateComment: Function,
       postId: String,
       commentId: String,
+      resetReply: Function,
     },
     data() {
       return {
@@ -38,6 +39,7 @@
           this.$axios.post('/api/v1/comments', commentObj);
           this.updateComment(commentObj);
           this.comment = '';
+          this.resetReply('');
         } else {
           this.$toast.open({
             duration: 4000,

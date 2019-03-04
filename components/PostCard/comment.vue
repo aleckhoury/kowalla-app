@@ -21,6 +21,7 @@
                         v-if="activeComment === comment._id"
                         :commentId="comment._id"
                         :updateComment="updateComment"
+                        :resetReply="toggle"
                         :postId="comment.postId" />
                 </div>
                 <Comment
