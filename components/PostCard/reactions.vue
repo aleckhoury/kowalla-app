@@ -105,6 +105,7 @@
           component: ReactionModal,
           props: {
             reactionsFormatted: this.reactionsFormatted,
+            toggleReaction: this.toggleReaction,
           },
           hasModalCard: true,
         });

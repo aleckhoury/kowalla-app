@@ -51,9 +51,15 @@ import AddComment from "./addComment";
 <style scoped>
     div.card {
         border-radius: 6px 6px 0 0;
+        padding: 0 5em;
+    }
+    @media only screen and (max-width: 600px) {
+        div.card {
+            padding: 0;
+        }
     }
     .box {
-        width: 800px;
+        width: 55em;
         max-width: 100%;
     }
     .modal-content {

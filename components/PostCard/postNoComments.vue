@@ -1,5 +1,5 @@
 <template>
-    <div class="card" @mouseover="loadPicker = true">
+    <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
         <post-header :post="post"/>
         <div class="content is-marginless" v-html="post.content">
         </div>

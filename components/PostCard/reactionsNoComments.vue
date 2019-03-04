@@ -22,6 +22,7 @@
                 </a>
                 <BDropdownItem custom>
                     <Picker
+                            v-if="loadPicker"
                             set="apple"
                             :showSkinTones="false"
                             :showPreview="false"
@@ -43,6 +44,7 @@
     components: { ReactionModal, Picker },
     props: {
       post: Object,
+      loadPicker: Boolean,
       hideComments: {
         type: Boolean,
         default: false,

@@ -10,7 +10,7 @@
             </a>
             <div class="media-content">
                 <div class="content">
-                    <p>
+                    <p id="reply">
                         <small>@{{ profile.username }} · {{ createdAtFormatted }}</small>
                         <br>
                         {{ comment.content }}
@@ -126,5 +126,8 @@ small a {
 }
 .upvote.user-upvoted {
     color: #39C9A0;
+}
+#reply {
+    padding-bottom: 1em;
 }
 </style>

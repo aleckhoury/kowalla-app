@@ -86,6 +86,7 @@
 }
 .card-header {
   padding: 10px;
+    box-shadow: none;
 }
 .profilePic img {
   border-radius: 0.75em;
