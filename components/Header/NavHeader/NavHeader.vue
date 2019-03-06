@@ -21,6 +21,12 @@
                 to="/about"><b>About</b></nuxt-link>
             </div>
 
+            <div class="level-item">
+              <nuxt-link
+                class="page-link"
+                to="/dev/trello"><b>Trello</b></nuxt-link>
+            </div>
+
             <div class="level-item" @click="callHelpModal">
               <div class="page-link"><b>Help</b></div>
             </div>

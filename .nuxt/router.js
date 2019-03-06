@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
-const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
-const _759ea23c = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
-const _2d403325 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
-const _ca6d1a2c = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
-const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
+const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _4a8e3666 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
+const _8f25cd02 = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
+const _06e0a102 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
+const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
+const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -68,27 +69,31 @@ export function createRouter() {
 
     routes: [{
       path: "/about",
-      component: _16cfdf96,
+      component: _20bda2ce,
       name: "about"
     }, {
       path: "/dev",
-      component: _55d34c61,
+      component: _90e13c38,
       name: "dev"
     }, {
+      path: "/dev/Trello",
+      component: _4a8e3666,
+      name: "dev-Trello"
+    }, {
       path: "/dev/c/:communityname?",
-      component: _759ea23c,
+      component: _8f25cd02,
       name: "dev-c-communityname"
     }, {
       path: "/dev/p/:projectname?",
-      component: _2d403325,
+      component: _06e0a102,
       name: "dev-p-projectname"
     }, {
       path: "/dev/u/:username?",
-      component: _ca6d1a2c,
+      component: _979bcba6,
       name: "dev-u-username"
     }, {
       path: "/",
-      component: _3687ba5b,
+      component: _0f59095e,
       name: "index"
     }],
 
