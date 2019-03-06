@@ -65,13 +65,6 @@ export default {
 .test-outline {
   border: 1px solid black;
 }
-
-.main-margin {
-  padding-top: 20px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 0px;
-}
 .side-pane {
   display: flex;
   justify-content: center;

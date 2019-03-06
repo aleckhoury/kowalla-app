@@ -21,6 +21,10 @@ export default {
 
 <style lang="css" scoped>
 .size {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
   height: 90px;
   width: 100%;
 }

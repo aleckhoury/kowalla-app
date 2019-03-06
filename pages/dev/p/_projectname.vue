@@ -29,7 +29,7 @@
               />
 
               <!-- new columns for description, profile and project cards -->
-              <div class="columns is-marginless main-margin">
+              <div class="columns is-marginless newsfeed-padding">
                 <div class="column is-half is-paddingless test-outline">
                   <DescriptionCard
                     headerString="Description"
@@ -78,7 +78,7 @@
               </div>
 
                 <!-- new columns for content and info pane -->
-              <div class="columns is-marginless">
+              <div class="columns is-marginless newsfeed-padding">
 
                 <!-- post feed -->
                 <div class="column is-two-thirds test-outline">
@@ -92,7 +92,6 @@
                   </InfoPane>
                 </div>
               </div>
-
           </div>
       </div>
     </div>

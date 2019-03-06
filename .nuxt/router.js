@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 
 const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _17b0d883 = () => interopDefault(import('../pages/dev/mobile/index.vue' /* webpackChunkName: "pages/dev/mobile/index" */))
 const _4a8e3666 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
 const _8f25cd02 = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
 const _06e0a102 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
@@ -75,6 +76,10 @@ export function createRouter() {
       path: "/dev",
       component: _90e13c38,
       name: "dev"
+    }, {
+      path: "/dev/mobile",
+      component: _17b0d883,
+      name: "dev-mobile"
     }, {
       path: "/dev/Trello",
       component: _4a8e3666,

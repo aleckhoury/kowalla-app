@@ -1,7 +1,12 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header></Header>
-
+    <Header class="is-hidden-touch"></Header>
+    <MobileHeader
+      class="is-touch"
+      :locationPictureToDisplay="this.profilePictureURL"
+      :locationToDisplay="`#${this.communityName}`"
+    >
+    </MobileHeader>
     <div class="container is-fullhd">
       <!--
           we'll want to dial in the container fullhd breakpoint
@@ -27,7 +32,7 @@
               />
 
 
-            <div class="columns is-marginless main-margin">
+            <div class="columns is-marginless newsfeed-padding">
               <div class="column is-two-thirds test-outline">
                 post content
               </div>
@@ -60,6 +65,7 @@
 
 <script>
 import Header from '~/components/Header/Header';
+import MobileHeader from '~/components/Header/MobileHeader';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
@@ -73,6 +79,7 @@ export default {
   name: "user-page-test",
   components: {
     Header,
+    MobileHeader,
     NavPane,
     Banner,
     DescriptionCard,
