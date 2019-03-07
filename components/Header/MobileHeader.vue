@@ -33,22 +33,24 @@
         </div> <!-- end level-right -->
       </div> <!-- top moible header -->
 
-      <!-- Mobile Header Bottom -->
+      <MobileNavIcons></MobileNavIcons>
+      <!-- Mobile Header Bottom
       <b-tabs class="on-bottom half-height is-marginless"  expanded>
         <b-tab-item class="block" label="Posts" icon="view-quilt"></b-tab-item>
         <b-tab-item class="block" label="" icon="magnify"></b-tab-item>
         <b-tab-item class="block" label="" icon="bell-outline"></b-tab-item>
         <b-tab-item class="block" label="" icon="dots-horizontal"></b-tab-item>
-      </b-tabs>
+      </b-tabs> -->
     </div>
   </div>
 </template>
 <script>
 import ChangeLocationModal from '~/components/Modals/Other/ChangeLocationModal';
+import MobileNavIcons from '~/components/MobileNavIcons';
 
 export default {
   name: "MobileHeader",
-  components: { ChangeLocationModal },
+  components: { ChangeLocationModal, MobileNavIcons },
   data() {
     return {
     };
@@ -107,6 +109,7 @@ export default {
   border: 1px solid black;
   border-radius: 6px;
   padding: 5px;
+  height: 40px;
 }
 
 .margin-adjust {
