@@ -104,12 +104,52 @@
                                     @click="commands.horizontal_rule">
                                     <font-awesome-icon icon="minus" />
                                 </a>
-                                    <a
-                                        class="button is-white">
-                                        <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
-                                        <font-awesome-icon icon="camera" />
-                                    </a>
-
+                                <a
+                                    class="button is-white">
+                                    <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
+                                    <font-awesome-icon icon="camera" />
+                                </a>
+                                <a class="button is-white" @click="toggleTimedPost">
+                                    <font-awesome-icon icon="clock" />
+                                </a>
+                                <div v-if="timedPost" class="block">
+                                    <p>
+                                        <span>
+                                            <b>Select a timespan for your live post:</b>
+                                        </span>
+                                    </p>
+                                    <b-radio v-model="radio"
+                                             native-value="30"
+                                             type="is-dark">
+                                        30 minutes
+                                    </b-radio>
+                                    <b-radio v-model="radio"
+                                             native-value="60"
+                                             type="is-dark">
+                                        1 hour
+                                    </b-radio>
+                                    <b-radio v-model="radio"
+                                             native-value="120"
+                                             type="is-dark">
+                                        2 hours
+                                    </b-radio>
+                                    <b-radio v-model="radio"
+                                             native-value="Custom"
+                                             type="is-dark">
+                                        Custom
+                                    </b-radio>
+                                    <b-input placeholder="01"
+                                             type="number"
+                                             min="01"
+                                             max="10">
+                                    </b-input>
+                                    <b>:</b>
+                                    <b-input placeholder="01"
+                                             type="number"
+                                             min="01"
+                                             max="60">
+                                    </b-input>
+                                </div>
                             </div>
                         </editor-menu-bar>
                         <div class="editor content">
@@ -177,6 +217,9 @@
         s3Loading: false,
         clearPhoto: false,
         photoUrl: '',
+        timedPost: false,
+        time: 0,
+        radio: 'Butt',
       };
     },
     async beforeDestroy() {
@@ -190,6 +233,12 @@
       await this.editor.destroy();
     },
     methods: {
+      toggleTimedPost() {
+        this.timedPost = !this.timedPost;
+        if (!this.timedPost) {
+          this.time = 0;
+        }
+      },
       async createPost() {
         this.s3Loading = true;
         const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
@@ -265,6 +314,16 @@
     span {
         color: #39C9A0;
     }
+    .box {
+        width: 800px;
+        max-width: 100%;
+    }
+    .modal-content {
+        border-radius: 6px;
+        margin: 0;
+        color: #39C9A0;
+        width: auto;
+    }
     .level {
         padding: 1rem;
     }
@@ -275,14 +334,6 @@
         margin: 1em 0;
         display: flex;
         flex-wrap: wrap;
-    }
-    div .modal-content {
-        border-radius: 6px;
-        overflow: visible;
-        margin: 0;
-    }
-    .modal-content.box {
-        min-height: 80%;
     }
     .button.action {
         width: 12em;
@@ -296,10 +347,17 @@
     .is-white:hover {
         background-color: #E9EBEE;
     }
+    .editor.content {
+        height: 10em;
+    }
     .dropdown-content {
         overflow: visible;
     }
     div.animation-content {
         margin: 0;
+    }
+    .block div.control.is-clearfix {
+        width: 3em;
+        display: inline-block;
     }
 </style>
