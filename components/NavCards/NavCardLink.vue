@@ -52,6 +52,8 @@ export default {
 .picture {
   height: 36px;
   width: 36px;
+  
+  border-radius: 6px;
   margin-left: 8px;
   cursor: pointer;
 }

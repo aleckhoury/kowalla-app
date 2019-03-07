@@ -2,27 +2,26 @@
   <div class="size">
     <div class="mobile-header-container is-touch">
       <!-- Mobile Header Top -->
-      <div class="level half-height is-mobile is-marginless">
-        <div class="level-left test-outline" @click="callChangeLocationModal">
+      <div class="level half-height is-mobile mobile-header-top-container">
+        <div class="level-left" @click="callChangeLocationModal">
           <div class="level-item">
             <img
-              src="locationPictureToDisplay"
+              :src="locationPictureToDisplay"
               class="mobile-nav-link-picture"
             />
           </div>
 
-          <div class="level-item">
-            {{locationToDisplay}}
+          <div class="level-item margin-adjust">
+            <b>{{locationToDisplay}}</b>
           </div>
 
-
-          <div class="level-item">
+          <div class="level-item margin-adjust">
             <font-awesome-icon icon="angle-down" />
           </div>
 
         </div> <!-- end level-left -->
 
-        <div class="level-right test-outline">
+        <div class="level-right">
           <div class="level-item">
             <nuxt-link :to="`/dev/u/${this.$store.state.user.username}`">
               <img
@@ -36,26 +35,11 @@
 
       <!-- Mobile Header Bottom -->
       <b-tabs class="on-bottom half-height is-marginless"  expanded>
-        <b-tab-item class="block" label="Create" icon="plus-circle-outline"></b-tab-item>
+        <b-tab-item class="block" label="Posts" icon="view-quilt"></b-tab-item>
         <b-tab-item class="block" label="" icon="magnify"></b-tab-item>
         <b-tab-item class="block" label="" icon="bell-outline"></b-tab-item>
-        <b-tab-item class="block" label="" icon="settings-outline"></b-tab-item>
+        <b-tab-item class="block" label="" icon="dots-horizontal"></b-tab-item>
       </b-tabs>
-      <!--
-      <div class="level is-mobile is-marginless">
-
-
-
-
-          <div class="level-left">
-            left bottom
-          </div>
-
-          <div class="level-right">
-            right bottom
-          </div>
-
-      </div>-->
     </div>
   </div>
 </template>
@@ -67,8 +51,7 @@ export default {
   components: { ChangeLocationModal },
   data() {
     return {
-      locationModalOpen: false,
-    }
+    };
   },
   props: {
     locationToDisplay: String,
@@ -91,12 +74,8 @@ export default {
         width: 300,
         hasModalCard: true
       });
-
-      this.locationModalOpen = true;
     }
   }
-
-
 }
 </script>
 <style lang="css" scoped>
@@ -114,10 +93,24 @@ export default {
   background: white;
 }
 
+.mobile-header-top-container {
+  margin: 0px 10px 0px 10px;
+}
+
 .on-bottom {
   position: relative;
   bottom: 0;
   right: 0;
+}
+
+.level-left {
+  border: 1px solid black;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.margin-adjust {
+  margin: 0px 0px 0px -4px;
 }
 
 .half-height {
@@ -127,14 +120,14 @@ export default {
 .mobile-nav-profile-picture{
   height: 40px;
   width: 40px;
-  border: 1px solid #2F8168;
+  border: 1px solid #E0DDDD;
   border-radius: 6px;
 }
 
 .mobile-nav-link-picture {
   height: 30px;
   width: 30px;
-  border: 1px solid #2F8168;
+  border: 1px solid #E0DDDD;
   border-radius: 6px;
 }
 </style>

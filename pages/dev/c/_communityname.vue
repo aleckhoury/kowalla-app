@@ -2,11 +2,11 @@
   <div class="screen background-tint">
     <Header class="is-hidden-touch"></Header>
     <MobileHeader
-      class="is-touch"
+      class="is-hidden-desktop"
       :locationPictureToDisplay="this.profilePictureURL"
       :locationToDisplay="`#${this.communityName}`"
-    >
-    </MobileHeader>
+    />
+    <MobileFooter class="is-hidden-desktop"/>
     <div class="container is-fullhd">
       <!--
           we'll want to dial in the container fullhd breakpoint
@@ -66,6 +66,8 @@
 <script>
 import Header from '~/components/Header/Header';
 import MobileHeader from '~/components/Header/MobileHeader';
+import MobileFooter from '~/components/Header/MobileFooter';
+
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
@@ -80,6 +82,7 @@ export default {
   components: {
     Header,
     MobileHeader,
+    MobileFooter,
     NavPane,
     Banner,
     DescriptionCard,
