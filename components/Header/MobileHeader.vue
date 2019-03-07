@@ -88,7 +88,7 @@ export default {
           description: this.communityDescription,
           communityId: this.communityId,
         },*/
-        //width: 100%,
+        width: 300,
         hasModalCard: true
       });
 
