@@ -16,18 +16,32 @@
       </div> <!-- end columns -->
 
       <div class="columns is-centered is-marginless is-reverse main-margin">
-        <div class="column is-one-half is-full-touch is-paddingless test-outline">
+        <div class="column is-one-half is-full-touch is-paddingless">
+          <div class="centered">
+            <div class="subtitle">
+              Blog
+            </div>
+          </div>
           <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- infopane -->
-        <div class="column centered is-one-half is-full-touch is-paddingless test-outline">
+        <div class="column centered is-one-half is-full-touch is-paddingless">
           <div class="description-width">
             <DescriptionCard
               headerString="About Kowalla"
               :subheaderOn="false"
             >
-              copy copy copy
+              <p>Welcome to Kowalla.  We're building the world's first fully online coworking space.
+                We want to bring you the community of a coworking space, without the desk.</p>
+              <br>
+              <p>Our team at Kowalla is building a platform to take the best elements of top tech communities across the
+                world and bring them online.
+                Our platform will be a place to create, collaborate and share your projects in the open.
+                We believe that in a truly connected world, everyone should be able to be a part of the communities
+                they're passionate about, no matter where they're from.
+                Talent, ambition, ideas and execution should be the only limit to your success and not geography.</p>
+
             </DescriptionCard>
           </div>
 
@@ -36,7 +50,7 @@
               headerString="Sign up for our email list!"
               :subheaderOn="false"
             >
-              add the email signup
+              <EmailSignup />
             </DescriptionCard>
           </div>
         </div>
@@ -48,7 +62,9 @@
 <script>
 import InfoPane from '~/components/InfoCards/InfoPane';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
-import Post from "~/components/PostCard/feedPost";
+import Post from "~/components/LandingPageComponents/LandingPagePost";
+import EmailSignup from "~/components/LandingPageComponents/emailSignup";
+
 export default {
   name: 'Index',
   auth: false,
@@ -56,6 +72,7 @@ export default {
     DescriptionCard,
     InfoPane,
     Post,
+    EmailSignup,
   },
   data() {
     return {
