@@ -76,12 +76,31 @@ export default {
   },
   data() {
     return {
-      postList: [],
+      postList: [{
+        _id: "bOVESikDy",
+        profileId : "C4xtgKOIu",
+        communityId : "5c3292a2f03d751a7ffb80ab",
+        content : "<h1>Lessons learned from generating 182 bad startup names</h1><a href='https://blog.usejournal.com/lessons-learned-from-generating-182-bad-startup-names-efaf539adae6' target='_blank'><img src='https://cdn-images-1.medium.com/max/2600/1*6XIMv3MYwL0BG5o46APlJw.png' /></a>",
+        views : 0,
+        createdAt : ISODate("2019-02-02T19:03:30.333Z"),
+        updatedAt : ISODate("2019-02-02T19:03:30.333Z"),
+        __v : 0
+      },{
+        _id : "uxWP0nd_C",
+        profileId : "z-T-0nlZH",
+        communityId : "1234567890",
+        content : "<h1>Lean Design For A Better MVP</h1><a href='https://hackernoon.com/lean-design-for-a-better-mvp-e3f76164e995' target='_blank'><img src='https://cdn-images-1.medium.com/max/2600/1*TMD9hDJJX-MG8HZU9CVxqA.jpeg' /></a>",
+        views : 0,
+        createdAt : ISODate("2019-02-03T05:58:24.308Z"),
+        updatedAt : ISODate("2019-02-03T05:58:24.308Z"),
+        __v : 0
+      }],
     }
   },
   async mounted() {
     document.title = `Kowalla - Home`;
-    this.postList = await this.$axios.$get('/api/v1/posts');
+    // this.postList = await this.$axios.$get('/api/v1/posts');
+
   }
 };
 </script>
