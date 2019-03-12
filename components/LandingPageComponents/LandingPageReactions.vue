@@ -21,13 +21,38 @@
                     <font-awesome-icon icon="smile" />
                 </a>
                 <BDropdownItem custom>
-                    <Picker
-                            v-if="loadPicker"
-                            set="apple"
-                            :showSkinTones="false"
-                            :showPreview="false"
-                            @select="toggleReaction"
-                    ></Picker>
+                    <emoji-picker @emoji="insert" :search="search">
+                        <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events">
+                            <button type="button">open</button>
+                        </div>
+                        <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+                            <div>
+                                <div>
+                                    <input type="text" v-model="search">
+                                </div>
+                                <div>
+                                    <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                        <h5>{{ category }}</h5>
+                                        <div>
+                        <span
+                                v-for="(emoji, emojiName) in emojiGroup"
+                                :key="emojiName"
+                                @click="insert(emoji)"
+                                :title="emojiName"
+                        >{{ emoji }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </emoji-picker>
+                    <!--<Picker-->
+                            <!--v-if="loadPicker"-->
+                            <!--set="apple"-->
+                            <!--:showSkinTones="false"-->
+                            <!--:showPreview="false"-->
+                            <!--@select="toggleReaction"-->
+                    <!--&gt;</Picker>-->
                 </BDropdownItem>
             </BDropdown>
         </div>
@@ -37,10 +62,11 @@
 <script>
   import ReactionModal from "~/components/PostCard/reactionModal";
   import { Picker } from 'emoji-mart-vue'
+  import EmojiPicker from 'vue-emoji-picker'
 
   export default {
     name: "LandingPageReactions",
-    components: { ReactionModal, Picker },
+    components: { ReactionModal, Picker, EmojiPicker },
     props: {
       post: Object,
       loadPicker: Boolean,
