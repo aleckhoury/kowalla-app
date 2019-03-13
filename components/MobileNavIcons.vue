@@ -21,7 +21,7 @@
     </div>
 
     <div
-      class="column align-icon"
+      class="column align-icon is-paddingless"
       :class="{ 'bottom-border': isSearch }"
       @click="toggleSearch"
     >
@@ -33,7 +33,7 @@
     </div>
 
     <div
-      class="column align-icon"
+      class="column align-icon is-paddingless"
       :class="{ 'bottom-border': isNotif }"
       @click="toggleNotif"
     >
@@ -45,7 +45,7 @@
     </div>
 
     <div
-      class="column align-icon"
+      class="column align-icon is-paddingless"
       :class="{ 'bottom-border': isMenu }"
       @click="toggleMenu"
     >
@@ -74,16 +74,12 @@ export default {
   },
   methods: {
     togglePosts() {
-      this.isPosts = true;
-      this.isSearch = false;
-      this.isNotif = false;
-      this.isMenu = false;
+      // set isPosts to true, all else false
+      [this.isPosts, this.isSearch, this.isNotif, this.isMenu] = [true, false, false, false];
     },
     toggleSearch() {
-      this.isPosts = false;
-      this.isSearch = true;
-      this.isNotif = false;
-      this.isMenu = false;
+      // set isSearch to true, all else false
+      [this.isPosts, this.isSearch, this.isNotif, this.isMenu] = [false, true, false, false];
 
       this.$modal.open({
         parent: this,
@@ -92,12 +88,11 @@ export default {
         width: 300,
         hasModalCard: true
       });
+
     },
     toggleNotif() {
-      this.isPosts = false;
-      this.isSearch = false;
-      this.isNotif = true;
-      this.isMenu = false;
+      // set isNotif to true, all else false
+      [this.isPosts, this.isSearch, this.isNotif, this.isMenu] = [false, false, true, false];
 
       this.$modal.open({
         parent: this,
@@ -108,10 +103,8 @@ export default {
       });
     },
     toggleMenu() {
-      this.isPosts = false;
-      this.isSearch = false;
-      this.isNotif = false;
-      this.isMenu = true;
+      // set isMenu to true, all else false
+      [this.isPosts, this.isSearch, this.isNotif, this.isMenu] = [false, false, false, true];
 
       this.$modal.open({
         parent: this,

@@ -33,7 +33,7 @@
         </div> <!-- end level-right -->
       </div> <!-- top moible header -->
 
-      <MobileNavIcons></MobileNavIcons>
+      <MobileNavIcons class="half-height"></MobileNavIcons>
       <!-- Mobile Header Bottom
       <b-tabs class="on-bottom half-height is-marginless"  expanded>
         <b-tab-item class="block" label="Posts" icon="view-quilt"></b-tab-item>
