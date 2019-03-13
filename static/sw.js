@@ -2,12 +2,16 @@ importScripts('/_nuxt/workbox.4c4f5ca6.js')
 
 workbox.precaching.precacheAndRoute([
   {
-    "url": "/_nuxt/0d6b3b700db04c8f445f.js",
-    "revision": "f973bfb012bee07d974f5e53d6c59645"
+    "url": "/_nuxt/0cc5c4659366a8eb18f7.js",
+    "revision": "2c65c3ab474388889043b6240c295722"
   },
   {
     "url": "/_nuxt/228f3e174e1977021861.js",
     "revision": "6ed8834e67f6718272027cb22d5cf117"
+  },
+  {
+    "url": "/_nuxt/26d99179d141b2764a66.js",
+    "revision": "69b8c09b50ebe0f96e16e8f70718de9b"
   },
   {
     "url": "/_nuxt/31b642215f455e481686.js",
@@ -22,10 +26,6 @@ workbox.precaching.precacheAndRoute([
     "revision": "3e698102772fa75372a2a5d0e39b81b3"
   },
   {
-    "url": "/_nuxt/584839923f35dd69eb54.js",
-    "revision": "f4f27d5495e5a11b9ae075eb4b02f065"
-  },
-  {
     "url": "/_nuxt/634c4f386e491dc2608f.js",
     "revision": "8cc38a5bcc62a2bc2fc1598974e8b424"
   },
@@ -34,12 +34,20 @@ workbox.precaching.precacheAndRoute([
     "revision": "c12225beb7693600e0b8972a83f62667"
   },
   {
-    "url": "/_nuxt/8a97ae804c04a4664e9a.js",
-    "revision": "f51b78921572b92bc62a6b7e660383c0"
+    "url": "/_nuxt/7eefd0923eb444e3e05a.js",
+    "revision": "94fc7b6fd08fbc43b9ff277c6bcdae62"
+  },
+  {
+    "url": "/_nuxt/8e63293767d03659f4fa.js",
+    "revision": "818f0609ace3955209aa7d4768932420"
   },
   {
     "url": "/_nuxt/9606a9d4e436ef903a72.js",
     "revision": "af71e6624e6b0ca15b885b098ab9fda2"
+  },
+  {
+    "url": "/_nuxt/a368149694c77512f248.js",
+    "revision": "c8d0736174a1d4d72d2e57752054d400"
   },
   {
     "url": "/_nuxt/af2537e58d4e4ba9e973.js",
@@ -50,20 +58,8 @@ workbox.precaching.precacheAndRoute([
     "revision": "24fb0832df46f16fe1c5f834fe50d1c5"
   },
   {
-    "url": "/_nuxt/b9e2e9fca3624fc78708.js",
-    "revision": "6bfccd5a43d021d79bca18900e32227f"
-  },
-  {
     "url": "/_nuxt/bb98048f9aa51f0d8165.js",
     "revision": "d832b2641eedef205d10f202ea44bfc8"
-  },
-  {
-    "url": "/_nuxt/c22daf489e593e0370a2.js",
-    "revision": "237fc91f39022bf8802a212bb54b4b5e"
-  },
-  {
-    "url": "/_nuxt/c6f0fd0157ff1b35d337.js",
-    "revision": "1154583ad8d80e167ea369d83e818896"
   },
   {
     "url": "/_nuxt/c891f4be31dbecf659eb.js",
@@ -72,6 +68,10 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "/_nuxt/e48d5935e234d9b2ac67.js",
     "revision": "6ddd825abde0cc19c1906724867dd394"
+  },
+  {
+    "url": "/_nuxt/e5a15b619d22efbbc620.js",
+    "revision": "08c4d725f919fdb53f318ee88d3914c9"
   }
 ], {
   "cacheId": "kowalla-app",
