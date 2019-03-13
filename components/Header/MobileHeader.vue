@@ -6,9 +6,14 @@
         <div class="level-left" @click="callChangeLocationModal">
           <div class="level-item">
             <img
+              v-if="!isHome"
               :src="locationPictureToDisplay"
               class="mobile-nav-link-picture"
             />
+
+            <div v-else class="center mobile-nav-link-picture">
+              <font-awesome-icon icon="home" />
+            </div>
           </div>
 
           <div class="level-item margin-adjust">
@@ -57,7 +62,8 @@ export default {
   },
   props: {
     locationToDisplay: String,
-    locationPictureToDisplay: String,
+    locationPictureToDisplay: {type: String, default: ''},
+    isHome: {type: Boolean, default: false},
   },
   methods: {
     callChangeLocationModal() {
@@ -116,11 +122,17 @@ export default {
   margin: 0px 0px 0px -4px;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .half-height {
   height: 50px;
 }
 
-.mobile-nav-profile-picture{
+.mobile-nav-profile-picture {
   height: 40px;
   width: 40px;
   border: 1px solid #E0DDDD;

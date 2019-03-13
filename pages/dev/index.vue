@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="screen background-tint">
 
-    <Header></Header>
+    <Header class="is-hidden-touch"></Header>
 
-    <div class="container is-fullhd">
+    <div class="container is-fullhd is-hidden-touch">
       <!--
           we'll want to dial in the container fullhd breakpoint
           right now it isn't contained to just ultra-wides, and effects
@@ -29,10 +29,26 @@
         </div>
       </div>
     </div>
+
+    <MobileHeader
+      class="is-hidden-desktop"
+      locationToDisplay="Home"
+      isHome
+    />
+
+    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+    </div>
+
+
+    <MobileFooter class="is-hidden-desktop"/>
   </div>
 </template>
 
 <script>
+import MobileHeader from '~/components/Header/MobileHeader';
+import MobileFooter from '~/components/Header/MobileFooter';
+
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Post from "~/components/PostCard/feedPost";
@@ -41,7 +57,15 @@ import LoginRegister from "../../components/LoginRegister";
 
 export default {
   name: "test",
-  components: { LoginRegister, CreatePost, Header, NavPane, Post },
+  components: {
+    LoginRegister,
+    CreatePost,
+    Header,
+    NavPane,
+    Post,
+    MobileHeader,
+    MobileFooter,
+  },
   data() {
     return {
       postList: [],
