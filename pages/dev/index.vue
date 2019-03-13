@@ -35,7 +35,7 @@
 <script>
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
-import Post from "~/components/PostCard/feedPost"
+import Post from "~/components/PostCard/feedPost";
 import CreatePost from "~/components/createPost";
 import LoginRegister from "../../components/LoginRegister";
 

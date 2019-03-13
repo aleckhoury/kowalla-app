@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header></Header>
+    <Header class="is-hidden-touch"></Header>
 
-    <div class="container is-fullhd">
+    <div class="container is-fullhd is-hidden-touch">
       <!--
           we'll want to dial in the container fullhd breakpoint
           right now it isn't contained to just ultra-wides, and effects
@@ -10,7 +10,7 @@
       -->
 
       <!-- two columns, navpane and banner -->
-      <div class="columns is-marginless is-hidden-touch main-margin">
+      <div class="columns is-marginless  main-margin">
 
           <!-- nav pane -->
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
@@ -95,10 +95,27 @@
           </div>
       </div>
     </div>
+
+    <!-- Mobile -->
+    <MobileHeader
+      class="is-hidden-desktop"
+      :locationPictureToDisplay="this.projectProfilePictureURL"
+      :locationToDisplay="`@${this.projectName}`"
+    />
+
+    <div class="columns is-marginless is-hidden-desktop main-margin">
+      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+    </div>
+
+
+    <MobileFooter class="is-hidden-desktop"/>
   </div>
 </template>
 
 <script>
+import MobileHeader from '~/components/Header/MobileHeader';
+import MobileFooter from '~/components/Header/MobileFooter';
+
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
@@ -108,10 +125,14 @@ import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 
+import Post from "~/components/PostCard/feedPost";
+
 export default {
   name: "user-page-test",
   components: {
     Header,
+    MobileHeader,
+    MobileFooter,
     NavPane,
     Banner,
     DescriptionCard,
@@ -119,6 +140,7 @@ export default {
     InfoPane,
     EditButton,
     EditProjectModal,
+    Post
   },
   data() {
     return {
@@ -144,7 +166,9 @@ export default {
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
         { "name": "three", "stat": "7"}
-      ]
+      ],
+      // newsfeed content
+      postList: [],
     }
   },
   created() {
@@ -191,6 +215,8 @@ export default {
     if (adminRes.data.hasOwnProperty('profilePicture')) {
       this.adminProfilePictureURL = adminRes.data.profilePicture;
     }
+    // get posts
+    this.postList = await this.$axios.$get('/api/v1/posts');
 
     document.title = `kowalla - @${this.projectName}`;
   },

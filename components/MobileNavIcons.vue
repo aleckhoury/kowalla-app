@@ -2,7 +2,7 @@
   <div class="columns is-mobile is-marginless">
     <div
       class="column align-icon is-paddingless is-one-third"
-      :class="{ 'bottom-border': isPosts }"
+      :class="{ 'bottom-border': isPosts, 'normal-border': !isPosts }"
       @click="togglePosts"
     >
       <div class="align-icon">
@@ -22,7 +22,7 @@
 
     <div
       class="column align-icon is-paddingless"
-      :class="{ 'bottom-border': isSearch }"
+      :class="{ 'bottom-border': isSearch, 'normal-border': !isSearch }"
       @click="toggleSearch"
     >
       <b-icon
@@ -34,7 +34,7 @@
 
     <div
       class="column align-icon is-paddingless"
-      :class="{ 'bottom-border': isNotif }"
+      :class="{ 'bottom-border': isNotif, 'normal-border': !isNotif }"
       @click="toggleNotif"
     >
       <b-icon
@@ -46,7 +46,7 @@
 
     <div
       class="column align-icon is-paddingless"
-      :class="{ 'bottom-border': isMenu }"
+      :class="{ 'bottom-border': isMenu, 'normal-border': !isMenu }"
       @click="toggleMenu"
     >
       <b-icon
@@ -128,8 +128,12 @@ export default {
   color: #39C9A0;
 }
 
-.bottom-border{
+.bottom-border {
   border-bottom: 3px solid #39C9A0;
+}
+
+.normal-border {
+  border-bottom: 3px solid #E0DDDD;
 }
 
 .padding {

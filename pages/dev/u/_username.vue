@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header></Header>
+    <Header class="is-hidden-touch"></Header>
 
-    <div class="container is-fullhd">
+    <div class="container is-fullhd is-hidden-touch">
       <div class="columns is-marginless main-margin">
 
         <!-- nav pane -->
@@ -63,10 +63,27 @@
         </div>
       </div>
     </div>
+
+    <!-- Mobile -->
+    <MobileHeader
+      class="is-hidden-desktop"
+      :locationPictureToDisplay="this.profilePictureURL"
+      :locationToDisplay="`@${this.username}`"
+    />
+
+    <div class="columns is-marginless is-hidden-desktop main-margin">
+      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+    </div>
+
+
+    <MobileFooter class="is-hidden-desktop"/>
   </div>
 </template>
 
 <script>
+import MobileHeader from '~/components/Header/MobileHeader';
+import MobileFooter from '~/components/Header/MobileFooter';
+
 import NavPane from '~/components/NavCards/NavPane';
 import Header from '~/components/Header/Header';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
@@ -76,10 +93,24 @@ import Card from '~/components/Card';
 import NavCard from '~/components/NavCards/NavCard';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditProfileModal from '~/components/Modals/Edit/EditProfileModal';
+import Post from "~/components/PostCard/feedPost";
 
 export default {
   name: 'UserPageTest',
-  components: { NavPane, NavCard, Card, Header, ProfileCard, InfoPane, DescriptionCard, EditButton, EditProfileModal },
+  components: {
+    NavPane,
+    NavCard,
+    Card,
+    Header,
+    ProfileCard,
+    InfoPane,
+    DescriptionCard,
+    EditButton,
+    EditProfileModal,
+    Post,
+    MobileHeader,
+    MobileFooter,
+  },
   data() {
     return {
       username: null,
@@ -95,6 +126,9 @@ export default {
         { "name": "three", "stat": "7"}
       ],
       profileSubs: {subscriptions: [], owned: []},
+
+      // newsfeed content
+      postList: [],
     };
   },
   computed: {
@@ -105,7 +139,7 @@ export default {
   methods: {
     callEditProfileModal() {
       console.log('edit profile settings pressed')
-      
+
       this.$modal.open({
         parent: this,
         component: EditProfileModal,
@@ -130,7 +164,7 @@ export default {
 
 
     let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
-
+    console.log(infoRes);
     //------------------
     // remove if statements, but keep assignments in production.
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
@@ -150,6 +184,7 @@ export default {
 
     // profile picture
     if (infoRes.data.hasOwnProperty('profilePicture')) {
+      console.log(infoRes.data.profilePicture)
       this.profilePictureURL = infoRes.data.profilePicture;
     }
 
@@ -158,12 +193,17 @@ export default {
       this.profileId = infoRes.data._id;
     }
 
+    console.log('hi');
+
     let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
     // console.log(subRes);
     if (subRes.data.hasOwnProperty('profileSubscriptions')) {
       // console.log(subRes.data.profileSubscriptions);
       this.profileSubs = subRes.data.profileSubscriptions;
     }
+
+    // get posts
+    this.postList = await this.$axios.$get('/api/v1/posts');
 
     document.title = `kowalla - ${this.firstName} ${this.lastName}`;
   }
