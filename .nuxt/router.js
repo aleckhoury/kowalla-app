@@ -4,12 +4,14 @@ import { interopDefault } from './utils'
 
 const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
-const _17b0d883 = () => interopDefault(import('../pages/dev/mobile/index.vue' /* webpackChunkName: "pages/dev/mobile/index" */))
+const _1920635a = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
 const _28f8b8fa = () => interopDefault(import('../pages/dev/notifications.vue' /* webpackChunkName: "pages/dev/notifications" */))
 const _33c897f4 = () => interopDefault(import('../pages/dev/search.vue' /* webpackChunkName: "pages/dev/search" */))
 const _4a8e3666 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
-const _8f25cd02 = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
-const _06e0a102 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
+const _7f0b767c = () => interopDefault(import('../pages/dev/c/_communityname/index.vue' /* webpackChunkName: "pages/dev/c/_communityname/index" */))
+const _8a25569e = () => interopDefault(import('../pages/dev/c/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/c/_communityname/index/posts/_postId" */))
+const _b08643f6 = () => interopDefault(import('../pages/dev/p/_projectname/index.vue' /* webpackChunkName: "pages/dev/p/_projectname/index" */))
+const _6d9cfcb4 = () => interopDefault(import('../pages/dev/p/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/p/_projectname/index/posts/_postId" */))
 const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
 const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -77,11 +79,12 @@ export function createRouter() {
     }, {
       path: "/dev",
       component: _90e13c38,
-      name: "dev"
-    }, {
-      path: "/dev/mobile",
-      component: _17b0d883,
-      name: "dev-mobile"
+      name: "dev",
+      children: [{
+        path: "posts/:postId?",
+        component: _1920635a,
+        name: "dev-index-posts-postId"
+      }]
     }, {
       path: "/dev/notifications",
       component: _28f8b8fa,
@@ -96,12 +99,22 @@ export function createRouter() {
       name: "dev-Trello"
     }, {
       path: "/dev/c/:communityname?",
-      component: _8f25cd02,
-      name: "dev-c-communityname"
+      component: _7f0b767c,
+      name: "dev-c-communityname",
+      children: [{
+        path: "posts/:postId?",
+        component: _8a25569e,
+        name: "dev-c-communityname-index-posts-postId"
+      }]
     }, {
       path: "/dev/p/:projectname?",
-      component: _06e0a102,
-      name: "dev-p-projectname"
+      component: _b08643f6,
+      name: "dev-p-projectname",
+      children: [{
+        path: "posts/:postId?",
+        component: _6d9cfcb4,
+        name: "dev-p-projectname-index-posts-postId"
+      }]
     }, {
       path: "/dev/u/:username?",
       component: _979bcba6,

@@ -1,51 +1,90 @@
 <template>
     <div class="modal-content">
         <div class="box is-paddingless">
-            <post :post="post" />
-            <AddComment v-if="!activeCommentId" :postId="post._id" :updateComment="updateComment" />
-            <Comment
-                v-for="comment in commentList"
-                :activeComment="activeCommentId"
-                :key="comment._id"
-                :comment="comment"
-                :nest-level="0"
-                :toggle="toggleComment" />
+          <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
+              <post-header
+                :createdAt="this.post.createdAt"
+                :profile="this.profile"
+                :project="this.project"
+                :community="this.community"
+                :isProject="this.isProject"
+              />
+              <div class="content is-marginless" v-html="post.content">
+              </div>
+              <br />
+              <Reactions
+                :postId="this.post._id"
+                hideComments
+                :load-picker="loadPicker"
+              />
+          </div>
+
+          <AddComment v-if="!activeCommentId" :postId="post._id" :updateComment="updateComment" />
+          <Comment
+            v-for="comment in commentList"
+            :activeComment="activeCommentId"
+            :key="comment._id"
+            :comment="comment"
+            :nest-level="0"
+            :toggle="toggleComment"
+          />
         </div>
     </div>
 </template>
 
 <script>
-import Post from './postNoComments.vue';
 import Comment from './comment.vue';
 import AddComment from "./addComment";
+import Reactions from "./Reactions";
+import PostHeader from "./postHeader";
 
-  export default {
-    name: "PostModal",
-    components: { AddComment, Post, Comment },
-    props: {
-      post: Object,
-    },
-    data() {
-      return {
-        commentList: [],
-        activeCommentId: '',
-      }
-    },
-    async mounted() {
-      this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
-      this.commentList.map(async (comment, idx) => {
-        this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/upvotes/${comment._id}/${this.$store.state.user._id}`)
-      })
-    },
-    methods: {
-      updateComment(comment) {
-        this.commentList.unshift(comment)
-      },
-      toggleComment(activeCommentId) {
-        this.activeCommentId = activeCommentId;
-      },
+export default {
+  name: "PostModal",
+  components: { AddComment, Comment, Reactions, PostHeader },
+  props: {
+    post: Object,
+    isFromNestedURL: { type: Boolean, default: false },
+    isFromNewsfeed: { type: Boolean, default: false },
+    fallbackURL: { type: String, default: ''},
+    profile: Object,
+    project: Object,
+    community: Object,
+    isProject: Boolean,
+
+  },
+  data() {
+    return {
+      commentList: [],
+      activeCommentId: '',
+      loadPicker: false,
+      originalPath: '',
     }
-  };
+  },
+  created() {
+    this.originalPath = this.$route.path;
+    window.history.pushState(
+      {}, null,
+      `/dev/c/${this.community.name}/posts/${this.post._id}`
+    )
+  },
+  beforeDestroy() {
+    window.history.pushState({}, null, `${this.$route.path}`)
+  },
+  async mounted() {
+    this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
+    this.commentList.map(async (comment, idx) => {
+      this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/upvotes/${comment._id}/${this.$store.state.user._id}`)
+    })
+  },
+  methods: {
+    updateComment(comment) {
+      this.commentList.unshift(comment)
+    },
+    toggleComment(activeCommentId) {
+      this.activeCommentId = activeCommentId;
+    },
+  }
+};
 </script>
 
 <style scoped>

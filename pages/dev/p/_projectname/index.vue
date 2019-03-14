@@ -45,6 +45,9 @@
                   >
                     <b>Edit Settings</b>
                   </EditButton>
+
+                  <nuxt-link :to="`${this.projectName}/posts/bOVESikDy`">test</nuxt-link>
+
                 </div>
 
                 <div class="column is-half is-paddingless test-outline">
@@ -82,7 +85,7 @@
 
                 <!-- post feed -->
                 <div class="column is-two-thirds test-outline">
-                  <b>test</b>
+                  <Post v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
                 <!-- info pane -->
@@ -126,6 +129,7 @@ import EditButton from '~/components/InfoCards/EditButton';
 import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 
 import Post from "~/components/PostCard/feedPost";
+import PostModal from '~/components/PostCard/modalPost.vue';
 
 export default {
   name: "user-page-test",
@@ -169,10 +173,16 @@ export default {
       ],
       // newsfeed content
       postList: [],
+      isNestedURL: false,
     }
   },
   created() {
     this.projectName = this.$route.params.projectname;
+    if (this.$route.params.hasOwnProperty('postId')) {
+      console.log('what the fuckkkkk')
+      console.log(this.$route.params.postId)
+      this.isNestedURL = true;
+    }
   },
   async mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
@@ -214,6 +224,23 @@ export default {
     }
     if (adminRes.data.hasOwnProperty('profilePicture')) {
       this.adminProfilePictureURL = adminRes.data.profilePicture;
+    }
+
+    if (this.isNestedURL) {
+      // need to launch modal to show post
+      this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+
+      this.$modal.open({
+        parent: this,
+        component: PostModal,
+        props: {
+          post: this.post,
+          isFromNestedURL: true,
+          fallbackURL: `/dev/p/${this.projectName}`,
+        },
+        width: 900,
+        hasModalCard: true,
+      });
     }
     // get posts
     this.postList = await this.$axios.$get('/api/v1/posts');
