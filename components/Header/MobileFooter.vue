@@ -69,7 +69,7 @@ export default {
   border-top: 2px solid #2F8168;
   bottom: 0;
   left: 0;
-  z-index: 99;
+  z-index: 5;
   height: 50px;
   width: 100%;
 }

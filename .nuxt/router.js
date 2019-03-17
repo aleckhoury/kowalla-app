@@ -10,6 +10,7 @@ const _33c897f4 = () => interopDefault(import('../pages/dev/search.vue' /* webpa
 const _4a8e3666 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
 const _7f0b767c = () => interopDefault(import('../pages/dev/c/_communityname/index.vue' /* webpackChunkName: "pages/dev/c/_communityname/index" */))
 const _8a25569e = () => interopDefault(import('../pages/dev/c/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/c/_communityname/index/posts/_postId" */))
+const _6d1e306b = () => interopDefault(import('../pages/dev/mobile/_postId.vue' /* webpackChunkName: "pages/dev/mobile/_postId" */))
 const _b08643f6 = () => interopDefault(import('../pages/dev/p/_projectname/index.vue' /* webpackChunkName: "pages/dev/p/_projectname/index" */))
 const _6d9cfcb4 = () => interopDefault(import('../pages/dev/p/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/p/_projectname/index/posts/_postId" */))
 const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
@@ -106,6 +107,10 @@ export function createRouter() {
         component: _8a25569e,
         name: "dev-c-communityname-index-posts-postId"
       }]
+    }, {
+      path: "/dev/mobile/:postId?",
+      component: _6d1e306b,
+      name: "dev-mobile-postId"
     }, {
       path: "/dev/p/:projectname?",
       component: _b08643f6,

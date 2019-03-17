@@ -37,7 +37,12 @@
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+      <Post
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      >
+      </Post>
     </div>
 
 

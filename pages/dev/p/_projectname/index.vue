@@ -48,6 +48,10 @@
 
                   <nuxt-link :to="`${this.projectName}/posts/bOVESikDy`">test</nuxt-link>
 
+                  <div @click="runMobilePostView">test 2</div>
+
+                  <MobilePostView v-if="showMobilePostView"></MobilePostView>
+
                 </div>
 
                 <div class="column is-half is-paddingless test-outline">
@@ -107,7 +111,12 @@
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+      <Post
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      >
+      </Post>
     </div>
 
 
@@ -131,6 +140,8 @@ import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 import Post from "~/components/PostCard/feedPost";
 import PostModal from '~/components/PostCard/modalPost.vue';
 
+import MobilePostView from "~/components/PostCard/MobilePostView";
+
 export default {
   name: "user-page-test",
   components: {
@@ -144,7 +155,8 @@ export default {
     InfoPane,
     EditButton,
     EditProjectModal,
-    Post
+    Post,
+    MobilePostView
   },
   data() {
     return {
@@ -174,6 +186,7 @@ export default {
       // newsfeed content
       postList: [],
       isNestedURL: false,
+      showMobilePostView: false,
     }
   },
   created() {
@@ -281,6 +294,10 @@ export default {
         width: 900,
         hasModalCard: true
       });
+    },
+    runMobilePostView() {
+      console.log('mobile post view')
+      this.showMobilePostView = true;
     }
   }
 }

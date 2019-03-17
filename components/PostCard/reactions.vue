@@ -30,9 +30,12 @@
                     ></Picker>
                 </BDropdownItem>
             </BDropdown>
-            <a v-if="!hideComments" class="comments level-item" @click="showPost()">
+            <div
+              class="comments level-item"
+              @click="showPost()"
+            >
                 <font-awesome-icon icon="comments" /> Comments
-            </a>
+            </div>
         </div>
     </div>
 </template>
@@ -48,14 +51,6 @@
     props: {
       postId: String,
       loadPicker: Boolean,
-      hideComments: {
-        type: Boolean,
-        default: false,
-      },
-      isPostModal: {
-        type: Boolean,
-        default: false,
-      }
     },
     data() {
       return {
@@ -115,7 +110,7 @@
         });
       },
       showPost() {
-        this.$emit('open-post-modal');
+        this.$emit('open-post');
       }
     },
     computed: {
@@ -197,5 +192,8 @@
     .user-reacted, .user-reacted:hover {
         background: #39C9A0;
         color: white;
+    }
+    .visible {
+      display: none;
     }
 </style>

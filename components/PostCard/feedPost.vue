@@ -13,7 +13,7 @@
         <Reactions
           :postId="this.post._id"
           :load-picker="loadPicker"
-          @open-post-modal="openPostModal"
+          @open-post="openPost"
         />
     </div>
 </template>
@@ -31,6 +31,10 @@
         type: Boolean,
         default: false,
       },
+      isMobile: {
+        type: Boolean,
+        default: false,
+      }
     },
     data() {
       return {
@@ -63,22 +67,28 @@
       }
     },
     methods: {
-      openPostModal() { // figure out how to
+      openPost() { // figure out how to
 
-        this.$modal.open({
-          parent: this,
-          component: PostModal,
-          props: {
-            post: this.post,
-            profile: this.profile,
-            project: this.project,
-            community: this.community,
-            isProject: this.isProject,
-          },
-          width: 900,
-          hasModalCard: true,
-        });
+        if (this.isMobile) {
+          this.$router.push({
+            path: `/dev/mobile/${this.post._id}`
+          })
+        } else {
 
+          this.$modal.open({
+            parent: this,
+            component: PostModal,
+            props: {
+              post: this.post,
+              profile: this.profile,
+              project: this.project,
+              community: this.community,
+              isProject: this.isProject,
+            },
+            width: 900,
+            hasModalCard: true,
+          });
+        }
       }
     }
   };
