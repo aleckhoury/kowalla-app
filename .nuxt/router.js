@@ -5,8 +5,6 @@ import { interopDefault } from './utils'
 const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
 const _1920635a = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
-const _28f8b8fa = () => interopDefault(import('../pages/dev/notifications.vue' /* webpackChunkName: "pages/dev/notifications" */))
-const _33c897f4 = () => interopDefault(import('../pages/dev/search.vue' /* webpackChunkName: "pages/dev/search" */))
 const _4a8e3666 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
 const _7f0b767c = () => interopDefault(import('../pages/dev/c/_communityname/index.vue' /* webpackChunkName: "pages/dev/c/_communityname/index" */))
 const _8a25569e = () => interopDefault(import('../pages/dev/c/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/c/_communityname/index/posts/_postId" */))
@@ -86,14 +84,6 @@ export function createRouter() {
         component: _1920635a,
         name: "dev-index-posts-postId"
       }]
-    }, {
-      path: "/dev/notifications",
-      component: _28f8b8fa,
-      name: "dev-notifications"
-    }, {
-      path: "/dev/search",
-      component: _33c897f4,
-      name: "dev-search"
     }, {
       path: "/dev/Trello",
       component: _4a8e3666,

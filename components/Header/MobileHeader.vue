@@ -39,13 +39,6 @@
       </div> <!-- top moible header -->
 
       <MobileNavIcons class="half-height"></MobileNavIcons>
-      <!-- Mobile Header Bottom
-      <b-tabs class="on-bottom half-height is-marginless"  expanded>
-        <b-tab-item class="block" label="Posts" icon="view-quilt"></b-tab-item>
-        <b-tab-item class="block" label="" icon="magnify"></b-tab-item>
-        <b-tab-item class="block" label="" icon="bell-outline"></b-tab-item>
-        <b-tab-item class="block" label="" icon="dots-horizontal"></b-tab-item>
-      </b-tabs> -->
     </div>
   </div>
 </template>
@@ -72,13 +65,6 @@ export default {
       this.$modal.open({
         parent: this,
         component: ChangeLocationModal,
-        /*props: {
-          name: this.communityName,
-          headerPicture: this.bannerPictureURL,
-          profilePicture: this.profilePictureURL,
-          description: this.communityDescription,
-          communityId: this.communityId,
-        },*/
         width: 300,
         hasModalCard: true
       });

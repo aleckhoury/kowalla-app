@@ -182,6 +182,7 @@
     .comments {
         color: #39C9A0;
         margin-left: 0.5em;
+        cursor: pointer;
     }
     div.dropdown-item, .is-active.is-mobile-modal div.dropdown-item {
         padding: 0;
