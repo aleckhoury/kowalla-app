@@ -21,6 +21,8 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/onesignal": "^2.6.0",
     "@nuxtjs/pwa": "^2.6.0",
+    "bulma-slider": "^2.0.0",
+    "cleave.js": "^1.4.9",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "emoji-mart-vue": "^2.6.6",

@@ -1,6 +1,7 @@
 <template>
     <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
         <post-header :post="post"/>
+            <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div class="content is-marginless" v-html="post.content">
         </div>
         <br />
@@ -11,9 +12,10 @@
 <script>
   import Reactions from "./reactions";
   import PostHeader from "./postHeader";
+  import PostTimer from "./postTimer";
   export default {
     name: "Post",
-    components: { PostHeader, Reactions },
+    components: { PostTimer, PostHeader, Reactions },
     props: {
       post: Object,
       hideComments: {
@@ -25,7 +27,7 @@
       return {
         loadPicker: false,
       }
-    }
+    },
   };
 </script>
 

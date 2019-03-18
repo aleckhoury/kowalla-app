@@ -110,48 +110,19 @@
                                     <font-awesome-icon icon="camera" />
                                 </a>
                                 <a class="button is-white" @click="toggleTimedPost">
-                                    <font-awesome-icon icon="clock" />
+                                    <font-awesome-icon icon="clock" /> &nbsp; Timed Post
                                 </a>
-                                <div v-if="timedPost" class="block">
-                                    <p>
-                                        <span>
-                                            <b>Select a timespan for your live post:</b>
-                                        </span>
-                                    </p>
-                                    <b-radio v-model="radio"
-                                             native-value="30"
-                                             type="is-dark">
-                                        30 minutes
-                                    </b-radio>
-                                    <b-radio v-model="radio"
-                                             native-value="60"
-                                             type="is-dark">
-                                        1 hour
-                                    </b-radio>
-                                    <b-radio v-model="radio"
-                                             native-value="120"
-                                             type="is-dark">
-                                        2 hours
-                                    </b-radio>
-                                    <b-radio v-model="radio"
-                                             native-value="Custom"
-                                             type="is-dark">
-                                        Custom
-                                    </b-radio>
-                                    <b-input placeholder="01"
-                                             type="number"
-                                             min="01"
-                                             max="10">
-                                    </b-input>
-                                    <b>:</b>
-                                    <b-input placeholder="01"
-                                             type="number"
-                                             min="01"
-                                             max="60">
-                                    </b-input>
-                                </div>
                             </div>
                         </editor-menu-bar>
+                        <div v-if="timedPost" class="block">
+                            <p>
+                                <b>Select a timespan for your timed post:</b>
+                            </p>
+                            <b-timepicker
+                                    v-model="time"
+                                    inline
+                                    :max-time="new Date(2018, 11, 24, 10)"></b-timepicker>
+                        </div>
                         <div class="editor content">
                             <editor-content class="editor__content" :editor="editor" />
                         </div>
@@ -197,7 +168,7 @@
     Underline,
     History,
   } from 'tiptap-extensions'
-  import Dropdown from "../../dropdownItems";
+  import Dropdown from "../../../dropdownItems";
 
   export default {
     name: "createPostModal",
@@ -218,8 +189,10 @@
         clearPhoto: false,
         photoUrl: '',
         timedPost: false,
-        time: 0,
-        radio: 'Butt',
+        time: null,
+        isActive: null,
+        userCompleted: null,
+        unselectableTimes: [],
       };
     },
     async beforeDestroy() {
@@ -232,20 +205,40 @@
       }
       await this.editor.destroy();
     },
+    computed: {
+      minutes() {
+        return this.time ? this.time.getMinutes() : '';
+      },
+      hours() {
+        return this.time ? this.time.getHours() : '';
+      },
+      expiration() {
+        const time = new Date();
+        const expireTime = time.setHours(time.getHours() + this.hours, time.getMinutes() + this.minutes);
+        return new Date(expireTime);
+      }
+    },
     methods: {
       toggleTimedPost() {
         this.timedPost = !this.timedPost;
+        this.isActive = true;
         if (!this.timedPost) {
-          this.time = 0;
+          this.time = null;
+          this.isActive = false;
         }
       },
       async createPost() {
+        console.log(this);
         this.s3Loading = true;
         const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
         await this.$axios.post(`/api/v1/communities/1234567890/posts`, {
           profileId: this.$store.state.user._id,
           communityId: community._id,
           content: this.html,
+          duration: this.time,
+          expiration: this.expiration || null,
+          isActive: this.isActive,
+          userCompleted: this.userCompleted,
         });
         this.clearPhoto = false;
         this.s3Loading = false;
@@ -298,7 +291,7 @@
           new Underline(),
           new History(),
         ],
-        content: '',
+        content: '<p></p><p></p><p></p><p></p>',
         onUpdate: ({ getHTML }) => {
           this.html = getHTML()
         },
@@ -347,17 +340,13 @@
     .is-white:hover {
         background-color: #E9EBEE;
     }
-    .editor.content {
-        height: 10em;
-    }
     .dropdown-content {
         overflow: visible;
     }
     div.animation-content {
         margin: 0;
     }
-    .block div.control.is-clearfix {
-        width: 3em;
-        display: inline-block;
+    .block {
+        color: #39C9A0;
     }
 </style>

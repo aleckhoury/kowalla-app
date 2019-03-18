@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 
 const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _31eff532 = () => interopDefault(import('../pages/dev/focus.vue' /* webpackChunkName: "pages/dev/focus" */))
 const _759ea23c = () => interopDefault(import('../pages/dev/c/_communityname.vue' /* webpackChunkName: "pages/dev/c/_communityname" */))
 const _2d403325 = () => interopDefault(import('../pages/dev/p/_projectname.vue' /* webpackChunkName: "pages/dev/p/_projectname" */))
 const _ca6d1a2c = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
@@ -74,6 +75,10 @@ export function createRouter() {
       path: "/dev",
       component: _55d34c61,
       name: "dev"
+    }, {
+      path: "/dev/focus",
+      component: _31eff532,
+      name: "dev-focus"
     }, {
       path: "/dev/c/:communityname?",
       component: _759ea23c,

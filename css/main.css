@@ -45,3 +45,6 @@ div.dropdown div.button {
 .has-text-primary i {
     color: #39C9A0;
 }
+.editor.content p {
+    margin: 0;
+}

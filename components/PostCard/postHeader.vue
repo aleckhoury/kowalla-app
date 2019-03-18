@@ -20,7 +20,9 @@
                   </span>
 
                 · {{ createdAtFormatted }}
-
+                    ·   <span class="liveBox" v-if="post.isActive">
+                            LIVE
+                        </span>
                 </small>
             </p>
             </nuxt-link>
@@ -111,5 +113,11 @@ span {
   color: #39C9A0;
   text-decoration: underline;
 }
-
+.liveBox {
+    border-radius: 3px;
+    padding: 0.125em 0.25em;
+    width: fit-content;
+    background: red;
+    color: white;
+}
 </style>
