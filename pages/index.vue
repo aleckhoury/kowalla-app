@@ -24,7 +24,6 @@
           </div>
           <Post v-if="postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
-
         <!-- infopane -->
         <div class="column centered is-one-half is-full-touch is-paddingless">
           <div class="description-width">
@@ -76,13 +75,14 @@ export default {
   },
   data() {
     return {
+      posts: [],
       postList: [],
     }
   },
   async mounted() {
     document.title = `Kowalla - Home`;
-    this.postList[0] = await this.$axios.$get('/api/v1/posts/bOVESikDy');
-    this.postList[1] = await this.$axios.$get('/api/v1/posts/uxWP0nd_C');
+    this.posts = await this.$axios.$get('/api/v1/posts');
+    this.postList = this.posts.filter(post => post._id === 'bOVESikDy' || post._id === 'uxWP0nd_C');
   }
 };
 </script>
