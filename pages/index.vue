@@ -22,7 +22,7 @@
               Blog
             </div>
           </div>
-          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+          <Post v-if="postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- infopane -->
@@ -81,8 +81,8 @@ export default {
   },
   async mounted() {
     document.title = `Kowalla - Home`;
-    this.postList = await this.$axios.$get('/api/v1/posts');
-
+    this.postList[0] = await this.$axios.$get('/api/v1/posts/bOVESikDy');
+    this.postList[1] = await this.$axios.$get('/api/v1/posts/uxWP0nd_C');
   }
 };
 </script>
