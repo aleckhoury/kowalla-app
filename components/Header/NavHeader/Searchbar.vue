@@ -1,74 +1,53 @@
 <template lang="html">
-
-  <div>
-    <b-autocomplete
-      class="searchbar-container"
-      placeholder="Search"
-      icon="magnify"
-      @select="option => selected = option">
-      <template slot="empty">No results found</template>
-    </b-autocomplete>
-  </div>
-
-  <!--
-    <el-autocomplete
-      :fetch-suggestions="querySearchAsync"
-      class="searchbar-container"
-      placeholder="Search"
-      prefix-icon="el-icon-search"
-      size="small"
-      @select="handleSelect"
-    />
-  -->
+  <b-autocomplete
+    class="searchbar-container"
+    placeholder="Search"
+    icon="magnify"
+    @typing="fetchData"
+    :data="filteredDataArray"
+    @select="(option) => optionSelected(option)">
+    <template slot="empty">No results found</template>
+  </b-autocomplete>
 </template>
 
 <script>
-// https://element.eleme.io/#/en-US/component/input#remote-search
+import { debounce } from 'debounce';
 
 export default {
   name: 'Searchbar',
-  data() {
-    return {
-      search: '',
-      links: [],
-      state4: '',
-      timeout: null,
-    };
-  },
-  mounted() {
-    this.links = this.loadAll();
-  },
-  methods: {
-    loadAll() {
-      return [
-        { value: 'tob', link: 'https://github.com/vuejs/vue', },
-        { value: 'is', link: 'https://github.com/ElemeFE/element', },
-        { value: 'the', link: 'https://github.com/ElemeFE/cooking', },
-        { value: 'realest', link: 'https://github.com/ElemeFE/mint-ui', },
-        { value: 'og', link: 'https://github.com/vuejs/vuex', },
-      ];
-    },
-    querySearchAsync(queryString, cb) {
-      var links = this.links;
-      var results = queryString
-        ? links.filter(this.createFilter(queryString))
-        : links;
 
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        cb(results);
-      }, 1000 * Math.random());
+    data() {
+      return {
+        data: [ 'Tob', 'is', 'the', 'realest', 'OG' ], // need to simulate with some fake objects
+        selected: null,
+        name: '',
+        isFetchingData: false,
+      }
     },
-    createFilter(queryString) {
-      return link => {
-        return link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0;
-      };
+    computed: {
+      filteredDataArray() {
+        return this.data.filter((option) => { // data can be objects
+          return option
+            .toString()
+            .toLowerCase()
+            .indexOf(this.name.toLowerCase()) >= 0;
+        });
+      }
     },
-    handleSelect(item) {
-      console.log(item);
-    },
-  },
-};
+    methods: {
+      optionSelected(option) {
+        console.log(option);
+        this.selcted = option;
+      },
+      fetchData: debounce(function (input) { // need to add debounce
+        this.isFetchingData = true; // for loading animation eventually
+
+        // make axios call to search engine
+
+        this.isFetchingData = false;
+      }, 500)
+    }
+}
 </script>
 
 <style lang="css" scoped>
