@@ -1,9 +1,8 @@
 <template>
     <div class="focusPage">
         <Header></Header>
-        <div>
             <div class="container">
-                <div class="columns is-centered is-marginless main-margin">
+                <div class="columns is-vcentered is-centered is-marginless main-margin">
                     <!-- post feed -->
                     <div class="column is-half">
                         <div class="card livePost">
@@ -113,12 +112,11 @@
                     </div>
                     <div class="column is-half">
                         <div class="card liveTimer">
-                            <b>12:46:31</b>
+                            <b><span class="countdown">{{ countdown }}</span></b>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 
@@ -157,11 +155,36 @@
       return {
         editor: null,
         post: {},
+        countdown: '',
       }
+    },
+    methods: {
+      countdownTimer(expireTimeMS) {
+        const self = this;
+        let x = setInterval(function () {
+          let now = new Date().getTime();
+
+          let distance = expireTimeMS - now;
+
+          let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          hours = (hours < 10) ? '0' + hours : hours;
+          minutes = (minutes < 10) ? '0' + minutes : minutes;
+          seconds = (seconds < 10) ? '0' + seconds : seconds;
+
+          self.countdown = `${hours}:${minutes}:${seconds}`;
+          console.log(self.countdown)
+          // if (countdownTime < 0) {
+          //   clearInterval(x)
+          // }
+        }, 1000)
+      },
     },
     async mounted() {
       this.post = await this.$axios.get(`/api/v1/posts/active/${this.$store.state.user._id}`);
-      console.log(this.post);
+      this.countdownTimer(new Date(this.post.data.expiration).getTime());
       this.editor = await new Editor({
         autoFocus: true,
         extensions: [
@@ -184,7 +207,7 @@
           new Underline(),
           new History(),
         ],
-        content: this.post.html,
+        content: this.post.data.content,
         onUpdate: ({ getHTML }) => {
           this.html = getHTML()
         },
@@ -203,6 +226,17 @@
         background-image: url('https://source.unsplash.com/collection/1242150');
         background-size: cover;
     }
+    .container {
+        height: 90%;
+        width: 100%;
+    }
+    .columns {
+        height: 90%;
+        max-height: 90%;
+    }
+    .column {
+        max-height: 90%;
+    }
     .title {
         font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
         font-size: 2vw;
@@ -217,7 +251,7 @@
     }
     .liveTimer {
         margin: 0 auto;
-        max-width: 100%;
+        max-width: 120%;
         font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
         font-size: 10vw;
         text-align: center;
@@ -230,6 +264,7 @@
     }
     .editor__content {
         color: white;
+        overflow: scroll;
     }
     .is-white {
         background-color: transparent;
@@ -245,5 +280,8 @@
         border-radius: 6px;
         background-color: #39C9A0;
         border-color: #39C9A0;
+    }
+    .countdown {
+        padding: 100px;
     }
 </style>
