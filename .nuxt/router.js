@@ -73,7 +73,7 @@ export function createRouter() {
 
     routes: [{
       path: "/about",
-      component: _16cfdf96,
+      component: _20bda2ce,
       name: "about"
     }, {
       path: "/dev",
@@ -86,7 +86,7 @@ export function createRouter() {
       }]
     }, {
       path: "/dev/Trello",
-      component: _74c79b89,
+      component: _4a8e3666,
       name: "dev-Trello"
     }, {
       path: "/dev/c/:communityname?",
@@ -112,11 +112,11 @@ export function createRouter() {
       }]
     }, {
       path: "/dev/u/:username?",
-      component: _ca6d1a2c,
+      component: _979bcba6,
       name: "dev-u-username"
     }, {
       path: "/",
-      component: _3687ba5b,
+      component: _0f59095e,
       name: "index"
     }],
 
