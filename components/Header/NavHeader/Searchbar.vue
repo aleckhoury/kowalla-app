@@ -3,10 +3,35 @@
     class="searchbar-container"
     placeholder="Search"
     icon="magnify"
-    @typing="fetchData"
+    v-model="name"
+    field="name"
     :data="filteredDataArray"
-    @select="(option) => optionSelected(option)">
-    <template slot="empty">No results found</template>
+    @input="fetchData"
+    @select="optionSelected">
+    <!--<template slot="empty">No results found</template>-->
+    <template slot-scope="props">
+      <div class="media">
+          <div class="media-left">
+              <img width="36" :src="props.option.picture">
+          </div>
+          <div class="media-content">
+              {{ props.option.name }}
+              <br>
+
+              <small v-if="props.option.hasOwnProperty('profileId')">
+                  Profile
+              </small>
+
+              <small v-if="props.option.hasOwnProperty('projectId')">
+                  Project
+              </small>
+
+              <small v-if="props.option.hasOwnProperty('communityId')">
+                  Community
+              </small>
+          </div>
+      </div>
+    </template>
   </b-autocomplete>
 </template>
 
@@ -15,19 +40,19 @@ import { debounce } from 'debounce';
 
 export default {
   name: 'Searchbar',
-
-    data() {
+  data() {
       return {
-        data: [ 'Tob', 'is', 'the', 'realest', 'OG' ], // need to simulate with some fake objects
-        selected: null,
+        data: [],
+        searchResults: [],
+        selected: '',
         name: '',
         isFetchingData: false,
       }
     },
     computed: {
       filteredDataArray() {
-        return this.data.filter((option) => { // data can be objects
-          return option
+        return this.searchResults.filter((option) => { // data can be objects
+          return option.name
             .toString()
             .toLowerCase()
             .indexOf(this.name.toLowerCase()) >= 0;
@@ -35,17 +60,43 @@ export default {
       }
     },
     methods: {
-      optionSelected(option) {
-        console.log(option);
-        this.selcted = option;
+      optionSelected: async function(option) {
+        if (option !== null) { // for some reason this sometimes gets pushed through as "null"
+          if (option.hasOwnProperty("profileId")) {
+            console.log('is profile')
+            let responseData = await this.$axios.get(`/api/v1/profiles/${option.profileId}`);
+
+            this.$router.push({
+              path: `/dev/u/${responseData.data.username}`
+            });
+          }
+
+          if (option.hasOwnProperty("projectId")) {
+            let responseData = await this.$axios.get(`/api/v1/projects/${option.projectId}`);
+
+            this.$router.push({
+              path: `/dev/p/${responseData.data.name}`
+            });
+          }
+
+          if (option.hasOwnProperty("communityId")) {
+            let responseData = await this.$axios.get(`/api/v1/communities/${option.communityId}`);
+
+            this.$router.push({
+              path: `/dev/c/${responseData.data.name}`
+            });
+          }
+        }
       },
-      fetchData: debounce(function (input) { // need to add debounce
+
+      fetchData: debounce(async function (name) {
+
         this.isFetchingData = true; // for loading animation eventually
 
-        // make axios call to search engine
+        this.searchResults = await this.$axios.$get('/api/v1/search/');
 
         this.isFetchingData = false;
-      }, 500)
+      }, 500),
     }
 }
 </script>
