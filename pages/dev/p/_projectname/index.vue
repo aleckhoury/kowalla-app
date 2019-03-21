@@ -140,8 +140,6 @@ import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 import Post from "~/components/PostCard/feedPost";
 import PostModal from '~/components/PostCard/modalPost.vue';
 
-import MobilePostView from "~/components/PostCard/MobilePostView";
-
 export default {
   name: "user-page-test",
   components: {
@@ -156,7 +154,6 @@ export default {
     EditButton,
     EditProjectModal,
     Post,
-    MobilePostView
   },
   data() {
     return {

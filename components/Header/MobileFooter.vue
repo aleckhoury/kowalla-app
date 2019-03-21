@@ -39,7 +39,7 @@ export default {
           },
           community: () => {
             // call community modal
-          }
+          },
 
           project: () => {
             // call project modal
