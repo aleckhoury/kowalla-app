@@ -128,27 +128,15 @@ export default {
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
     let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
-    console.log(infoRes.data);
-    //------------------
-    // remove if statements, but keep assignments in production.
-    // they're only for quicker validation to ignore an unhelpful nuxt error throw
-    //------------------
-    if (infoRes.data.hasOwnProperty('headerPicture')) {
       this.bannerPictureURL = infoRes.data.headerPicture;
-    }
-    if (infoRes.data.hasOwnProperty('profilePicture')) {
+
       this.profilePictureURL = infoRes.data.profilePicture;
-    }
-    if (infoRes.data.hasOwnProperty('_id')) {
+
       this.communityId = infoRes.data._id;
-    }
-    if (infoRes.data.hasOwnProperty('description')) {
+
       this.communityDescription = infoRes.data.description;
-    }
-    if (infoRes.data.hasOwnProperty('admins')) {
-      console.log(infoRes.data.admins[0]);
+
       this.adminId = infoRes.data.admins[0];
-    }
 
     // get posts
     this.postList = await this.$axios.$get('/api/v1/posts');
@@ -176,7 +164,6 @@ export default {
       this.isSubscribed = subObj.subBool;
     },
     callEditCommunityModal() {
-      console.log('edit project settings pressed')
       this.$modal.open({
         parent: this,
         component: EditCommunityModal,
@@ -191,17 +178,9 @@ export default {
         hasModalCard: true
       });
     }
-    /*isUserSubscrbed() {
-      return this.$store.getters['user/isUserSubscribed'];
-    }*/
   }
 }
 
-
-/* todos
-change subobj to only be a bool, and add other necessary things to sub obj
-so we can properly add things
-*/
 </script>
 
 <style lang="css">

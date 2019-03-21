@@ -192,8 +192,6 @@ export default {
   created() {
     this.projectName = this.$route.params.projectname;
     if (this.$route.params.hasOwnProperty('postId')) {
-      console.log('what the fuckkkkk')
-      console.log(this.$route.params.postId)
       this.isNestedURL = true;
     }
   },
@@ -202,42 +200,25 @@ export default {
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
     let infoRes = await this.$axios.get(`/api/v1/projects/p/${this.projectName}`);
-
-    //------------------
-    // remove if statements, but keep assignments in production.
-    // they're only for quicker validation to ignore an unhelpful nuxt error throw
-    //------------------
-    if (infoRes.data.hasOwnProperty('headerPicture')) {
-      console.log(infoRes.data.headerPicture)
       this.bannerPictureURL = infoRes.data.headerPicture;
-    }
-    if (infoRes.data.hasOwnProperty('profilePicture')) {
+
       this.projectProfilePictureURL = infoRes.data.profilePicture;
-    }
-    if (infoRes.data.hasOwnProperty('_id')) {
+
       this.projectId = infoRes.data._id;
-    }
-    if (infoRes.data.hasOwnProperty('description')) {
+
       this.projectDescription = infoRes.data.description;
-    }
-    if (infoRes.data.hasOwnProperty('admins')) {
+
       this.admins = infoRes.data.admins;
-    }
 
     let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
-    console.log(adminRes.data);
-    if (adminRes.data.hasOwnProperty('firstName')) {
       this.adminFirstName = adminRes.data.firstName;
-    }
-    if (adminRes.data.hasOwnProperty('lastName')) {
+
       this.adminLastName = adminRes.data.lastName;
-    }
-    if (adminRes.data.hasOwnProperty('username')) {
+
       this.adminUsername = adminRes.data.username;
-    }
-    if (adminRes.data.hasOwnProperty('profilePicture')) {
+
       this.adminProfilePictureURL = adminRes.data.profilePicture;
-    }
+
 
     if (this.isNestedURL) {
       // need to launch modal to show post
@@ -280,7 +261,6 @@ export default {
       this.isSubscribed = subObj.subBool;
     },
     callEditProjectModal() {
-      console.log('edit project settings pressed')
       this.$modal.open({
         parent: this,
         component: EditProjectModal,
@@ -296,7 +276,6 @@ export default {
       });
     },
     runMobilePostView() {
-      console.log('mobile post view')
       this.showMobilePostView = true;
     }
   }

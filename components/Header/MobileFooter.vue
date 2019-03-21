@@ -35,21 +35,21 @@ export default {
         canCancel: true,
         events: {
           post: () => {
-            console.log('daisychain post');
-            //console.log(this);
             this.callCreatePostModal();
           },
           community: () => {
-            console.log('daisychain community');
-          },
-          project: () => {
-            console.log('daisychain project');
+            // call community modal
           }
+
+          project: () => {
+            // call project modal
+          }
+
         }
       });
     },
     callCreatePostModal() {
-      console.log('we made it :)')
+
       this.$modal.open({
         parent: this,
         component: CreatePostModal,
