@@ -1,5 +1,6 @@
 <template>
     <div class="modal-content">
+      <!--
         <div class="box is-paddingless">
           <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
               <post-header
@@ -28,6 +29,7 @@
             :toggle="toggleComment"
           />
         </div>
+      -->
     </div>
 </template>
 
@@ -38,8 +40,9 @@ import Reactions from "./ReactionsNoComments";
 import PostHeader from "./postHeader";
 
 export default {
-  name: "PostModal",
+  name: "MobilePostView",
   components: { AddComment, Comment, Reactions, PostHeader },
+  /*
   props: {
     post: Object,
     isFromNestedURL: { type: Boolean, default: false },
@@ -50,7 +53,7 @@ export default {
     community: Object,
     isProject: Boolean,
 
-  },
+  },*/
   data() {
     return {
       commentList: [],
@@ -59,6 +62,7 @@ export default {
       originalPath: '',
     }
   },
+  /*
   created() {
     this.originalPath = this.$route.path;
     window.history.pushState(
@@ -82,7 +86,7 @@ export default {
     toggleComment(activeCommentId) {
       this.activeCommentId = activeCommentId;
     },
-  }
+  }*/
 };
 </script>
 
@@ -104,7 +108,14 @@ div.card {
     border-radius: 6px;
     margin: 0;
     color: #39C9A0;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    }
+
+.mobile-post-view {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  z-index: 100;
 }
 </style>

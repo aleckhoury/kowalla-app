@@ -9,10 +9,6 @@
 import NavHeader from '~/components/Header/NavHeader/NavHeader';
 import NavSubHeader from '~/components/Header/NavSubHeader/NavSubHeader';
 
-/*
-
-
-*/
 export default {
   name: 'Header',
   components: { NavHeader, NavSubHeader, },
@@ -21,6 +17,10 @@ export default {
 
 <style lang="css" scoped>
 .size {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
   height: 90px;
   width: 100%;
 }

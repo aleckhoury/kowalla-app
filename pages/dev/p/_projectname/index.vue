@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header></Header>
+    <Header class="is-hidden-touch"></Header>
 
-    <div class="container is-fullhd">
+    <div class="container is-fullhd is-hidden-touch">
       <!--
           we'll want to dial in the container fullhd breakpoint
           right now it isn't contained to just ultra-wides, and effects
@@ -10,7 +10,7 @@
       -->
 
       <!-- two columns, navpane and banner -->
-      <div class="columns is-marginless is-hidden-touch main-margin">
+      <div class="columns is-marginless  main-margin">
 
           <!-- nav pane -->
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
@@ -29,7 +29,7 @@
               />
 
               <!-- new columns for description, profile and project cards -->
-              <div class="columns is-marginless main-margin">
+              <div class="columns is-marginless newsfeed-padding">
                 <div class="column is-half is-paddingless test-outline">
                   <DescriptionCard
                     headerString="Description"
@@ -45,6 +45,13 @@
                   >
                     <b>Edit Settings</b>
                   </EditButton>
+
+                  <nuxt-link :to="`${this.projectName}/posts/bOVESikDy`">test</nuxt-link>
+
+                  <div @click="runMobilePostView">test 2</div>
+
+                  <MobilePostView v-if="showMobilePostView"></MobilePostView>
+
                 </div>
 
                 <div class="column is-half is-paddingless test-outline">
@@ -78,11 +85,11 @@
               </div>
 
                 <!-- new columns for content and info pane -->
-              <div class="columns is-marginless">
+              <div class="columns is-marginless newsfeed-padding">
 
                 <!-- post feed -->
                 <div class="column is-two-thirds test-outline">
-                  <b>test</b>
+                  <Post v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
                 <!-- info pane -->
@@ -92,14 +99,35 @@
                   </InfoPane>
                 </div>
               </div>
-
           </div>
       </div>
     </div>
+
+    <!-- Mobile -->
+    <MobileHeader
+      class="is-hidden-desktop"
+      :locationPictureToDisplay="this.projectProfilePictureURL"
+      :locationToDisplay="`@${this.projectName}`"
+    />
+
+    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+      <Post
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      >
+      </Post>
+    </div>
+
+
+    <MobileFooter class="is-hidden-desktop"/>
   </div>
 </template>
 
 <script>
+import MobileHeader from '~/components/Header/MobileHeader';
+import MobileFooter from '~/components/Header/MobileFooter';
+
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
@@ -109,10 +137,17 @@ import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 
+import Post from "~/components/PostCard/feedPost";
+import PostModal from '~/components/PostCard/modalPost.vue';
+
+import MobilePostView from "~/components/PostCard/MobilePostView";
+
 export default {
   name: "user-page-test",
   components: {
     Header,
+    MobileHeader,
+    MobileFooter,
     NavPane,
     Banner,
     DescriptionCard,
@@ -120,6 +155,8 @@ export default {
     InfoPane,
     EditButton,
     EditProjectModal,
+    Post,
+    MobilePostView
   },
   data() {
     return {
@@ -145,11 +182,20 @@ export default {
         { "name": "one", "stat": "7"},
         { "name": "two", "stat": "7"},
         { "name": "three", "stat": "7"}
-      ]
+      ],
+      // newsfeed content
+      postList: [],
+      isNestedURL: false,
+      showMobilePostView: false,
     }
   },
   created() {
     this.projectName = this.$route.params.projectname;
+    if (this.$route.params.hasOwnProperty('postId')) {
+      console.log('what the fuckkkkk')
+      console.log(this.$route.params.postId)
+      this.isNestedURL = true;
+    }
   },
   async mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
@@ -193,6 +239,25 @@ export default {
       this.adminProfilePictureURL = adminRes.data.profilePicture;
     }
 
+    if (this.isNestedURL) {
+      // need to launch modal to show post
+      this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+
+      this.$modal.open({
+        parent: this,
+        component: PostModal,
+        props: {
+          post: this.post,
+          isFromNestedURL: true,
+          fallbackURL: `/dev/p/${this.projectName}`,
+        },
+        width: 900,
+        hasModalCard: true,
+      });
+    }
+    // get posts
+    this.postList = await this.$axios.$get('/api/v1/posts');
+
     document.title = `kowalla - @${this.projectName}`;
   },
   computed: {
@@ -229,6 +294,10 @@ export default {
         width: 900,
         hasModalCard: true
       });
+    },
+    runMobilePostView() {
+      console.log('mobile post view')
+      this.showMobilePostView = true;
     }
   }
 }

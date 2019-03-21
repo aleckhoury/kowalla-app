@@ -34,7 +34,6 @@ export default {
   components: { Card, NavCard, CreateSpaceModal },
   methods: {
     callCreateSpaceModal() {
-      console.log('button pressed')
       this.$modal.open({
         parent: this,
         component: CreateSpaceModal,

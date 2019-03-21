@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header></Header>
+    <Header class="is-hidden-touch"></Header>
 
-    <div class="container is-fullhd">
+    <div class="container is-fullhd is-hidden-touch">
       <!--
           we'll want to dial in the container fullhd breakpoint
           right now it isn't contained to just ultra-wides, and effects
@@ -10,7 +10,7 @@
       -->
 
       <!-- three columns, navpane, content, infopane -->
-      <div class="columns is-marginless is-hidden-touch main-margin">
+      <div class="columns is-marginless main-margin">
 
           <div class="column is-one-quarter is-paddingless side-pane test-outline">
             <NavPane></NavPane>
@@ -27,9 +27,10 @@
               />
 
 
-            <div class="columns is-marginless main-margin">
+            <div class="columns is-marginless newsfeed-padding">
               <div class="column is-two-thirds test-outline">
-                post content
+                <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+
               </div>
               <div class="column is-one-third is-paddingless test-outline side-pane">
                 <InfoPane>
@@ -55,11 +56,28 @@
           </div>
       </div>
     </div>
+
+    <!-- Mobile -->
+    <MobileHeader
+      class="is-hidden-desktop"
+      :locationPictureToDisplay="this.profilePictureURL"
+      :locationToDisplay="`#${this.communityName}`"
+    />
+
+    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+    </div>
+
+
+    <MobileFooter class="is-hidden-desktop"/>
   </div>
 </template>
 
 <script>
 import Header from '~/components/Header/Header';
+import MobileHeader from '~/components/Header/MobileHeader';
+import MobileFooter from '~/components/Header/MobileFooter';
+
 import NavPane from '~/components/NavCards/NavPane';
 import Banner from '~/components/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
@@ -67,21 +85,27 @@ import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 
+import Post from "~/components/PostCard/feedPost";
+
 import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",
   components: {
     Header,
+    MobileHeader,
+    MobileFooter,
     NavPane,
     Banner,
     DescriptionCard,
     InfoPane,
     EditButton,
-    EditCommunityModal
+    EditCommunityModal,
+    Post
   },
   data() {
     return {
+      // backend content
       communityName: '',
       bannerPictureURL: '',
       profilePictureURL: '',
@@ -91,6 +115,9 @@ export default {
       isOwner: false,
       numSubs: '',
       communityId: '',
+
+      // newsfeed content
+      postList: [],
     }
   },
   created() {
@@ -122,6 +149,9 @@ export default {
       console.log(infoRes.data.admins[0]);
       this.adminId = infoRes.data.admins[0];
     }
+
+    // get posts
+    this.postList = await this.$axios.$get('/api/v1/posts');
 
     document.title = `kowalla - #${this.communityName}`;
   },
