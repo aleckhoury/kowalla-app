@@ -1,17 +1,16 @@
 <template>
     <div class="focusPage">
         <Header></Header>
-            <div class="container">
+            <div v-if="post.data && !post.data.userCompleted" class="container">
                 <div class="columns is-vcentered is-centered is-marginless main-margin">
                     <!-- post feed -->
-                    <div class="column is-half">
+                    <div class="column">
                         <div class="card livePost">
                             <h2 class="is-size-1 title"><b>Live Post</b></h2>
                             <div class="media-content">
                                 <editor-menu-bar :editor="editor">
                                     <div class="field has-addons"
-                                         v-if="focused"
-                                         slot-scope="{ commands, isActive, focused }">
+                                         slot-scope="{ commands, isActive }">
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.bold() }"
@@ -105,18 +104,24 @@
                                     </div>
                                 </editor-menu-bar>
                                 <div class="editor content">
-                                    <editor-content class="editor__content" :editor="editor" />
+                                    <editor-content class="editor__content focusEditor" :editor="editor" />
                                 </div>
                         </div>
                     </div>
                     </div>
-                    <div class="column is-half">
+                    <div class="column">
                         <div class="card liveTimer">
                             <b><span class="countdown">{{ countdown }}</span></b>
                         </div>
                     </div>
                 </div>
             </div>
+        <div v-else class="container is-size-1">
+            <div class="startNew">
+                <b><span>Start a new live post!</span></b>
+                <p><a class="button action" @click="cardModal()"><b>Start</b></a></p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -143,9 +148,11 @@
     History,
   } from 'tiptap-extensions'
   import Header from '~/components/Header/Header';
+  import CreatePostModal from "~/components/Modals/Creation/createPost/CreatePostModal"
   export default {
     name: "focus",
     components: {
+      CreatePostModal,
       Header,
       Editor,
       EditorContent,
@@ -159,6 +166,17 @@
       }
     },
     methods: {
+      cardModal() {
+        this.$modal.open({
+            parent: this,
+            component: CreatePostModal,
+            props: {
+              reactionsFormatted: this.reactionsFormatted,
+            },
+            hasModalCard: true,
+          },
+        )
+      },
       countdownTimer(expireTimeMS) {
         const self = this;
         let x = setInterval(function () {
@@ -174,16 +192,58 @@
           minutes = (minutes < 10) ? '0' + minutes : minutes;
           seconds = (seconds < 10) ? '0' + seconds : seconds;
 
+          if (seconds === 30 || seconds === '00') {
+            self.updatePost();
+          } else if (seconds === '00' && minutes === '00' && hours === '00') {
+            self.updatePost(true);
+          }
           self.countdown = `${hours}:${minutes}:${seconds}`;
-          console.log(self.countdown)
           // if (countdownTime < 0) {
           //   clearInterval(x)
           // }
         }, 1000)
       },
+      updatePost(isComplete = false) {
+        console.log('did this run');
+        if (!isComplete) {
+          this.$axios.put(`/api/v1/posts/${this.post.data._id}`, {
+            content: this.html,
+          });
+        } else if (isComplete) {
+          this.$axios.put(`/api/v1/posts/${this.post.data._id}`, {
+            content: this.html,
+            isActive: false,
+            userCompleted: true,
+          });
+        }
+      },
+      async selectFile(command) {
+        this.file = await this.$refs.file.files[0];
+
+        this.sendFile(command);
+      },
+      async sendFile(command) {
+        this.clearPhoto = true;
+        const formData = new FormData();
+        formData.append('file', this.file);
+        try {
+          const image = await this.$axios.post('/api/v1/posts/imageUpload', formData);
+          this.photoUrl = image.data.file;
+          command({ src: image.data.file });
+        } catch(err) {
+          console.log(err);
+          this.$toast.open({
+            duration: 5000,
+            message: 'There was an error with your file. Please confirm it\'s less than 10MB and a png, jpeg, or gif.',
+            position: 'is-top',
+            type: 'is-danger'
+          })
+        }
+      },
     },
     async mounted() {
       this.post = await this.$axios.get(`/api/v1/posts/active/${this.$store.state.user._id}`);
+      if (this.post.data.isActive === true) {
       this.countdownTimer(new Date(this.post.data.expiration).getTime());
       this.editor = await new Editor({
         autoFocus: true,
@@ -213,6 +273,13 @@
         },
       })
     }
+    },
+    computed: {
+      activePost () {
+        console.log(this.$store.state.user);
+        return this.$store.state.user.activePost;
+      }
+    }
   };
 </script>
 
@@ -229,6 +296,7 @@
     .container {
         height: 90%;
         width: 100%;
+        margin: 0 auto;
     }
     .columns {
         height: 90%;
@@ -239,7 +307,6 @@
     }
     .title {
         font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-        font-size: 2vw;
         text-align: center;
         color: white;
     }
@@ -248,23 +315,24 @@
         padding: 1em;
         border-radius: 6px;
         background-color: rgba(0,0,0, 0.35);
+        color: white;
     }
     .liveTimer {
-        margin: 0 auto;
-        max-width: 120%;
         font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
         font-size: 10vw;
         text-align: center;
         color: white;
         border-radius: 6px;
         background-color: rgba(0,0,0, 0.35);
+        padding: 0 0.25em;
     }
     .field {
         display: block;
     }
     .editor__content {
         color: white;
-        overflow: scroll;
+        max-height: 50vh;
+        overflow-y: scroll;
     }
     .is-white {
         background-color: transparent;
@@ -281,7 +349,18 @@
         background-color: #39C9A0;
         border-color: #39C9A0;
     }
-    .countdown {
-        padding: 100px;
+    .startNew {
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        background-color: rgba(0,0,0, 0.35);
+        margin-top: 0.25em;
+        padding: 0.25em;
+    }
+    @media only screen and (max-width: 600px) {
+        .columns {
+            flex-direction: column-reverse;
+            display: flex;
+        }
     }
 </style>

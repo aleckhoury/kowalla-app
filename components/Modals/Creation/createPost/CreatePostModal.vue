@@ -76,6 +76,12 @@
                                 </a>
                                 <a
                                     class="button is-white"
+                                    :class="{ 'is-active': isActive.todo_list() }"
+                                    @click="commands.todo_list">
+                                    <font-awesome-icon icon="tasks" />
+                                </a>
+                                <a
+                                    class="button is-white"
                                     :class="{ 'is-active': isActive.bullet_list() }"
                                     @click="commands.bullet_list">
                                     <font-awesome-icon icon="list-ul" />
@@ -109,7 +115,7 @@
                                     <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
                                     <font-awesome-icon icon="camera" />
                                 </a>
-                                <a class="button is-white" @click="toggleTimedPost">
+                                <a class="button is-white" v-if="!activePost.isActive" @click="toggleTimedPost">
                                     <font-awesome-icon icon="clock" /> &nbsp; Timed Post
                                 </a>
                             </div>
@@ -168,6 +174,7 @@
     Underline,
     History,
   } from 'tiptap-extensions'
+  import { mapGetters } from 'vuex';
   import Dropdown from "../../../dropdownItems";
 
   export default {
@@ -189,7 +196,7 @@
         clearPhoto: false,
         photoUrl: '',
         timedPost: false,
-        time: null,
+        time: new Date(2018, 11, 24, 0, 0),
         isActive: null,
         userCompleted: null,
         unselectableTimes: [],
@@ -205,12 +212,18 @@
       }
       await this.editor.destroy();
     },
+    watch: {
+      time() {
+        console.log(this.expiration);
+      }
+    },
     computed: {
+      ...mapGetters('user', ['activePost']),
       minutes() {
-        return this.time ? this.time.getMinutes() : '';
+        return this.time ? this.time.getMinutes() : 0;
       },
       hours() {
-        return this.time ? this.time.getHours() : '';
+        return this.time ? this.time.getHours() : 0;
       },
       expiration() {
         const time = new Date();
@@ -230,6 +243,18 @@
       async createPost() {
         console.log(this);
         this.s3Loading = true;
+        let StrippedString = this.html.replace(/(<([^>]+)>)/ig,"");
+        console.log(StrippedString);
+        if (StrippedString.length === 0) {
+          this.$toast.open({
+            duration: 5000,
+            message: 'You must input some text to make a post',
+            position: 'is-top',
+            type: 'is-danger'
+          });
+          this.s3Loading = false;
+          return null;
+        }
         const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
         await this.$axios.post(`/api/v1/communities/1234567890/posts`, {
           profileId: this.$store.state.user._id,
@@ -242,7 +267,13 @@
         });
         this.clearPhoto = false;
         this.s3Loading = false;
-        this.$parent.close()
+        this.$parent.close();
+        if (this.timedPost) {
+          this.$router.push({ path: `/dev/focus` });
+          if (this.$router.history.current.fullPath === "/dev/focus") {
+            this.$router.go();
+          }
+        }
       },
       async selectFile(command) {
         this.file = await this.$refs.file.files[0];
@@ -348,5 +379,35 @@
     }
     .block {
         color: #39C9A0;
+    }
+    li[data-type="todo_item"] {
+        display: flex;
+        flex-direction: row;
+    }
+    .todo-checkbox {
+        border: 2px solid $color-black;
+        height: 0.9em;
+        width: 0.9em;
+        box-sizing: border-box;
+        margin-right: 10px;
+        margin-top: 0.3rem;
+        user-select: none;
+        -webkit-user-select: none;
+        cursor: pointer;
+        border-radius: 0.2em;
+        background-color: transparent;
+        transition: 0.4s background;
+    }
+    .todo-content {
+        flex: 1;
+    }
+    li[data-done="true"] {
+        text-decoration: line-through;
+    }
+    li[data-done="true"] .todo-checkbox {
+        background-color: $color-black;
+    }
+    li[data-done="false"] {
+        text-decoration: none;
     }
 </style>

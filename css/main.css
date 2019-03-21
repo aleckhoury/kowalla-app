@@ -45,6 +45,15 @@ div.dropdown div.button {
 .has-text-primary i {
     color: #39C9A0;
 }
+.focusEditor p, .focusEditor h1, .focusEditor h2, .focusEditor h3 {
+     color: white;
+ }
+.focusEditor blockquote p, .focusEditor blockquote h1, .focusEditor blockquote h2, .focusEditor blockquote h3 {
+    color: black;
+}
+.focusEditor blockquote {
+    background-color: rgba(236, 236, 236, 0.75);
+}
 .editor.content p {
     margin: 0;
 }
