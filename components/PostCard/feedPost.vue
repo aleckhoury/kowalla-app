@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import Reactions from "./Reactions";
+  import Reactions from "./reactions";
   import PostHeader from "./postHeader";
   import PostModal from './modalPost.vue';
   export default {

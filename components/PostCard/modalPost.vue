@@ -34,7 +34,7 @@
 <script>
 import Comment from './comment.vue';
 import AddComment from "./addComment";
-import Reactions from "./ReactionsNoComments";
+import Reactions from "./reactionsNoComments";
 import PostHeader from "./postHeader";
 
 export default {
