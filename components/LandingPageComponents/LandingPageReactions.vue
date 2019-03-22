@@ -37,11 +37,10 @@
   import ReactionModal from "~/components/PostCard/reactionModal";
   import { Picker } from 'emoji-mart-vue'
   import 'emoji-mart-vue/css/emoji-mart.css'
-  import EmojiPicker from 'vue-emoji-picker'
 
   export default {
     name: "LandingPageReactions",
-    components: { ReactionModal, Picker, EmojiPicker },
+    components: { ReactionModal, Picker },
     props: {
       post: Object,
       hideComments: {
