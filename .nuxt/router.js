@@ -2,16 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _20bda2ce = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
-const _90e13c38 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
-const _1920635a = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
-const _4a8e3666 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
-const _7f0b767c = () => interopDefault(import('../pages/dev/c/_communityname/index.vue' /* webpackChunkName: "pages/dev/c/_communityname/index" */))
-const _8a25569e = () => interopDefault(import('../pages/dev/c/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/c/_communityname/index/posts/_postId" */))
-const _b08643f6 = () => interopDefault(import('../pages/dev/p/_projectname/index.vue' /* webpackChunkName: "pages/dev/p/_projectname/index" */))
-const _6d9cfcb4 = () => interopDefault(import('../pages/dev/p/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/p/_projectname/index/posts/_postId" */))
-const _979bcba6 = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
-const _0f59095e = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
+const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
+const _4fb51a10 = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
+const _74c79b89 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
+const _648303e5 = () => interopDefault(import('../pages/dev/c/_communityname/index.vue' /* webpackChunkName: "pages/dev/c/_communityname/index" */))
+const _a3894ad8 = () => interopDefault(import('../pages/dev/c/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/c/_communityname/index/posts/_postId" */))
+const _57bdec30 = () => interopDefault(import('../pages/dev/p/_projectname/index.vue' /* webpackChunkName: "pages/dev/p/_projectname/index" */))
+const _b92dc152 = () => interopDefault(import('../pages/dev/p/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/p/_projectname/index/posts/_postId" */))
+const _ca6d1a2c = () => interopDefault(import('../pages/dev/u/_username.vue' /* webpackChunkName: "pages/dev/u/_username" */))
+const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -72,46 +72,46 @@ export function createRouter() {
 
     routes: [{
       path: "/about",
-      component: _20bda2ce,
+      component: _16cfdf96,
       name: "about"
     }, {
       path: "/dev",
-      component: _90e13c38,
+      component: _55d34c61,
       name: "dev",
       children: [{
         path: "posts/:postId?",
-        component: _1920635a,
+        component: _4fb51a10,
         name: "dev-index-posts-postId"
       }]
     }, {
       path: "/dev/Trello",
-      component: _4a8e3666,
+      component: _74c79b89,
       name: "dev-Trello"
     }, {
       path: "/dev/c/:communityname?",
-      component: _7f0b767c,
+      component: _648303e5,
       name: "dev-c-communityname",
       children: [{
         path: "posts/:postId?",
-        component: _8a25569e,
+        component: _a3894ad8,
         name: "dev-c-communityname-index-posts-postId"
       }]
     }, {
       path: "/dev/p/:projectname?",
-      component: _b08643f6,
+      component: _57bdec30,
       name: "dev-p-projectname",
       children: [{
         path: "posts/:postId?",
-        component: _6d9cfcb4,
+        component: _b92dc152,
         name: "dev-p-projectname-index-posts-postId"
       }]
     }, {
       path: "/dev/u/:username?",
-      component: _979bcba6,
+      component: _ca6d1a2c,
       name: "dev-u-username"
     }, {
       path: "/",
-      component: _0f59095e,
+      component: _3687ba5b,
       name: "index"
     }],
 
