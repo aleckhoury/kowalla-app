@@ -34,7 +34,6 @@
     "timeago.js": "^4.0.0-beta.2",
     "tiptap": "^1.8.0",
     "tiptap-extensions": "^1.8.0",
-    "vue-emoji-picker": "^1.0.1",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {

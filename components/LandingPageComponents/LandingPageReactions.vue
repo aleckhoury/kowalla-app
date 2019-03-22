@@ -21,38 +21,12 @@
                     <font-awesome-icon icon="smile" />
                 </a>
                 <BDropdownItem custom>
-                    <emoji-picker @emoji="insert" :search="search">
-                        <div class="emoji-invoker" slot="emoji-invoker" slot-scope="{ events }" v-on="events">
-                            <button type="button">open</button>
-                        </div>
-                        <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-                            <div>
-                                <div>
-                                    <input type="text" v-model="search">
-                                </div>
-                                <div>
-                                    <div v-for="(emojiGroup, category) in emojis" :key="category">
-                                        <h5>{{ category }}</h5>
-                                        <div>
-                        <span
-                                v-for="(emoji, emojiName) in emojiGroup"
-                                :key="emojiName"
-                                @click="insert(emoji)"
-                                :title="emojiName"
-                        >{{ emoji }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </emoji-picker>
-                    <!--<Picker-->
-                            <!--v-if="loadPicker"-->
-                            <!--set="apple"-->
-                            <!--:showSkinTones="false"-->
-                            <!--:showPreview="false"-->
-                            <!--@select="toggleReaction"-->
-                    <!--&gt;</Picker>-->
+                    <Picker
+                            set="apple"
+                            :showSkinTones="false"
+                            :showPreview="false"
+                            @select="toggleReaction"
+                    ></Picker>
                 </BDropdownItem>
             </BDropdown>
         </div>
