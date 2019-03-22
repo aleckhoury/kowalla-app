@@ -43,7 +43,7 @@
     name: "reactionNoComments",
     components: { ReactionModal, Picker },
     props: {
-      post: Object,
+      postId: String,
       loadPicker: Boolean,
       hideComments: {
         type: Boolean,
@@ -70,7 +70,7 @@
       async toggleReactionTrue(emoji, index, isEmojiObject) {
         await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
           emoji: emoji,
-          postId: this.post._id,
+          postId: this.postId,
         });
         if (index === -1) {
           this.reactionsFormatted.push({ emoji: emoji, count: 1, userReacted: false });
@@ -85,7 +85,7 @@
         }
       },
       async toggleReactionFalse(emoji, index) {
-        await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
+        await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.postId}`, {
           data: {
             emoji: emoji,
           }
@@ -138,7 +138,7 @@
     },
     async mounted() {
       try {
-        this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.post._id}`);
+        this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.postId}`);
         if (this.reactionList.length) {
           this.reactionList.forEach((x) => {
             const userReacted = x.profileId === this.$store.state.user._id;

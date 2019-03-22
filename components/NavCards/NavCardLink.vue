@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-card-link-container">
+  <div class="nav-card-link-container" @click="emitClickedEventToParent()">
     <nuxt-link :to="getRoute">
       <img class="picture" :src="pictureURL"/>
     </nuxt-link>
@@ -25,6 +25,11 @@ export default {
     projectId: String,
     communityId: String,
   },
+  methods: {
+    emitClickedEventToParent() {
+      this.$emit("nav-card-link-clicked");
+    }
+  },
   computed: {
     getPrefix() {
       return (this.projectId !== null) ? '@' : '#';
@@ -47,6 +52,8 @@ export default {
 .picture {
   height: 36px;
   width: 36px;
+
+  border-radius: 6px;
   margin-left: 8px;
   cursor: pointer;
 }
