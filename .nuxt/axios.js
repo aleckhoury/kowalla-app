@@ -106,8 +106,8 @@ const setupProgress = (axios, ctx) => {
 export default (ctx, inject) => {
   // baseURL
   const baseURL = process.browser
-      ? 'http://kowalla-backend-tob.herokuapp.com'
-      : (process.env._AXIOS_BASE_URL_ || 'http://kowalla-backend-tob.herokuapp.com')
+      ? 'https://kowalla-backend-tob.herokuapp.com'
+      : (process.env._AXIOS_BASE_URL_ || 'https://kowalla-backend-tob.herokuapp.com')
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!

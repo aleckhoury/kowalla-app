@@ -1,10 +1,10 @@
 <template>
-    <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
+    <div class="card">
         <post-header :post="post"/>
         <div class="content is-marginless" v-html="post.content">
         </div>
         <br />
-        <reactions :post="post" :load-picker="loadPicker" />
+        <reactions :post="post" />
     </div>
 </template>
 
@@ -22,9 +22,7 @@
       },
     },
     data() {
-      return {
-        loadPicker: false,
-      }
+      return {}
     }
   };
 </script>

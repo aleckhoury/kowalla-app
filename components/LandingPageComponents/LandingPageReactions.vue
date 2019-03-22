@@ -22,7 +22,6 @@
                 </a>
                 <BDropdownItem custom>
                     <Picker
-                            v-if="loadPicker"
                             set="apple"
                             :showSkinTones="false"
                             :showPreview="false"
@@ -37,13 +36,14 @@
 <script>
   import ReactionModal from "~/components/PostCard/reactionModal";
   import { Picker } from 'emoji-mart-vue'
+  import 'emoji-mart-vue/css/emoji-mart.css'
+  import EmojiPicker from 'vue-emoji-picker'
 
   export default {
     name: "LandingPageReactions",
-    components: { ReactionModal, Picker },
+    components: { ReactionModal, Picker, EmojiPicker },
     props: {
       post: Object,
-      loadPicker: Boolean,
       hideComments: {
         type: Boolean,
         default: false,

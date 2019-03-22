@@ -1,7 +1,7 @@
 <template>
     <div class="modal-content">
         <div class="box is-paddingless">
-          <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
+          <div class="card">
               <post-header
                 :createdAt="this.post.createdAt"
                 :profile="this.profile"
@@ -14,7 +14,6 @@
               <br />
               <Reactions
                 :postId="this.post._id"
-                :load-picker="loadPicker"
               />
           </div>
 
@@ -55,7 +54,6 @@ export default {
     return {
       commentList: [],
       activeCommentId: '',
-      loadPicker: false,
       originalPath: '',
     }
   },

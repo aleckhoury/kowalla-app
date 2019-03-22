@@ -1,5 +1,5 @@
 <template>
-    <div class="card" @mouseover="loadPicker = true" @mouseleave="loadPicker = false">
+    <div class="card">
         <post-header
           :createdAt="this.post.createdAt"
           :profile="this.profile"
@@ -12,7 +12,6 @@
         <br />
         <Reactions
           :postId="this.post._id"
-          :load-picker="loadPicker"
           @open-post="openPost"
         />
     </div>
@@ -38,7 +37,6 @@
     },
     data() {
       return {
-        loadPicker: false,
         project: {},
         community: {},
         profile: {},
