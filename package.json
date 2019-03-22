@@ -24,6 +24,7 @@
     "@nuxtjs/onesignal": "^2.6.0",
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
+    "debounce": "^1.2.0",
     "element-ui": "^2.4.6",
     "emoji-mart-vue": "^2.6.6",
     "express": "^4.16.3",
