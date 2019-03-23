@@ -136,6 +136,8 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    // This vendor should just help with loading the library once since we use it multiple places
+      vendor: ['emoji-mart-vue-fast']
     //   /*
     //   ** You can extend webpack config here
     //   */
