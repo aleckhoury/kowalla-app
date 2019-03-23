@@ -41,8 +41,12 @@
 
 <script>
   import ReactionModal from "./reactionModal";
-  import { Picker } from 'emoji-mart-vue'
-  import 'emoji-mart-vue/css/emoji-mart.css'
+  let Mart;
+  if (process.browser) {
+    Mart = require('emoji-mart-vue-fast');
+  }
+  let { Picker } = Mart ? Mart : '';
+  import 'emoji-mart-vue-fast/css/emoji-mart.css'
   import PostModal from './modalPost.vue';
 
   export default {

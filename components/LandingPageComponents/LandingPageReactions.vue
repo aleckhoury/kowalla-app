@@ -34,9 +34,13 @@
 </template>
 
 <script>
+  let Mart;
+  if (process.browser) {
+    Mart = require('emoji-mart-vue-fast');
+  }
+  let { Picker } = Mart ? Mart : '';
+  import 'emoji-mart-vue-fast/css/emoji-mart.css'
   import ReactionModal from "~/components/PostCard/reactionModal";
-  import { Picker } from 'emoji-mart-vue'
-  import 'emoji-mart-vue/css/emoji-mart.css'
 
   export default {
     name: "LandingPageReactions",
