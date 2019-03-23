@@ -19,6 +19,28 @@ div.dropdown div.button {
 }
 
 .main-margin {
+  padding-top: 110px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+}
+
+.modal-content {
+    align-self: center;
+    border-radius: 6px;
+    margin: 0;
+    color: #39C9A0;
+    width: auto;
+}
+
+.mobile-main-margin {
+  padding-top: 110px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 50px;
+}
+
+.newsfeed-padding {
   padding-top: 20px;
   padding-left: 0px;
   padding-right: 0px;
@@ -56,4 +78,7 @@ div.dropdown div.button {
 }
 .editor.content p {
     margin: 0;
+}
+div.emoji-mart {
+    margin: 0 auto;
 }

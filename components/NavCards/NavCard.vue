@@ -9,6 +9,7 @@
       :pictureURL="item.pictureURL"
       :projectId="getProjectId(item)"
       :communityId="getCommunityId(item)"
+      @nav-card-link-clicked="emitClickedEventToParent()"
     />
     <NavCardLink
       v-if="type === 'profile'"
@@ -19,6 +20,7 @@
       :pictureURL="item.pictureURL"
       :projectId="getProjectId(item)"
       :communityId="getCommunityId(item)"
+      @nav-card-link-clicked="emitClickedEventToParent()"
     />
   </div>
 </template>
@@ -38,6 +40,9 @@ export default {
     },
     getCommunityId(item) {
       return (item.hasOwnProperty('communityId')) ? item.communityId : null;
+    },
+    emitClickedEventToParent(){
+      this.$emit("nav-card-link-clicked");
     }
 
   }

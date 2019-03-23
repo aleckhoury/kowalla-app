@@ -59,8 +59,8 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    // baseURL: 'http://kowalla-backend-tob.herokuapp.com',
-    baseURL: 'http://localhost:8080',
+    baseURL: 'https://kowalla-backend-tob.herokuapp.com',
+    // baseURL: 'http://localhost:8080',
   },
   auth: {
     strategies: {
@@ -112,6 +112,10 @@ module.exports = {
         set: '@fortawesome/free-solid-svg-icons',
         icons: ['fas',],
       },
+      {
+        set: '@fortawesome/free-brands-svg-icons',
+        icons: ['fab',],
+      },
     ],
   },
 
@@ -132,6 +136,8 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    // This vendor should just help with loading the library once since we use it multiple places
+      vendor: ['emoji-mart-vue-fast']
     //   /*
     //   ** You can extend webpack config here
     //   */

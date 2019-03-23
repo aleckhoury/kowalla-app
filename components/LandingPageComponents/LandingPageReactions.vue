@@ -34,20 +34,19 @@
 </template>
 
 <script>
-  import ReactionModal from "./reactionModal";
   let Mart;
   if (process.browser) {
     Mart = require('emoji-mart-vue-fast');
   }
   let { Picker } = Mart ? Mart : '';
   import 'emoji-mart-vue-fast/css/emoji-mart.css'
-  import PostModal from './modalPost.vue';
+  import ReactionModal from "~/components/PostCard/reactionModal";
 
   export default {
-    name: "reactionNoComments",
+    name: "LandingPageReactions",
     components: { ReactionModal, Picker },
     props: {
-      postId: String,
+      post: Object,
       hideComments: {
         type: Boolean,
         default: false,
@@ -57,6 +56,7 @@
       return {
         reactionList: [],
         reactionsFormatted: [],
+        randomId: '',
       }
     },
     methods: {
@@ -71,9 +71,9 @@
         }
       },
       async toggleReactionTrue(emoji, index, isEmojiObject) {
-        await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
+        await this.$axios.post(`/api/v1/profiles/${this.randomId}/reactions`, {
           emoji: emoji,
-          postId: this.postId,
+          postId: this.post._id,
         });
         if (index === -1) {
           this.reactionsFormatted.push({ emoji: emoji, count: 1, userReacted: false });
@@ -88,7 +88,7 @@
         }
       },
       async toggleReactionFalse(emoji, index) {
-        await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.postId}`, {
+        await this.$axios.delete(`/api/v1/profiles/${this.randomId}/reactions/${this.post._id}`, {
           data: {
             emoji: emoji,
           }
@@ -105,21 +105,20 @@
           component: ReactionModal,
           props: {
             reactionsFormatted: this.reactionsFormatted,
+            toggleReaction: this.toggleReaction,
           },
           hasModalCard: true,
         });
       },
-      showPost() {
-        this.$modal.open({
-          parent: this,
-          component: PostModal,
-          props: {
-            post: this.post,
-          },
-          width: 900,
-          hasModalCard: true,
-        });
-      }
+      makeid() {
+        let text = "";
+            let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (let i = 0; i < 5; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+        },
     },
     computed: {
       reactionCount() {
@@ -140,11 +139,13 @@
       },
     },
     async mounted() {
+      this.randomId = this.makeid();
+      console.log(this.randomId);
       try {
-        this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.postId}`);
+        this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.post._id}`);
         if (this.reactionList.length) {
           this.reactionList.forEach((x) => {
-            const userReacted = x.profileId === this.$store.state.user._id;
+            const userReacted = x.profileId === this.randomId;
             let index = this.reactionsFormatted.map(y => y.emoji).indexOf(x.emoji);
             if (index === -1) {
               this.reactionsFormatted.push({ emoji: x.emoji, count: 1, userReacted: false });
