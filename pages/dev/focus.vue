@@ -75,6 +75,12 @@
                                         </a>
                                         <a
                                                 class="button is-white"
+                                                :class="{ 'is-active': isActive.todo_list() }"
+                                                @click="commands.todo_list">
+                                            <font-awesome-icon icon="tasks" />
+                                        </a>
+                                        <a
+                                                class="button is-white"
                                                 :class="{ 'is-active': isActive.bullet_list() }"
                                                 @click="commands.bullet_list">
                                             <font-awesome-icon icon="list-ul" />
@@ -194,13 +200,12 @@
 
           if (seconds === 30 || seconds === '00') {
             self.updatePost();
-          } else if (seconds === '00' && minutes === '00' && hours === '00') {
-            self.updatePost(true);
           }
           self.countdown = `${hours}:${minutes}:${seconds}`;
-          // if (countdownTime < 0) {
-          //   clearInterval(x)
-          // }
+          if (self.countdown === '00:00:00') {
+            self.updatePost(true);
+            clearInterval(x);
+          }
         }, 1000)
       },
       updatePost(isComplete = false) {
@@ -351,10 +356,11 @@
     }
     .startNew {
         color: white;
+        display: block;
         text-align: center;
         border-radius: 6px;
         background-color: rgba(0,0,0, 0.35);
-        margin-top: 0.25em;
+        margin-top: 2.25em;
         padding: 0.25em;
     }
     @media only screen and (max-width: 600px) {

@@ -34,10 +34,9 @@
           seconds = (seconds < 10) ? '0' + seconds : seconds;
 
           self.countdown = `${hours}:${minutes}:${seconds}`;
-          console.log(self.countdown)
-          // if (countdownTime < 0) {
-          //   clearInterval(x)
-          // }
+          if (self.countdown  === '00:00:00') {
+            clearInterval(x);
+          }
         }, 1000)
       },
     },

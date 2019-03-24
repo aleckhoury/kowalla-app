@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <post-header :post="post"/>
+        <post-header :isActive="post.isActive" />
         <div class="content is-marginless" v-html="post.content">
         </div>
         <br />

@@ -43,9 +43,12 @@
                   </span>
 
                 · {{ createdAtFormatted }}
-                    ·   <span class="liveBox" v-if="post.isActive">
+                    <span v-if="isActive">
+                        ·
+                        <span class="liveBox">
                             LIVE
                         </span>
+                    </span>
                 </small>
             </p>
             </nuxt-link>
@@ -69,7 +72,7 @@
   export default {
     name: "postHeader",
     props: {
-      //post: Object,
+      isActive: Boolean,
       createdAt: String,
       profile: {},
       project: {},
