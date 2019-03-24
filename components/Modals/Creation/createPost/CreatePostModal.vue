@@ -212,11 +212,6 @@
       }
       await this.editor.destroy();
     },
-    watch: {
-      time() {
-        console.log(this.expiration);
-      }
-    },
     computed: {
       ...mapGetters('user', ['activePost']),
       minutes() {
@@ -241,10 +236,8 @@
         }
       },
       async createPost() {
-        console.log(this);
         this.s3Loading = true;
         let StrippedString = this.html.replace(/(<([^>]+)>)/ig,"");
-        console.log(StrippedString);
         if (StrippedString.length === 0) {
           this.$toast.open({
             duration: 5000,

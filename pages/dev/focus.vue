@@ -209,7 +209,6 @@
         }, 1000)
       },
       updatePost(isComplete = false) {
-        console.log('did this run');
         if (!isComplete) {
           this.$axios.put(`/api/v1/posts/${this.post.data._id}`, {
             content: this.html,
@@ -281,7 +280,6 @@
     },
     computed: {
       activePost () {
-        console.log(this.$store.state.user);
         return this.$store.state.user.activePost;
       }
     }

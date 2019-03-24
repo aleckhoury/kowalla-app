@@ -121,7 +121,6 @@ export const mutations = {
     state.activePost = payload;
   },
   async setUser(state, user) {
-    console.log(state);
     state.authUser = user;
   },
   addSubscription(state, subObj) {
