@@ -12,7 +12,7 @@
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
             <div class="content is-marginless" v-html="post.content">
             </div>
-            <p v-if="overflow" class="read-more" @click="showMore()"><a href="#">Read More</a></p>
+            <p v-if="overflow" class="read-more" @click="showMore()"><a>Read More</a></p>
         </div>
         <br />
         <Reactions
@@ -118,7 +118,7 @@
 <style scoped>
     #content-box {
         padding: 1em 0.5em;
-        max-height: 20em;
+        max-height: 28em;
         overflow: hidden;
     }
     #content-box.fullHeight {
