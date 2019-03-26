@@ -12,7 +12,7 @@
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
             <div class="content is-marginless" v-html="post.content">
             </div>
-            <p v-if="overflow" class="read-more" @click="showMore()"><a>Read More</a></p>
+            <p v-if="overflow" class="read-more" @click="overflow = !overflow"><a>Read More</a></p>
         </div>
         <br />
         <Reactions
@@ -78,7 +78,7 @@
           isActive: false,
         });
       }
-      if (this.$refs['content'].getBoundingClientRect().height >= 320) {
+      if (this.$refs['content'].getBoundingClientRect().height >= 480) {
         this.overflow = true;
       }
     },
@@ -106,11 +106,6 @@
           });
         }
       },
-      showMore() {
-        const scrollPosition = window.pageYOffset;
-        this.overflow = !this.overflow;
-        window.scrollTo(0, scrollPosition);
-      }
     }
   };
 </script>
@@ -118,7 +113,7 @@
 <style scoped>
     #content-box {
         padding: 1em 0.5em;
-        max-height: 28em;
+        max-height: 30em;
         overflow: hidden;
     }
     #content-box.fullHeight {
