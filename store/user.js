@@ -6,6 +6,7 @@ export const state = () => ({
   username: 'tobthecreator',
   description: '',
   uiColor: '',
+  activePost: {},
   hasNotifications: false,
   _id: 'C4xtgKOIu', // need to update before playing with sub axios calls
   profilePicture: "https://scontent-dfw5-2.xx.fbcdn.net/v/t1.0-1/22008280_10214375775686311_4294896327600907217_n.jpg?_nc_cat=108&_nc_ht=scontent-dfw5-2.xx&oh=03f3eadb4364c3a93124ae4179669315&oe=5D1FA7AD",
@@ -75,6 +76,9 @@ export const actions = ({
 });
 
 export const getters = ({
+  activePost({ activePost }) {
+    return activePost;
+  },
   isUserSubscribed({subscriptions, owned}) {
     let name = $nuxt._route.fullPath.split('/').pop();
 
@@ -113,8 +117,10 @@ export const getters = ({
 });
 
 export const mutations = {
+  async isActivePost(state, payload) {
+    state.activePost = payload;
+  },
   async setUser(state, user) {
-    console.log(state);
     state.authUser = user;
   },
   addSubscription(state, subObj) {

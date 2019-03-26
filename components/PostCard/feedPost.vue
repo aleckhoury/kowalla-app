@@ -1,12 +1,14 @@
 <template>
     <div class="card">
         <post-header
+          :isActive="post.isActive"
           :createdAt="this.post.createdAt"
           :profile="this.profile"
           :project="this.project"
           :community="this.community"
           :isProject="this.isProject"
         />
+            <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div class="content is-marginless" v-html="post.content">
         </div>
         <br />
@@ -20,10 +22,13 @@
 <script>
   import Reactions from "./reactions";
   import PostHeader from "./postHeader";
+  import PostTimer from "./postTimer";
   import PostModal from './modalPost.vue';
+  import Utils from '~/utils/helpers';
+
   export default {
     name: "Post",
-    components: { PostHeader, Reactions },
+    components: { PostTimer, PostHeader, Reactions },
     props: {
       post: Object,
       hideComments: {
@@ -62,6 +67,12 @@
         } catch {
           console.log('error grabbing some values');
         }
+      }
+      if (!Utils.isActivePost(this.post)) {
+        this.post.isActive = false;
+        this.$axios.put(`/api/v1/posts/${this.post._id}`, {
+          isActive: false,
+        });
       }
     },
     methods: {

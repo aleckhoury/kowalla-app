@@ -62,11 +62,62 @@ div.dropdown div.button {
 .tabs ul li.is-active a {
     color: #39C9A0;
     border-bottom-color: #39C9A0;
-
 }
 .has-text-primary i {
     color: #39C9A0;
 }
+.focusEditor p, .focusEditor h1, .focusEditor h2, .focusEditor h3 {
+     color: white;
+ }
+.focusEditor blockquote p, .focusEditor blockquote h1, .focusEditor blockquote h2, .focusEditor blockquote h3 {
+    color: black;
+}
+.focusEditor li[data-done="true"] .todo-checkbox {
+    background: white;
+}
+.focusEditor .todo-checkbox {
+    border: 2px solid white;
+}
+.focusEditor blockquote {
+    background-color: rgba(236, 236, 236, 0.75);
+}
+.editor.content p {
+    margin: 0;
+}
 div.emoji-mart {
     margin: 0 auto;
+}
+
+ul[data-type="todo_list"] {
+    padding-left: 0;
+}
+li[data-type="todo_item"] {
+    display: flex;
+    flex-direction: row;
+}
+.todo-checkbox {
+    border: 2px solid black;
+    height: 1em;
+    width: 1em;
+    box-sizing: border-box;
+    margin-right: 10px;
+    margin-top: 0.3rem;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    border-radius: 0.2em;
+    background-color: transparent;
+    transition: 0.4s background;
+}
+.todo-content {
+    flex: 1;
+}
+li[data-done="true"] {
+    text-decoration: line-through;
+}
+li[data-done="true"] .todo-checkbox {
+    background-color: black;
+}
+li[data-done="false"] {
+    text-decoration: none;
 }

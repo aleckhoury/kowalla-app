@@ -3,12 +3,14 @@
         <div class="box is-paddingless">
           <div class="card">
               <post-header
+                :isActive="post.isActive"
                 :createdAt="this.post.createdAt"
                 :profile="this.profile"
                 :project="this.project"
                 :community="this.community"
                 :isProject="this.isProject"
               />
+              <PostTimer v-if="post.isActive" :time="post.expiration" />
               <div class="content is-marginless" v-html="post.content">
               </div>
               <br />
@@ -35,10 +37,12 @@ import Comment from './comment.vue';
 import AddComment from "./addComment";
 import Reactions from "./reactionsNoComments";
 import PostHeader from "./postHeader";
+import PostTimer from "./postTimer";
+import Utils from '~/utils/helpers';
 
 export default {
   name: "PostModal",
-  components: { AddComment, Comment, Reactions, PostHeader },
+  components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
   props: {
     post: Object,
     isFromNestedURL: { type: Boolean, default: false },
@@ -71,7 +75,13 @@ export default {
     this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
     this.commentList.map(async (comment, idx) => {
       this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/upvotes/${comment._id}/${this.$store.state.user._id}`)
-    })
+    });
+    if (!Utils.isActivePost(this.post)) {
+      this.post.isActive = false;
+      this.$axios.put(`/api/v1/posts/${this.post._id}`, {
+        isActive: false,
+      });
+    }
   },
   methods: {
     updateComment(comment) {

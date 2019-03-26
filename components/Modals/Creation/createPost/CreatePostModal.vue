@@ -76,6 +76,12 @@
                                 </a>
                                 <a
                                     class="button is-white"
+                                    :class="{ 'is-active': isActive.todo_list() }"
+                                    @click="commands.todo_list">
+                                    <font-awesome-icon icon="tasks" />
+                                </a>
+                                <a
+                                    class="button is-white"
                                     :class="{ 'is-active': isActive.bullet_list() }"
                                     @click="commands.bullet_list">
                                     <font-awesome-icon icon="list-ul" />
@@ -104,14 +110,25 @@
                                     @click="commands.horizontal_rule">
                                     <font-awesome-icon icon="minus" />
                                 </a>
-                                    <a
-                                        class="button is-white">
-                                        <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
-                                        <font-awesome-icon icon="camera" />
-                                    </a>
-
+                                <a
+                                    class="button is-white">
+                                    <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
+                                    <font-awesome-icon icon="camera" />
+                                </a>
+                                <a class="button is-white" v-if="!activePost.isActive" @click="toggleTimedPost">
+                                    <font-awesome-icon icon="clock" /> &nbsp; Timed Post
+                                </a>
                             </div>
                         </editor-menu-bar>
+                        <div v-if="timedPost" class="block">
+                            <p>
+                                <b>Select a timespan for your timed post:</b>
+                            </p>
+                            <b-timepicker
+                                    v-model="time"
+                                    inline
+                                    :max-time="new Date(2018, 11, 24, 10)"></b-timepicker>
+                        </div>
                         <div class="editor content">
                             <editor-content class="editor__content" :editor="editor" />
                         </div>
@@ -157,7 +174,8 @@
     Underline,
     History,
   } from 'tiptap-extensions'
-  import Dropdown from "../../dropdownItems";
+  import { mapGetters } from 'vuex';
+  import Dropdown from "../../../dropdownItems";
 
   export default {
     name: "createPostModal",
@@ -177,6 +195,11 @@
         s3Loading: false,
         clearPhoto: false,
         photoUrl: '',
+        timedPost: false,
+        time: new Date(2018, 11, 24, 0, 0),
+        isActive: null,
+        userCompleted: null,
+        unselectableTimes: [],
       };
     },
     async beforeDestroy() {
@@ -189,18 +212,61 @@
       }
       await this.editor.destroy();
     },
+    computed: {
+      ...mapGetters('user', ['activePost']),
+      minutes() {
+        return this.time ? this.time.getMinutes() : 0;
+      },
+      hours() {
+        return this.time ? this.time.getHours() : 0;
+      },
+      expiration() {
+        const time = new Date();
+        const expireTime = time.setHours(time.getHours() + this.hours, time.getMinutes() + this.minutes);
+        return new Date(expireTime);
+      }
+    },
     methods: {
+      toggleTimedPost() {
+        this.timedPost = !this.timedPost;
+        this.isActive = true;
+        if (!this.timedPost) {
+          this.time = null;
+          this.isActive = false;
+        }
+      },
       async createPost() {
         this.s3Loading = true;
+        let StrippedString = this.html.replace(/(<([^>]+)>)/ig,"");
+        if (StrippedString.length === 0) {
+          this.$toast.open({
+            duration: 5000,
+            message: 'You must input some text to make a post',
+            position: 'is-top',
+            type: 'is-danger'
+          });
+          this.s3Loading = false;
+          return null;
+        }
         const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
         await this.$axios.post(`/api/v1/communities/1234567890/posts`, {
           profileId: this.$store.state.user._id,
           communityId: community._id,
           content: this.html,
+          duration: this.time,
+          expiration: this.expiration || null,
+          isActive: this.isActive,
+          userCompleted: this.userCompleted,
         });
         this.clearPhoto = false;
         this.s3Loading = false;
-        this.$parent.close()
+        this.$parent.close();
+        if (this.timedPost) {
+          this.$router.push({ path: `/dev/focus` });
+          if (this.$router.history.current.fullPath === "/dev/focus") {
+            this.$router.go();
+          }
+        }
       },
       async selectFile(command) {
         this.file = await this.$refs.file.files[0];
@@ -249,7 +315,7 @@
           new Underline(),
           new History(),
         ],
-        content: '',
+        content: '<p></p><p></p><p></p><p></p>',
         onUpdate: ({ getHTML }) => {
           this.html = getHTML()
         },
@@ -265,6 +331,16 @@
     span {
         color: #39C9A0;
     }
+    .box {
+        width: 800px;
+        max-width: 100%;
+    }
+    .modal-content {
+        border-radius: 6px;
+        margin: 0;
+        color: #39C9A0;
+        width: auto;
+    }
     .level {
         padding: 1rem;
     }
@@ -275,14 +351,6 @@
         margin: 1em 0;
         display: flex;
         flex-wrap: wrap;
-    }
-    div .modal-content {
-        border-radius: 6px;
-        overflow: visible;
-        margin: 0;
-    }
-    .modal-content.box {
-        min-height: 80%;
     }
     .button.action {
         width: 12em;
@@ -301,5 +369,8 @@
     }
     div.animation-content {
         margin: 0;
+    }
+    .block {
+        color: #39C9A0;
     }
 </style>
