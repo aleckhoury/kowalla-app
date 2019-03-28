@@ -2,37 +2,25 @@
   <div>
     <div class="sorting-container">
       <div class="dropdown-container">
-        <div class="dropdown-selector">
-          <b class="font theme-color selector-child">{{ selectedOption }}</b>
-          <font-awesome-icon
-            icon="angle-down"
-            class="theme-color selector-child"/>
-        </div>
-      </div>
-      <!-- TODO replace this with buefy dropdown later
-        <el-dropdown @command="handleCommand">
-          <div class="dropdown-container">
-            <div class="dropdown-selector">
-              <b class="font theme-color selector-child">{{ selectedOption }}</b>
-              <font-awesome-icon
-                icon="angle-down"
-                class="theme-color selector-child"/>
-            </div>
+        <b-dropdown v-model="selectedOption" :mobile-modal="false" position="is-bottom-left" aria-role="list">
+          <div slot="trigger" class="dropdown-selector">
+            <b class="font theme-color selector-child">{{ selectedOption }}</b>
+            <font-awesome-icon
+              icon="angle-down"
+              class="theme-color selector-child"/>
           </div>
 
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="item in options"
-              :key="item.value"
-              :command="item.value">{{ item.value }}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      -->
+          <b-dropdown-item v-for="item in options" aria-role="listitem" :value="item.value" :key="item.value">
+            {{ item.value}}
+          </b-dropdown-item>
+        </b-dropdown>
+      </div>
 
-      <div v-if="(type === '/p/')||(type === '/u/')" class='font margin predicate'>from</div>
-      <div v-if="(type === '/c/')||(type === '/')" class='font margin predicate'>in</div>
-      <div v-if="(type !== '/')"class="font margin subject"><b>{{getPrefix}}{{getSuffix}}</b></div>
-      <div v-if="(type === '/')" class='font margin predicate'>your timeline</div>
+      <!-- We change the tags after the selector depending on the nav location -->
+      <div v-if="(!isMobile) && ((type === '/p/')||(type === '/u/'))" class='font margin predicate'>from</div>
+      <div v-if="(!isMobile) && ((type === '/c/')||(type === '/'))" class='font margin predicate'>in</div>
+      <div v-if="(!isMobile) && (type !== '/')"class="font margin subject"><b>{{getPrefix}}{{getSuffix}}</b></div>
+      <div v-if="(!isMobile) && (type === '/')" class='font margin predicate'>your timeline</div>
     </div>
   </div>
 </template>
@@ -43,41 +31,41 @@ export default {
   data() {
     return {
       type: null,
+      dropdownOpen: false,
       target: null,
-      selectedOption: null,
+      selectedOption: "",
       options: [{
           value: 'Trending',
-          label: 'Trending',
         },
         {
           value: 'Newest',
-          label: 'Newest',
         },
         {
           value: 'Rising',
-          label: 'Rising'
       }],
     }
   },
-  methods: {
-    handleCommand(command) {
-      this.selectedOption = command;
-
+  props: {
+    isMobile: { type: Boolean, default: false }
+  },
+  watch: {
+    // it's updating selected option with v-model, having trouble running the
+    // click command successfully but this works for now
+    selectedOption(value) {
       if (this.type === '/p/') {
-        this.$store.commit('sorting/updateProjectSortingOption', command);
+        this.$store.commit('sorting/updateProjectSortingOption', value);
       }
 
       else if (this.type === '/u/') {
-        //console.log('trying profile sorting change');
-        this.$store.commit('sorting/updateProfileSortingOption', command);
+        this.$store.commit('sorting/updateProfileSortingOption', value);
       }
 
       else if (this.type === '/c/') {
-        this.$store.commit('sorting/updateCommunitySortingOption', command);
+        this.$store.commit('sorting/updateCommunitySortingOption', value);
       }
 
       else {
-        this.$store.commit('sorting/updateNewsfeedSortingOption', command);
+        this.$store.commit('sorting/updateNewsfeedSortingOption', value);
       }
     }
   },
@@ -105,42 +93,31 @@ export default {
     }
   },
   created() {
-    // sort the current route and see what type of
-    // page we're on
-    try {
+    // sort the current route and see what type of we're on
+    try { // look for non-newsfeed path
       let re = new RegExp('/[u,p,c]/');
       this.type = this.$route.fullPath.match(re)[0];
 
+      // project
       if (this.type === '/p/') {
         this.selectedOption = this.$store.state.sorting.project;
       }
 
+      // profile
       else if (this.type === '/u/') {
         this.selectedOption = this.$store.state.sorting.profile;
-      } else if (this.type === '/c/') {
-        this.selectedOption = this.$store.state.sorting.community;
       }
 
-    } catch {
+      // community
+      else if (this.type === '/c/') {
+        this.selectedOption = this.$store.state.sorting.community;
+      }
+    }
+
+    catch { // it's a newsfeed, so sent that along
       this.type = '/';
       this.selectedOption = this.$store.state.sorting.newsfeed;
     }
-  },
-  methods: {
-    handleCommand(command) {
-      this.selectedOption = command;
-
-      if (this.type === '/p/') {
-        this.$store.commit('sorting/updateProjectSortingOption', command);
-      } else if (this.type === '/u/') {
-        console.log('trying profile sorting change');
-        this.$store.commit('sorting/updateProfileSortingOption', command);
-      } else if (this.type === '/c/') {
-        this.$store.commit('sorting/updateCommunitySortingOption', command);
-      } else {
-        this.$store.commit('sorting/updateNewsfeedSortingOption', command);
-      }
-    },
   },
 };
 </script>

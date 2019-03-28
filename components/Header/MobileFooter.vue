@@ -1,9 +1,6 @@
 <template>
   <div class="size">
-    <div class="kowalla-logo">
-      kowalla
-    </div>
-    <div @click="callMobileCreateModal" class="create-button">
+    <div @click="callMobileCreateModal" class="create-button-2">
       <b-icon
         class="dark-basic-theme"
         icon="plus"
@@ -65,12 +62,9 @@ export default {
 <style lang="css" scoped>
 .size {
   position: fixed;
-  background-color: #39C9A0;
-  border-top: 2px solid #2F8168;
   bottom: 0;
   left: 0;
   z-index: 5;
-  height: 50px;
   width: 100%;
 }
 
@@ -92,6 +86,24 @@ export default {
   height: 70px;
   width: 70px;
   box-shadow: 0 0 10px #333;
+}
+
+.create-button-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0px 10px 10px 0px;
+  background-color: white;
+  border: 3px solid #2F8168;
+  border-radius: 35px;
+  height: 70px;
+  width: 70px;
+  -moz-box-shadow:    3px 3px 0px 0px #000;
+  -webkit-box-shadow: 3px 3px 0px 0px #000;
+  box-shadow:         3px 3px 0px 0px #000;
 }
 
 .kowalla-logo {

@@ -50,6 +50,7 @@ import SortingOptions from './SortingOptions';
 export default {
   name: 'NavSubHeader',
   components: { SortingOptions, },
+  
 };
 </script>
 
@@ -74,7 +75,4 @@ export default {
   height: 100%;
 }
 
-.test-outline {
-  border: 1px solid black;
-}
 </style>

@@ -1,9 +1,59 @@
 <template>
   <div class="size">
-    <div class="mobile-header-container is-touch">
+    <div
+      class="mobile-header-container is-touch"
+      :class="{ 'hide-mobile-header-container': !showNavbar}"
+    >
       <!-- Mobile Header Top -->
-      <div class="level half-height is-mobile mobile-header-top-container">
-        <div class="level-left" @click="callChangeLocationModal">
+      <div class="level half-height is-mobile mobile-header-top-container is-marginless">
+        <nuxt-link to="/dev/">
+          <div class="level-left kowalla-logo">
+            <img
+              src="https://i.imgur.com/04hoRgV.png"
+              class="kowalla-logo-picture"
+            />
+            kowalla
+
+          </div>
+        </nuxt-link>
+
+        <div class="level-right">
+          <div
+            class="level-item align-icon"
+            @click="callSearchModal"
+          >
+            <b-icon
+              class="theme-color-dark"
+              icon="magnify"
+            />
+          </div>
+
+          <div
+            class="level-item align-icon"
+            @click="callNotifModal"
+          >
+            <b-icon
+              class="theme-color-dark"
+              icon="bell-outline"
+            />
+          </div>
+
+          <div class="level-item">
+            <nuxt-link :to="`/dev/u/${this.$store.state.user.username}`">
+              <img
+                :src="this.$store.state.user.profilePicture"
+                class="mobile-nav-profile-picture"
+              />
+            </nuxt-link>
+          </div>
+        </div> <!-- end level-right -->
+      </div> <!-- top mobile header -->
+
+      <!-- Mobile Header Bottom -->
+      <div class="level mobile-header-bottom-container half-height is-mobile">
+        <!-- Level left -->
+        <div class="level-left selector" @click="callChangeLocationModal">
+          <!-- Selector -->
           <div class="level-item">
             <img
               v-if="!isHome"
@@ -23,34 +73,31 @@
           <div class="level-item margin-adjust">
             <font-awesome-icon icon="angle-down" />
           </div>
-
-        </div> <!-- end level-left -->
+        </div> <!-- End selector -->
 
         <div class="level-right">
-          <div class="level-item">
-            <nuxt-link :to="`/dev/u/${this.$store.state.user.username}`">
-              <img
-                :src="this.$store.state.user.profilePicture"
-                class="mobile-nav-profile-picture"
-              />
-            </nuxt-link>
-          </div>
-        </div> <!-- end level-right -->
-      </div> <!-- top moible header -->
-
-      <MobileNavIcons class="half-height"></MobileNavIcons>
-    </div>
+          <SortingOptions isMobile/></SortingOptions>
+        </div> <!-- End level right -->
+      </div> <!-- End level -->
+    </div> <!-- End mobile header bottom -->
   </div>
 </template>
 <script>
 import ChangeLocationModal from '~/components/Modals/Other/ChangeLocationModal';
 import MobileNavIcons from '~/components/MobileNavIcons';
+import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
+
+import TestModal from '~/components/Modals/Other/TestModal';
+import SearchModal from '~/components/Modals/Other/SearchModal';
 
 export default {
   name: "MobileHeader",
-  components: { ChangeLocationModal, MobileNavIcons },
+  components: { ChangeLocationModal, MobileNavIcons, SortingOptions },
   data() {
     return {
+      showNavbar: true,
+      lastScrollPosition: 0,
+      scrollValue: 0,
     };
   },
   props: {
@@ -60,16 +107,58 @@ export default {
   },
   methods: {
     callChangeLocationModal() {
-
-      // will open mulitple modals
       this.$modal.open({
         parent: this,
         component: ChangeLocationModal,
         width: 300,
         hasModalCard: true
       });
+    },
+    callSearchModal() {
+      this.$modal.open({
+        parent: this,
+        component: SearchModal,
+        props: { modalText: "Search" },
+        width: 300,
+        hasModalCard: true
+      });
+    },
+
+    callNotifModal() {
+      this.$modal.open({
+        parent: this,
+        component: TestModal,
+        props: { modalText: "Notif" },
+        width: 300,
+        hasModalCard: true
+      });
+    },
+    onScroll() {
+      // if we're scrolling up
+      if (window.pageYOffset < 0) {
+        return;
+      }
+
+      // if we're scrolling but haven't crossed our offset point, 50px
+      else if (Math.abs(window.pageYOffset - this.lastScrollPosition) < 50) {
+        return;
+      }
+
+      // if we've passed our offset point, update the last position
+      else {
+        this.showNavbar = window.pageYOffset < this.lastScrollPosition;
+        this.lastScrollPosition = window.pageYOffset;
+      }
     }
-  }
+  },
+  mounted() {
+    this.lastScrollPosition = window.pageYOffset;
+    window.addEventListener('scroll', this.onScroll);
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll)
+  },
 }
 </script>
 <style lang="css" scoped>
@@ -82,13 +171,30 @@ export default {
   width: 100%;
 }
 
+.theme-color-dark {
+  color: #2F8168;
+}
+
 .mobile-header-container {
   height: 100px;
-  background: white;
+  transform: translate3d(0, 0, 0);
+  transition: 0.3s all ease-out;
+}
+
+.hide-mobile-header-container {
+  box-shadow: none;
+  transform: translate3d(0, -100%, 0);
 }
 
 .mobile-header-top-container {
-  margin: 0px 10px 0px 10px;
+  padding: 0px 10px 0px 10px;
+  background-color: #39C9A0;
+}
+
+.mobile-header-bottom-container {
+  background-color: white;
+  border: 1px solid #E0DDDD;
+  padding: 0px 10px 0px 10px;
 }
 
 .on-bottom {
@@ -97,7 +203,7 @@ export default {
   right: 0;
 }
 
-.level-left {
+.selector {
   border: 1px solid black;
   border-radius: 6px;
   padding: 5px;
@@ -130,5 +236,18 @@ export default {
   width: 30px;
   border: 1px solid #E0DDDD;
   border-radius: 6px;
+}
+
+.kowalla-logo-picture {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+}
+
+.kowalla-logo {
+  font-family: 'Nunito';
+  font-size: 1.75em;
+  color: #fff;
+  text-decoration: none;
 }
 </style>

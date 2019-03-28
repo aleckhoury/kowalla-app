@@ -118,6 +118,10 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+.columns {
+  background: white;
+}
+
 .align-icon {
   display: flex;
   justify-content: center;

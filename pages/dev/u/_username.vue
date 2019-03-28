@@ -72,7 +72,40 @@
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+      <div class="side-pane">
+        <ProfileCard
+          :name="`${this.firstName} ${this.lastName}`"
+          :profilePictureURL="profilePictureURL"
+          :username="this.username"
+          :stats="profileStats"
+          isMobile
+          type="user"/>
+      </div>
+
+      <DescriptionCard
+        class="newsfeed-margin"
+        :headerString="`About ${this.firstName}`"
+        :subheaderOn="false">
+
+        {{profileDescription}}
+
+      </DescriptionCard>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="(this.$store.state.user.username === this.username)"
+          @edit-button-clicked="callEditProfileModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+
+      <Post
+        class="newsfeed-margin"
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      />
     </div>
 
 
