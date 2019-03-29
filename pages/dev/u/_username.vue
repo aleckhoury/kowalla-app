@@ -120,11 +120,8 @@ export default {
       profilePictureURL: '',
       profileDescription: '',
 
-      profileStats: [
-        { "name": "one", "stat": "7"},
-        { "name": "two", "stat": "7"},
-        { "name": "three", "stat": "7"}
-      ],
+      profileStats: [],
+
       profileSubs: {subscriptions: [], owned: []},
 
       // newsfeed content
@@ -157,50 +154,21 @@ export default {
     }
   },
   created() {
-
     this.username = this.$route.params.username;
   },
   async mounted() {
-
-
     let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
-    console.log(infoRes);
-    //------------------
-    // remove if statements, but keep assignments in production.
-    // they're only for quicker validation to ignore an unhelpful nuxt error throw
-    //------------------
-    // get name
-    if (infoRes.data.hasOwnProperty('firstName')) {
+
       this.firstName = infoRes.data.firstName;
-    }
-    if (infoRes.data.hasOwnProperty('lastName')) {
       this.lastName = infoRes.data.lastName;
-    }
-
-    // profile description
-    if (infoRes.data.hasOwnProperty('description')) {
       this.profileDescription = infoRes.data.description;
-    }
-
-    // profile picture
-    if (infoRes.data.hasOwnProperty('profilePicture')) {
-      console.log(infoRes.data.profilePicture)
       this.profilePictureURL = infoRes.data.profilePicture;
-    }
-
-    // profile Id
-    if (infoRes.data.hasOwnProperty('_id')) {
       this.profileId = infoRes.data._id;
-    }
-
-    console.log('hi');
+      this.profileStats.push({name: 'Rep', stat: infoRes.data.reputation});
+      this.profileStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-    // console.log(subRes);
-    if (subRes.data.hasOwnProperty('profileSubscriptions')) {
-      // console.log(subRes.data.profileSubscriptions);
-      this.profileSubs = subRes.data.profileSubscriptions;
-    }
+    this.profileSubs = subRes.data.profileSubscriptions;
 
     // get posts
     this.postList = await this.$axios.$get('/api/v1/posts');
