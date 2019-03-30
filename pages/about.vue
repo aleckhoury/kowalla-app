@@ -13,7 +13,7 @@
       <div class="columns is-centered is-marginless main-margin">
 
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless test-outline">
+        <div class="column is-one-half is-paddingless">
           about
         </div>
 

@@ -6,17 +6,17 @@
       <div class="columns is-marginless main-margin">
 
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane test-outline">
+        <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane></NavPane>
         </div>
 
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless test-outline">
-          post feed
+        <div class="column is-one-half is-paddingless">
+          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+        <div class="column is-one-quarter is-paddingless side-pane">
           <InfoPane>
             <ProfileCard
               :name="`${this.firstName} ${this.lastName}`"
@@ -135,6 +135,9 @@ export default {
     getUsername() {
       return this.username;
     },
+    sort() {
+      return this.$store.state.sorting.profile;
+    }
   },
   methods: {
     callEditProfileModal() {
@@ -161,7 +164,7 @@ export default {
     this.username = this.$route.params.username;
   },
   async mounted() {
-
+    this.postList = this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }`);
 
     let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
     console.log(infoRes);

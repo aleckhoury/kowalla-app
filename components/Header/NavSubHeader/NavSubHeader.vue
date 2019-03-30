@@ -33,9 +33,7 @@
                   <div class="message">
                     <b>{{ item }}</b>
                   </div>
-
                 </div>
-
               </div>
           </div>
         </div>
@@ -72,9 +70,5 @@ export default {
 
 .full-height {
   height: 100%;
-}
-
-.test-outline {
-  border: 1px solid black;
 }
 </style>

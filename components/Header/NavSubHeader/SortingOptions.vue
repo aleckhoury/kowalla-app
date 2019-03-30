@@ -1,34 +1,17 @@
 <template lang="html">
   <div>
     <div class="sorting-container">
-      <div class="dropdown-container">
-        <div class="dropdown-selector">
-          <b class="font theme-color selector-child">{{ selectedOption }}</b>
+      <b-dropdown class="dropdown-container" hoverable aria-role="list">
+        <b class="font theme-color selector-child" slot="trigger">
+          {{ sort }}
           <font-awesome-icon
-            icon="angle-down"
-            class="theme-color selector-child"/>
-        </div>
-      </div>
-      <!-- TODO replace this with buefy dropdown later
-        <el-dropdown @command="handleCommand">
-          <div class="dropdown-container">
-            <div class="dropdown-selector">
-              <b class="font theme-color selector-child">{{ selectedOption }}</b>
-              <font-awesome-icon
-                icon="angle-down"
-                class="theme-color selector-child"/>
-            </div>
-          </div>
+                  icon="angle-down"
+                  class="theme-color selector-child"/>
+        </b>
 
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="item in options"
-              :key="item.value"
-              :command="item.value">{{ item.value }}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      -->
-
+        <b-dropdown-item :value="true" @click="handleCommand('Newest')" aria-role="listitem">Newest</b-dropdown-item>
+        <b-dropdown-item :value="false" @click="handleCommand('Oldest')" aria-role="listitem">Oldest</b-dropdown-item>
+      </b-dropdown>
       <div v-if="(type === '/p/')||(type === '/u/')" class='font margin predicate'>from</div>
       <div v-if="(type === '/c/')||(type === '/')" class='font margin predicate'>in</div>
       <div v-if="(type !== '/')"class="font margin subject"><b>{{getPrefix}}{{getSuffix}}</b></div>
@@ -44,7 +27,6 @@ export default {
     return {
       type: null,
       target: null,
-      selectedOption: null,
       options: [{
           value: 'Trending',
           label: 'Trending',
@@ -61,21 +43,16 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      this.selectedOption = command;
-
+      // this.selectedOption = command;
       if (this.type === '/p/') {
         this.$store.commit('sorting/updateProjectSortingOption', command);
       }
-
       else if (this.type === '/u/') {
-        //console.log('trying profile sorting change');
         this.$store.commit('sorting/updateProfileSortingOption', command);
       }
-
       else if (this.type === '/c/') {
         this.$store.commit('sorting/updateCommunitySortingOption', command);
       }
-
       else {
         this.$store.commit('sorting/updateNewsfeedSortingOption', command);
       }
@@ -102,6 +79,24 @@ export default {
       else {
         return '';
       }
+    },
+    sort() {
+      let pageType;
+      switch(this.type) {
+        case '/p/':
+          pageType = 'project';
+          break;
+        case '/u/':
+          pageType = 'profile';
+          break;
+        case '/c/':
+          pageType = 'community';
+          break;
+        case '/':
+          pageType = 'newsfeed';
+          break;
+      }
+      return this.$store.state.sorting[pageType];
     }
   },
   created() {
@@ -110,37 +105,21 @@ export default {
     try {
       let re = new RegExp('/[u,p,c]/');
       this.type = this.$route.fullPath.match(re)[0];
-
-      if (this.type === '/p/') {
-        this.selectedOption = this.$store.state.sorting.project;
-      }
-
-      else if (this.type === '/u/') {
-        this.selectedOption = this.$store.state.sorting.profile;
-      } else if (this.type === '/c/') {
-        this.selectedOption = this.$store.state.sorting.community;
-      }
+      //
+      // if (this.type === '/p/') {
+      //   this.selectedOption = this.$store.state.sorting.project;
+      // }
+      //
+      // else if (this.type === '/u/') {
+      //   this.selectedOption = this.$store.state.sorting.profile;
+      // } else if (this.type === '/c/') {
+      //   this.selectedOption = this.$store.state.sorting.community;
+      // }
 
     } catch {
       this.type = '/';
-      this.selectedOption = this.$store.state.sorting.newsfeed;
+      // this.selectedOption = this.$store.state.sorting.newsfeed;
     }
-  },
-  methods: {
-    handleCommand(command) {
-      this.selectedOption = command;
-
-      if (this.type === '/p/') {
-        this.$store.commit('sorting/updateProjectSortingOption', command);
-      } else if (this.type === '/u/') {
-        console.log('trying profile sorting change');
-        this.$store.commit('sorting/updateProfileSortingOption', command);
-      } else if (this.type === '/c/') {
-        this.$store.commit('sorting/updateCommunitySortingOption', command);
-      } else {
-        this.$store.commit('sorting/updateNewsfeedSortingOption', command);
-      }
-    },
   },
 };
 </script>
@@ -154,6 +133,7 @@ export default {
 }
 
 .dropdown-container {
+
   height: 30px;
   border: 2px solid #39C9A0;
   border-radius: 6px;

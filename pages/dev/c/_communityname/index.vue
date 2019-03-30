@@ -12,7 +12,7 @@
       <!-- three columns, navpane, content, infopane -->
       <div class="columns is-marginless main-margin">
 
-          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+          <div class="column is-one-quarter is-paddingless side-pane">
             <NavPane></NavPane>
           </div>
 
@@ -28,11 +28,11 @@
 
 
             <div class="columns is-marginless newsfeed-padding">
-              <div class="column is-two-thirds test-outline">
-                <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+              <div class="column is-two-thirds">
+                <Post v-if="!!posts.length" v-for="post in postList" :key="post._id" :post="post"></Post>
 
               </div>
-              <div class="column is-one-third is-paddingless test-outline side-pane">
+              <div class="column is-one-third is-paddingless side-pane">
                 <InfoPane>
                   <DescriptionCard
                     headerString="Description"
@@ -65,7 +65,7 @@
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+      <Post v-if="!!posts.length" v-for="post in postList" :key="post._id" :post="post"></Post>
     </div>
 
 
@@ -86,6 +86,7 @@ import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 
 import Post from "~/components/PostCard/feedPost";
+import Utils from '~/utils/helpers';
 
 import { mapGetters } from 'vuex';
 
@@ -139,13 +140,23 @@ export default {
       this.adminId = infoRes.data.admins[0];
 
     // get posts
-    this.postList = await this.$axios.$get('/api/v1/posts');
+    this.postList = this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }`);
 
     document.title = `kowalla - #${this.communityName}`;
   },
   computed: {
     getCommunityName() {
       return this.communityName;
+    },
+    sort() {
+      return this.$store.state.sorting.community;
+    }
+  },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }`);
+
+      await this.scroll();
     }
   },
   methods: {

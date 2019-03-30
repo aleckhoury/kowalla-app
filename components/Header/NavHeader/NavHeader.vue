@@ -120,12 +120,6 @@ export default {
   cursor: pointer;
 }
 
-.test-outline {
-  border: 1px solid black;
-}
-
-
-
 .main-theme {
   background-color: #39C9A0;
 }

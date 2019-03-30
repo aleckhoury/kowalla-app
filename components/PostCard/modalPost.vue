@@ -114,5 +114,11 @@ div.card {
     color: #39C9A0;
     width: auto;
     height: auto;
+    overflow: visible;
+}
+.content {
+    max-height: 60vh;
+    overflow-y: scroll;
+    word-break: break-all;
 }
 </style>
