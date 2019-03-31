@@ -31,12 +31,17 @@
 
       <span class="header-content"><b>Your Projects and Communities</b></span>
       <NavCard
-        type="user" selector="owned"
+        type="user"
+        selector="owned"
         @nav-card-link-clicked="closeModal()"
-      ></NavCard>
+      />
 
       <span class="header-content"><b>Your Subscriptions</b></span>
-      <NavCard type="user" selector="subscriptions"></NavCard>
+      <NavCard
+        type="user"
+        selector="subscriptions"
+        @nav-card-link-clicked="closeModal()"
+      />
       <!--<NavPane class="force-width"></NavPane>-->
     </div>
   </div>
@@ -50,7 +55,6 @@ export default {
   components: { NavCard, NavPane },
   methods: {
     closeModal() {
-      console.log('closing parent');
       this.$parent.close();
     }
   },

@@ -13,7 +13,7 @@
       />
     </div>
 
-    <div class="banner-title">
+    <div class="banner-title" :class="{'banner-font-desktop': !isMobile, 'banner-font-mobile': isMobile}">
       <b>{{bannerTitlePrefix}}{{bannerTitle}}</b>
     </div>
 
@@ -22,7 +22,7 @@
 </template>
 <script>
 import SubscriptionButton from "./SubscriptionButton";
-//:style="{ backgroundImage: 'url(' + bannerURL + ')' }">
+
 export default {
   name: "Banner",
   components: { SubscriptionButton },
@@ -32,15 +32,16 @@ export default {
     bannerTitlePrefix: String,
     isSubscribed: Boolean,
     isOwner: Boolean,
-  },
-  mounted() {
-    console.log(this.bannerURL);
+    isMobile: {type: Boolean, default: false},
   },
   methods: {
     handleClick(subBool) {
-      //const subObj = { subBool };
-
       this.$emit('subscription-button-clicked', subBool);
+    }
+  },
+  mounted() {
+    if (this.isMobile) {
+      console.log('mobile banner')
     }
   }
 }
@@ -71,10 +72,17 @@ export default {
   height: 75px;
   background-color: rgb(0,0,0,0.5);
   color: white;
-  font-size: 3.75em;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.banner-font-desktop {
+  font-size: 3.75em;
+}
+
+.banner-font-mobile {
+  font-size: 2em;
 }
 
 .banner-subscription-button-container {
