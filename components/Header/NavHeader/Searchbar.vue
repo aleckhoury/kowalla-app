@@ -61,6 +61,10 @@ export default {
     },
     methods: {
       optionSelected: async function(option) {
+
+        // emit event for search modal to close
+        this.$emit('option-selected');
+
         if (option !== null) { // for some reason this sometimes gets pushed through as "null"
           if (option.hasOwnProperty("profileId")) {
             console.log('is profile')

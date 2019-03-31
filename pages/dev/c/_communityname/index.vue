@@ -64,8 +64,41 @@
       :locationToDisplay="`#${this.communityName}`"
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+    <div class="mobile-main-margin">
+      <Banner
+        :bannerURL="bannerPictureURL"
+        :bannerTitle="communityName"
+        bannerTitlePrefix="#"
+        :isSubscribed="isSubscribed"
+        :isOwner="isOwner"
+        @subscription-button-clicked="updateSubscriptions"
+        isMobile
+      />
+
+      <DescriptionCard
+        class="newsfeed-margin"
+        headerString="Description"
+        :subheaderOn="false"
+      >
+      {{communityDescription}}
+
+      </DescriptionCard>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="this.$store.state.user._id === this.adminId"
+          @edit-button-clicked="callEditCommunityModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+
+      <Post
+        class="newsfeed-margin"
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      />
     </div>
 
 
@@ -150,8 +183,7 @@ export default {
   },
   methods: {
     //...mapGetters(['user/isUserSubscribed']),
-    updateSubscriptions(subBool) { // change subbool to on
-
+    updateSubscriptions(subBool) {
       let subInfo = {
         name: this.communityName,
         pictureURL: this.profilePictureURL,

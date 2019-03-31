@@ -46,10 +46,6 @@
                     <b>Edit Settings</b>
                   </EditButton>
 
-                  <nuxt-link :to="`${this.projectName}/posts/bOVESikDy`">test</nuxt-link>
-
-                  <div @click="runMobilePostView">test 2</div>
-
                   <MobilePostView v-if="showMobilePostView"></MobilePostView>
 
                 </div>
@@ -89,6 +85,7 @@
 
                 <!-- post feed -->
                 <div class="column is-two-thirds test-outline">
+
                   <Post v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
@@ -110,13 +107,68 @@
       :locationToDisplay="`@${this.projectName}`"
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+    <div class="is-marginless is-hidden-desktop mobile-main-margin">
+      <Banner
+        :bannerURL="bannerPictureURL"
+        :bannerTitle="projectName"
+        bannerTitlePrefix="@"
+        :isSubscribed="isSubscribed"
+        :isOwner="isOwner"
+        @subscription-button-clicked="updateSubscriptions"
+        isMobile
+      />
+
+      <DescriptionCard
+        class="newsfeed-margin"
+        headerString="Description"
+        :subheaderOn="false"
+      >
+      {{projectDescription}}
+
+      </DescriptionCard>
+
+      <div class="columns is-marginless is-paddingless is-mobile is-centered is-centered is-multiline">
+        <div class="column is-narrow">
+          <ProfileCard
+            :name="projectName"
+            :username="projectName"
+            :profilePictureURL="projectProfilePictureURL"
+            :subheaderString="`View ${projectName}'s stats`"
+            :stats="projectStats"
+            type="project"
+            isMobile
+          ></ProfileCard>
+        </div>
+
+        <div class="column is-narrow">
+          <ProfileCard
+            :name="`${adminFirstName} ${adminLastName}`"
+            :username="adminUsername"
+            :profilePictureURL="adminProfilePictureURL"
+            :subheaderString="`View ${adminFirstName}'s profile`"
+            :subheaderURL="`/dev/u/${this.adminUsername}`"
+            :stats="profileStats"
+            type="user"
+            isMobile
+          ></ProfileCard>
+        </div>
+      </div>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="this.$store.state.user.username === this.adminUsername"
+          @edit-button-clicked="callEditProjectModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+
       <Post
+        class="newsfeed-margin"
         v-for="post in postList"
         :key="post._id"
         :post="post"
-      >
-      </Post>
+      />
     </div>
 
 
@@ -280,4 +332,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.test {
+  border: 1px solid black;
+}
+
 </style>
