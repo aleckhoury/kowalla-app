@@ -34,6 +34,15 @@
               </div>
               <div class="column is-one-third is-paddingless test-outline side-pane">
                 <InfoPane>
+                  <ProfileCard
+                    :name="communityName"
+                    :username="communityName"
+                    :profilePictureURL="profilePictureURL"
+                    :subheaderString="`View ${communityName}'s stats`"
+                    :stats="communityStats"
+                    type="project"
+                  ></ProfileCard>
+
                   <DescriptionCard
                     headerString="Description"
                     :subheaderOn="false"
@@ -117,6 +126,8 @@ import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
+import ProfileCard from '~/components/InfoCards/ProfileCard';
+
 
 import Post from "~/components/PostCard/feedPost";
 
@@ -131,6 +142,7 @@ export default {
     NavPane,
     Banner,
     DescriptionCard,
+    ProfileCard,
     InfoPane,
     EditButton,
     EditCommunityModal,
@@ -148,6 +160,7 @@ export default {
       isOwner: false,
       numSubs: '',
       communityId: '',
+      communityStats: [],
 
       // newsfeed content
       postList: [],
@@ -162,14 +175,13 @@ export default {
 
     let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
       this.bannerPictureURL = infoRes.data.headerPicture;
-
       this.profilePictureURL = infoRes.data.profilePicture;
-
       this.communityId = infoRes.data._id;
-
       this.communityDescription = infoRes.data.description;
-
       this.adminId = infoRes.data.admins[0];
+      console.log(infoRes);
+      this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
+      this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     // get posts
     this.postList = await this.$axios.$get('/api/v1/posts');

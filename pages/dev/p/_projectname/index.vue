@@ -222,16 +222,9 @@ export default {
       adminLastName: '',
       adminUsername: '',
       adminProfilePictureURL: '',
-      projectStats: [
-        { "name": "one", "stat": "7"},
-        { "name": "two", "stat": "7"},
-        { "name": "three", "stat": "7"}
-      ],
-      profileStats: [
-        { "name": "one", "stat": "7"},
-        { "name": "two", "stat": "7"},
-        { "name": "three", "stat": "7"}
-      ],
+      projectStats: [],
+      profileStats: [],
+
       // newsfeed content
       postList: [],
       isNestedURL: false,
@@ -250,24 +243,25 @@ export default {
 
     let infoRes = await this.$axios.get(`/api/v1/projects/p/${this.projectName}`);
       this.bannerPictureURL = infoRes.data.headerPicture;
-
       this.projectProfilePictureURL = infoRes.data.profilePicture;
-
       this.projectId = infoRes.data._id;
-
       this.projectDescription = infoRes.data.description;
-
       this.admins = infoRes.data.admins;
+
+      // fill stats
+      this.projectStats.push({name: 'Subs', stat: infoRes.data.subscribers});
+      this.projectStats.push({name: 'Rep', stat: infoRes.data.reputation});
+      this.projectStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
       this.adminFirstName = adminRes.data.firstName;
-
       this.adminLastName = adminRes.data.lastName;
-
       this.adminUsername = adminRes.data.username;
-
       this.adminProfilePictureURL = adminRes.data.profilePicture;
 
+      this.profileStats.push({name: 'Rep', stat: adminRes.data.reputation});
+      this.profileStats.push({name: 'Posts', stat: adminRes.data.postCount});
+      this.profileStats.push({name: 'Replies', stat: adminRes.data.commentCount});
 
     if (this.isNestedURL) {
       // need to launch modal to show post
