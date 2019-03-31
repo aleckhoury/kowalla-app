@@ -166,6 +166,7 @@ export default {
       this.profileId = infoRes.data._id;
       this.profileStats.push({name: 'Rep', stat: infoRes.data.reputation});
       this.profileStats.push({name: 'Posts', stat: infoRes.data.postCount});
+      this.profileStats.push({name: 'Replies', stat: infoRes.data.commentCount});
 
     let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
     this.profileSubs = subRes.data.profileSubscriptions;

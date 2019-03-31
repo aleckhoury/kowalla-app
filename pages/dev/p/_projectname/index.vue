@@ -209,6 +209,7 @@ export default {
 
       this.profileStats.push({name: 'Rep', stat: adminRes.data.reputation});
       this.profileStats.push({name: 'Posts', stat: adminRes.data.postCount});
+      this.profileStats.push({name: 'Replies', stat: adminRes.data.commentCount});
 
     if (this.isNestedURL) {
       // need to launch modal to show post
