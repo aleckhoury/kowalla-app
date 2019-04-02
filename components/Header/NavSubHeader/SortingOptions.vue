@@ -1,22 +1,22 @@
 <template lang="html">
-  <div>
-    <div class="sorting-container">
-      <b-dropdown class="dropdown-container" hoverable aria-role="list">
-        <b class="font theme-color selector-child" slot="trigger">
-          {{ sort }}
+  <div class="sorting">
+    <div>
+      <b-dropdown class="dropdown-container" mobile-modal hoverable position="is-bottom-left" aria-role="list">
+        <div slot="trigger" class="dropdown-selector">
+            <b class="font theme-color selector-child">{{ sort }}</b>
           <font-awesome-icon
-                  icon="angle-down"
-                  class="theme-color selector-child"/>
-        </b>
-
-        <b-dropdown-item :value="true" @click="handleCommand('Newest')" aria-role="listitem">Newest</b-dropdown-item>
-        <b-dropdown-item :value="false" @click="handleCommand('Oldest')" aria-role="listitem">Oldest</b-dropdown-item>
+              icon="angle-down"
+              class="theme-color selector-child"/>
+        </div>
+          <b-dropdown-item v-for="item in options" @click="handleCommand(item.value)" aria-role="listitem" :value="item.value" :key="item.value">
+              {{ item.value }}
+          </b-dropdown-item>
       </b-dropdown>
-      <div v-if="(type === '/p/')||(type === '/u/')" class='font margin predicate'>from</div>
-      <div v-if="(type === '/c/')||(type === '/')" class='font margin predicate'>in</div>
-      <div v-if="(type !== '/')"class="font margin subject"><b>{{getPrefix}}{{getSuffix}}</b></div>
-      <div v-if="(type === '/')" class='font margin predicate'>your timeline</div>
     </div>
+    <div v-if="(!isMobile) && ((type === '/p/')||(type === '/u/'))" class='font margin predicate'>from</div>
+    <div v-if="(!isMobile) && ((type === '/c/')||(type === '/'))" class='font margin predicate'>in</div>
+    <div v-if="(!isMobile) && (type !== '/')"class="font margin subject"><b>{{getPrefix}}{{getSuffix}}</b></div>
+    <div v-if="(!isMobile) && (type === '/')" class='font margin predicate'>your timeline</div>
   </div>
 </template>
 
@@ -26,36 +26,39 @@ export default {
   data() {
     return {
       type: null,
+      dropdownOpen: false,
       target: null,
-      options: [{
-          value: 'Trending',
-          label: 'Trending',
-        },
+      options: [
         {
           value: 'Newest',
-          label: 'Newest',
         },
         {
-          value: 'Rising',
-          label: 'Rising'
+          value: 'Oldest',
       }],
     }
   },
   methods: {
-    handleCommand(command) {
+    handleCommand(value) {
       // this.selectedOption = command;
+      console.log(this.type);
       if (this.type === '/p/') {
-        this.$store.commit('sorting/updateProjectSortingOption', command);
+        this.$store.commit('sorting/updateProjectSortingOption', value);
       }
       else if (this.type === '/u/') {
-        this.$store.commit('sorting/updateProfileSortingOption', command);
+        this.$store.commit('sorting/updateProfileSortingOption', value);
       }
       else if (this.type === '/c/') {
-        this.$store.commit('sorting/updateCommunitySortingOption', command);
+        this.$store.commit('sorting/updateCommunitySortingOption', value);
       }
       else {
-        this.$store.commit('sorting/updateNewsfeedSortingOption', command);
+        this.$store.commit('sorting/updateNewsfeedSortingOption', value);
       }
+    }
+  },
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
     }
   },
   computed: {
@@ -125,7 +128,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.sorting-container {
+.sorting {
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -15,7 +15,7 @@
       </nuxt-link>
     </div>
 
-    <div class="level is-marginless">
+    <div class="level is-marginless" :class="{'is-mobile': isMobile}"> <!-- need to convert to mobile columns -->
       <div v-for="item in stats" class="level-item stat-container is-paddingless">
         <div class="stat-title">
           <b>{{item.name}}</b>
@@ -48,6 +48,7 @@ export default {
     subheaderURL: {type: String, default: '/about'},
     stats: Array,
     type: String,
+    isMobile: {type: Boolean, default: false},
   },
   computed: {
     getStatInfoByIndex(i) {
@@ -113,7 +114,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 48px;
-  margin: 5px;
+  margin: 0px 5px 0px 5px;
 }
 
 .stat-title {

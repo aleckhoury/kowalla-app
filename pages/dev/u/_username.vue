@@ -72,7 +72,40 @@
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+      <div class="side-pane">
+        <ProfileCard
+          :name="`${this.firstName} ${this.lastName}`"
+          :profilePictureURL="profilePictureURL"
+          :username="this.username"
+          :stats="profileStats"
+          isMobile
+          type="user"/>
+      </div>
+
+      <DescriptionCard
+        class="newsfeed-margin"
+        :headerString="`About ${this.firstName}`"
+        :subheaderOn="false">
+
+        {{profileDescription}}
+
+      </DescriptionCard>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="(this.$store.state.user.username === this.username)"
+          @edit-button-clicked="callEditProfileModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+
+      <Post
+        class="newsfeed-margin"
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      />
     </div>
 
 
@@ -120,12 +153,9 @@ export default {
       profilePictureURL: '',
       profileDescription: '',
 
-      profileStats: [
-        { "name": "one", "stat": "7"},
-        { "name": "two", "stat": "7"},
-        { "name": "three", "stat": "7"}
-      ],
-      profileSubs: {subscriptions: [], owned: []},
+      profileStats: [],
+
+      profileSubs: { subscriptions: [], owned: [] },
 
       // newsfeed content
       postList: [],
@@ -160,14 +190,12 @@ export default {
     }
   },
   created() {
-
     this.username = this.$route.params.username;
   },
   async mounted() {
-    this.postList = this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }`);
+    this.postList = this.$axios.$get(`/api/v1/posts/project/${this.projectId}/${this.sort}`);
 
-    let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
-    console.log(infoRes);
+    let infoRes = await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
     //------------------
     // remove if statements, but keep assignments in production.
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
@@ -175,42 +203,24 @@ export default {
     // get name
     if (infoRes.data.hasOwnProperty('firstName')) {
       this.firstName = infoRes.data.firstName;
-    }
-    if (infoRes.data.hasOwnProperty('lastName')) {
       this.lastName = infoRes.data.lastName;
-    }
-
-    // profile description
-    if (infoRes.data.hasOwnProperty('description')) {
       this.profileDescription = infoRes.data.description;
-    }
-
-    // profile picture
-    if (infoRes.data.hasOwnProperty('profilePicture')) {
-      console.log(infoRes.data.profilePicture)
       this.profilePictureURL = infoRes.data.profilePicture;
-    }
-
-    // profile Id
-    if (infoRes.data.hasOwnProperty('_id')) {
       this.profileId = infoRes.data._id;
-    }
+      this.profileStats.push({ name: 'Rep', stat: infoRes.data.reputation });
+      this.profileStats.push({ name: 'Posts', stat: infoRes.data.postCount });
+      this.profileStats.push({ name: 'Replies', stat: infoRes.data.commentCount });
 
-    console.log('hi');
-
-    let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-    // console.log(subRes);
-    if (subRes.data.hasOwnProperty('profileSubscriptions')) {
-      // console.log(subRes.data.profileSubscriptions);
+      let subRes = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
       this.profileSubs = subRes.data.profileSubscriptions;
+
+      // get posts
+      this.postList = await this.$axios.$get('/api/v1/posts');
+
+      document.title = `kowalla - ${this.firstName} ${this.lastName}`;
     }
-
-    // get posts
-    this.postList = await this.$axios.$get('/api/v1/posts');
-
-    document.title = `kowalla - ${this.firstName} ${this.lastName}`;
-  }
-};
+  },
+}
 </script>
 
 <style lang="css">

@@ -34,6 +34,15 @@
               </div>
               <div class="column is-one-third is-paddingless side-pane">
                 <InfoPane>
+                  <ProfileCard
+                    :name="communityName"
+                    :username="communityName"
+                    :profilePictureURL="profilePictureURL"
+                    :subheaderString="`View ${communityName}'s stats`"
+                    :stats="communityStats"
+                    type="project"
+                  ></ProfileCard>
+
                   <DescriptionCard
                     headerString="Description"
                     :subheaderOn="false"
@@ -64,8 +73,41 @@
       :locationToDisplay="`#${this.communityName}`"
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
-      <Post v-if="!!posts.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+    <div class="is-hidden-desktop mobile-main-margin">
+      <Banner
+        :bannerURL="bannerPictureURL"
+        :bannerTitle="communityName"
+        bannerTitlePrefix="#"
+        :isSubscribed="isSubscribed"
+        :isOwner="isOwner"
+        @subscription-button-clicked="updateSubscriptions"
+        isMobile
+      />
+
+      <DescriptionCard
+        class="newsfeed-margin"
+        headerString="Description"
+        :subheaderOn="false"
+      >
+      {{communityDescription}}
+
+      </DescriptionCard>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="this.$store.state.user._id === this.adminId"
+          @edit-button-clicked="callEditCommunityModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+
+      <Post
+        class="newsfeed-margin"
+        v-for="post in postList"
+        :key="post._id"
+        :post="post"
+      />
     </div>
 
 
@@ -84,6 +126,8 @@ import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
+import ProfileCard from '~/components/InfoCards/ProfileCard';
+
 
 import Post from "~/components/PostCard/feedPost";
 import Utils from '~/utils/helpers';
@@ -99,6 +143,7 @@ export default {
     NavPane,
     Banner,
     DescriptionCard,
+    ProfileCard,
     InfoPane,
     EditButton,
     EditCommunityModal,
@@ -116,6 +161,7 @@ export default {
       isOwner: false,
       numSubs: '',
       communityId: '',
+      communityStats: [],
 
       // newsfeed content
       postList: [],
@@ -130,14 +176,13 @@ export default {
 
     let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
       this.bannerPictureURL = infoRes.data.headerPicture;
-
       this.profilePictureURL = infoRes.data.profilePicture;
-
       this.communityId = infoRes.data._id;
-
       this.communityDescription = infoRes.data.description;
-
       this.adminId = infoRes.data.admins[0];
+      console.log(infoRes);
+      this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
+      this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     // get posts
     this.postList = this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }`);
@@ -161,8 +206,7 @@ export default {
   },
   methods: {
     //...mapGetters(['user/isUserSubscribed']),
-    updateSubscriptions(subBool) { // change subbool to on
-
+    updateSubscriptions(subBool) {
       let subInfo = {
         name: this.communityName,
         pictureURL: this.profilePictureURL,

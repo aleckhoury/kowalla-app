@@ -119,6 +119,6 @@ div.card {
 .content {
     max-height: 60vh;
     overflow-y: scroll;
-    word-break: break-all;
+    word-break: break-word;
 }
 </style>

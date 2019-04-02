@@ -144,6 +144,6 @@
         margin-bottom: 1em;
     }
     .content {
-        word-break: break-all;
+        word-break: break-word;
     }
 </style>

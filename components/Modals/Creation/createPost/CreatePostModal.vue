@@ -377,6 +377,6 @@
     .editor__content {
         max-height: 50vh;
         overflow-y: scroll;
-        word-break: break-all;
+        word-break: break-word;
     }
 </style>

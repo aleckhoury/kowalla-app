@@ -46,10 +46,6 @@
                     <b>Edit Settings</b>
                   </EditButton>
 
-                  <nuxt-link :to="`${this.projectName}/posts/bOVESikDy`">test</nuxt-link>
-
-                  <div @click="runMobilePostView">test 2</div>
-
                   <MobilePostView v-if="showMobilePostView"></MobilePostView>
 
                 </div>
@@ -110,14 +106,69 @@
       :locationToDisplay="`@${this.projectName}`"
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin" id="postFeed">
+    <div class="is-marginless is-hidden-desktop mobile-main-margin">
+      <Banner
+        :bannerURL="bannerPictureURL"
+        :bannerTitle="projectName"
+        bannerTitlePrefix="@"
+        :isSubscribed="isSubscribed"
+        :isOwner="isOwner"
+        @subscription-button-clicked="updateSubscriptions"
+        isMobile
+      />
+
+      <DescriptionCard
+        class="newsfeed-margin"
+        headerString="Description"
+        :subheaderOn="false"
+      >
+      {{projectDescription}}
+
+      </DescriptionCard>
+
+      <div class="columns is-marginless is-paddingless is-mobile is-centered is-centered is-multiline">
+        <div class="column is-narrow">
+          <ProfileCard
+            :name="projectName"
+            :username="projectName"
+            :profilePictureURL="projectProfilePictureURL"
+            :subheaderString="`View ${projectName}'s stats`"
+            :stats="projectStats"
+            type="project"
+            isMobile
+          ></ProfileCard>
+        </div>
+
+        <div class="column is-narrow">
+          <ProfileCard
+            :name="`${adminFirstName} ${adminLastName}`"
+            :username="adminUsername"
+            :profilePictureURL="adminProfilePictureURL"
+            :subheaderString="`View ${adminFirstName}'s profile`"
+            :subheaderURL="`/dev/u/${this.adminUsername}`"
+            :stats="profileStats"
+            type="user"
+            isMobile
+          ></ProfileCard>
+        </div>
+      </div>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="this.$store.state.user.username === this.adminUsername"
+          @edit-button-clicked="callEditProjectModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+
       <Post
-        v-if="!!posts.length"
+        class="newsfeed-margin"
         v-for="post in posts"
+        v-if="!!posts.length"
         :key="post._id"
         :post="post"
-      >
-      </Post>
+      />
     </div>
 
 
@@ -172,16 +223,8 @@ export default {
       adminLastName: '',
       adminUsername: '',
       adminProfilePictureURL: '',
-      projectStats: [
-        { "name": "one", "stat": "7"},
-        { "name": "two", "stat": "7"},
-        { "name": "three", "stat": "7"}
-      ],
-      profileStats: [
-        { "name": "one", "stat": "7"},
-        { "name": "two", "stat": "7"},
-        { "name": "three", "stat": "7"}
-      ],
+      projectStats: [],
+      profileStats: [],
       // newsfeed content
       postList: [],
       isNestedURL: false,
@@ -201,24 +244,25 @@ export default {
 
     let infoRes = await this.$axios.get(`/api/v1/projects/p/${this.projectName}`);
       this.bannerPictureURL = infoRes.data.headerPicture;
-
       this.projectProfilePictureURL = infoRes.data.profilePicture;
-
       this.projectId = infoRes.data._id;
-
       this.projectDescription = infoRes.data.description;
-
       this.admins = infoRes.data.admins;
+
+      // fill stats
+      this.projectStats.push({name: 'Subs', stat: infoRes.data.subscribers});
+      this.projectStats.push({name: 'Rep', stat: infoRes.data.reputation});
+      this.projectStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
       this.adminFirstName = adminRes.data.firstName;
-
       this.adminLastName = adminRes.data.lastName;
-
       this.adminUsername = adminRes.data.username;
-
       this.adminProfilePictureURL = adminRes.data.profilePicture;
 
+      this.profileStats.push({name: 'Rep', stat: adminRes.data.reputation});
+      this.profileStats.push({name: 'Posts', stat: adminRes.data.postCount});
+      this.profileStats.push({name: 'Replies', stat: adminRes.data.commentCount});
 
     if (this.isNestedURL) {
       // need to launch modal to show post

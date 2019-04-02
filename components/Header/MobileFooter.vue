@@ -1,13 +1,10 @@
 <template>
   <div class="size">
-    <div class="kowalla-logo">
-      kowalla
-    </div>
-    <div @click="callMobileCreateModal" class="create-button">
+    <div @click="callMobileCreateModal" class="create-button-2">
       <b-icon
         class="dark-basic-theme"
         icon="plus"
-        size="is-large"></b-icon>
+        size="is-medium"></b-icon>
     </div>
   </div>
 </template>
@@ -65,17 +62,14 @@ export default {
 <style lang="css" scoped>
 .size {
   position: fixed;
-  background-color: #39C9A0;
-  border-top: 2px solid #2F8168;
   bottom: 0;
   left: 0;
   z-index: 5;
-  height: 50px;
   width: 100%;
 }
 
 .dark-basic-theme {
-  color: #39C9A0;
+  color: white;
 }
 
 .create-button {
@@ -92,6 +86,24 @@ export default {
   height: 70px;
   width: 70px;
   box-shadow: 0 0 10px #333;
+}
+
+.create-button-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0px 10px 10px 0px;
+  background-color: #39C9A0;
+  /*border: 3px solid #2F8168;*/
+  border-radius: 35px;
+  height: 65px;
+  width: 65px;
+  -moz-box-shadow:    0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  box-shadow:         0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
 }
 
 .kowalla-logo {

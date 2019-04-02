@@ -48,6 +48,7 @@ import SortingOptions from './SortingOptions';
 export default {
   name: 'NavSubHeader',
   components: { SortingOptions, },
+  
 };
 </script>
 
@@ -71,4 +72,5 @@ export default {
 .full-height {
   height: 100%;
 }
+
 </style>
