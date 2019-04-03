@@ -106,25 +106,11 @@ export default {
     }
   },
   created() {
-    // sort the current route and see what type of
-    // page we're on
     try {
       let re = new RegExp('/[u,p,c]/');
       this.type = this.$route.fullPath.match(re)[0];
-      //
-      // if (this.type === '/p/') {
-      //   this.selectedOption = this.$store.state.sorting.project;
-      // }
-      //
-      // else if (this.type === '/u/') {
-      //   this.selectedOption = this.$store.state.sorting.profile;
-      // } else if (this.type === '/c/') {
-      //   this.selectedOption = this.$store.state.sorting.community;
-      // }
-
     } catch {
       this.type = '/';
-      // this.selectedOption = this.$store.state.sorting.newsfeed;
     }
   },
 };
