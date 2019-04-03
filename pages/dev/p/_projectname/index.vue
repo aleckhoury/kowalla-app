@@ -191,7 +191,6 @@ import EditProjectModal from '~/components/Modals/Edit/EditProjectModal';
 
 import Post from "~/components/PostCard/feedPost";
 import PostModal from '~/components/PostCard/modalPost.vue';
-import Utils from '~/utils/helpers';
 
 export default {
   name: "user-page-test",
@@ -238,7 +237,6 @@ export default {
     }
   },
   async mounted() {
-    console.log(this);
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 

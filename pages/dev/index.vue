@@ -84,7 +84,9 @@ export default {
   },
   computed: {
     sort() {
-      return this.$store.state.sorting.newsfeed;
+      if (process.browser) {
+        return this.$store.state.sorting.newsfeed;
+      }
     },
     posts() {
       return this.postList;

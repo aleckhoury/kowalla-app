@@ -169,6 +169,13 @@ export default {
       return this.$store.state.sorting.profile;
     }
   },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/0`);
+
+      await this.scroll();
+    }
+  },
   methods: {
     callEditProfileModal() {
       console.log('edit profile settings pressed')
@@ -187,7 +194,23 @@ export default {
         width: 900,
         hasModalCard: true
       });
-    }
+    },
+    async scroll() {
+      let isActive = false;
+      window.onscroll = async ev => {
+        const feed = document.getElementById('postFeed');
+        const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+        if (!isActive && bottomOfWindow) {
+          isActive = true;
+          const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
+          const newList = await this.postList.concat(posts);
+          if (posts.length) {
+            this.postList = await newList;
+            isActive = false;
+          }
+        }
+      }
+    },
   },
   created() {
     this.username = this.$route.params.username;
@@ -213,9 +236,6 @@ export default {
 
       let subRes = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
       this.profileSubs = subRes.data.profileSubscriptions;
-
-      // get posts
-      this.postList = await this.$axios.$get('/api/v1/posts');
 
       document.title = `kowalla - ${this.firstName} ${this.lastName}`;
     }

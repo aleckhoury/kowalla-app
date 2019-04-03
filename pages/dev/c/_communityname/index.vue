@@ -127,12 +127,7 @@ import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
-
-
 import Post from "~/components/PostCard/feedPost";
-import Utils from '~/utils/helpers';
-
-import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",

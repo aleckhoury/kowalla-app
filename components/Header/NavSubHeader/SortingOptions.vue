@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="sorting">
     <div>
-      <b-dropdown class="dropdown-container" mobile-modal hoverable position="is-bottom-left" aria-role="list">
+      <b-dropdown class="dropdown-container" hoverable position="is-bottom-left" aria-role="list">
         <div slot="trigger" class="dropdown-selector">
             <b class="font theme-color selector-child">{{ sort }}</b>
           <font-awesome-icon
@@ -40,7 +40,6 @@ export default {
   methods: {
     handleCommand(value) {
       // this.selectedOption = command;
-      console.log(this.type);
       if (this.type === '/p/') {
         this.$store.commit('sorting/updateProjectSortingOption', value);
       }
@@ -99,7 +98,11 @@ export default {
           pageType = 'newsfeed';
           break;
       }
-      return this.$store.state.sorting[pageType];
+      if (process.browser) {
+        return this.$store.state.sorting[pageType];
+      } else {
+        return '';
+      }
     }
   },
   created() {

@@ -140,7 +140,6 @@
     },
     async mounted() {
       this.randomId = this.makeid();
-      console.log(this.randomId);
       try {
         this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.post._id}`);
         if (this.reactionList.length) {
