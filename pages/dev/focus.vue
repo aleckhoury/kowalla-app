@@ -336,6 +336,7 @@
         color: white;
         max-height: 50vh;
         overflow-y: scroll;
+        overflow-wrap: break-word;
     }
     .is-white {
         background-color: transparent;

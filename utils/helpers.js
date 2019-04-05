@@ -1,5 +1,4 @@
 // Repository for common helper functions that can be imported wherever needed
-
 const Utils = {
   // Check if timedPost is active based off expiration
   isActivePost: function(post) {

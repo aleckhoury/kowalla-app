@@ -10,10 +10,6 @@ div.dropdown div.button {
     color: #39C9A0;
 }
 
-.test-outline {
-  border: 1px solid black;
-}
-
 .background-tint {
   background-color: #E9EBEE;
 }
@@ -125,4 +121,8 @@ li[data-done="true"] .todo-checkbox {
 }
 li[data-done="false"] {
     text-decoration: none;
+}
+
+a.dropdown-item.is-active {
+    background-color: #39C9A0;
 }

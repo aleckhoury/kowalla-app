@@ -6,17 +6,17 @@
       <div class="columns is-marginless main-margin">
 
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane test-outline">
+        <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane></NavPane>
         </div>
 
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless test-outline">
-          post feed
+        <div class="column is-one-half is-paddingless" id="postFeed">
+          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+        <div class="column is-one-quarter is-paddingless side-pane">
           <InfoPane>
             <ProfileCard
               :name="`${this.firstName} ${this.lastName}`"
@@ -102,6 +102,7 @@
 
       <Post
         class="newsfeed-margin"
+        v-if="!!postList.length"
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -155,7 +156,7 @@ export default {
 
       profileStats: [],
 
-      profileSubs: {subscriptions: [], owned: []},
+      profileSubs: { subscriptions: [], owned: [] },
 
       // newsfeed content
       postList: [],
@@ -165,6 +166,16 @@ export default {
     getUsername() {
       return this.username;
     },
+    sort() {
+      return this.$store.state.sorting.profile;
+    }
+  },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/0`);
+
+      await this.scroll();
+    }
   },
   methods: {
     callEditProfileModal() {
@@ -184,32 +195,57 @@ export default {
         width: 900,
         hasModalCard: true
       });
-    }
+    },
+    async scroll() {
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
+          }
+        }
+      }
+    },
   },
   created() {
     this.username = this.$route.params.username;
   },
   async mounted() {
-    let infoRes =  await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
-
+    let infoRes = await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    // get name
+    if (infoRes.data.hasOwnProperty('firstName')) {
       this.firstName = infoRes.data.firstName;
       this.lastName = infoRes.data.lastName;
       this.profileDescription = infoRes.data.description;
       this.profilePictureURL = infoRes.data.profilePicture;
       this.profileId = infoRes.data._id;
-      this.profileStats.push({name: 'Rep', stat: infoRes.data.reputation});
-      this.profileStats.push({name: 'Posts', stat: infoRes.data.postCount});
-      this.profileStats.push({name: 'Replies', stat: infoRes.data.commentCount});
+      this.profileStats.push({ name: 'Rep', stat: infoRes.data.reputation });
+      this.profileStats.push({ name: 'Posts', stat: infoRes.data.postCount });
+      this.profileStats.push({ name: 'Replies', stat: infoRes.data.commentCount });
 
-    let subRes  = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-    this.profileSubs = subRes.data.profileSubscriptions;
+      let subRes = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
+      this.profileSubs = subRes.data.profileSubscriptions;
 
-    // get posts
-    this.postList = await this.$axios.$get('/api/v1/posts');
+      this.postList = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
 
-    document.title = `kowalla - ${this.firstName} ${this.lastName}`;
-  }
-};
+      await this.scroll();
+
+      document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
+    }
+  },
+}
 </script>
 
 <style lang="css">

@@ -13,7 +13,7 @@
       <div class="columns is-marginless  main-margin">
 
           <!-- nav pane -->
-          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+          <div class="column is-one-quarter is-paddingless side-pane">
             <NavPane></NavPane>
           </div>
 
@@ -30,7 +30,7 @@
 
               <!-- new columns for description, profile and project cards -->
               <div class="columns is-marginless newsfeed-padding">
-                <div class="column is-half is-paddingless test-outline">
+                <div class="column is-half is-paddingless">
                   <DescriptionCard
                     headerString="Description"
                     :subheaderOn="false"
@@ -50,7 +50,7 @@
 
                 </div>
 
-                <div class="column is-half is-paddingless test-outline">
+                <div class="column is-half is-paddingless">
                   <div class="level">
                     <div class="level-item">
                       <ProfileCard
@@ -81,16 +81,15 @@
               </div>
 
                 <!-- new columns for content and info pane -->
-              <div class="columns is-marginless newsfeed-padding">
+              <div class="columns is-marginless newsfeed-padding" id="postFeed">
 
                 <!-- post feed -->
-                <div class="column is-two-thirds test-outline">
-
-                  <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+                <div class="column is-two-thirds">
+                  <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
                 <!-- info pane -->
-                <div class="column is-one-third test-outline side-pane">
+                <div class="column is-one-third side-pane">
                   <InfoPane>
                     <!-- fill with children components -->
                   </InfoPane>
@@ -166,6 +165,7 @@
       <Post
         class="newsfeed-margin"
         v-for="post in postList"
+        v-if="!!postList.length"
         :key="post._id"
         :post="post"
       />
@@ -224,7 +224,6 @@ export default {
       adminProfilePictureURL: '',
       projectStats: [],
       profileStats: [],
-
       // newsfeed content
       postList: [],
       isNestedURL: false,
@@ -280,16 +279,46 @@ export default {
       });
     }
     // get posts
-    this.postList = await this.$axios.$get('/api/v1/posts');
+    this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/${this.postList.length}`);
 
-    document.title = `kowalla - @${this.projectName}`;
+    await this.scroll();
+    console.log(this.postList);
+    document.title = `Kowalla - @${this.projectName}`;
   },
   computed: {
     getProjectName() {
       return this.projectName;
+    },
+    sort() {
+      return this.$store.state.sorting.project;
+    },
+  },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/0`);
+
+      await this.scroll();
     }
   },
   methods: {
+    async scroll() {
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/project/${this.projectId}/${this.sort}/${this.postList.length}`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
+          }
+        }
+      }
+    },
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
@@ -326,9 +355,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-.test {
-  border: 1px solid black;
-}
-
 </style>

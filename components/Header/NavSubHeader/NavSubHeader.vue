@@ -33,9 +33,7 @@
                   <div class="message">
                     <b>{{ item }}</b>
                   </div>
-
                 </div>
-
               </div>
           </div>
         </div>

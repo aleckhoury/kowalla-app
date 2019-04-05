@@ -340,6 +340,7 @@
         margin: 0;
         color: #39C9A0;
         width: auto;
+        overflow: visible;
     }
     .level {
         padding: 1rem;
@@ -372,5 +373,10 @@
     }
     .block {
         color: #39C9A0;
+    }
+    .editor__content {
+        max-height: 50vh;
+        overflow-y: scroll;
+        word-break: break-word;
     }
 </style>

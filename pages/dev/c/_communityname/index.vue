@@ -12,7 +12,7 @@
       <!-- three columns, navpane, content, infopane -->
       <div class="columns is-marginless main-margin">
 
-          <div class="column is-one-quarter is-paddingless side-pane test-outline">
+          <div class="column is-one-quarter is-paddingless side-pane">
             <NavPane></NavPane>
           </div>
 
@@ -27,12 +27,12 @@
               />
 
 
-            <div class="columns is-marginless newsfeed-padding">
-              <div class="column is-two-thirds test-outline">
-                <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+            <div class="columns is-marginless newsfeed-padding" id="postFeed">
+              <div class="column is-two-thirds">
+                <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
 
               </div>
-              <div class="column is-one-third is-paddingless test-outline side-pane">
+              <div class="column is-one-third is-paddingless side-pane">
                 <InfoPane>
                   <ProfileCard
                     :name="communityName"
@@ -56,10 +56,7 @@
                   >
                     <b>Edit Settings</b>
                   </EditButton>
-
                 </InfoPane>
-
-
               </div>
             </div>
           </div>
@@ -73,7 +70,7 @@
       :locationToDisplay="`#${this.communityName}`"
     />
 
-    <div class="mobile-main-margin">
+    <div class="is-hidden-desktop mobile-main-margin">
       <Banner
         :bannerURL="bannerPictureURL"
         :bannerTitle="communityName"
@@ -104,6 +101,7 @@
 
       <Post
         class="newsfeed-margin"
+        v-if="!!postList.length"
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -127,11 +125,7 @@ import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
-
-
 import Post from "~/components/PostCard/feedPost";
-
-import { mapGetters } from 'vuex';
 
 export default {
   name: "user-page-test",
@@ -179,21 +173,51 @@ export default {
       this.communityId = infoRes.data._id;
       this.communityDescription = infoRes.data.description;
       this.adminId = infoRes.data.admins[0];
-      console.log(infoRes);
+
       this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
       this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     // get posts
-    this.postList = await this.$axios.$get('/api/v1/posts');
+    this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/${this.postList.length}`);
 
-    document.title = `kowalla - #${this.communityName}`;
+    await this.scroll();
+
+    document.title = `Kowalla - #${this.communityName}`;
   },
   computed: {
     getCommunityName() {
       return this.communityName;
+    },
+    sort() {
+      return this.$store.state.sorting.community;
+    }
+  },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/0`);
+
+      await this.scroll();
     }
   },
   methods: {
+    async scroll() {
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/community/${this.communityId}/${this.sort}/${this.postList.length}`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
+          }
+        }
+      }
+    },
     //...mapGetters(['user/isUserSubscribed']),
     updateSubscriptions(subBool) {
       let subInfo = {

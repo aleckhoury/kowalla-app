@@ -13,18 +13,18 @@
       <div class="columns is-centered is-marginless main-margin">
 
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+        <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane></NavPane>
         </div>
 
-        <div class="column is-one-half is-paddingless no-margin test-outline">
+        <div class="column is-one-half is-paddingless no-margin" id="postFeed">
           <LoginRegister></LoginRegister>
           <CreatePost></CreatePost>
-          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter is-paddingless test-outline side-pane">
+        <div class="column is-one-quarter is-paddingless side-pane">
           info
         </div>
       </div>
@@ -38,6 +38,7 @@
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <Post
+        v-if="!!postList.length"
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -77,7 +78,43 @@ export default {
     }
   },
   async mounted() {
-    this.postList = await this.$axios.$get('/api/v1/posts');
+    this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/${ this.postList.length }`);
+
+    await this.scroll();
+  },
+  computed: {
+    sort() {
+      if (process.browser) {
+        return this.$store.state.sorting.newsfeed;
+      }
+    },
+  },
+  methods: {
+    async scroll() {
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
+          }
+        }
+      }
+    },
+  },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/0`);
+
+      await this.scroll();
+    }
   }
 }
 </script>
@@ -91,9 +128,6 @@ export default {
   margin: 0px;
 }
 
-.test-outline {
-  border: 1px solid black;
-}
 .side-pane {
   display: flex;
   justify-content: center;

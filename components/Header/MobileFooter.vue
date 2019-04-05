@@ -4,7 +4,7 @@
       <b-icon
         class="dark-basic-theme"
         icon="plus"
-        size="is-large"></b-icon>
+        size="is-medium"></b-icon>
     </div>
   </div>
 </template>
@@ -69,7 +69,7 @@ export default {
 }
 
 .dark-basic-theme {
-  color: #39C9A0;
+  color: white;
 }
 
 .create-button {
@@ -96,14 +96,14 @@ export default {
   bottom: 0;
   right: 0;
   margin: 0px 10px 10px 0px;
-  background-color: white;
-  border: 3px solid #2F8168;
+  background-color: #39C9A0;
+  /*border: 3px solid #2F8168;*/
   border-radius: 35px;
-  height: 70px;
-  width: 70px;
-  -moz-box-shadow:    3px 3px 0px 0px #000;
-  -webkit-box-shadow: 3px 3px 0px 0px #000;
-  box-shadow:         3px 3px 0px 0px #000;
+  height: 65px;
+  width: 65px;
+  -moz-box-shadow:    0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  box-shadow:         0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
 }
 
 .kowalla-logo {

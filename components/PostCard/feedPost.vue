@@ -78,8 +78,10 @@
           isActive: false,
         });
       }
-      if (this.$refs['content'].getBoundingClientRect().height >= 480) {
-        this.overflow = true;
+      if (this.$refs['content']) {
+        if (this.$refs['content'].getBoundingClientRect().height >= 480) {
+          this.overflow = true;
+        }
       }
     },
     methods: {
@@ -140,5 +142,8 @@
     .card {
         border-radius: 6px;
         margin-bottom: 1em;
+    }
+    .content {
+        word-break: break-word;
     }
 </style>
