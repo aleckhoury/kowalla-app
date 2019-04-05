@@ -85,7 +85,7 @@
 
                 <!-- post feed -->
                 <div class="column is-two-thirds">
-                  <Post v-if="!!posts.length" v-for="post in posts" :key="post._id" :post="post"></Post>
+                  <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
                 <!-- info pane -->
@@ -164,8 +164,8 @@
 
       <Post
         class="newsfeed-margin"
-        v-for="post in posts"
-        v-if="!!posts.length"
+        v-for="post in postList"
+        v-if="!!postList.length"
         :key="post._id"
         :post="post"
       />
@@ -279,8 +279,10 @@ export default {
       });
     }
     // get posts
-    this.postList = this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/${this.postList.length}`);
+    this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/${this.postList.length}`);
 
+    await this.scroll();
+    console.log(this.postList);
     document.title = `Kowalla - @${this.projectName}`;
   },
   computed: {
@@ -290,30 +292,29 @@ export default {
     sort() {
       return this.$store.state.sorting.project;
     },
-    posts() {
-      return this.postList;
-    }
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }`);
+      this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/0`);
 
       await this.scroll();
     }
   },
   methods: {
     async scroll() {
-      let isActive = false;
-      window.onscroll = async ev => {
-        const feed = document.getElementById('postFeed');
-        const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
-        if (!isActive && bottomOfWindow) {
-          isActive = true;
-          const posts = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${this.sort}/${this.postList.length}`);
-          const newList = await this.postList.concat(posts);
-          if (posts.length) {
-            this.postList = await newList;
-            isActive = false;
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/project/${this.projectId}/${this.sort}/${this.postList.length}`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
           }
         }
       }

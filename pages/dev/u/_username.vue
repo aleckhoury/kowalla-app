@@ -11,7 +11,7 @@
         </div>
 
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless">
+        <div class="column is-one-half is-paddingless" id="postFeed">
           <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
@@ -102,6 +102,7 @@
 
       <Post
         class="newsfeed-margin"
+        v-if="!!postList.length"
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -171,7 +172,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/0`);
 
       await this.scroll();
     }
@@ -196,17 +197,19 @@ export default {
       });
     },
     async scroll() {
-      let isActive = false;
-      window.onscroll = async ev => {
-        const feed = document.getElementById('postFeed');
-        const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
-        if (!isActive && bottomOfWindow) {
-          isActive = true;
-          const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
-          const newList = await this.postList.concat(posts);
-          if (posts.length) {
-            this.postList = await newList;
-            isActive = false;
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
           }
         }
       }
@@ -216,8 +219,6 @@ export default {
     this.username = this.$route.params.username;
   },
   async mounted() {
-    this.postList = this.$axios.$get(`/api/v1/posts/project/${this.projectId}/${this.sort}`);
-
     let infoRes = await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
     //------------------
     // remove if statements, but keep assignments in production.
@@ -237,7 +238,11 @@ export default {
       let subRes = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
       this.profileSubs = subRes.data.profileSubscriptions;
 
-      document.title = `kowalla - ${this.firstName} ${this.lastName}`;
+      this.postList = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
+
+      await this.scroll();
+
+      document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }
   },
 }

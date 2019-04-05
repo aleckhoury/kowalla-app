@@ -27,9 +27,9 @@
               />
 
 
-            <div class="columns is-marginless newsfeed-padding">
+            <div class="columns is-marginless newsfeed-padding" id="postFeed">
               <div class="column is-two-thirds">
-                <Post v-if="!!posts.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+                <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
 
               </div>
               <div class="column is-one-third is-paddingless side-pane">
@@ -56,10 +56,7 @@
                   >
                     <b>Edit Settings</b>
                   </EditButton>
-
                 </InfoPane>
-
-
               </div>
             </div>
           </div>
@@ -104,6 +101,7 @@
 
       <Post
         class="newsfeed-margin"
+        v-if="!!postList.length"
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -175,14 +173,16 @@ export default {
       this.communityId = infoRes.data._id;
       this.communityDescription = infoRes.data.description;
       this.adminId = infoRes.data.admins[0];
-      console.log(infoRes);
+
       this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
       this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
     // get posts
-    this.postList = this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }`);
+    this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/${this.postList.length}`);
 
-    document.title = `kowalla - #${this.communityName}`;
+    await this.scroll();
+
+    document.title = `Kowalla - #${this.communityName}`;
   },
   computed: {
     getCommunityName() {
@@ -194,12 +194,30 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }`);
+      this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/0`);
 
       await this.scroll();
     }
   },
   methods: {
+    async scroll() {
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/community/${this.communityId}/${this.sort}/${this.postList.length}`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
+          }
+        }
+      }
+    },
     //...mapGetters(['user/isUserSubscribed']),
     updateSubscriptions(subBool) {
       let subInfo = {

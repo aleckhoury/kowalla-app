@@ -20,7 +20,7 @@
         <div class="column is-one-half is-paddingless no-margin" id="postFeed">
           <LoginRegister></LoginRegister>
           <CreatePost></CreatePost>
-          <Post v-if="!!posts.length" v-for="post in posts" :key="post._id" :post="post"></Post>
+          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
@@ -38,8 +38,8 @@
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <Post
-        v-if="!!posts.length"
-        v-for="post in posts"
+        v-if="!!postList.length"
+        v-for="post in postList"
         :key="post._id"
         :post="post"
       >
@@ -88,23 +88,22 @@ export default {
         return this.$store.state.sorting.newsfeed;
       }
     },
-    posts() {
-      return this.postList;
-    }
   },
   methods: {
     async scroll() {
-      let isActive = false;
-      window.onscroll = async ev => {
-        const feed = document.getElementById('postFeed');
-        const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
-        if (!isActive && bottomOfWindow) {
-          isActive = true;
-          const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
-          const newList = await this.postList.concat(posts);
-          if (posts.length) {
-            this.postList = await newList;
-            isActive = false;
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async ev => {
+          const feed = document.getElementById('postFeed');
+          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
           }
         }
       }
