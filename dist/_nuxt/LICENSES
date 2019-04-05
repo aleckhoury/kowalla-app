@@ -1,8 +1,26 @@
 /*!
- * Vue.js v2.5.21
- * (c) 2014-2018 Evan You
- * Released under the MIT License.
- */
+    * tiptap v1.7.0
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-extensions v1.7.0
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-utils v1.1.0
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-commands v1.3.0
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
 
 /**
  * vuex v3.0.1
@@ -44,6 +62,12 @@
  */
 
 /*!
+ * Vue.js v2.6.10
+ * (c) 2014-2019 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
  * Determine if an object is a Buffer
  *
  * @author   Feross Aboukhadijeh <https://feross.org>
@@ -57,42 +81,3 @@
  */
 
 /*! Buefy v0.7.2 | MIT License | github.com/buefy/buefy */
-
-/**
- * Checks if an event is supported in the current execution environment.
- *
- * NOTE: This will not work correctly for non-generic events such as `change`,
- * `reset`, `load`, `error`, and `select`.
- *
- * Borrows from Modernizr.
- *
- * @param {string} eventNameSuffix Event name, e.g. "click".
- * @param {?boolean} capture Check if the capture phase is supported.
- * @return {boolean} True if the event is supported.
- * @internal
- * @license Modernizr 3.0.0pre (Custom Build) | MIT
- */
-
-/*!
-    * tiptap-utils v1.1.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap v1.7.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-commands v1.3.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-extensions v1.7.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
