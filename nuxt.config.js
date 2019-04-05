@@ -59,8 +59,8 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    // baseURL: 'https://kowalla-backend-tob.herokuapp.com',
-    baseURL: 'http://localhost:8080',
+    baseURL: 'https://kowalla-backend-tob.herokuapp.com',
+    // baseURL: 'http://localhost:8080',
   },
   auth: {
     strategies: {
