@@ -1,21 +1,80 @@
 <template lang="html">
-  <!-- TODO want to put a badge here for notification dot -->
-  <font-awesome-icon
-    icon="bell"
-    class="theme-color margin"/>
-
+  <b-dropdown position="is-bottom-left" aria-role="list" @active-change="notifsSelected">
+    <font-awesome-icon
+      icon="bell"
+      class="margin"
+      :class="{ 'has-notifs': hasNotifications, 'theme-color': !hasNotifications }"
+      slot="trigger"
+    />
+    <b-dropdown-item
+      v-for="item in notifications"
+      aria-role="listitem"
+      :key="item.notifIds[0]"
+    >
+      <!-- Notif object -->
+      <div @click="getLink(item)">
+        <div> <!-- Notif title -->
+          <b>{{ item.title }}</b>
+        </div>
+        <div> <!-- Notif message -->
+          {{ item.message }}
+        </div>
+      </div>
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <script>
 export default {
   name: 'NavNotifications',
   props: { hasNotifications: Boolean, },
-};
+  data() {
+    return {
+      notifications: []
+    }
+  },
+  methods: {
+    async notifsSelected(bool) {
+      if (bool) {
+        let projectIds = this.$store.getters['user/getProjectIds'];
+        let notificationRes = await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, )
+
+        this.notifications = notificationRes.data.notifications;
+      }
+    },
+    getLink(item) {
+      if (item.hasOwnProperty('communityName')) {
+        // eventually, we'll want to direct right to the comment in question
+        if ((item.hasOwnProperty('commentId')) && (item.hasOwnProperty('postId'))) {
+          this.$router.push({
+            path: `/dev/c/${item.communityName}/posts/${item.postId}`
+          });
+        }
+
+        else if ((!item.hasOwnProperty('commentId')) && (item.hasOwnProperty('postId'))) {
+          this.$router.push({
+            path: `/dev/c/${item.communityName}/posts/${item.postId}`
+          });
+        }
+      }
+
+      else if (item.hasOwnProperty('projectName')) {
+        this.$router.push({
+          path: `/dev/p/${item.projectName}`
+        });
+      }
+    }
+  }
+}
 </script>
 
 <style lang="css" scoped>
 .theme-color {
   color: #2F8168;
+}
+
+.has-notifs {
+  color: white;
 }
 
 .margin {
