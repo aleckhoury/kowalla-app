@@ -113,6 +113,16 @@ export const getters = ({
     }
 
     return isOwner;
+  },
+
+  getProjectIds({ owned }) {
+    let projectIdsArray = [];
+    for (let i in owned) {
+      if (owned[i].hasOwnProperty('projectId')) {
+        projectIdsArray.push(owned[i].projectId)
+      }
+    }
+    return projectIdsArray;
   }
 });
 
