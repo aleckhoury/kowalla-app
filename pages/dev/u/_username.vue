@@ -12,7 +12,7 @@
 
         <!-- post feed -->
         <div class="column is-one-half is-paddingless" id="postFeed">
-          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
@@ -102,7 +102,7 @@
 
       <Post
         class="newsfeed-margin"
-        v-if="!!postList.length"
+
         v-for="post in postList"
         :key="post._id"
         :post="post"

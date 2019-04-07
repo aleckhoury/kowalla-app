@@ -29,7 +29,7 @@
 
             <div class="columns is-marginless newsfeed-padding" id="postFeed">
               <div class="column is-two-thirds">
-                <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+                <Post v-for="post in postList" :key="post._id" :post="post"></Post>
 
               </div>
               <div class="column is-one-third is-paddingless side-pane">
@@ -101,7 +101,7 @@
 
       <Post
         class="newsfeed-margin"
-        v-if="!!postList.length"
+
         v-for="post in postList"
         :key="post._id"
         :post="post"

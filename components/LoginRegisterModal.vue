@@ -94,19 +94,13 @@
               password: registerForm.password,
             },
           });
-          const user = await this.$axios.get('api/v1/users/me', {
-            params: {
-              username: registerForm.username,
-              password: registerForm.password,
-            },
-          });
-          console.log('test');
-          console.log(user);
-          this.$store.commit('user/setUser', user.data);
-          this.$parent.close();
-          this.$router.push('/dev');
-        } catch (e) {
-          console.log(e);
+          const user = await this.$axios.get(`api/v1/users/${ registerForm.username }`);
+          await Object.assign(user.data, { loggedIn: Boolean(Object.keys(user.data).length)});
+          await this.$store.commit('user/setUser', user.data);
+          await this.$parent.close();
+          // this.$router.push('/dev');
+        } catch (err) {
+          console.log(err);
         }
       },
       async login(loginForm) {
@@ -117,15 +111,13 @@
               password: loginForm.password,
             },
           });
-          const user = await this.$axios.get('api/v1/users/me', {
-            params: {
-              username: loginForm.username,
-              password: loginForm.password,
-            },
-          });
-          this.$store.commit('user/setUser', user.data);
-          this.$parent.close();
-          this.$router.push('/dev');
+          const user = await this.$axios.get(`api/v1/users/${ loginForm.username }`);
+          const subs = await this.$axios.get(`/api/v1/profiles/${ user._id }/subs`);
+          await Object.assign(user.data, { loggedIn: Boolean(Object.keys(user.data).length)});
+          await Object.assign(user.data, subs);
+          await this.$store.commit('user/setUser', user.data);
+          await this.$parent.close();
+          // this.$router.push('/dev');
         } catch (err) {
           console.log(err);
         }

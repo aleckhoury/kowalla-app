@@ -7,7 +7,7 @@ import scheme_003d9a64 from './schemes/local.js'
 
 export default function (ctx, inject) {
   // Options
-  const options = {"resetOnError":false,"scopeKey":"scope","rewriteRedirects":true,"fullPathRedirect":false,"watchLoggedIn":true,"redirect":{"login":"/login","logout":"/","home":"/","callback":"/login"},"vuex":{"namespace":"auth"},"cookie":{"prefix":"auth.","options":{"path":"/"}},"localStorage":{"prefix":"auth."},"token":{"prefix":"_token."},"refresh_token":{"prefix":"_refresh_token."},"defaultStrategy":"local"}
+  const options = {"resetOnError":false,"scopeKey":"scope","rewriteRedirects":true,"fullPathRedirect":false,"watchLoggedIn":true,"redirect":false,"vuex":{"namespace":"auth"},"cookie":{"prefix":"auth.","options":{"path":"/","secure":true,"expires":7}},"localStorage":{"prefix":"auth."},"token":{"prefix":"_token."},"refresh_token":{"prefix":"_refresh_token."},"defaultStrategy":"local"}
 
   // Create a new Auth instance
   const $auth = new Auth(ctx, options)
@@ -18,7 +18,7 @@ export default function (ctx, inject) {
   // Register strategies
 
   // local
-  $auth.registerStrategy('local', new scheme_003d9a64($auth, {"endpoints":{"login":{"url":"/api/v1/users/login","method":"post","propertyName":"token"},"logout":false,"user":false,"register":{"url":"/api/v1/users","method":"post","propertyName":false}},"fetchUserOnLogin":false,"tokenRequired":true,"tokenType":"Bearer","_name":"local"}))
+  $auth.registerStrategy('local', new scheme_003d9a64($auth, {"endpoints":{"login":{"url":"/api/v1/users/login","method":"post","propertyName":"token"},"logout":false,"user":false,"register":{"url":"/api/v1/users","method":"post","propertyName":false}},"tokenRequired":true,"tokenType":"Bearer","_name":"local"}))
 
   // Initialize auth
   return $auth.init().catch(error => {

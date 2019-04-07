@@ -29,6 +29,7 @@
           </div>
 
           <div
+            v-if="this.$store.state.user.loggedIn"
             class="level-item align-icon"
             @click="callNotifModal"
           >
@@ -39,12 +40,13 @@
           </div>
 
           <div class="level-item">
-            <nuxt-link :to="`/dev/u/${this.$store.state.user.username}`">
+            <nuxt-link v-if="this.$store.state.user.loggedIn" :to="`/dev/u/${this.$store.state.user.username}`">
               <img
                 :src="this.$store.state.user.profilePicture"
                 class="mobile-nav-profile-picture"
               />
             </nuxt-link>
+            <b class="page-link" @click="cardModal">Login/Sign Up</b>
           </div>
         </div> <!-- end level-right -->
       </div> <!-- top mobile header -->
@@ -89,6 +91,7 @@ import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 
 import TestModal from '~/components/Modals/Other/TestModal';
 import SearchModal from '~/components/Modals/Other/SearchModal';
+import LoginRegisterModal from '~/components/LoginRegisterModal'
 
 export default {
   name: "MobileHeader",
@@ -123,7 +126,15 @@ export default {
         hasModalCard: true
       });
     },
-
+    cardModal() {
+      this.$modal.open({
+                parent: this,
+                component: LoginRegisterModal,
+                width: 900,
+                hasModalCard: true,
+              },
+      )
+    },
     callNotifModal() {
       this.$modal.open({
         parent: this,
@@ -193,7 +204,7 @@ export default {
 
 .mobile-header-bottom-container {
   background-color: white;
-  border: 1px solid #E0DDDD;
+  border: 1px solid #2F8168;
   padding: 0px 10px 0px 10px;
 }
 
@@ -249,5 +260,15 @@ export default {
   font-size: 1.75em;
   color: #fff;
   text-decoration: none;
+}
+.page-link {
+  font-family: "Helvetica Neue";
+  font-size: 1em;
+  color: #2F8168;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>

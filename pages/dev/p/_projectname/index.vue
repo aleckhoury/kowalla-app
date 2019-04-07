@@ -85,7 +85,7 @@
 
                 <!-- post feed -->
                 <div class="column is-two-thirds">
-                  <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+                  <Post v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
                 <!-- info pane -->
@@ -165,7 +165,6 @@
       <Post
         class="newsfeed-margin"
         v-for="post in postList"
-        v-if="!!postList.length"
         :key="post._id"
         :post="post"
       />

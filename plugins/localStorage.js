@@ -1,7 +1,10 @@
 import createPersistedState from 'vuex-persistedstate';
 
-export default ({store}) => {
+export default ({store, app }) => {
   window.onNuxtReady(() => {
-    createPersistedState()(store)
+    createPersistedState()(store);
+    // if (!app.$auth.$state.user) {
+    //   app.$auth.$storage.setState('loggedIn', true);
+    // }
   })
 }

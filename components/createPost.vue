@@ -52,6 +52,7 @@ span {
 }
 .level {
     padding: 1rem;
+    margin-bottom: 1em;
 }
 .modal-card-body {
     overflow: visible;

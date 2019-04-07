@@ -59,13 +59,21 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    baseURL: 'https://kowalla-backend-tob.herokuapp.com',
-    // baseURL: 'http://localhost:8080',
+    // baseURL: 'https://kowalla-backend-tob.herokuapp.com',
+    baseURL: 'http://localhost:8080',
   },
   auth: {
+    redirect: false,
+    cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/',
+        secure: true,
+        expires: 7,
+      }
+    },
     strategies: {
       local: {
-        fetchUserOnLogin: false,
         endpoints: {
           login: {
             url: '/api/v1/users/login',

@@ -1,23 +1,8 @@
 export const state = () => ({
-  authUser: null,
-  isUserLoggedIn: true,
-  firstName: "Tyler",
-  lastName: "O'Briant",
-  username: 'tobthecreator',
-  description: '',
-  uiColor: '',
   activePost: {},
   hasNotifications: false,
-  _id: 'C4xtgKOIu', // need to update before playing with sub axios calls
-  profilePicture: "https://scontent-dfw5-2.xx.fbcdn.net/v/t1.0-1/22008280_10214375775686311_4294896327600907217_n.jpg?_nc_cat=108&_nc_ht=scontent-dfw5-2.xx&oh=03f3eadb4364c3a93124ae4179669315&oe=5D1FA7AD",
-  subscriptions: [
-    {name: "Aceable", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', projectId: "1111", numSubs: 1000},
-    {name: "ExNI", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', communityId: "2222", numSubs: 10},
-  ],
-  owned: [
-    {name: "kowalla", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', projectId: "5ujOxFHEK", numSubs: 1000},
-    {name: "EarlyAdopters", pictureURL: 'https://cdn.britannica.com/s:300x300/26/162626-004-C076EDBD.jpg', communityId: "upRnGdx-8", numSubs: 10},
-  ]
+  subscriptions: [],
+  owned: [],
 });
 
 export const actions = ({
@@ -111,7 +96,6 @@ export const getters = ({
         isOwner = true;
       }
     }
-
     return isOwner;
   }
 });
@@ -121,7 +105,7 @@ export const mutations = {
     state.activePost = payload;
   },
   async setUser(state, user) {
-    state.authUser = user;
+    state = Object.assign(state, user);
   },
   addSubscription(state, subObj) {
     console.log('adding sub')
