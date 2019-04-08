@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown position="is-bottom-left" aria-role="list" @active-change="notifsSelected">
+  <b-dropdown position="is-bottom-left" aria-role="list" @active-change="notifsSelected" mobile-modal>
     <font-awesome-icon
       icon="bell"
       class="margin"
