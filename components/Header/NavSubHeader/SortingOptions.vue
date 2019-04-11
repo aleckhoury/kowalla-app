@@ -125,7 +125,6 @@ export default {
 }
 
 .dropdown-container {
-
   height: 30px;
   border: 2px solid #39C9A0;
   border-radius: 6px;

@@ -46,7 +46,7 @@
                 class="mobile-nav-profile-picture"
               />
             </nuxt-link>
-            <b class="page-link" @click="cardModal">Login/Sign Up</b>
+            <b v-if="!this.$store.state.user.loggedIn" class="page-link" @click="cardModal">Login/Sign Up</b>
           </div>
         </div> <!-- end level-right -->
       </div> <!-- top mobile header -->
@@ -264,7 +264,7 @@ export default {
 .page-link {
   font-family: "Helvetica Neue";
   font-size: 1em;
-  color: #2F8168;
+  color: white;
   display: flex;
   align-items: center;
   padding: 6px;

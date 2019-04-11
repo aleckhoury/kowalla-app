@@ -87,13 +87,11 @@
             username: registerForm.username,
             password: registerForm.password,
           });
-
-          await this.$auth.loginWith('local', {
-            data: {
+          const token = await this.$axios.post('/api/v1/users/login', {
               username: registerForm.username,
               password: registerForm.password,
-            },
           });
+          await this.$axios.setToken(token.data, 'Bearer');
           const user = await this.$axios.get(`api/v1/users/${ registerForm.username }`);
           await Object.assign(user.data, { loggedIn: Boolean(Object.keys(user.data).length)});
           await this.$store.commit('user/setUser', user.data);
@@ -105,12 +103,11 @@
       },
       async login(loginForm) {
         try {
-          await this.$auth.loginWith('local', {
-            data: {
+          const token =  await this.$axios.post('/api/v1/users/login', {
               username: loginForm.username,
               password: loginForm.password,
-            },
           });
+          await this.$axios.setToken(token.data, 'Bearer');
           const user = await this.$axios.get(`api/v1/users/${ loginForm.username }`);
           const subs = await this.$axios.get(`/api/v1/profiles/${ user._id }/subs`);
           await Object.assign(user.data, { loggedIn: Boolean(Object.keys(user.data).length)});
@@ -121,9 +118,6 @@
         } catch (err) {
           console.log(err);
         }
-      },
-      logout() {
-        this.$auth.logout();
       },
     },
     mounted() {}

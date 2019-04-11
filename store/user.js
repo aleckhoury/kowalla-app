@@ -1,4 +1,5 @@
 export const state = () => ({
+  loggedIn: false,
   activePost: {},
   hasNotifications: false,
   subscriptions: [],
@@ -116,6 +117,9 @@ export const mutations = {
   },
   async setUser(state, user) {
     state = Object.assign(state, user);
+  },
+  async clearUser(state, clear) {
+    state = Object.assign(state, clear);
   },
   addSubscription(state, subObj) {
     console.log('adding sub')

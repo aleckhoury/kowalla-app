@@ -123,7 +123,7 @@ export default {
 .page-link {
   font-family: "Helvetica Neue";
   font-size: 1em;
-  color: #2F8168;
+  color: white;
   display: flex;
   align-items: center;
   padding: 6px;

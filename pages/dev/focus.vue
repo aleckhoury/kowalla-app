@@ -246,7 +246,7 @@
       },
     },
     async mounted() {
-      this.post = await this.$axios.get(`/api/v1/posts/active/${this.$store.state.user._id}`);
+      this.post = await this.$axios.get(`/api/v1/posts/active/${this.$store.state.user.id}`);
       if (this.post.data.isActive === true) {
       this.countdownTimer(new Date(this.post.data.expiration).getTime());
       this.editor = await new Editor({
