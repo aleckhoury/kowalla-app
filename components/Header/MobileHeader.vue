@@ -28,6 +28,7 @@
             />
           </div>
 
+
           <div
             v-if="this.$store.state.user.loggedIn"
             class="level-item align-icon"
@@ -38,6 +39,14 @@
               icon="bell-outline"
             />
           </div>
+
+          <!--
+          <div
+            class="level-item align-icon"
+          >
+            <NavNotifications :hasNotifications="this.$store.state.user.hasNotifications"/>
+          </div>
+          -->
 
           <div class="level-item">
             <nuxt-link v-if="this.$store.state.user.loggedIn" :to="`/dev/u/${this.$store.state.user.username}`">
@@ -86,16 +95,17 @@
 </template>
 <script>
 import ChangeLocationModal from '~/components/Modals/Other/ChangeLocationModal';
+import NotificationModal from '~/components/Modals/Other/NotificationModal';
 import MobileNavIcons from '~/components/MobileNavIcons';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
-
+import NavNotifications from '~/components/Header/NavHeader/NavNotifications';
 import TestModal from '~/components/Modals/Other/TestModal';
 import SearchModal from '~/components/Modals/Other/SearchModal';
 import LoginRegisterModal from '~/components/LoginRegisterModal'
 
 export default {
   name: "MobileHeader",
-  components: { ChangeLocationModal, MobileNavIcons, SortingOptions },
+  components: { ChangeLocationModal, MobileNavIcons, SortingOptions, NavNotifications },
   data() {
     return {
       showNavbar: true,
@@ -138,7 +148,7 @@ export default {
     callNotifModal() {
       this.$modal.open({
         parent: this,
-        component: TestModal,
+        component: NotificationModal,
         props: { modalText: "Notif" },
         width: 300,
         hasModalCard: true
