@@ -40,7 +40,7 @@
               <Searchbar />
 
               <NavNotifications
-                :has-notifications="this.$store.state.user.hasNotifications" />
+                :hasNotifications="this.$store.state.user.hasNotifications" />
 
               <NavProfilePicture
                 :profile-picture="this.$store.state.user.profilePicture"
