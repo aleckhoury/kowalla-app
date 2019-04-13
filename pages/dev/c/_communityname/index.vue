@@ -106,7 +106,7 @@
 
       <Post
         class="newsfeed-margin"
-        v-if="!!postList.length"
+
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -135,6 +135,7 @@ import Post from "~/components/PostCard/feedPost";
 import PostModal from '~/components/PostCard/modalPost.vue';
 
 export default {
+  middleware: 'activePost',
   name: "user-page-test",
   components: {
     Header,
@@ -214,7 +215,7 @@ export default {
     }
 
     // get posts
-    this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/${this.postList.length}`);
+    this.postList = await this.$axios.$get(`/api/v1/community/posts/${ this.communityId }/${ this.sort }/${this.postList.length}`);
 
     await this.scroll();
 
@@ -230,7 +231,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/community/posts/${ this.communityId }/${ this.sort }/0`);
 
       await this.scroll();
     }
@@ -244,7 +245,7 @@ export default {
           const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/posts/community/${this.communityId}/${this.sort}/${this.postList.length}`);
+            const posts = await this.$axios.$get(`/api/v1/community/posts/${this.communityId}/${this.sort}/${this.postList.length}`);
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;

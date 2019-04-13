@@ -18,9 +18,8 @@
         </div>
 
         <div class="column is-one-half is-paddingless no-margin" id="postFeed">
-          <LoginRegister></LoginRegister>
-          <CreatePost></CreatePost>
-          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+          <CreatePost v-if="this.$store.state.user.loggedIn && isMounted"></CreatePost>
+          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
@@ -38,7 +37,7 @@
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <Post
-        v-if="!!postList.length"
+
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -59,12 +58,11 @@ import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
 import Post from "~/components/PostCard/feedPost";
 import CreatePost from "~/components/createPost";
-import LoginRegister from "../../components/LoginRegister";
 
 export default {
+  middleware: 'activePost',
   name: "test",
   components: {
-    LoginRegister,
     CreatePost,
     Header,
     NavPane,
@@ -75,12 +73,14 @@ export default {
   data() {
     return {
       postList: [],
+      isMounted: false,
     }
   },
   async mounted() {
-    this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/${ this.postList.length }`);
+    this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/${ this.postList.length }`);
 
     await this.scroll();
+    this.isMounted = true;
   },
   computed: {
     sort() {
@@ -98,7 +98,7 @@ export default {
           const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
+            const posts = await this.$axios.$get(`/api/v1/feed/posts/${this.sort}/${this.postList.length}`);
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
@@ -111,7 +111,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/0`);
 
       await this.scroll();
     }

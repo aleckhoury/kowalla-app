@@ -70,7 +70,7 @@ export default {
   methods: {
     async editProject(editForm) {
       try {
-        let projectData = await this.$axios.put(`api/v1/projects/${this.projectId}`, {
+        let projectData = await this.$axios.$put(`api/v1/projects/${this.projectId}`, {
           name: editForm.name, // will need to update local state
           description: editForm.description,
           profilePicture: editForm.profilePicture,
@@ -81,9 +81,9 @@ export default {
 
           // update state with changes -> should probably check for changes
           let subObj = {
-            name: projectData.data.name,
-            pictureURL: projectData.data.profilePicture,
-            projectId: projectData.data._id
+            name: projectData.name,
+            pictureURL: projectData.profilePicture,
+            projectId: projectData._id
           };
 
 
@@ -91,8 +91,8 @@ export default {
           this.$store.commit('user/editOwned', subObj);
 
           // if name returned isn't the same as we started with
-          if (projectData.data.name !== this.name) {
-            this.$router.push({ path: `/dev/p/${projectData.data.name}` });
+          if (projectData.name !== this.name) {
+            this.$router.push({ path: `/dev/p/${projectData.name}` });
           } else { // otherwise, refresh
             this.$router.go()
           }

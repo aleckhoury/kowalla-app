@@ -1,10 +1,19 @@
 <template lang="html">
-  <nuxt-link :to="`/dev/u/${username}`">
+  <b-dropdown class="dropdown-container" position="is-bottom-left" aria-role="list">
     <img
       :src="profilePicture"
       class="nav-profile-picture"
+      slot="trigger"
     >
-  </nuxt-link>
+    <b-dropdown-item aria-role="listitem">
+      <nuxt-link :to="`/dev/u/${username}`">
+        Profile
+      </nuxt-link>
+    </b-dropdown-item>
+    <b-dropdown-item @click="logout()" aria-role="listitem">
+        Logout
+    </b-dropdown-item>
+  </b-dropdown>
   <!--
     TODO commenting out for now, we'll refactor these to work with buefy later
     <el-dropdown>
@@ -32,6 +41,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+
 export default {
   name: 'NavProfilePicture',
   props: {
@@ -41,7 +52,10 @@ export default {
   },
   methods: {
     logout() {
-      this.$auth.logout();
+      this.$store.commit('user/clearUser');
+      Cookies.remove('token');
+      location.reload();
+      // this.$router.push('/');
     },
   },
 };
@@ -55,7 +69,12 @@ export default {
   border-radius: 6px;
   margin-left: 6px
 }
-
+.dropdown-item {
+  color: #4a4a4a;
+}
+.dropdown-item.is-active {
+  background-color: #39C9A0;
+}
 .page-link {
   font-family: "Helvetica Neue";
   font-size: 1em;

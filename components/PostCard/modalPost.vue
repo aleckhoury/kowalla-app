@@ -115,11 +115,11 @@ export default {
 
     this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
     this.commentList.map(async (comment, idx) => {
-      this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/upvotes/${comment._id}/${this.$store.state.user._id}`)
+      this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`);
     });
-    if (!Utils.isActivePost(this.post)) {
+    if (this.post.expiration !== null && !!this.post.isActive && !Utils.isActivePost(this.post)) {
       this.post.isActive = false;
-      this.$axios.put(`/api/v1/posts/${this.post._id}`, {
+      this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
         isActive: false,
       });
     }

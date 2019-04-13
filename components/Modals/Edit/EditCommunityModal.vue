@@ -81,16 +81,16 @@ export default {
         if (communityData.status === 200) {
           // update state with changes -> should probably check for changes
           let subObj = {
-            name: communityData.data.name,
-            pictureURL: communityData.data.profilePicture,
-            communityId: communityData.data._id
+            name: communityData.name,
+            pictureURL: communityData.profilePicture,
+            communityId: communityData._id
           };
 
           this.$store.commit('user/editOwned', subObj)
 
           // if name returned isn't the same as we started with
-          if (communityData.data.name !== this.name) {
-            this.$router.push({ path: `/dev/c/${communityData.data.name}` });
+          if (communityData.name !== this.name) {
+            this.$router.push({ path: `/dev/c/${communityData.name}` });
           } else { // otherwise, refresh
             this.$router.go();
           }

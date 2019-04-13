@@ -135,14 +135,30 @@
                         <div class="level is-paddingless">
                             <a class="level-item button action post" :class="{ 'is-loading': s3Loading }" @click="createPost()"><b>Post</b></a>
                             <div class="level-right">
-                                <span class="level-item has-text-grey">as</span>
-                                <div class="level-item dropdown" @click="userDropdown = !userDropdown" :class="{ 'is-active': userDropdown }">
-                                    <dropdown></dropdown>
-                                </div>
-                                <span class="level-item has-text-grey">in</span>
-                                <div class="level-item dropdown" @click="commDropdown = !commDropdown" :class="{ 'is-active': commDropdown }">
-                                    <dropdown></dropdown>
-                                </div>
+                                <span v-if="postAsList.length" class="level-item has-text-grey">as</span>
+                                <b-dropdown v-if="postAsList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
+                                    <div slot="trigger" class="dropdown-selector">
+                                        <b class="font theme-color selector-child">@{{ postingAs.name }}</b>
+                                        <font-awesome-icon
+                                                icon="angle-down"
+                                                class="theme-color selector-child"/>
+                                    </div>
+                                    <b-dropdown-item v-for="item in postAsList" @click="postingAs = item" aria-role="listitem" :key="item._id">
+                                        @{{ item.name }}
+                                    </b-dropdown-item>
+                                </b-dropdown>
+                                <span v-if="postInList.length" class="level-item has-text-grey">in</span>
+                                <b-dropdown v-if="postInList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
+                                    <div slot="trigger" class="dropdown-selector">
+                                        <b class="font theme-color selector-child">#{{ postingIn.name }}</b>
+                                        <font-awesome-icon
+                                                icon="angle-down"
+                                                class="theme-color selector-child"/>
+                                    </div>
+                                    <b-dropdown-item v-for="item in postInList" @click="postingIn = item" aria-role="listitem" :key="item._id">
+                                        #{{ item.name }}
+                                    </b-dropdown-item>
+                                </b-dropdown>
                             </div>
                         </div>
                     </div>
@@ -187,8 +203,8 @@
     },
     data() {
       return {
-        userDropdown: false,
-        commDropdown: false,
+        postingAs: { name: this.$store.state.user.username },
+        postingIn: { name: 'Select' },
         createDialog: false,
         editor: null,
         file: '',
@@ -205,7 +221,7 @@
     async beforeDestroy() {
       if (this.clearPhoto === true) {
         const fileName = await (this.photoUrl.split('post-pics/'))[1];
-        await this.$axios.post('/api/v1/posts/imageDelete', {
+        await this.$axios.$post('/api/v1/posts/imageDelete', {
           bucket: 'kowalla-dev/user/post-pics',
           fileName,
           });
@@ -223,7 +239,31 @@
       expiration() {
         const time = new Date();
         const expireTime = time.setHours(time.getHours() + this.hours, time.getMinutes() + this.minutes);
-        return new Date(expireTime);
+        return this.timedPost ? new Date(expireTime) : null;
+      },
+      postAsList() {
+        let list = [{ name: this.$store.state.user.username, id: this.$store.state.user._id} ];
+        this.$store.state.user.owned.forEach(function(owned) {
+          if (owned.isProject) {
+            console.log(list);
+            list.push({ name: owned.name, id: owned.projectId });
+          }
+        });
+        if (list.length) {
+          return list;
+        }
+      },
+      postInList() {
+        let list = [];
+        this.$store.state.user.subscriptions.forEach(function(sub) {
+          if (!sub.isProject) {
+            console.log(list);
+            list.push({ name: sub.name, id: sub.communityId });
+          }
+        });
+        if (list.length) {
+          return list;
+        }
       }
     },
     methods: {
@@ -248,13 +288,13 @@
           this.s3Loading = false;
           return null;
         }
-        const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
-        await this.$axios.post(`/api/v1/communities/1234567890/posts`, {
+        await this.$axios.$post(`/api/v1/communities/${ this.postingIn.id }/posts`, {
           profileId: this.$store.state.user._id,
-          communityId: community._id,
+          projectId: this.postingAs.id || null,
+          communityId: this.postingIn.id,
           content: this.html,
           duration: this.time,
-          expiration: this.expiration || null,
+          expiration: this.expiration,
           isActive: this.isActive,
           userCompleted: this.userCompleted,
         });
@@ -278,9 +318,9 @@
         const formData = new FormData();
         formData.append('file', this.file);
         try {
-          const image = await this.$axios.post('/api/v1/posts/imageUpload', formData);
-          this.photoUrl = image.data.file;
-          command({ src: image.data.file });
+          const image = await this.$axios.$post('/api/v1/posts/imageUpload', formData);
+          this.photoUrl = image.file;
+          command({ src: image.file });
         } catch(err) {
           console.log(err);
           this.$toast.open({
@@ -378,5 +418,26 @@
         max-height: 50vh;
         overflow-y: scroll;
         word-break: break-word;
+    }
+    .dropdown-container {
+        height: 30px;
+        border: 2px solid #39C9A0;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .dropdown-selector {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .selector-child {
+        margin-top: 1px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .theme-color {
+        color: #39C9A0;
     }
 </style>

@@ -75,9 +75,9 @@
           console.log('error grabbing some values');
         }
       }
-      if (!Utils.isActivePost(this.post)) {
+      if (this.post.expiration !== null && !!this.post.isActive && !Utils.isActivePost(this.post)) {
         this.post.isActive = false;
-        this.$axios.put(`/api/v1/posts/${this.post._id}`, {
+        this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
           isActive: false,
         });
       }

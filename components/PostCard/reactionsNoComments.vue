@@ -71,7 +71,7 @@
         }
       },
       async toggleReactionTrue(emoji, index, isEmojiObject) {
-        await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
+        await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
           emoji: emoji,
           postId: this.postId,
         });
@@ -141,7 +141,7 @@
     },
     async mounted() {
       try {
-        this.reactionList = await this.$axios.$get(`/api/v1/reactions/${this.postId}`);
+        this.reactionList = await this.$axios.$get(`/api/v1/posts/${this.postId}/reactions`);
         if (this.reactionList.length) {
           this.reactionList.forEach((x) => {
             const userReacted = x.profileId === this.$store.state.user._id;

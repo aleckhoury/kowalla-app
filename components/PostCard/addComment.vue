@@ -36,7 +36,7 @@
             content: this.comment,
             commentId: this.commentId ? this.commentId : '',
           };
-          this.$axios.post('/api/v1/comments', commentObj);
+          this.$axios.$post('/api/v1/comments', commentObj);
           this.updateComment(commentObj);
           this.comment = '';
           this.resetReply('');
