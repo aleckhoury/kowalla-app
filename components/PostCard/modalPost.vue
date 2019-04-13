@@ -162,6 +162,7 @@ div.card {
 }
 .content {
     max-height: 60vh;
+    padding: 1em 1em;
     overflow-y: scroll;
     word-break: break-word;
 }

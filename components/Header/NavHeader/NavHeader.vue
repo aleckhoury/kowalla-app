@@ -48,8 +48,8 @@
             </div>
 
             <div v-if="!this.$store.state.user.loggedIn" class="level-item">
-              <Searchbar />
-              <b class="has-text-white" @click="cardModal">Login/Sign Up</b>
+
+              <b class="page-link" @click="cardModal">Login or Register</b>
             </div>
           </div>
       </nav>
@@ -93,15 +93,13 @@ export default {
     },
     cardModal() {
       this.$modal.open({
-                parent: this,
-                component: LoginRegisterModal,
-                width: 900,
-                hasModalCard: true,
-              },
-        )
+        parent: this,
+        component: LoginRegisterModal,
+        width: 900,
+        hasModalCard: true,
+      });
     },
   }
-
 };
 </script>
 

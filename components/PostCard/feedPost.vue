@@ -12,8 +12,8 @@
         />
             <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
-            <div class="content is-marginless" v-html="post.content">
-            </div>
+            <div class="content is-marginless" v-html="post.content" />
+
             <p v-if="overflow" class="read-more" @click="overflow = !overflow"><a>Read More</a></p>
         </div>
         <br />
@@ -120,37 +120,35 @@
 </script>
 
 <style scoped>
-    #content-box {
-        padding: 1em 0.5em;
-        max-height: 30em;
-        overflow: hidden;
-    }
-    #content-box.fullHeight {
-        max-height: none;
-    }
-    #content-box .read-more {
-        position: absolute;
-        bottom: 4em;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        margin: 0;
-        padding: 30px 0 0 0;
+#content-box {
+    padding: 1em 1em;
+    max-height: 30em;
+    overflow: hidden;
+}
+#content-box.fullHeight {
+    max-height: none;
+}
+#content-box .read-more {
+    position: absolute;
+    bottom: 4em;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 30px 0 0 0;
 
-        /* "transparent" only works here because == rgba(0,0,0,0) */
-        background-image: linear-gradient(to bottom, transparent, white, white);
-    }
-    b-icon {
-        color: black;
-    }
-    .media-content {
-        padding: 0 2em;
-    }
-    .card {
-        border-radius: 6px;
-        margin-bottom: 1em;
-    }
-    .content {
-        word-break: break-word;
-    }
+    /* "transparent" only works here because == rgba(0,0,0,0) */
+    background-image: linear-gradient(to bottom, transparent, white, white);
+}
+.media-content {
+    padding: 0 2em;
+}
+.card {
+    border-radius: 6px;
+    margin-bottom: 1em;
+}
+.content {
+    word-break: break-word;
+    margin-left: 8px;
+}
 </style>

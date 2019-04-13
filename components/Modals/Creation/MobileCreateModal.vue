@@ -2,29 +2,31 @@
   <div class="modal-content">
     <div class="box">
       <div class="level" @click="emitSelection('post')">
-          <b-icon
-            class="dark-basic-theme"
-            icon="square-edit-outline"
-            size="is-small"></b-icon>
+          <font-awesome-icon
+            class="dark-basic-theme icon"
+            icon="pencil-ruler"
+            style="font-size: 16px"
+          />
 
           Create a new Post
       </div>
 
       <div class="level" @click="emitSelection('community')">
-          <b-icon
-            class="dark-basic-theme"
-            icon="account-group"
-            size="is-small"></b-icon>
+          <font-awesome-icon
+            class="dark-basic-theme icon"
+            icon="user-friends"
+            style="font-size: 16px"
+          />
 
           Create a new Community
       </div>
 
       <div class="level" @click="emitSelection('project')">
-          <b-icon
-            class="dark-basic-theme"
-            icon="developer-board"
-            size="is-small"></b-icon>
-
+          <font-awesome-icon
+            class="dark-basic-theme icon"
+            icon="project-diagram"
+            style="font-size: 16px"
+          />
           Create a new Project
       </div>
 
@@ -46,6 +48,10 @@ export default {
 .box {
     margin: 25px;
     max-width: 100%;
+}
+.icon {
+  width: 20px;
+  margin-right: 4px;
 }
 .modal-content {
     align-self: center;

@@ -191,7 +191,7 @@
     History,
   } from 'tiptap-extensions'
   import { mapGetters } from 'vuex';
-  import Dropdown from "../../../dropdownItems";
+  import Dropdown from "../../dropdownItems";
 
   export default {
     name: "createPostModal",
@@ -216,6 +216,7 @@
         isActive: null,
         userCompleted: null,
         unselectableTimes: [],
+        html: null,
       };
     },
     async beforeDestroy() {
@@ -257,7 +258,6 @@
         let list = [];
         this.$store.state.user.subscriptions.forEach(function(sub) {
           if (!sub.isProject) {
-            console.log(list);
             list.push({ name: sub.name, id: sub.communityId });
           }
         });
@@ -278,6 +278,8 @@
       async createPost() {
         this.s3Loading = true;
         let StrippedString = this.html.replace(/(<([^>]+)>)/ig,"");
+
+        // force the user to post content
         if (StrippedString.length === 0) {
           this.$toast.open({
             duration: 5000,
@@ -288,6 +290,19 @@
           this.s3Loading = false;
           return null;
         }
+
+        // force the user to post it to a community
+        if (this.postingIn.id === undefined) {
+          this.$toast.open({
+            duration: 5000,
+            message: 'You must select a community to post in',
+            position: 'is-top',
+            type: 'is-danger'
+          });
+          this.s3Loading = false;
+          return null;
+        }
+
         await this.$axios.$post(`/api/v1/communities/${ this.postingIn.id }/posts`, {
           profileId: this.$store.state.user._id,
           projectId: this.postingAs.id || null,
@@ -298,6 +313,7 @@
           isActive: this.isActive,
           userCompleted: this.userCompleted,
         });
+
         this.clearPhoto = false;
         this.s3Loading = false;
         this.$parent.close();

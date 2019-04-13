@@ -8,8 +8,7 @@
 </template>
 
 <script>
-import CreatePostModal from './Modals/Creation/createPost/CreatePostModal.vue'
-
+import CreatePostModal from './Modals/Creation/CreatePostModal.vue'
   export default {
     name: "createPost",
     data() {
@@ -20,21 +19,10 @@ import CreatePostModal from './Modals/Creation/createPost/CreatePostModal.vue'
       };
     },
     methods: {
-      async createPost() {
-        const community = await this.$axios.$get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
-        await this.$axios.$post(`/api/v1/communities/1234567890/posts`, {
-          profileId: this.$store.state.user._id,
-          communityId: community._id,
-          content: this.html,
-        });
-      },
       cardModal() {
         this.$modal.open({
             parent: this,
             component: CreatePostModal,
-            props: {
-              reactionsFormatted: this.reactionsFormatted,
-            },
             hasModalCard: true,
           },
         )

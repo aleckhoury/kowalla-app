@@ -1,43 +1,21 @@
 <template lang="html">
-  <b-dropdown class="dropdown-container" position="is-bottom-left" aria-role="list">
+  <b-dropdown position="is-bottom-left" aria-role="list">
     <img
       :src="profilePicture"
       class="nav-profile-picture"
       slot="trigger"
     >
-    <b-dropdown-item aria-role="listitem">
-      <nuxt-link :to="`/dev/u/${username}`">
+
+    <b-dropdown-item @click="goToProfile" aria-role="listitem">
+      <nuxt-link class="page-link" :to="`/dev/u/${username}`">
         Profile
       </nuxt-link>
     </b-dropdown-item>
+
     <b-dropdown-item @click="logout()" aria-role="listitem">
         Logout
     </b-dropdown-item>
   </b-dropdown>
-  <!--
-    TODO commenting out for now, we'll refactor these to work with buefy later
-    <el-dropdown>
-      <nuxt-link :to="`/dev/u/${username}`">
-        <img
-          :src="profilePicture"
-          class="nav-profile-picture"
-        >
-      </nuxt-link>
-
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>
-          <nuxt-link
-            :to="`/dev/u/${username}`"
-            class="page-link"><b>Profile</b></nuxt-link>
-        </el-dropdown-item>
-        <el-dropdown-item
-          divided
-          @click.native="logout()">
-          <b class="page-link">Logout</b>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  -->
 </template>
 
 <script>
@@ -55,8 +33,13 @@ export default {
       this.$store.commit('user/clearUser');
       Cookies.remove('token');
       location.reload();
-      // this.$router.push('/');
+
     },
+    goToProfile() {
+      this.$router.push({
+        path: `/dev/u/${this.username}`
+      });
+    }
   },
 };
 </script>
@@ -67,7 +50,6 @@ export default {
   width: 48px;
   border: 1px solid #2F8168;
   border-radius: 6px;
-  margin-left: 6px
 }
 .dropdown-item {
   color: #4a4a4a;

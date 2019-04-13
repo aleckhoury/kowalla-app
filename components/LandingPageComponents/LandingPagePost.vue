@@ -28,17 +28,14 @@
 </script>
 
 <style scoped>
-    .content {
-        padding: 1em 0.5em;
-    }
-    b-icon {
-        color: black;
-    }
-    .media-content {
-        padding: 0 2em;
-    }
-    .card {
-        border-radius: 6px;
-        margin-bottom: 1em;
-    }
+.content {
+    padding: 1em 0.5em;
+}
+.media-content {
+    padding: 0 2em;
+}
+.card {
+    border-radius: 6px;
+    margin-bottom: 1em;
+}
 </style>
