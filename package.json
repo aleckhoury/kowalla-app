@@ -28,6 +28,7 @@
     "debounce": "^1.2.0",
     "emoji-mart-vue-fast": "^5.4.11",
     "express": "^4.16.3",
+    "js-cookie": "^2.2.0",
     "nuxt": "^2.3.4",
     "nuxt-buefy": "^0.3.2",
     "nuxt-fontawesome": "^0.4.0",

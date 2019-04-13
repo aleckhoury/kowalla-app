@@ -21,8 +21,8 @@ import CreatePostModal from './Modals/Creation/createPost/CreatePostModal.vue'
     },
     methods: {
       async createPost() {
-        const community = await this.$axios.get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
-        await this.$axios.post(`/api/v1/communities/1234567890/posts`, {
+        const community = await this.$axios.$get(`/api/v1/communities/5c3292a2f03d751a7ffb80ab`);
+        await this.$axios.$post(`/api/v1/communities/1234567890/posts`, {
           profileId: this.$store.state.user._id,
           communityId: community._id,
           content: this.html,

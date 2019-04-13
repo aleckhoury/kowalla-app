@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
+
 export default {
   name: 'NavProfilePicture',
   props: {
@@ -50,9 +52,10 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit('user/clearUser', { loggedIn: false });
-      this.$axios.setToken(false);
+      this.$store.commit('user/clearUser');
+      Cookies.remove('token');
       location.reload();
+      // this.$router.push('/');
     },
   },
 };

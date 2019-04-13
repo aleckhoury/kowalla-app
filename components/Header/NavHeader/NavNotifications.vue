@@ -37,9 +37,9 @@ export default {
     async notifsSelected(bool) {
       if (bool) {
         let projectIds = this.$store.getters['user/getProjectIds'];
-        let notificationRes = await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, )
+        let notificationRes = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, )
 
-        this.notifications = notificationRes.data.notifications;
+        this.notifications = notificationRes.notifications;
       }
     },
     getLink(item) {

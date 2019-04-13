@@ -40,7 +40,8 @@ module.exports = {
   */
 
   plugins: [
-    { src: '~/plugins/localStorage.js', ssr: false }
+    { src: '~/plugins/localStorage.js', ssr: false },
+    '~/plugins/axios'
   ],
 
   /*
@@ -50,7 +51,6 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     'nuxt-fontawesome',
-    // '@nuxtjs/auth',
     '@nuxtjs/pwa',
     '@nuxtjs/proxy',
     //'@nuxtjs/onesignal',
@@ -59,51 +59,14 @@ module.exports = {
   /*
   ** Axios module configuration
   */
-  axios: {
-    // baseURL: 'https://kowalla-backend-tob.herokuapp.com',
-    baseURL: 'http://localhost:8080',
-    credentials: true,
-    proxy: [
-      // Proxies /foo to http://example.com/foo
-      'http://localhost:8080/api/v1/',
-      ]
-  },
-  // auth: {
-  //   redirect: false,
-  //   cookie: {
-  //     prefix: 'auth.',
-  //     options: {
-  //       path: '/',
-  //       secure: true,
-  //       expires: 7,
-  //     }
-  //   },
-  //   strategies: {
-  //     local: {
-  //       endpoints: {
-  //         login: {
-  //           url: '/api/v1/users/login',
-  //           method: 'post',
-  //           propertyName: 'token',
-  //         },
-  //         logout: false,
-  //         register: {
-  //           url: '/api/v1/users',
-  //           method: 'post',
-  //           propertyName: false,
-  //         },
-  //         user: false,
-  //       },
-  //       tokenRequired: true,
-  //       tokenType: 'Bearer',
-  //     },
-  //   },
+  // axios: {
+  //   // baseURL: 'https://kowalla-backend-tob.herokuapp.com',
+  //   baseURL: 'http://localhost:8080',
+  //   credentials: true,
   // },
 
   router: {
-    middleware: 'activePost',
   },
-
   /* ------------------------------------------------------------
   | PWA Setup
   | ------------------------------------------------------------ */

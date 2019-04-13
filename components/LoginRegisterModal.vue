@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 
   export default {
     name: "LoginRegisterModal",
@@ -83,44 +84,48 @@
     methods: {
       async register(registerForm) {
         try {
-          await this.$axios.post('api/v1/users', {
+          await this.$axios.$post('api/v1/users', {
             username: registerForm.username,
             password: registerForm.password,
           });
-          const token = await this.$axios.post('/api/v1/users/login', {
+          const token = await this.$axios.$post('/api/v1/users/login', {
               username: registerForm.username,
               password: registerForm.password,
           });
-          await this.$axios.setToken(token.data, 'Bearer');
-          const user = await this.$axios.get(`api/v1/users/${ registerForm.username }`);
-          await Object.assign(user.data, { loggedIn: Boolean(Object.keys(user.data).length)});
-          await this.$store.commit('user/setUser', user.data);
+          await Cookies.set('token', token);
+          const user = await this.$axios.$get(`api/v1/users/${ registerForm.username }`);
+
+          await Object.assign(user, { loggedIn: Boolean(Object.keys(user).length)});
+
+          await this.$store.commit('user/setUser', user);
           await this.$parent.close();
-          // this.$router.push('/dev');
+          location.reload();
         } catch (err) {
           console.log(err);
         }
       },
       async login(loginForm) {
         try {
-          const token =  await this.$axios.post('/api/v1/users/login', {
+          const res =  await this.$axios.$post('/api/v1/users/login', {
               username: loginForm.username,
               password: loginForm.password,
           });
-          await this.$axios.setToken(token.data, 'Bearer');
-          const user = await this.$axios.get(`api/v1/users/${ loginForm.username }`);
-          const subs = await this.$axios.get(`/api/v1/profiles/${ user._id }/subs`);
-          await Object.assign(user.data, { loggedIn: Boolean(Object.keys(user.data).length)});
-          await Object.assign(user.data, subs);
-          await this.$store.commit('user/setUser', user.data);
+          Cookies.set('token', res.token);
+          const user = await this.$axios.$get(`api/v1/users/${ loginForm.username }`);
+          const subs = await this.$axios.$get(`/api/v1/profiles/${ user._id }/subs`);
+
+          const { owned, subscriptions } = subs.profileSubscriptions;
+          await Object.assign(user, { loggedIn: Boolean(Object.keys(user).length)});
+          await Object.assign(user, { subscriptions, owned });
+
+          await this.$store.commit('user/setUser', user);
           await this.$parent.close();
-          // this.$router.push('/dev');
+          // location.reload();
         } catch (err) {
           console.log(err);
         }
       },
     },
-    mounted() {}
   }
 </script>
 

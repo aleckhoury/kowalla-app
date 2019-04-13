@@ -60,6 +60,7 @@ import Post from "~/components/PostCard/feedPost";
 import CreatePost from "~/components/createPost";
 
 export default {
+  middleware: 'activePost',
   name: "test",
   components: {
     CreatePost,
@@ -76,7 +77,7 @@ export default {
     }
   },
   async mounted() {
-    this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/${ this.postList.length }`);
+    this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/${ this.postList.length }`);
 
     await this.scroll();
     this.isMounted = true;
@@ -97,7 +98,7 @@ export default {
           const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/posts/${this.sort}/${this.postList.length}`);
+            const posts = await this.$axios.$get(`/api/v1/feed/posts/${this.sort}/${this.postList.length}`);
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
@@ -110,7 +111,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/0`);
 
       await this.scroll();
     }

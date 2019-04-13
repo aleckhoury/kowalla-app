@@ -75,7 +75,7 @@ export default {
     async createProject(spaceForm) {
       console.log('create project');
       try {
-        let projectData = await this.$axios.post('api/v1/projects', {
+        let projectData = await this.$axios.$post('api/v1/projects', {
           name: spaceForm.name,
           description: spaceForm.description,
           profilePicture: spaceForm.profilePicture,
@@ -87,10 +87,10 @@ export default {
         if (projectData.status === 201) {
           // update local state
           let subInfo = {
-            name: projectData.data.name,
-            pictureURL: projectData.data.profilePicture,
+            name: projectData.name,
+            pictureURL: projectData.profilePicture,
             numSubs: 7,
-            communityId: projectData.data._id
+            communityId: projectData._id
           };
           let subObj = { subBool: true, ...subInfo };
 
@@ -98,7 +98,7 @@ export default {
           this.$store.dispatch('user/updateOwned', subObj)
 
           // change page and close modal
-          this.$router.push({ path: `/dev/p/${projectData.data.name}` });
+          this.$router.push({ path: `/dev/p/${projectData.name}` });
           this.$parent.close();
         }
       }
@@ -109,7 +109,7 @@ export default {
     async createCommunity(spaceForm) {
       console.log('create community');
       try {
-        let communityData = await this.$axios.post('api/v1/communities', {
+        let communityData = await this.$axios.$post('api/v1/communities', {
           name: spaceForm.name,
           description: spaceForm.description,
           profilePicture: spaceForm.profilePicture,
@@ -121,10 +121,10 @@ export default {
         if (communityData.status === 201) {
           // update local state
           let subInfo = {
-            name: communityData.data.name,
-            pictureURL: communityData.data.profilePicture,
+            name: communityData.name,
+            pictureURL: communityData.profilePicture,
             numSubs: 7,
-            communityId: communityData.data._id
+            communityId: communityData._id
           };
           let subObj = { subBool: true, ...subInfo };
 
@@ -132,7 +132,7 @@ export default {
           this.$store.dispatch('user/updateOwned', subObj)
 
           // change page and close modal
-          this.$router.push({ path: `/dev/c/${communityData.data.name}` });
+          this.$router.push({ path: `/dev/c/${communityData.name}` });
           this.$parent.close();
         }
       }

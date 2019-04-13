@@ -1,7 +1,7 @@
 <template>
     <div class="focusPage">
         <Header></Header>
-            <div v-if="post.data && !post.data.userCompleted" class="container">
+            <div v-if="post && !post.userCompleted" class="container">
                 <div class="columns is-vcentered is-centered is-marginless main-margin">
                     <!-- post feed -->
                     <div class="column">
@@ -210,11 +210,11 @@
       },
       updatePost(isComplete = false) {
         if (!isComplete) {
-          this.$axios.put(`/api/v1/posts/${this.post.data._id}`, {
+          this.$axios.$put(`/api/v1/posts/${this.post._id}`, {
             content: this.html,
           });
         } else if (isComplete) {
-          this.$axios.put(`/api/v1/posts/${this.post.data._id}`, {
+          this.$axios.$put(`/api/v1/posts/${this.post._id}`, {
             content: this.html,
             isActive: false,
             userCompleted: true,
@@ -231,9 +231,9 @@
         const formData = new FormData();
         formData.append('file', this.file);
         try {
-          const image = await this.$axios.post('/api/v1/posts/imageUpload', formData);
-          this.photoUrl = image.data.file;
-          command({ src: image.data.file });
+          const image = await this.$axios.$post('/api/v1/posts/imageUpload', formData);
+          this.photoUrl = image.file;
+          command({ src: image.file });
         } catch(err) {
           console.log(err);
           this.$toast.open({
@@ -246,9 +246,10 @@
       },
     },
     async mounted() {
-      this.post = await this.$axios.get(`/api/v1/posts/active/${this.$store.state.user.id}`);
-      if (this.post.data.isActive === true) {
-      this.countdownTimer(new Date(this.post.data.expiration).getTime());
+      this.post = await this.$axios.$get(`/api/v1/posts/active/${this.$store.state.user._id}`);
+      console.log(this);
+      if (this.post.isActive === true) {
+      this.countdownTimer(new Date(this.post.expiration).getTime());
       this.editor = await new Editor({
         autoFocus: true,
         extensions: [
@@ -271,7 +272,7 @@
           new Underline(),
           new History(),
         ],
-        content: this.post.data.content,
+        content: this.post.content,
         onUpdate: ({ getHTML }) => {
           this.html = getHTML()
         },

@@ -1,10 +1,23 @@
-export const state = () => ({
-  loggedIn: false,
+export const defaultState = () => ({
+  _id: '',
+  createdAt: '',
   activePost: {},
-  hasNotifications: false,
-  subscriptions: [],
+  commentCount: 0,
+  description: '',
+  firstName: '',
+  lastName: '',
   owned: [],
+  subscriptions: [],
+  postCount: 0,
+  profilePicture: '',
+  reputation: 0,
+  uiColor: '',
+  updatedAt: '',
+  loggedIn: false,
+  hasNotifications: false,
 });
+
+const initialState = defaultState();
 
 export const actions = ({
   async updateSubscriptions({ commit, state }, subObj) {
@@ -13,7 +26,7 @@ export const actions = ({
       // send create subscription
 
       /* createSub - untested, needs completing
-      this.$axios.post(`/api/v1/profiles/${state._id}/subs`);
+      this.$axios.$post(`/api/v1/profiles/${state._id}/subs`);
       */
       commit('addSubscription', subObj);
     } else {
@@ -118,8 +131,12 @@ export const mutations = {
   async setUser(state, user) {
     state = Object.assign(state, user);
   },
-  async clearUser(state, clear) {
-    state = Object.assign(state, clear);
+  async setSubs(state, subs) {
+    console.log(subs);
+    state.subscriptions = subs;
+  },
+  async clearUser(state) {
+    state = Object.assign(state, defaultState());
   },
   addSubscription(state, subObj) {
     console.log('adding sub')

@@ -17,6 +17,7 @@ import nuxt_plugin_buefy_46cfdd98 from 'nuxt_plugin_buefy_46cfdd98' // Source: .
 import nuxt_plugin_templatesplugina6edc000_10a6dbd2 from 'nuxt_plugin_templatesplugina6edc000_10a6dbd2' // Source: ./templates.plugin.a6edc000.js
 import nuxt_plugin_axios_1ab911e3 from 'nuxt_plugin_axios_1ab911e3' // Source: ./axios.js
 import nuxt_plugin_localStorage_830ec59e from 'nuxt_plugin_localStorage_830ec59e' // Source: ../plugins/localStorage.js (ssr: false)
+import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ../plugins/axios
 
 // Component: <no-ssr>
 Vue.component(NoSSR.name, NoSSR)
@@ -159,6 +160,7 @@ async function createApp(ssrContext) {
   if (typeof nuxt_plugin_buefy_46cfdd98 === 'function') await nuxt_plugin_buefy_46cfdd98(app.context, inject)
   if (typeof nuxt_plugin_templatesplugina6edc000_10a6dbd2 === 'function') await nuxt_plugin_templatesplugina6edc000_10a6dbd2(app.context, inject)
   if (typeof nuxt_plugin_axios_1ab911e3 === 'function') await nuxt_plugin_axios_1ab911e3(app.context, inject)
+  if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
 
   if (process.client) {
     if (typeof nuxt_plugin_localStorage_830ec59e === 'function') await nuxt_plugin_localStorage_830ec59e(app.context, inject)

@@ -128,6 +128,7 @@ import ProfileCard from '~/components/InfoCards/ProfileCard';
 import Post from "~/components/PostCard/feedPost";
 
 export default {
+  middleware: 'activePost',
   name: "user-page-test",
   components: {
     Header,
@@ -167,18 +168,18 @@ export default {
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
-    let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
-      this.bannerPictureURL = infoRes.data.headerPicture;
-      this.profilePictureURL = infoRes.data.profilePicture;
-      this.communityId = infoRes.data._id;
-      this.communityDescription = infoRes.data.description;
-      this.adminId = infoRes.data.admins[0];
+    let infoRes = await this.$axios.$get(`/api/v1/communities/c/${this.communityName}`)
+      this.bannerPictureURL = infoRes.headerPicture;
+      this.profilePictureURL = infoRes.profilePicture;
+      this.communityId = infoRes._id;
+      this.communityDescription = infoRes.description;
+      this.adminId = infoRes.admins[0];
 
-      this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
-      this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
+      this.communityStats.push({name: 'Subs', stat: infoRes.subscribers});
+      this.communityStats.push({name: 'Posts', stat: infoRes.postCount});
 
     // get posts
-    this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/${this.postList.length}`);
+    this.postList = await this.$axios.$get(`/api/v1/community/posts/${ this.communityId }/${ this.sort }/${this.postList.length}`);
 
     await this.scroll();
 
@@ -194,7 +195,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/community/posts/${ this.communityId }/${ this.sort }/0`);
 
       await this.scroll();
     }
@@ -208,7 +209,7 @@ export default {
           const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/posts/community/${this.communityId}/${this.sort}/${this.postList.length}`);
+            const posts = await this.$axios.$get(`/api/v1/community/posts/${this.communityId}/${this.sort}/${this.postList.length}`);
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
