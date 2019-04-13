@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="sorting">
     <div>
-      <b-dropdown class="dropdown-container" :mobile-modal="false" position="is-bottom-left" aria-role="list">
+      <b-dropdown class="dropdown-container" hoverable aria-role="list">
         <div slot="trigger" class="dropdown-selector">
             <b class="font theme-color selector-child">{{ sort }}</b>
           <font-awesome-icon

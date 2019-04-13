@@ -7,6 +7,8 @@
           :project="this.project"
           :community="this.community"
           :isProject="this.isProject"
+          :postId="this.post._id"
+          @delete-post="echoDeletePost"
         />
             <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
@@ -41,7 +43,8 @@
       isMobile: {
         type: Boolean,
         default: false,
-      }
+      },
+      methodProp: {type: Function},
     },
     data() {
       return {
@@ -85,28 +88,32 @@
       }
     },
     methods: {
+      echoDeletePost(postId) {
+        this.$emit('delete-post', postId)
+      },
+
       openPost() { // figure out how to
-
-        if (this.isMobile) {
-          this.$router.push({
-            path: `/dev/mobile/${this.post._id}`
-          })
-        } else {
-
-          this.$modal.open({
-            parent: this,
-            component: PostModal,
-            props: {
-              post: this.post,
-              profile: this.profile,
-              project: this.project,
-              community: this.community,
-              isProject: this.isProject,
+        let infoObj = {
+          community: this.community,
+          project: (this.isProject) ? this.project : {},
+          profile: (this.isProject) ? {} : this.profile
+        };
+        this.$modal.open({
+          parent: this,
+          component: PostModal,
+          props: {
+            infoObj: infoObj,
+            postObj: this.post,
+            isProject: this.isProject,
+          },
+          events: {
+            'delete-post': postId => {
+              this.echoDeletePost(postId);
             },
-            width: 900,
-            hasModalCard: true,
-          });
-        }
+          },
+          width: 900,
+          hasModalCard: true,
+        });
       },
     }
   };

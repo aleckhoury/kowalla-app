@@ -180,8 +180,6 @@ export default {
   },
   methods: {
     callEditProfileModal() {
-      console.log('edit profile settings pressed')
-
       this.$modal.open({
         parent: this,
         component: EditProfileModal,
