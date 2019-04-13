@@ -85,7 +85,7 @@
 
                 <!-- post feed -->
                 <div class="column is-two-thirds">
-                  <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+                  <Post v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
                 <!-- info pane -->
@@ -165,7 +165,6 @@
       <Post
         class="newsfeed-margin"
         v-for="post in postList"
-        v-if="!!postList.length"
         :key="post._id"
         :post="post"
       />
@@ -193,6 +192,7 @@ import Post from "~/components/PostCard/feedPost";
 import PostModal from '~/components/PostCard/modalPost.vue';
 
 export default {
+  middleware: 'activePost',
   name: "user-page-test",
   components: {
     Header,
@@ -240,27 +240,27 @@ export default {
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
-    let infoRes = await this.$axios.get(`/api/v1/projects/p/${this.projectName}`);
-      this.bannerPictureURL = infoRes.data.headerPicture;
-      this.projectProfilePictureURL = infoRes.data.profilePicture;
-      this.projectId = infoRes.data._id;
-      this.projectDescription = infoRes.data.description;
-      this.admins = infoRes.data.admins;
+    let infoRes = await this.$axios.$get(`/api/v1/projects/p/${this.projectName}`);
+      this.bannerPictureURL = infoRes.headerPicture;
+      this.projectProfilePictureURL = infoRes.profilePicture;
+      this.projectId = infoRes._id;
+      this.projectDescription = infoRes.description;
+      this.admins = infoRes.admins;
 
       // fill stats
-      this.projectStats.push({name: 'Subs', stat: infoRes.data.subscribers});
-      this.projectStats.push({name: 'Rep', stat: infoRes.data.reputation});
-      this.projectStats.push({name: 'Posts', stat: infoRes.data.postCount});
+      this.projectStats.push({name: 'Subs', stat: infoRes.subscribers});
+      this.projectStats.push({name: 'Rep', stat: infoRes.reputation});
+      this.projectStats.push({name: 'Posts', stat: infoRes.postCount});
 
-    let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
-      this.adminFirstName = adminRes.data.firstName;
-      this.adminLastName = adminRes.data.lastName;
-      this.adminUsername = adminRes.data.username;
-      this.adminProfilePictureURL = adminRes.data.profilePicture;
+    let adminRes = await this.$axios.$get(`/api/v1/profiles/${this.admins[0]}`);
+      this.adminFirstName = adminRes.firstName;
+      this.adminLastName = adminRes.lastName;
+      this.adminUsername = adminRes.username;
+      this.adminProfilePictureURL = adminRes.profilePicture;
 
-      this.profileStats.push({name: 'Rep', stat: adminRes.data.reputation});
-      this.profileStats.push({name: 'Posts', stat: adminRes.data.postCount});
-      this.profileStats.push({name: 'Replies', stat: adminRes.data.commentCount});
+      this.profileStats.push({name: 'Rep', stat: adminRes.reputation});
+      this.profileStats.push({name: 'Posts', stat: adminRes.postCount});
+      this.profileStats.push({name: 'Replies', stat: adminRes.commentCount});
 
     if (this.isNestedURL) {
       // need to launch modal to show post

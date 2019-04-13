@@ -23,11 +23,11 @@
               </div>
 
               <div
-                v-if="$store.state.messages.messages.length > 0"
+                v-if="this.$store.state.messages.messages.length > 0"
                 class="level-right">
 
                 <div
-                  v-for="item in $store.state.messages.messages"
+                  v-for="item in this.$store.state.messages.messages"
                   :key="item"
                   class="level-item">
                   <div class="message">

@@ -34,7 +34,7 @@
 
           <div class="level-right">
 
-            <div v-if="this.$auth.loggedIn" class="level-item">
+            <div v-if="this.$store.state.user.loggedIn" class="level-item">
               <Button @kow-button-click="newPostModal"><b>New</b></Button>
 
               <Searchbar />
@@ -47,14 +47,10 @@
                 :username="this.$store.state.user.username" />
             </div>
 
-            <div v-if="!this.$auth.loggedIn" class="level-item">
+            <div v-if="!this.$store.state.user.loggedIn" class="level-item">
               <Searchbar />
-              <nuxt-link
-                class="page-link"
-                to="/login"><b>Login</b></nuxt-link>
+              <b class="page-link" @click="cardModal">Login/Sign Up</b>
             </div>
-
-
           </div>
       </nav>
     </div>
@@ -67,9 +63,15 @@ import Searchbar from './Searchbar';
 import NavProfilePicture from './NavProfilePicture';
 import NavNotifications from './NavNotifications';
 import HelpModal from '~/components/Modals/Other/HelpModal';
+import LoginRegisterModal from '~/components/LoginRegisterModal'
 
 export default {
   name: 'NavHeader',
+  data() {
+    return {
+      isMounted: false,
+    }
+  },
   components: {
     Button,
     Searchbar,
@@ -88,7 +90,16 @@ export default {
         width: 900,
         hasModalCard: true
       });
-    }
+    },
+    cardModal() {
+      this.$modal.open({
+                parent: this,
+                component: LoginRegisterModal,
+                width: 900,
+                hasModalCard: true,
+              },
+        )
+    },
   }
 
 };
@@ -112,7 +123,7 @@ export default {
 .page-link {
   font-family: "Helvetica Neue";
   font-size: 1em;
-  color: #2F8168;
+  color: white;
   display: flex;
   align-items: center;
   padding: 6px;

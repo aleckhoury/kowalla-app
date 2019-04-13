@@ -12,7 +12,7 @@
 
         <!-- post feed -->
         <div class="column is-one-half is-paddingless" id="postFeed">
-          <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
+          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
         <!-- info pane -->
@@ -102,7 +102,7 @@
 
       <Post
         class="newsfeed-margin"
-        v-if="!!postList.length"
+
         v-for="post in postList"
         :key="post._id"
         :post="post"
@@ -130,6 +130,7 @@ import EditProfileModal from '~/components/Modals/Edit/EditProfileModal';
 import Post from "~/components/PostCard/feedPost";
 
 export default {
+  middleware: 'activePost',
   name: 'UserPageTest',
   components: {
     NavPane,
@@ -172,7 +173,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/profile/posts/${ this.profileId }/${ this.sort }/0`);
 
       await this.scroll();
     }
@@ -204,7 +205,7 @@ export default {
           const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
+            const posts = await this.$axios.$get(`/api/v1/profile/posts/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
@@ -219,26 +220,26 @@ export default {
     this.username = this.$route.params.username;
   },
   async mounted() {
-    let infoRes = await this.$axios.get(`/api/v1/profiles/u/${this.username}`);
+    let infoRes = await this.$axios.$get(`/api/v1/profiles/u/${this.username}`);
     //------------------
     // remove if statements, but keep assignments in production.
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
     //------------------
     // get name
-    if (infoRes.data.hasOwnProperty('firstName')) {
-      this.firstName = infoRes.data.firstName;
-      this.lastName = infoRes.data.lastName;
-      this.profileDescription = infoRes.data.description;
-      this.profilePictureURL = infoRes.data.profilePicture;
-      this.profileId = infoRes.data._id;
-      this.profileStats.push({ name: 'Rep', stat: infoRes.data.reputation });
-      this.profileStats.push({ name: 'Posts', stat: infoRes.data.postCount });
-      this.profileStats.push({ name: 'Replies', stat: infoRes.data.commentCount });
+    if (infoRes.hasOwnProperty('firstName')) {
+      this.firstName = infoRes.firstName;
+      this.lastName = infoRes.lastName;
+      this.profileDescription = infoRes.description;
+      this.profilePictureURL = infoRes.profilePicture;
+      this.profileId = infoRes._id;
+      this.profileStats.push({ name: 'Rep', stat: infoRes.reputation });
+      this.profileStats.push({ name: 'Posts', stat: infoRes.postCount });
+      this.profileStats.push({ name: 'Replies', stat: infoRes.commentCount });
 
-      let subRes = await this.$axios.get(`/api/v1/profiles/${this.profileId}/subs`);
-      this.profileSubs = subRes.data.profileSubscriptions;
+      let subRes = await this.$axios.$get(`/api/v1/profiles/${this.profileId}/subs`);
+      this.profileSubs = subRes.profileSubscriptions;
 
-      this.postList = await this.$axios.$get(`/api/v1/posts/profile/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
+      this.postList = await this.$axios.$get(`/api/v1/profile/posts/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
 
       await this.scroll();
 

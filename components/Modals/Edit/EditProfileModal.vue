@@ -67,7 +67,7 @@ export default {
     async editProfile(editForm) {
       console.log('edit profile');
       try {
-        let profileData = await this.$axios.put(`api/v1/profiles/${this.profileId}`, {
+        let profileData = await this.$axios.$put(`api/v1/profiles/${this.profileId}`, {
           firstName: editForm.firstName, // will need to update local state
           lastName: editForm.lastName,
           username: editForm.username,
@@ -79,18 +79,18 @@ export default {
         if (profileData.status === 200) {
 
           let editObj = {
-            firstName: profileData.data.firstName,
-            lastName: profileData.data.lastName,
-            profilePicture: profileData.data.profilePicture,
-            description: profileData.data.description,
-            username: profileData.data.username,
+            firstName: profileData.firstName,
+            lastName: profileData.lastName,
+            profilePicture: profileData.profilePicture,
+            description: profileData.description,
+            username: profileData.username,
           };
 
           this.$store.commit('user/editProfile', editObj);
 
           // if name returned isn't the same as we started with
-          if (profileData.data.username !== this.username) {
-            this.$router.push({ path: `/dev/u/${profileData.data.username}` });
+          if (profileData.username !== this.username) {
+            this.$router.push({ path: `/dev/u/${profileData.username}` });
           } else { // otherwise, refresh
             this.$router.go()
           }

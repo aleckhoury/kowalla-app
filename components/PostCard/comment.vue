@@ -60,7 +60,7 @@ const { format } = require('timeago.js');
           // this.replyList.map(async (nestComment, idx) => {
           //   this.replyList[idx].upvote =
           // });
-          this.upvote = await this.$axios.$get(`/api/v1/upvotes/${this.comment._id}/${this.$store.state.user._id}`)
+          this.upvote = await this.$axios.$get(`/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`)
       } catch {
         console.log('error grabbing some values');
       }
@@ -86,10 +86,11 @@ const { format } = require('timeago.js');
       },
       toggleUpvote() {
         if (this.upvote.userUpvoted) {
-          this.$axios.delete(`/api/v1/upvotes/${this.$store.state.user._id}/${this.comment._id}`);
+          this.$axios.delete(`/api/v1/comments/${ this.comment.postId }/${this.$store.state.user._id}/upvote`);
         } else {
-          this.$axios.post(`/api/v1/upvotes/${this.$store.state.user._id}`, {
+          this.$axios.$post(`/api/v1/comments/upvote`, {
             commentId: this.comment._id,
+            profileId: this.$store.state.user._id,
           });
         }
         this.upvote.userUpvoted = !this.upvote.userUpvoted;

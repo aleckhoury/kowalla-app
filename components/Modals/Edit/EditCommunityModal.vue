@@ -61,7 +61,7 @@ export default {
       console.log('edit community');
       try {
         console.log(this.communityId)
-        let communityData = await this.$axios.put(`api/v1/communities/${this.communityId}`, {
+        let communityData = await this.$axios.$put(`api/v1/communities/${this.communityId}`, {
           name: editForm.name, // will need to update local state
           description: editForm.description,
           profilePicture: editForm.profilePicture,
@@ -73,9 +73,9 @@ export default {
 
           // update state with changes -> should probably check for changes
           let subObj = {
-            name: communityData.data.name,
-            pictureURL: communityData.data.profilePicture,
-            communityId: communityData.data._id
+            name: communityData.name,
+            pictureURL: communityData.profilePicture,
+            communityId: communityData._id
           };
 
 
@@ -83,8 +83,8 @@ export default {
           this.$store.commit('user/editOwned', subObj)
 
           // if name returned isn't the same as we started with
-          if (communityData.data.name !== this.name) {
-            this.$router.push({ path: `/dev/c/${communityData.data.name}` });
+          if (communityData.name !== this.name) {
+            this.$router.push({ path: `/dev/c/${communityData.name}` });
           } else { // otherwise, refresh
             this.$router.go();
           }

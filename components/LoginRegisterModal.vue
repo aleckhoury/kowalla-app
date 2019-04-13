@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 
   export default {
     name: "LoginRegisterModal",
@@ -83,58 +84,48 @@
     methods: {
       async register(registerForm) {
         try {
-          await this.$axios.post('api/v1/users', {
+          await this.$axios.$post('api/v1/users', {
             username: registerForm.username,
             password: registerForm.password,
           });
+          const token = await this.$axios.$post('/api/v1/users/login', {
+              username: registerForm.username,
+              password: registerForm.password,
+          });
+          await Cookies.set('token', token);
+          const user = await this.$axios.$get(`api/v1/users/${ registerForm.username }`);
 
-          await this.$auth.loginWith('local', {
-            data: {
-              username: registerForm.username,
-              password: registerForm.password,
-            },
-          });
-          const user = await this.$axios.get('api/v1/users/me', {
-            params: {
-              username: registerForm.username,
-              password: registerForm.password,
-            },
-          });
-          console.log('test');
-          console.log(user);
-          this.$store.commit('user/setUser', user.data);
-          this.$parent.close();
-          this.$router.push('/dev');
-        } catch (e) {
-          console.log(e);
-        }
-      },
-      async login(loginForm) {
-        try {
-          await this.$auth.loginWith('local', {
-            data: {
-              username: loginForm.username,
-              password: loginForm.password,
-            },
-          });
-          const user = await this.$axios.get('api/v1/users/me', {
-            params: {
-              username: loginForm.username,
-              password: loginForm.password,
-            },
-          });
-          this.$store.commit('user/setUser', user.data);
-          this.$parent.close();
-          this.$router.push('/dev');
+          await Object.assign(user, { loggedIn: Boolean(Object.keys(user).length)});
+
+          await this.$store.commit('user/setUser', user);
+          await this.$parent.close();
+          location.reload();
         } catch (err) {
           console.log(err);
         }
       },
-      logout() {
-        this.$auth.logout();
+      async login(loginForm) {
+        try {
+          const res =  await this.$axios.$post('/api/v1/users/login', {
+              username: loginForm.username,
+              password: loginForm.password,
+          });
+          Cookies.set('token', res.token);
+          const user = await this.$axios.$get(`api/v1/users/${ loginForm.username }`);
+          const subs = await this.$axios.$get(`/api/v1/profiles/${ user._id }/subs`);
+
+          const { owned, subscriptions } = subs.profileSubscriptions;
+          await Object.assign(user, { loggedIn: Boolean(Object.keys(user).length)});
+          await Object.assign(user, { subscriptions, owned });
+
+          await this.$store.commit('user/setUser', user);
+          await this.$parent.close();
+          // location.reload();
+        } catch (err) {
+          console.log(err);
+        }
       },
     },
-    mounted() {}
   }
 </script>
 

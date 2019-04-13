@@ -68,26 +68,26 @@ export default {
         if (option !== null) { // for some reason this sometimes gets pushed through as "null"
           if (option.hasOwnProperty("profileId")) {
             console.log('is profile')
-            let responseData = await this.$axios.get(`/api/v1/profiles/${option.profileId}`);
+            let responseData = await this.$axios.$get(`/api/v1/profiles/${option.profileId}`);
 
             this.$router.push({
-              path: `/dev/u/${responseData.data.username}`
+              path: `/dev/u/${responseData.username}`
             });
           }
 
           if (option.hasOwnProperty("projectId")) {
-            let responseData = await this.$axios.get(`/api/v1/projects/${option.projectId}`);
+            let responseData = await this.$axios.$get(`/api/v1/projects/${option.projectId}`);
 
             this.$router.push({
-              path: `/dev/p/${responseData.data.name}`
+              path: `/dev/p/${responseData.name}`
             });
           }
 
           if (option.hasOwnProperty("communityId")) {
-            let responseData = await this.$axios.get(`/api/v1/communities/${option.communityId}`);
+            let responseData = await this.$axios.$get(`/api/v1/communities/${option.communityId}`);
 
             this.$router.push({
-              path: `/dev/c/${responseData.data.name}`
+              path: `/dev/c/${responseData.name}`
             });
           }
         }
