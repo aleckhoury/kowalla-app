@@ -52,10 +52,10 @@ export default {
 .picture {
   height: 36px;
   width: 36px;
-
   border-radius: 6px;
   margin-left: 8px;
   cursor: pointer;
+  border: 1px solid #999;
 }
 
 .nav-card-link-content {
@@ -67,6 +67,7 @@ export default {
 .name {
   font-family: "Helvetica Neue";
   font-size: 1em;
+  height: 50%;
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -80,6 +81,8 @@ export default {
 .info {
   font-family: "Helvetica Neue";
   font-size: 0.75em;
+  margin-top: 2px;
+  height: 50%;
   color: #999;
 }
 </style>

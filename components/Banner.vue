@@ -39,11 +39,6 @@ export default {
       this.$emit('subscription-button-clicked', subBool);
     }
   },
-  mounted() {
-    if (this.isMobile) {
-      console.log('mobile banner')
-    }
-  }
 }
 </script>
 <style lang="css" scoped>

@@ -6,25 +6,37 @@
         <div class="title">Edit {{name}}</div>
 
         <b-field label="Community name">
-            <b-input v-model="editForm.name" maxlength="15"></b-input>
+          <b-input
+            v-model="editForm.name"
+            maxlength="15"
+          />
         </b-field>
 
         <b-field label="Profile Picture">
-            <b-input v-model="editForm.profilePicture" maxlength="200"></b-input>
+          <b-input
+            v-model="editForm.profilePicture"
+            maxlength="200"
+          />
         </b-field>
 
         <b-field label="Banner Picture">
-            <b-input v-model="editForm.headerPicture" maxlength="200"></b-input>
+          <b-input
+            v-model="editForm.headerPicture"
+            maxlength="200"
+          />
         </b-field>
 
         <b-field label="Description">
-            <b-input v-model="editForm.description" maxlength="500" type="textarea"></b-input>
+          <b-input
+            v-model="editForm.description"
+            maxlength="500"
+            type="textarea"
+          />
         </b-field>
         <a class="button action" @click="editCommunity(editForm)">
             Submit
         </a>
       </section>
-
     </div>
   </div>
 </template>
@@ -58,19 +70,15 @@ export default {
   },
   methods: {
     async editCommunity(editForm) {
-      console.log('edit community');
       try {
-        console.log(this.communityId)
-        let communityData = await this.$axios.$put(`api/v1/communities/${this.communityId}`, {
+        let communityData = await this.$axios.put(`api/v1/communities/${this.communityId}`, {
           name: editForm.name, // will need to update local state
           description: editForm.description,
           profilePicture: editForm.profilePicture,
           headerPicture: editForm.headerPicture,
         });
-        console.log(communityData);
 
         if (communityData.status === 200) {
-
           // update state with changes -> should probably check for changes
           let subObj = {
             name: communityData.name,
@@ -78,8 +86,6 @@ export default {
             communityId: communityData._id
           };
 
-
-          //this.$store.dispatch('user/editOwned', subObj)
           this.$store.commit('user/editOwned', subObj)
 
           // if name returned isn't the same as we started with

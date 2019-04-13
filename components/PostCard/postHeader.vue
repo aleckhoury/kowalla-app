@@ -62,7 +62,24 @@
 
         </div>
         <div class="media-right">
-            <font-awesome-icon icon="angle-down"></font-awesome-icon>
+          <b-dropdown position="is-bottom-left" aria-role="list">
+            <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
+
+            <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
+              <font-awesome-icon icon="link" />
+              Copy link
+            </b-dropdown-item>
+
+            <b-dropdown-item
+              aria-role="listitem"
+              key="1"
+              v-if="this.profile._id === this.$store.state.user._id"
+              @click="deletePost"
+            >
+              <font-awesome-icon icon="trash-alt" />
+              Delete
+            </b-dropdown-item>
+          </b-dropdown>
         </div>
     </div>
 </template>
@@ -74,6 +91,7 @@
     props: {
       isActive: Boolean,
       createdAt: String,
+      postId: String,
       profile: {},
       project: {},
       community: {},
@@ -81,37 +99,39 @@
     },
     data() {
       return {
-        /*profile: {},
-        project: {},
-        community: {},*/
-        //isProject: Boolean,
       }
     },
-    async mounted() {
+    methods: {
+      copyPostURL() {
+        let stringToCopy = "";
 
-      // posts can be posted by projects or profiles, grab the right info
-      // based on the id given by the post object in props
-      /*
-      if (this.post.hasOwnProperty('projectId')) {
-        this.isProject = true;
-        try {
-          this.project = await this.$axios.$get(`/api/v1/projects/${this.post.projectId}`);
-          this.community = await this.$axios.$get(`/api/v1/communities/${this.post.communityId}`);
-        } catch {
-          console.log('error grabbing some values');
+        if (this.isProject) {
+          stringToCopy = `www.kowalla.co/dev/p/${this.project.name}/posts/${this.postId}`;
+        } else {
+          stringToCopy = `www.kowalla.co/dev/c/${this.community.name}/posts/${this.postId}`;
         }
+
+        let x = document.createElement('input');
+
+        document.body.appendChild(x);
+        x.value = stringToCopy;
+        x.select();
+
+        try {
+          let successful = document.execCommand('copy');
+          let msg = successful ? 'successful' : 'unsuccessful';
+          this.$toast.open('Link copied! :)')
+        }
+
+        catch (err) {
+          this.$toast.open('Link copy failed, try opening the post and copying the URL directly')
+        }
+        document.body.removeChild(x);
+      },
+
+      deletePost() {
+        this.$emit('delete-post', this.postId)
       }
-
-      if (this.post.hasOwnProperty('profileId')) {
-        this.isProject = false;
-        try {
-          this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
-          this.community = await this.$axios.$get(`/api/v1/communities/${this.post.communityId}`);
-        } catch {
-          console.log('error grabbing some values');
-        }
-      }*/
-
     },
     computed: {
       createdAtFormatted() {

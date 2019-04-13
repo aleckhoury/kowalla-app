@@ -10,14 +10,14 @@
     @select="optionSelected">
     <!--<template slot="empty">No results found</template>-->
     <template slot-scope="props">
-      <div class="media">
+      <div class="search-item-container">
           <div class="media-left">
-              <img width="36" :src="props.option.picture">
+              <img width="40" :src="props.option.picture">
           </div>
-          <div class="media-content">
-              {{ props.option.name }}
-              <br>
+          <div>
+              <span class="search-item-text">{{ props.option.name }}</span>
 
+              <br/>
               <small v-if="props.option.hasOwnProperty('profileId')">
                   Profile
               </small>
@@ -67,8 +67,7 @@ export default {
 
         if (option !== null) { // for some reason this sometimes gets pushed through as "null"
           if (option.hasOwnProperty("profileId")) {
-            console.log('is profile')
-            let responseData = await this.$axios.$get(`/api/v1/profiles/${option.profileId}`);
+            let responseData = await this.$axios.get(`/api/v1/profiles/${option.profileId}`);
 
             this.$router.push({
               path: `/dev/u/${responseData.username}`
@@ -115,5 +114,16 @@ export default {
 
 .searchbar-container:focus {
   outline: none;
+}
+
+.search-item-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.search-item-text {
+  height: 50%;
+  font-size: 1em;
 }
 </style>
