@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     async editProject(editForm) {
-      console.log('edit project');
       try {
         let projectData = await this.$axios.$put(`api/v1/projects/${this.projectId}`, {
           name: editForm.name, // will need to update local state
@@ -66,7 +65,6 @@ export default {
           profilePicture: editForm.profilePicture,
           headerPicture: editForm.headerPicture,
         });
-        console.log(projectData);
 
         if (projectData.status === 200) {
 
