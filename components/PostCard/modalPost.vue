@@ -9,6 +9,8 @@
                 :project="this.project"
                 :community="this.community"
                 :isProject="this.isProject"
+                :postId="this.post._id"
+                @delete-post="echoDeletePost"
               />
               <PostTimer v-if="post.isActive" :time="post.expiration" />
               <div class="content is-marginless" v-html="post.content">
@@ -44,34 +46,75 @@ export default {
   name: "PostModal",
   components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
   props: {
-    post: Object,
+    //post: Object,
     isFromNestedURL: { type: Boolean, default: false },
     isFromNewsfeed: { type: Boolean, default: false },
     fallbackURL: { type: String, default: ''},
-    profile: Object,
-    project: Object,
-    community: Object,
     isProject: Boolean,
-
+    infoObj: { type: Object, default: function () { return {} } },
+    postObj: { type: Object, default: function () { return {} } },
   },
   data() {
     return {
       commentList: [],
       activeCommentId: '',
       originalPath: '',
+      profile: {},
+      project: {},
+      community: {},
+      post: {},
     }
   },
   created() {
-    this.originalPath = this.$route.path;
-    window.history.pushState(
-      {}, null,
-      `/dev/c/${this.community.name}/posts/${this.post._id}`
-    )
+    this.post = this.postObj;
+
+    if (!this.isFromNestedURL) {
+      this.originalPath = this.$route.path;
+      window.history.pushState(
+        {}, null,
+        `/dev/c/${this.community.name}/posts/${this.post._id}`
+      );
+
+      this.profile = this.infoObj.profile;
+      this.community = this.infoObj.community;
+      this.project = this.infoObj.project;
+    }
   },
   beforeDestroy() {
     window.history.pushState({}, null, `${this.$route.path}`)
   },
   async mounted() {
+    //this.post = await this.$axios.$get(`/api/v1/posts/${this.post._id}`);
+
+
+    if (this.isFromNestedURL) {
+      // have to get information we haven't gotten from the feedPost component
+
+      if (this.post.hasOwnProperty('projectId')) {
+        this.isProject = true;
+        try {
+          this.project = await this.$axios.$get(`/api/v1/projects/${this.post.projectId}`);
+          this.community = await this.$axios.$get(`/api/v1/communities/${this.post.communityId}`);
+
+
+        } catch {
+          console.log('error grabbing some values');
+        }
+      }
+
+      if (this.post.hasOwnProperty('profileId')) {
+        this.isProject = false;
+        try {
+          this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
+
+          //console.log(profile);
+          this.community = await this.$axios.$get(`/api/v1/communities/${this.post.communityId}`);
+        } catch {
+          console.log('error grabbing some values');
+        }
+      }
+    }
+
     this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
     this.commentList.map(async (comment, idx) => {
       this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/upvotes/${comment._id}/${this.$store.state.user._id}`)
@@ -89,6 +132,9 @@ export default {
     },
     toggleComment(activeCommentId) {
       this.activeCommentId = activeCommentId;
+    },
+    echoDeletePost(postId) {
+      this.$emit('delete-post', postId)
     },
   }
 };

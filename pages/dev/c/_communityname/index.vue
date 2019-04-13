@@ -26,11 +26,16 @@
                 @subscription-button-clicked="updateSubscriptions"
               />
 
-
+            <!-- v-for="post in postList" -->
             <div class="columns is-marginless newsfeed-padding" id="postFeed">
               <div class="column is-two-thirds">
-                <Post v-if="!!postList.length" v-for="post in postList" :key="post._id" :post="post"></Post>
-
+                <Post
+                  v-if="!!postList.length"
+                  v-for="post in postList"
+                  :key="post._id"
+                  :post="post"
+                  @delete-post="removePostFromPostList"
+                />
               </div>
               <div class="column is-one-third is-paddingless side-pane">
                 <InfoPane>
@@ -105,6 +110,7 @@
         v-for="post in postList"
         :key="post._id"
         :post="post"
+        @delete-post="removePostFromPostList"
       />
     </div>
 
@@ -126,6 +132,7 @@ import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
 import Post from "~/components/PostCard/feedPost";
+import PostModal from '~/components/PostCard/modalPost.vue';
 
 export default {
   name: "user-page-test",
@@ -156,26 +163,55 @@ export default {
       communityId: '',
       communityStats: [],
 
+      isNestedURL: false,
+
       // newsfeed content
       postList: [],
     }
   },
   created() {
     this.communityName = this.$route.params.communityname;
+    if (this.$route.params.hasOwnProperty('postId')) {
+      this.isNestedURL = true;
+    }
   },
   async mounted() {
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
     let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
-      this.bannerPictureURL = infoRes.data.headerPicture;
-      this.profilePictureURL = infoRes.data.profilePicture;
-      this.communityId = infoRes.data._id;
-      this.communityDescription = infoRes.data.description;
-      this.adminId = infoRes.data.admins[0];
+    this.bannerPictureURL = infoRes.data.headerPicture;
+    this.profilePictureURL = infoRes.data.profilePicture;
+    this.communityId = infoRes.data._id;
+    this.communityDescription = infoRes.data.description;
+    this.adminId = infoRes.data.admins[0];
 
-      this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
-      this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
+    // fill stats
+    this.communityStats.push({name: 'Subs', stat: infoRes.data.subscribers});
+    this.communityStats.push({name: 'Posts', stat: infoRes.data.postCount});
+
+
+    if (this.isNestedURL) {
+      // need to launch modal to show post
+      let post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+
+      this.$modal.open({
+        parent: this,
+        component: PostModal,
+        props: {
+          postObj: post,
+          isFromNestedURL: true,
+          fallbackURL: `/dev/c/${this.communityName}`,
+        },
+        events: {
+          'delete-post': postId => {
+            this.removePostFromPostList(postId);
+          },
+        },
+        width: 900,
+        hasModalCard: true,
+      });
+    }
 
     // get posts
     this.postList = await this.$axios.$get(`/api/v1/posts/community/${ this.communityId }/${ this.sort }/${this.postList.length}`);
@@ -245,7 +281,16 @@ export default {
         width: 900,
         hasModalCard: true
       });
-    }
+    },
+    async removePostFromPostList(postId) {
+      for (let i in this.postList) {
+        if (this.postList[i]._id === postId) {
+          this.postList.splice(i, 1);
+          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          break;
+        }
+      }
+    },
   }
 }
 

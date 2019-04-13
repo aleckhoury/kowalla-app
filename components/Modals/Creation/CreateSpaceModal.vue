@@ -6,22 +6,36 @@
         <b-tab-item label="Project">
           <section>
             <div class="title">Create a Project</div>
-            <div>what are projects description</div>
+
             <b-field label="Project username">
-                <b-input v-model="spaceForm.name" maxlength="15"></b-input>
+                <b-input
+                  v-model="spaceForm.name"
+                  maxlength="15"
+                />
             </b-field>
 
             <b-field label="Profile Picture">
-                <b-input v-model="spaceForm.profilePicture" maxlength="200"></b-input>
+                <b-input
+                  v-model="spaceForm.profilePicture"
+                  maxlength="200"
+                />
             </b-field>
 
             <b-field label="Banner Picture">
-                <b-input v-model="spaceForm.headerPicture" maxlength="200"></b-input>
+                <b-input
+                  v-model="spaceForm.headerPicture"
+                  maxlength="200"
+                />
             </b-field>
 
             <b-field label="Description">
-                <b-input v-model="spaceForm.description" maxlength="500" type="textarea"></b-input>
+                <b-input
+                  v-model="spaceForm.description"
+                  maxlength="500"
+                  type="textarea"
+                />
             </b-field>
+
             <a class="button action" @click="createProject(spaceForm)">
                 Create
             </a>
@@ -32,22 +46,37 @@
         <b-tab-item label="Community">
           <section>
             <div class="title">Create a Community</div>
-            <div>what are communities description</div>
+
             <b-field label="Community name">
-                <b-input v-model="spaceForm.name" maxlength="15"></b-input>
+                <b-input
+                  v-model="spaceForm.name"
+                  placeholder="KowallaFanClub"
+                  maxlength="15"
+                />
             </b-field>
 
             <b-field label="Profile Picture">
-                <b-input v-model="spaceForm.profilePicture" maxlength="200"></b-input>
+                <b-input
+                  v-model="spaceForm.profilePicture"
+                  maxlength="200"
+                />
             </b-field>
 
             <b-field label="Banner Picture">
-                <b-input v-model="spaceForm.headerPicture" maxlength="200"></b-input>
+                <b-input
+                  v-model="spaceForm.headerPicture"
+                  maxlength="200"
+                />
             </b-field>
 
             <b-field label="Description">
-                <b-input v-model="spaceForm.description" maxlength="200" type="textarea"></b-input>
+                <b-input
+                  v-model="spaceForm.description"
+                  maxlength="200"
+                  type="textarea"
+                />
             </b-field>
+            
             <a class="button action" @click="createCommunity(spaceForm)">
                 Create
             </a>
@@ -73,7 +102,6 @@ export default {
   },
   methods: {
     async createProject(spaceForm) {
-      console.log('create project');
       try {
         let projectData = await this.$axios.post('api/v1/projects', {
           name: spaceForm.name,
@@ -82,7 +110,6 @@ export default {
           headerPicture: spaceForm.headerPicture,
           admins: [this.$store.state.user.username]
         });
-        console.log(projectData);
 
         if (projectData.status === 201) {
           // update local state
@@ -107,7 +134,6 @@ export default {
       }
     },
     async createCommunity(spaceForm) {
-      console.log('create community');
       try {
         let communityData = await this.$axios.post('api/v1/communities', {
           name: spaceForm.name,
@@ -116,7 +142,6 @@ export default {
           headerPicture: spaceForm.headerPicture,
           admins: [this.$store.state.user.username]
         });
-        console.log(communityData);
 
         if (communityData.status === 201) {
           // update local state
@@ -137,7 +162,7 @@ export default {
         }
       }
       catch (e) {
-        console.log(e);
+        // need error handling during QA
       }
     }
   },

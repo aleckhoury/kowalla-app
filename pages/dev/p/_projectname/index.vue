@@ -46,8 +46,6 @@
                     <b>Edit Settings</b>
                   </EditButton>
 
-                  <MobilePostView v-if="showMobilePostView"></MobilePostView>
-
                 </div>
 
                 <div class="column is-half is-paddingless">
@@ -227,7 +225,6 @@ export default {
       // newsfeed content
       postList: [],
       isNestedURL: false,
-      showMobilePostView: false,
     }
   },
   created() {
@@ -240,6 +237,11 @@ export default {
     this.isOwner = this.$store.getters['user/isUserOwner'];
     this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
 
+    // #############
+    // Can probably add all these to a util function to save space in each index.vue
+    // #############
+
+    // get project details
     let infoRes = await this.$axios.get(`/api/v1/projects/p/${this.projectName}`);
       this.bannerPictureURL = infoRes.data.headerPicture;
       this.projectProfilePictureURL = infoRes.data.profilePicture;
@@ -247,32 +249,39 @@ export default {
       this.projectDescription = infoRes.data.description;
       this.admins = infoRes.data.admins;
 
-      // fill stats
+      // fill project stats
       this.projectStats.push({name: 'Subs', stat: infoRes.data.subscribers});
       this.projectStats.push({name: 'Rep', stat: infoRes.data.reputation});
       this.projectStats.push({name: 'Posts', stat: infoRes.data.postCount});
 
+      // get admin details
     let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
       this.adminFirstName = adminRes.data.firstName;
       this.adminLastName = adminRes.data.lastName;
       this.adminUsername = adminRes.data.username;
       this.adminProfilePictureURL = adminRes.data.profilePicture;
 
+      // fill profil estats
       this.profileStats.push({name: 'Rep', stat: adminRes.data.reputation});
       this.profileStats.push({name: 'Posts', stat: adminRes.data.postCount});
       this.profileStats.push({name: 'Replies', stat: adminRes.data.commentCount});
 
     if (this.isNestedURL) {
       // need to launch modal to show post
-      this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+      let post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
 
       this.$modal.open({
         parent: this,
         component: PostModal,
         props: {
-          post: this.post,
+          postObj: post,
           isFromNestedURL: true,
           fallbackURL: `/dev/p/${this.projectName}`,
+        },
+        events: {
+          'delete-post': postId => {
+            this.removePostFromPostList(postId)
+          },
         },
         width: 900,
         hasModalCard: true,
@@ -282,7 +291,7 @@ export default {
     this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/${this.postList.length}`);
 
     await this.scroll();
-    console.log(this.postList);
+
     document.title = `Kowalla - @${this.projectName}`;
   },
   computed: {
@@ -347,9 +356,15 @@ export default {
         hasModalCard: true
       });
     },
-    runMobilePostView() {
-      this.showMobilePostView = true;
-    }
+    async removePostFromPostList(postId) {
+      for (let i in this.postList) {
+        if (this.postList[i]._id === postId) {
+          this.postList.splice(i, 1);
+          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          break;
+        }
+      }
+    },
   }
 }
 </script>
