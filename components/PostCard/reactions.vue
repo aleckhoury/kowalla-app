@@ -33,7 +33,7 @@
               class="comments level-item"
               @click="showPost()"
             >
-                <font-awesome-icon icon="comments" /> Comments
+                <font-awesome-icon icon="comments" id="commentIcon" /> Comments
             </div>
         </div>
     </div>
@@ -199,5 +199,8 @@
     }
     .visible {
       display: none;
+    }
+    #commentIcon {
+        margin-right: 0.25em;
     }
 </style>

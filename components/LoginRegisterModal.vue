@@ -120,7 +120,7 @@ import Cookies from 'js-cookie';
 
           await this.$store.commit('user/setUser', user);
           await this.$parent.close();
-          // location.reload();
+          location.reload();
         } catch (err) {
           console.log(err);
         }
