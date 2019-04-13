@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log('closeModal');
       if (this.notifications[0].notifIds[0] !== '') {
         let notifsToDeleteArray = [];
         for (let i in this.notifications) {
@@ -44,7 +43,6 @@ export default {
   async mounted() {
     let projectIds = this.$store.getters['user/getProjectIds'];
     let notificationRes = await this.$axios.post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, {projectIdsArray: projectIds})
-    console.log(notificationRes)
     if (notificationRes.data.notifications.length === 0) {
       this.notifications = [{ title: "No new notifications", message: "", notifIds: [''] }];
     }

@@ -67,7 +67,6 @@ export default {
 
         if (option !== null) { // for some reason this sometimes gets pushed through as "null"
           if (option.hasOwnProperty("profileId")) {
-            console.log('is profile')
             let responseData = await this.$axios.get(`/api/v1/profiles/${option.profileId}`);
 
             this.$router.push({

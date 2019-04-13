@@ -13,7 +13,6 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log('closeModal');
       this.$parent.close();
     }
   },

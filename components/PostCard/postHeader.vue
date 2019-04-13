@@ -130,7 +130,6 @@
       },
 
       deletePost() {
-        console.log('post header')
         this.$emit('delete-post', this.postId)
       }
     },

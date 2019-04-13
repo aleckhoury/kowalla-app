@@ -106,8 +106,6 @@ export default {
         this.isProject = false;
         try {
           this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
-
-          //console.log(profile);
           this.community = await this.$axios.$get(`/api/v1/communities/${this.post.communityId}`);
         } catch {
           console.log('error grabbing some values');

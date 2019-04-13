@@ -1,35 +1,49 @@
 <template>
   <div class="modal-content">
     <div class="box">
-
       <section>
         <div class="title">Edit Your Profile</div>
 
         <b-field label="Your first name">
-            <b-input v-model="editForm.firstName" maxlength="15"></b-input>
+          <b-input
+            v-model="editForm.firstName"
+            maxlength="15"
+          />
         </b-field>
 
         <b-field label="Your last name">
-            <b-input v-model="editForm.lastName" maxlength="15"></b-input>
+          <b-input
+            v-model="editForm.lastName"
+            maxlength="15"
+          />
         </b-field>
 
         <b-field label="Your username">
-            <b-input v-model="editForm.username" maxlength="15"></b-input>
+          <b-input
+            v-model="editForm.username"
+            maxlength="15"
+          />
         </b-field>
 
         <b-field label="Profile Picture">
-            <b-input v-model="editForm.profilePicture" maxlength="200"></b-input>
+          <b-input
+            v-model="editForm.profilePicture"
+            maxlength="200"
+          />
         </b-field>
 
         <b-field label="Description">
-            <b-input v-model="editForm.description" maxlength="500" type="textarea"></b-input>
+          <b-input
+            v-model="editForm.description"
+            maxlength="500"
+            type="textarea"
+          />
         </b-field>
 
         <a class="button action" @click="editProfile(editForm)">
             Submit
         </a>
       </section>
-
     </div>
   </div>
 </template>
@@ -65,7 +79,6 @@ export default {
   },
   methods: {
     async editProfile(editForm) {
-      console.log('edit profile');
       try {
         let profileData = await this.$axios.put(`api/v1/profiles/${this.profileId}`, {
           firstName: editForm.firstName, // will need to update local state
@@ -74,7 +87,6 @@ export default {
           description: editForm.description,
           profilePicture: editForm.profilePicture,
         });
-        console.log(profileData);
 
         if (profileData.status === 200) {
 

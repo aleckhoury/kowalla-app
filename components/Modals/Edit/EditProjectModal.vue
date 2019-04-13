@@ -1,30 +1,41 @@
 <template>
   <div class="modal-content">
     <div class="box">
-
       <section>
         <div class="title">Edit {{name}}</div>
 
         <b-field label="Project username">
-            <b-input v-model="editForm.name" maxlength="15"></b-input>
+          <b-input
+            v-model="editForm.name"
+            maxlength="15"
+          />
         </b-field>
 
         <b-field label="Profile Picture">
-            <b-input v-model="editForm.profilePicture" maxlength="200"></b-input>
+          <b-input
+            v-model="editForm.profilePicture"
+            maxlength="200"
+          />
         </b-field>
 
         <b-field label="Banner Picture">
-            <b-input v-model="editForm.headerPicture" maxlength="200"></b-input>
+          <b-input
+            v-model="editForm.headerPicture"
+            maxlength="200"
+          />
         </b-field>
 
         <b-field label="Description">
-            <b-input v-model="editForm.description" maxlength="500" type="textarea"></b-input>
+          <b-input
+            v-model="editForm.description"
+            maxlength="500"
+            type="textarea"
+        />
         </b-field>
         <a class="button action" @click="editProject(editForm)">
             Submit
         </a>
       </section>
-
     </div>
   </div>
 </template>
@@ -58,7 +69,6 @@ export default {
   },
   methods: {
     async editProject(editForm) {
-      console.log('edit project');
       try {
         let projectData = await this.$axios.put(`api/v1/projects/${this.projectId}`, {
           name: editForm.name, // will need to update local state
@@ -66,7 +76,6 @@ export default {
           profilePicture: editForm.profilePicture,
           headerPicture: editForm.headerPicture,
         });
-        console.log(projectData);
 
         if (projectData.status === 200) {
 

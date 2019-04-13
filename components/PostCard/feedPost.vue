@@ -89,7 +89,6 @@
     },
     methods: {
       echoDeletePost(postId) {
-        console.log('feed post');
         this.$emit('delete-post', postId)
       },
 
@@ -105,9 +104,6 @@
           props: {
             infoObj: infoObj,
             postObj: this.post,
-            //profile: this.profile,
-            //project: this.project,
-            //community: this.community,
             isProject: this.isProject,
           },
           events: {
