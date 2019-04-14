@@ -22,6 +22,7 @@
               <Banner
                 :bannerURL="bannerPictureURL"
                 :bannerTitle="projectName"
+                :id="projectId"
                 bannerTitlePrefix="@"
                 :isSubscribed="isSubscribed"
                 :isOwner="isOwner"
@@ -82,7 +83,7 @@
               <div class="columns is-marginless newsfeed-padding" id="postFeed">
 
                 <!-- post feed -->
-                <div class="column is-two-thirds">
+                <div class="column is-two-thirds is-paddingless">
                   <Post v-for="post in postList" :key="post._id" :post="post"></Post>
                 </div>
 
@@ -108,6 +109,7 @@
       <Banner
         :bannerURL="bannerPictureURL"
         :bannerTitle="projectName"
+        :id="projectId"
         bannerTitlePrefix="@"
         :isSubscribed="isSubscribed"
         :isOwner="isOwner"
@@ -212,8 +214,6 @@ export default {
       projectProfilePictureURL: '',
       projectDescription: '',
       admins: null,
-      isSubscribed: false,
-      isOwner: false,
       numSubs: 0,
       projectId: '',
       adminFirstName: '',
@@ -234,9 +234,6 @@ export default {
     }
   },
   async mounted() {
-    this.isOwner = this.$store.getters['user/isUserOwner'];
-    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
-
     // #############
     // Can probably add all these to a util function to save space in each index.vue
     // #############
@@ -246,6 +243,7 @@ export default {
       this.bannerPictureURL = infoRes.data.headerPicture;
       this.projectProfilePictureURL = infoRes.data.profilePicture;
       this.projectId = infoRes.data._id;
+      this.numSubs = infoRes.data.subscribers;
       this.projectDescription = infoRes.data.description;
       this.admins = infoRes.data.admins;
 
@@ -301,6 +299,28 @@ export default {
     sort() {
       return this.$store.state.sorting.project;
     },
+    isOwner() {
+      let isOwner = false;
+      if (typeof this.$store.state.user.owned !== 'undefined') {
+        for (let i=0; i< this.$store.state.user.owned.length; i++) {
+          if (this.$store.state.user.owned[i].name === this.projectName) {
+            isOwner = true;
+          }
+        }
+      }
+      return isOwner;
+    },
+    isSubscribed() {
+      let isSubscribed = false;
+      if (typeof this.$store.state.user.subscriptions !== 'undefined') {
+        for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
+          if (this.$store.state.user.subscriptions[i].name === this.projectName) {
+            isSubscribed = true;
+          }
+        }
+      }
+      return isSubscribed;
+    }
   },
   watch: {
     async sort() {
@@ -332,14 +352,15 @@ export default {
       let subInfo = {
         name: this.projectName,
         pictureURL: this.projectProfilePictureURL,
-        numSubs: Number(this.numSubs),
+        numSubs: subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1,
         projectId: this.projectId,
       };
 
+      this.projectStats[0].stat = subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1;
+
       let subObj = { subBool, ...subInfo };
 
-      this.$store.dispatch('user/updateSubscriptions', subObj)
-      this.isSubscribed = subObj.subBool;
+      this.$store.dispatch('user/updateSubscriptions', subObj);
     },
     callEditProjectModal() {
       this.$modal.open({

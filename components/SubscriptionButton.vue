@@ -13,6 +13,8 @@ export default {
   name: "SubscriptionButton",
   props: {
     isSubscribed: Boolean,
+    isProject: Boolean,
+    id: String,
   },
   computed: {
     getClasses() {
@@ -27,6 +29,15 @@ export default {
   },
   methods: {
     handleClick() {
+      if (this.isSubscribed) {
+        const type = this.isProject ? 'projects' : 'communities';
+        this.$axios.$delete(`/api/v1/profiles/${ this.$store.state.user._id }/subs/${ type }/${this.id}`)
+      } else {
+        this.$axios.$post(`/api/v1/profiles/${ this.$store.state.user._id }/subs`, {
+          projectId: this.isProject ? this.id : undefined,
+          communityId: this.isProject ? undefined : this.id
+        });
+      }
       this.$emit('subscription-button-clicked', !this.isSubscribed);
     }
   }

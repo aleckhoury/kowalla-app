@@ -77,9 +77,7 @@ export default {
           profilePicture: editForm.profilePicture,
           headerPicture: editForm.headerPicture,
         });
-
-        if (communityData.status === 200) {
-          // update state with changes -> should probably check for changes
+         // update state with changes -> should probably check for changes
           let subObj = {
             name: communityData.name,
             pictureURL: communityData.profilePicture,
@@ -94,9 +92,7 @@ export default {
           } else { // otherwise, refresh
             this.$router.go();
           }
-
           this.$parent.close();
-        }
       } catch (e) {
         console.log(e);
       }

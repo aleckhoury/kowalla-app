@@ -5,7 +5,7 @@ export default async function (context) {
     const activePost = await context.$axios.$get(`/api/v1/posts/active/${context.store.state.user.id}`);
     if (Utils.isActivePost(activePost)) {
       context.store.commit('user/isActivePost', activePost);
-    } else {
+    } else if (Boolean(Object.keys(activePost).length)) {
       context.store.commit('user/isActivePost', {});
       context.$axios.$put(`/api/v1/posts/${activePost._id}`, {
         isActive: false,

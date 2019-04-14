@@ -9,6 +9,7 @@
 
 <script>
 import CreatePostModal from './Modals/Creation/CreatePostModal.vue'
+
   export default {
     name: "createPost",
     data() {

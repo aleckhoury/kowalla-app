@@ -78,17 +78,15 @@ export const getters = ({
   activePost({ activePost }) {
     return activePost;
   },
-  isUserSubscribed({subscriptions, owned}) {
-    let name = $nuxt._route.fullPath.split('/').pop();
-
+  isUserSubscribed: ({subscriptions, owned}) => (name) => {
     let isSubscribed = false;
-
-    for (let i=0; i<subscriptions.length; i++) {
+    if (typeof subscriptions !== 'undefined') {
+    for (let i = 0; i < subscriptions.length; i++) {
       if (subscriptions[i].name === name) {
         isSubscribed = true;
       }
     }
-
+  }
     /* enable only if we need a subscription boolean when we also own it
     for (let i=0; i<owned.length; i++) {
       if (owned[i].name === name) {
@@ -96,22 +94,33 @@ export const getters = ({
       }
     }
     */
-
+    console.log(isSubscribed);
     return isSubscribed;
   },
 
-  isUserOwner({owned}) {
-    // get name of project or community
-    let name = $nuxt._route.fullPath.split('/').pop();
-
+  isUserOwner: ({owned}) => (name) => {
     let isOwner = false;
-    for (let i=0; i<owned.length; i++) {
-      if (owned[i].name === name) {
-        isOwner = true;
+    if (typeof owned !== 'undefined') {
+      for (let i=0; i< owned.length; i++) {
+        if (owned[i].name === name) {
+          isOwner = true;
+        }
       }
     }
     return isOwner;
   },
+  // isUserOwner({owned}) {
+  //   // get name of project or community
+  //   let name = $nuxt._route.fullPath.split('/').pop();
+  //
+  //   let isOwner = false;
+  //   for (let i=0; i<owned.length; i++) {
+  //     if (owned[i].name === name) {
+  //       isOwner = true;
+  //     }
+  //   }
+  //   return isOwner;
+  // },
 
   getProjectIds({ owned }) {
     let projectIdsArray = [];
@@ -132,7 +141,6 @@ export const mutations = {
     state = Object.assign(state, user);
   },
   async setSubs(state, subs) {
-    console.log(subs);
     state.subscriptions = subs;
   },
   async clearUser(state) {

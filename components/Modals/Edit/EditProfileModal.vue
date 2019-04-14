@@ -88,8 +88,6 @@ export default {
           profilePicture: editForm.profilePicture,
         });
 
-        if (profileData.status === 200) {
-
           let editObj = {
             firstName: profileData.firstName,
             lastName: profileData.lastName,
@@ -106,9 +104,7 @@ export default {
           } else { // otherwise, refresh
             this.$router.go()
           }
-
           this.$parent.close();
-        }
       } catch (e) {
         console.log(e);
       }
