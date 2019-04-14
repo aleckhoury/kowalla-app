@@ -10,6 +10,8 @@
         v-if="!isOwner"
         :isSubscribed="isSubscribed"
         @subscription-button-clicked="handleClick"
+        :isProject="bannerTitlePrefix === '@'"
+        :id="id"
       />
     </div>
 
@@ -27,6 +29,7 @@ export default {
   name: "Banner",
   components: { SubscriptionButton },
   props: {
+    id: String,
     bannerURL: String,
     bannerTitle: String,
     bannerTitlePrefix: String,

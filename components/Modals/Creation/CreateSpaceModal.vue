@@ -110,24 +110,24 @@ export default {
           headerPicture: spaceForm.headerPicture,
           admins: [this.$store.state.user.username]
         });
-
-        if (projectData.status === 201) {
           // update local state
           let subInfo = {
             name: projectData.name,
             pictureURL: projectData.profilePicture,
-            numSubs: 7,
-            communityId: projectData._id
+            numSubs: 1,
+            projectId: projectData._id
           };
           let subObj = { subBool: true, ...subInfo };
 
           // this will also update server-side subscriptions
-          this.$store.dispatch('user/updateOwned', subObj)
+          this.$store.dispatch('user/updateOwned', subObj);
+        this.$axios.$post(`/api/v1/profiles/${ this.$store.state.user._id }/subs`, {
+          projectId: projectData._id
+        });
 
           // change page and close modal
-          this.$router.push({ path: `/dev/p/${projectData.name}` });
           this.$parent.close();
-        }
+          this.$router.push(`/dev/p/${projectData.name}`);
       }
       catch (e) {
         console.log(e);
@@ -142,9 +142,7 @@ export default {
           headerPicture: spaceForm.headerPicture,
           admins: [this.$store.state.user.username]
         });
-
-        if (communityData.status === 201) {
-          // update local state
+         // update local state
           let subInfo = {
             name: communityData.name,
             pictureURL: communityData.profilePicture,
@@ -154,15 +152,17 @@ export default {
           let subObj = { subBool: true, ...subInfo };
 
           // this will also update server-side subscriptions
-          this.$store.dispatch('user/updateOwned', subObj)
+          this.$store.dispatch('user/updateOwned', subObj);
+        this.$axios.$post(`/api/v1/profiles/${ this.$store.state.user._id }/subs`, {
+          communityId: communityData._id
+        });
 
           // change page and close modal
           this.$router.push({ path: `/dev/c/${communityData.name}` });
           this.$parent.close();
-        }
       }
       catch (e) {
-        // need error handling during QA
+        console.log(e);
       }
     }
   },

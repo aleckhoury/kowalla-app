@@ -76,17 +76,12 @@ export default {
           profilePicture: editForm.profilePicture,
           headerPicture: editForm.headerPicture,
         });
-
-        if (projectData.status === 200) {
-
           // update state with changes -> should probably check for changes
           let subObj = {
             name: projectData.name,
             pictureURL: projectData.profilePicture,
             projectId: projectData._id
           };
-
-
           //this.$store.dispatch('user/editOwned', subObj)
           this.$store.commit('user/editOwned', subObj);
 
@@ -96,9 +91,7 @@ export default {
           } else { // otherwise, refresh
             this.$router.go()
           }
-
           this.$parent.close();
-        }
       } catch (e) {
         console.log(e);
       }

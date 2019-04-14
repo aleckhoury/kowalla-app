@@ -20,6 +20,7 @@
               <Banner
                 :bannerURL="bannerPictureURL"
                 :bannerTitle="communityName"
+                :id="communityId"
                 bannerTitlePrefix="#"
                 :isSubscribed="isSubscribed"
                 :isOwner="isOwner"
@@ -28,7 +29,7 @@
 
             <!-- v-for="post in postList" -->
             <div class="columns is-marginless newsfeed-padding" id="postFeed">
-              <div class="column is-two-thirds">
+              <div class="column is-two-thirds is-paddingless">
                 <Post
                   v-if="!!postList.length"
                   v-for="post in postList"
@@ -79,6 +80,7 @@
       <Banner
         :bannerURL="bannerPictureURL"
         :bannerTitle="communityName"
+        :id="communityId"
         bannerTitlePrefix="#"
         :isSubscribed="isSubscribed"
         :isOwner="isOwner"
@@ -158,8 +160,6 @@ export default {
       profilePictureURL: '',
       communityDescription: '',
       adminId: '',
-      isSubscribed: false,
-      isOwner: false,
       numSubs: '',
       communityId: '',
       communityStats: [],
@@ -177,13 +177,11 @@ export default {
     }
   },
   async mounted() {
-    this.isOwner = this.$store.getters['user/isUserOwner'];
-    this.isSubscribed = this.$store.getters['user/isUserSubscribed'];
-
     let infoRes = await this.$axios.get(`/api/v1/communities/c/${this.communityName}`)
     this.bannerPictureURL = infoRes.data.headerPicture;
     this.profilePictureURL = infoRes.data.profilePicture;
     this.communityId = infoRes.data._id;
+    this.numSubs = infoRes.data.subscribers;
     this.communityDescription = infoRes.data.description;
     this.adminId = infoRes.data.admins[0];
 
@@ -227,6 +225,28 @@ export default {
     },
     sort() {
       return this.$store.state.sorting.community;
+    },
+    isOwner() {
+      let isOwner = false;
+      if (typeof this.$store.state.user.owned !== 'undefined') {
+        for (let i=0; i< this.$store.state.user.owned.length; i++) {
+          if (this.$store.state.user.owned[i].name === this.communityName) {
+            isOwner = true;
+          }
+        }
+      }
+      return isOwner;
+    },
+    isSubscribed() {
+      let isSubscribed = false;
+      if (typeof this.$store.state.user.subscriptions !== 'undefined') {
+        for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
+          if (this.$store.state.user.subscriptions[i].name === this.communityName) {
+            isSubscribed = true;
+          }
+        }
+      }
+      return isSubscribed;
     }
   },
   watch: {
@@ -255,18 +275,17 @@ export default {
         }
       }
     },
-    //...mapGetters(['user/isUserSubscribed']),
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.communityName,
         pictureURL: this.profilePictureURL,
-        numSubs: Number(this.numSubs),
+        numSubs: subBool ? this.communityStats[0].stat + 1 : this.communityStats[0].stat - 1,
         communityId: this.communityId,
       };
       let subObj = { subBool, ...subInfo};
+      this.communityStats[0].stat = subBool ? this.communityStats[0].stat + 1 : this.communityStats[0].stat - 1;
 
-      this.$store.dispatch('user/updateSubscriptions', subObj)
-      this.isSubscribed = subObj.subBool;
+      this.$store.dispatch('user/updateSubscriptions', subObj);
     },
     callEditCommunityModal() {
       this.$modal.open({
