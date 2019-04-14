@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CreatePostModal from './Modals/Creation/createPost/CreatePostModal.vue'
+import CreatePostModal from './Modals/Creation/CreatePostModal.vue'
 
   export default {
     name: "createPost",
