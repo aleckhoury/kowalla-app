@@ -132,10 +132,52 @@
                         <div class="editor content">
                             <editor-content class="editor__content" :editor="editor" />
                         </div>
-                        <div class="level is-paddingless">
-                            <a class="level-item button action post" :class="{ 'is-loading': s3Loading }" @click="createPost()"><b>Post</b></a>
+
+                        <!--
+                        <div class="columns test-outline is-vcentered">
+                          <a class="column is-full-mobile is-one-third button action post" :class="{ 'is-loading': s3Loading }" @click="createPost()"><b>Post</b></a>
+
+                          <div class="column is-centered is-paddingless is-one-third ">
+                            <span v-if="postAsList.length" class="has-text-grey">Post as</span>
+                            <b-dropdown v-if="postAsList.length" class="dropdown-container" position="is-bottom-left" aria-role="list">
+                                <div slot="trigger" class="dropdown-selector">
+                                    <b class="font theme-color selector-child">@{{ postingAs.name }}</b>
+                                    <font-awesome-icon
+                                            icon="angle-down"
+                                            class="theme-color selector-child"/>
+                                </div>
+                                <b-dropdown-item v-for="item in postAsList" @click="postingAs = item" aria-role="listitem" :key="item._id">
+                                    @{{ item.name }}
+                                </b-dropdown-item>
+                            </b-dropdown>
+                          </div>
+
+                          <div class="column is-centered is-paddingless is-one-third ">
+                            <span v-if="postInList.length" class="has-text-grey">in</span>
+                            <b-dropdown v-if="postInList.length" class="dropdown-container" position="is-bottom-left" aria-role="list">
+                                <div slot="trigger" class="dropdown-selector">
+                                    <b class="font theme-color selector-child">#{{ postingIn.name }}</b>
+                                    <font-awesome-icon
+                                            icon="angle-down"
+                                            class="theme-color selector-child"/>
+                                </div>
+                                <b-dropdown-item v-for="item in postInList" @click="postingIn = item" aria-role="listitem" :key="item._id">
+                                    #{{ item.name }}
+                                </b-dropdown-item>
+                            </b-dropdown>
+                          </div>
+
+
+                        </div>
+                        -->
+
+
+                        <div class="level is-paddingless is-hidden-mobile">
+                            <a class="level-left button action post" :class="{ 'is-loading': s3Loading }" @click="createPost()"><b>Post</b></a>
                             <div class="level-right">
-                                <span v-if="postAsList.length" class="level-item has-text-grey">as</span>
+                                <span v-if="postAsList.length" class="level-item has-text-grey">Post as</span>
+
+
                                 <b-dropdown v-if="postAsList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
                                     <div slot="trigger" class="dropdown-selector">
                                         <b class="font theme-color selector-child">@{{ postingAs.name }}</b>
@@ -147,20 +189,66 @@
                                         @{{ item.name }}
                                     </b-dropdown-item>
                                 </b-dropdown>
-                                <span v-if="postInList.length" class="level-item has-text-grey">in</span>
-                                <b-dropdown v-if="postInList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
-                                    <div slot="trigger" class="dropdown-selector">
-                                        <b class="font theme-color selector-child">#{{ postingIn.name }}</b>
-                                        <font-awesome-icon
-                                                icon="angle-down"
-                                                class="theme-color selector-child"/>
-                                    </div>
-                                    <b-dropdown-item v-for="item in postInList" @click="postingIn = item" aria-role="listitem" :key="item._id">
-                                        #{{ item.name }}
-                                    </b-dropdown-item>
-                                </b-dropdown>
+
+                                  <span v-if="postInList.length" class="level-item has-text-grey">in</span>
+                                  <b-dropdown v-if="postInList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
+                                      <div slot="trigger" class="dropdown-selector">
+                                          <b class="font theme-color selector-child">#{{ postingIn.name }}</b>
+                                          <font-awesome-icon
+                                                  icon="angle-down"
+                                                  class="theme-color selector-child"/>
+                                      </div>
+                                      <b-dropdown-item v-for="item in postInList" @click="postingIn = item" aria-role="listitem" :key="item._id">
+                                          #{{ item.name }}
+                                      </b-dropdown-item>
+                                  </b-dropdown>
                             </div>
                         </div>
+
+
+
+
+
+                      <div class="touch is-hidden-desktop">
+                        <a
+                          class="wide button action post-desktop"
+                          :class="{ 'is-loading': s3Loading }"
+                          @click="createPost()"
+                        >
+                          <b>Post</b>
+                        </a>
+
+                        <div class="wide">
+                          <span v-if="postAsList.length" class="has-text-grey">as</span>
+                          <b-dropdown v-if="postAsList.length" class="dropdown-container" position="is-bottom-left" aria-role="list">
+                              <div slot="trigger" class="dropdown-selector">
+                                  <b class="font theme-color selector-child">@{{ postingAs.name }}</b>
+                                  <font-awesome-icon
+                                          icon="angle-down"
+                                          class="theme-color selector-child"/>
+                              </div>
+                              <b-dropdown-item v-for="item in postAsList" @click="postingAs = item" aria-role="listitem" :key="item._id">
+                                  @{{ item.name }}
+                              </b-dropdown-item>
+                          </b-dropdown>
+                        </div>
+
+                        <div class="wide">
+                          <span v-if="postInList.length" class="has-text-grey">in</span>
+                          <b-dropdown v-if="postInList.length" class="dropdown-container" position="is-bottom-left" aria-role="list">
+                              <div slot="trigger" class="dropdown-selector">
+                                  <b class="font theme-color selector-child">#{{ postingIn.name }}</b>
+                                  <font-awesome-icon
+                                          icon="angle-down"
+                                          class="theme-color selector-child"/>
+                              </div>
+                              <b-dropdown-item v-for="item in postInList" @click="postingIn = item" aria-role="listitem" :key="item._id">
+                                  #{{ item.name }}
+                              </b-dropdown-item>
+                          </b-dropdown>
+                        </div>
+                      </div>
+
                     </div>
                 </article>
             </div>
@@ -405,18 +493,18 @@
         overflow: visible;
     }
     .field {
-        margin: 1em 0;
+
         display: flex;
         flex-wrap: wrap;
     }
-    .button.action {
-        width: 12em;
+    .action {
+        text-align: center;
         color: white;
         background-color: #39C9A0;
         border-color: #39C9A0;
     }
-    .post {
-        margin-right: 0.75em;
+    .post-desktop {
+      width: 200px;
     }
     .is-white:hover {
         background-color: #E9EBEE;
@@ -436,6 +524,7 @@
         word-break: break-word;
     }
     .dropdown-container {
+        max-width: 200px;
         height: 30px;
         border: 2px solid #39C9A0;
         border-radius: 6px;
@@ -455,5 +544,12 @@
     }
     .theme-color {
         color: #39C9A0;
+    }
+    .wide {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 85%;
     }
 </style>
