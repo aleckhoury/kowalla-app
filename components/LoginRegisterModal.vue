@@ -6,13 +6,20 @@
                     <section>
                         <span class="title">Welcome Back!</span>
                         <b-field label="Username">
-                            <b-input v-model="loginForm.username" maxlength="15"></b-input>
+                            <b-input
+                              v-model="loginForm.username"
+                              maxlength="15"
+                              @keyup.native.enter="login(loginForm)"
+                            />
                         </b-field>
 
                         <b-field label="Password">
-                            <b-input v-model="loginForm.password" type="password"
-                                     password-reveal>
-                            </b-input>
+                            <b-input
+                              v-model="loginForm.password"
+                              type="password"
+                              password-reveal
+                              @keyup.native.enter="login(loginForm)"
+                            />
                         </b-field>
                         <a class="button action" @click="login(loginForm)">
                             Submit
@@ -22,23 +29,22 @@
                 <b-tab-item label="Signup">
                     <section>
                         <span class="title">Create Account</span>
-                        <!--<b-field label="Name">-->
-                            <!--<b-input v-model="registerForm.name"></b-input>-->
-                        <!--</b-field>-->
-
-                        <!--<b-field label="Email">-->
-                            <!--<b-input v-model="registerForm.email" type="email">-->
-                            <!--</b-input>-->
-                        <!--</b-field>-->
 
                         <b-field label="Username">
-                            <b-input v-model="registerForm.username" maxlength="15"></b-input>
+                          <b-input
+                            v-model="registerForm.username"
+                            maxlength="15"
+                            @keyup.native.enter="register(registerForm)"
+                          />
                         </b-field>
 
                         <b-field label="Password">
-                            <b-input v-model="registerForm.password" type="password"
-                                     password-reveal>
-                            </b-input>
+                          <b-input
+                            v-model="registerForm.password"
+                            type="password"
+                            password-reveal
+                            @keyup.native.enter="register(registerForm)"
+                          />
                         </b-field>
                         <a class="button action" @click="register(registerForm)">
                             Submit
@@ -83,6 +89,17 @@ import Cookies from 'js-cookie';
     },
     methods: {
       async register(registerForm) {
+        if ((this.registerForm.username === '') || (this.registerForm.password === '')) {
+          this.$toast.open({
+            duration: 5000,
+            message: 'Please fill out the full form',
+            position: 'is-top',
+            type: 'is-danger'
+          });
+
+          return null;
+        }
+
         try {
           await this.$axios.$post('api/v1/users', {
             username: registerForm.username,
@@ -105,6 +122,17 @@ import Cookies from 'js-cookie';
         }
       },
       async login(loginForm) {
+        if ((this.loginForm.username === '') || (this.loginForm.password === '')) {
+          this.$toast.open({
+            duration: 5000,
+            message: 'Please fill out the full form',
+            position: 'is-top',
+            type: 'is-danger'
+          });
+
+          return null;
+        }
+
         try {
           const res =  await this.$axios.$post('/api/v1/users/login', {
               username: loginForm.username,

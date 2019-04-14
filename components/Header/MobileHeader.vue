@@ -22,31 +22,24 @@
             class="level-item align-icon"
             @click="callSearchModal"
           >
-            <b-icon
+            <font-awesome-icon
               class="theme-color-dark"
-              icon="magnify"
+              icon="search"
+              style="font-size: 20px"
             />
           </div>
-
 
           <div
             v-if="this.$store.state.user.loggedIn"
             class="level-item align-icon"
             @click="callNotifModal"
           >
-            <b-icon
+            <font-awesome-icon
               class="theme-color-dark"
-              icon="bell-outline"
+              icon="bell"
+              style="font-size: 20px"
             />
           </div>
-
-          <!--
-          <div
-            class="level-item align-icon"
-          >
-            <NavNotifications :hasNotifications="this.$store.state.user.hasNotifications"/>
-          </div>
-          -->
 
           <div class="level-item">
             <nuxt-link v-if="this.$store.state.user.loggedIn" :to="`/dev/u/${this.$store.state.user.username}`">
@@ -96,7 +89,6 @@
 <script>
 import ChangeLocationModal from '~/components/Modals/Other/ChangeLocationModal';
 import NotificationModal from '~/components/Modals/Other/NotificationModal';
-import MobileNavIcons from '~/components/MobileNavIcons';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 import NavNotifications from '~/components/Header/NavHeader/NavNotifications';
 import TestModal from '~/components/Modals/Other/TestModal';
@@ -105,7 +97,7 @@ import LoginRegisterModal from '~/components/LoginRegisterModal'
 
 export default {
   name: "MobileHeader",
-  components: { ChangeLocationModal, MobileNavIcons, SortingOptions, NavNotifications },
+  components: { ChangeLocationModal, SortingOptions, NavNotifications },
   data() {
     return {
       showNavbar: true,
