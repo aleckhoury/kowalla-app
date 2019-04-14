@@ -10,7 +10,7 @@
 </template>
 <script>
 import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
-import CreatePostModal from '~/components/Modals/Creation/createPost/CreatePostModal';
+import CreatePostModal from '~/components/Modals/Creation/CreatePostModal';
 
 export default {
   name: "MobileFooter",

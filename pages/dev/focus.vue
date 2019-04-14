@@ -154,7 +154,7 @@
     History,
   } from 'tiptap-extensions'
   import Header from '~/components/Header/Header';
-  import CreatePostModal from "~/components/Modals/Creation/createPost/CreatePostModal"
+  import CreatePostModal from "~/components/Modals/Creation/CreatePostModal"
   export default {
     name: "focus",
     components: {

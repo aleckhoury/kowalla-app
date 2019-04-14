@@ -115,7 +115,7 @@
                                     <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
                                     <font-awesome-icon icon="camera" />
                                 </a>
-                                <a class="button is-white" v-if="!Boolean(Object.keys(activePost).length)" @click="toggleTimedPost">
+                                <a class="button is-white" v-if="typeof activePost === 'undefined'" @click="toggleTimedPost">
                                     <font-awesome-icon icon="clock" /> &nbsp; Timed Post
                                 </a>
                             </div>
@@ -191,12 +191,10 @@
     History,
   } from 'tiptap-extensions'
   import { mapGetters } from 'vuex';
-  import Dropdown from "../../../dropdownItems";
 
   export default {
     name: "createPostModal",
     components: {
-      Dropdown,
       Editor,
       EditorContent,
       EditorMenuBar,

@@ -62,7 +62,28 @@
 
         </div>
         <div class="media-right">
-          <b-dropdown position="is-bottom-left" aria-role="list">
+            <div v-if="isProject" class="update level is-size-6">
+                <div class="level-left"><font-awesome-icon icon="flag" /> &nbsp; <h2><b>Update</b></h2></div>
+                <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
+                    <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
+
+                    <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
+                        <font-awesome-icon icon="link" />
+                        Copy link
+                    </b-dropdown-item>
+
+                    <b-dropdown-item
+                            aria-role="listitem"
+                            key="1"
+                            v-if="this.profile._id === this.$store.state.user._id"
+                            @click="deletePost"
+                    >
+                        <font-awesome-icon icon="trash-alt" />
+                        Delete
+                    </b-dropdown-item>
+                </b-dropdown>
+            </div>
+          <b-dropdown v-else position="is-bottom-left" aria-role="list">
             <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
 
             <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
@@ -163,6 +184,7 @@
 .card-header {
   padding: 10px;
     box-shadow: none;
+    overflow: hidden;
 }
 .profilePic img {
   border-radius: 0.75em;
@@ -194,4 +216,34 @@ span {
     background: red;
     color: white;
 }
+.update {
+    background-color: #39C9A0;
+    color: white;
+    width: 10em;
+    height: 75%;
+    margin-top: -10px;
+    margin-right: -2em;
+    -webkit-transform: skewX(-25deg);
+    -moz-transform: skewX(-25deg);
+    -ms-transform: skewX(-25deg);
+    -o-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+    div.level-left {
+        padding-left: 1em;
+        -webkit-transform: skewX(25deg);
+        -moz-transform: skewX(25deg);
+        -ms-transform: skewX(25deg);
+        -o-transform: skewX(25deg);
+        transform: skewX(25deg);
+    }
+    div.level-right {
+        padding-right: 2em;
+        margin-top: -1em;
+        -webkit-transform: skewX(25deg);
+        -moz-transform: skewX(25deg);
+        -ms-transform: skewX(25deg);
+        -o-transform: skewX(25deg);
+        transform: skewX(25deg);
+    }
 </style>

@@ -149,6 +149,7 @@
     .card {
         border-radius: 6px;
         margin-bottom: 1em;
+        overflow: hidden;
     }
     .content {
         word-break: break-word;
