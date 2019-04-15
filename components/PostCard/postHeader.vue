@@ -10,7 +10,7 @@
           </nuxt-link>
 
           <nuxt-link v-if="isProject" :to="getProjectRoute">
-            <p class="image is-64x64 profilePic">
+            <p class="image is-48x48 profilePic">
 
                 <img :src="project.profilePicture">
 
@@ -42,23 +42,28 @@
                     <b>@{{ profile.username }}</b>
                   </span>
 
-                · {{ createdAtFormatted }}
-                    <span v-if="isActive">
-                        ·
-                        <span class="liveBox">
-                            LIVE
-                        </span>
+                <span class="grey" v-if="!isMobile">· {{ createdAtFormatted }}</span>
+
+                  <span v-if="isActive">  ·
+                    <span class="liveBox">
+                        LIVE
                     </span>
+                  </span>
                 </small>
             </p>
             </nuxt-link>
 
-              <p class="communityOfPost">
-                  Posted in
-                  <nuxt-link :to="getCommunityRoute" class="community underline">
-                    <b>#{{ community.name }}</b>
-                  </nuxt-link>
-              </p>
+            <p>
+                Posted in
+                <nuxt-link :to="getCommunityRoute" class="community underline">
+                  <b>#{{ community.name }}</b>
+                </nuxt-link>
+            </p>
+
+            <p class="created-at-mobile">
+              <span class="grey" v-if="isMobile">{{ createdAtFormatted }}</span>
+            </p>
+
 
         </div>
         <div class="media-right">
@@ -95,7 +100,8 @@
       profile: {},
       project: {},
       community: {},
-      isProject: Boolean
+      isProject: Boolean,
+      isMobile: Boolean,
     },
     data() {
       return {
@@ -151,9 +157,7 @@
 </script>
 
 <style scoped>
-/*.communityOfPost {*/
-    /*margin-top: 1em;*/
-/*}*/
+
 .media-left {
   margin-right: 0.5em;
 }
@@ -173,6 +177,11 @@ span {
 
 .grey {
   color: #999;
+}
+
+.created-at-mobile {
+  font-size: .75em;
+  padding-top: -.5em;
 }
 .community {
   color: #39C9A0;

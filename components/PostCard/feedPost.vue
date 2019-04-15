@@ -7,6 +7,7 @@
           :project="this.project"
           :community="this.community"
           :isProject="this.isProject"
+          :isMobile="this.isMobile"
           :postId="this.post._id"
           @delete-post="echoDeletePost"
         />
