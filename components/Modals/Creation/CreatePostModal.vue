@@ -391,7 +391,7 @@
           return null;
         }
 
-        await this.$axios.$post(`/api/v1/communities/${ this.postingIn.id }/posts`, {
+        let postObj = await this.$axios.$post(`/api/v1/communities/${ this.postingIn.id }/posts`, {
           profileId: this.$store.state.user._id,
           projectId: this.postingAs.id || null,
           communityId: this.postingIn.id,
@@ -401,6 +401,8 @@
           isActive: this.isActive,
           userCompleted: this.userCompleted,
         });
+
+        this.$emit('post-created', postObj);
 
         this.clearPhoto = false;
         this.s3Loading = false;

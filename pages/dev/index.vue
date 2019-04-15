@@ -18,7 +18,10 @@
         </div>
 
         <div class="column is-one-half is-paddingless no-margin" id="postFeed">
-          <CreatePost v-if="this.$store.state.user.loggedIn && isMounted"></CreatePost>
+          <CreatePost
+            v-if="this.$store.state.user.loggedIn && isMounted"
+            @post-created="addPostToPostList"
+          />
           <Post v-for="post in postList" :key="post._id" :post="post"></Post>
         </div>
 
@@ -108,6 +111,10 @@ export default {
         }
       }
     },
+    addPostToPostList(postObj) {
+      //console.log('postcreated')
+      this.postList.unshift(postObj);
+    }
   },
   watch: {
     async sort() {
