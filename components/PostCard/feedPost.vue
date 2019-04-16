@@ -7,6 +7,7 @@
           :project="this.project"
           :community="this.community"
           :isProject="this.isProject"
+          :isMobile="this.isMobile"
           :postId="this.post._id"
           @delete-post="echoDeletePost"
         />
@@ -64,9 +65,7 @@
         } catch {
           console.log('error grabbing some values');
         }
-      }
-
-      if (this.post.hasOwnProperty('profileId')) {
+      } else {
         this.isProject = false;
         try {
           this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);

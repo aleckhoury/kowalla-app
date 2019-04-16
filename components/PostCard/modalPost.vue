@@ -100,9 +100,7 @@ export default {
         } catch {
           console.log('error grabbing some values');
         }
-      }
-
-      if (this.post.hasOwnProperty('profileId')) {
+      } else {
         this.isProject = false;
         try {
           this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);

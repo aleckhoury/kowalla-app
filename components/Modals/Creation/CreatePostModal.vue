@@ -115,7 +115,7 @@
                                     <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
                                     <font-awesome-icon icon="camera" />
                                 </a>
-                                <a class="button is-white" v-if="typeof activePost === 'undefined'" @click="toggleTimedPost">
+                                <a class="button is-white" v-if="!Boolean(Object.keys(activePost).length)" @click="toggleTimedPost">
                                     <font-awesome-icon icon="clock" /> &nbsp; Timed Post
                                 </a>
                             </div>
@@ -274,7 +274,6 @@
       async createPost() {
         this.s3Loading = true;
         let StrippedString = this.html.replace(/(<([^>]+)>)/ig,"");
-        console.log(strippedString);
         if (StrippedString.length === 0) {
           this.$toast.open({
             duration: 5000,

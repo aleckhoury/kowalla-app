@@ -42,27 +42,31 @@
                     <b>@{{ profile.username }}</b>
                   </span>
 
-                · {{ createdAtFormatted }}
-                    <span v-if="isActive">
-                        ·
-                        <span class="liveBox">
-                            LIVE
-                        </span>
+                    <span class="grey" v-if="!isMobile">· {{ createdAtFormatted }}</span>
+
+                    <span v-if="isActive">  ·
+                    <span class="liveBox">
+                        LIVE
+                    </span>
                     </span>
                 </small>
             </p>
             </nuxt-link>
 
-              <p class="communityOfPost">
-                  Posted in
-                  <nuxt-link :to="getCommunityRoute" class="community underline">
+            <p>
+                Posted in
+                <nuxt-link :to="getCommunityRoute" class="community underline">
                     <b>#{{ community.name }}</b>
-                  </nuxt-link>
-              </p>
+                </nuxt-link>
+            </p>
+
+            <p class="created-at-mobile">
+                <span class="grey" v-if="isMobile">{{ createdAtFormatted }}</span>
+            </p>
 
         </div>
         <div class="media-right">
-            <div v-if="isProject" class="update level is-size-6">
+            <div v-if="isProject && !isMobile" class="update level is-size-6">
                 <div class="level-left"><font-awesome-icon icon="flag" /> &nbsp; <h2><b>Update</b></h2></div>
                 <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
                     <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
@@ -116,7 +120,8 @@
       profile: {},
       project: {},
       community: {},
-      isProject: Boolean
+      isProject: Boolean,
+      isMobile: Boolean
     },
     data() {
       return {
@@ -172,9 +177,6 @@
 </script>
 
 <style scoped>
-/*.communityOfPost {*/
-    /*margin-top: 1em;*/
-/*}*/
 .media-left {
   margin-right: 0.5em;
 }
@@ -195,6 +197,10 @@ span {
 
 .grey {
   color: #999;
+}
+.created-at-mobile {
+    font-size: .75em;
+    padding-top: -.5em;
 }
 .community {
   color: #39C9A0;
