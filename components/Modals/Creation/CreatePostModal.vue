@@ -299,7 +299,7 @@
 
         let postObj = await this.$axios.$post(`/api/v1/communities/${ this.postingIn.id }/posts`, {
           profileId: this.$store.state.user._id,
-          projectId: this.postingAs.id || null,
+          projectId: this.postingAs.id || undefined,
           communityId: this.postingIn.id,
           content: this.html,
           duration: this.time,

@@ -210,11 +210,11 @@
       },
       updatePost(isComplete = false) {
         if (!isComplete) {
-          this.$axios.$put(`/api/v1/posts/${this.post._id}`, {
+          this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
             content: this.html,
           });
         } else if (isComplete) {
-          this.$axios.$put(`/api/v1/posts/${this.post._id}`, {
+          this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
             content: this.html,
             isActive: false,
             userCompleted: true,

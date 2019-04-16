@@ -67,9 +67,9 @@
 
         </div>
         <div class="media-right">
-            <div v-if="isProject" class="update level is-size-6">
+            <div v-if="isProject && !isMobile" class="update level is-size-6">
                 <div class="level-left"><font-awesome-icon icon="flag" /> &nbsp; <h2><b>Update</b></h2></div>
-                <b-dropdown position="is-bottom-left" aria-role="list" mobile-modal>
+                <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
                     <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
 
                     <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
@@ -88,7 +88,28 @@
                     </b-dropdown-item>
                 </b-dropdown>
             </div>
-          <b-dropdown v-else position="is-bottom-left" aria-role="list" mobile-modal>
+            <div v-else-if="isProject && isMobile" class="update level is-mobile is-size-6">
+                <div class="mobile level-left"><font-awesome-icon icon="flag" /></div>
+                <b-dropdown class="mobile level-right has-text-white" position="is-bottom-left" aria-role="list" :mobile-modal="false">
+                    <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
+
+                    <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
+                        <font-awesome-icon icon="link" />
+                        Copy link
+                    </b-dropdown-item>
+
+                    <b-dropdown-item
+                            aria-role="listitem"
+                            key="1"
+                            v-if="this.profile._id === this.$store.state.user._id"
+                            @click="deletePost"
+                    >
+                        <font-awesome-icon icon="trash-alt" />
+                        Delete
+                    </b-dropdown-item>
+                </b-dropdown>
+            </div>
+          <b-dropdown v-else position="is-bottom-left" aria-role="list" :mobile-modal="false">
             <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
 
             <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
@@ -188,7 +209,6 @@
 .card-header {
   padding: 10px;
     box-shadow: none;
-    overflow: hidden;
 }
 .profilePic img {
   border-radius: 0.75em;
@@ -228,7 +248,20 @@ span {
     background-color: #39C9A0;
     color: white;
     width: 10em;
-    height: 75%;
+    height: 100%;
+    margin-top: -10px;
+    margin-right: -2em;
+    -webkit-transform: skewX(-25deg);
+    -moz-transform: skewX(-25deg);
+    -ms-transform: skewX(-25deg);
+    -o-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+.update.is-mobile {
+    background-color: #39C9A0;
+    color: white;
+    width: 5.5em;
+    height: 85%;
     margin-top: -10px;
     margin-right: -2em;
     -webkit-transform: skewX(-25deg);
@@ -246,8 +279,8 @@ span {
         transform: skewX(25deg);
     }
     div.level-right {
-        padding-right: 2em;
-        margin-top: -1em;
+        margin-right: 2em;
+        margin-top: -.25em;
         -webkit-transform: skewX(25deg);
         -moz-transform: skewX(25deg);
         -ms-transform: skewX(25deg);
