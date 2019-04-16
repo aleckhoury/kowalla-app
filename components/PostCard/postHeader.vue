@@ -10,7 +10,7 @@
           </nuxt-link>
 
           <nuxt-link v-if="isProject" :to="getProjectRoute">
-            <p class="image is-64x64 profilePic">
+            <p class="image is-48x48 profilePic">
 
                 <img :src="project.profilePicture">
 
@@ -42,13 +42,13 @@
                     <b>@{{ profile.username }}</b>
                   </span>
 
-                    <span class="grey" v-if="!isMobile">· {{ createdAtFormatted }}</span>
+                <span class="grey" v-if="!isMobile">· {{ createdAtFormatted }}</span>
 
-                    <span v-if="isActive">  ·
+                  <span v-if="isActive">  ·
                     <span class="liveBox">
                         LIVE
                     </span>
-                    </span>
+                  </span>
                 </small>
             </p>
             </nuxt-link>
@@ -56,19 +56,20 @@
             <p>
                 Posted in
                 <nuxt-link :to="getCommunityRoute" class="community underline">
-                    <b>#{{ community.name }}</b>
+                  <b>#{{ community.name }}</b>
                 </nuxt-link>
             </p>
 
             <p class="created-at-mobile">
-                <span class="grey" v-if="isMobile">{{ createdAtFormatted }}</span>
+              <span class="grey" v-if="isMobile">{{ createdAtFormatted }}</span>
             </p>
+
 
         </div>
         <div class="media-right">
-            <div v-if="isProject && !isMobile" class="update level is-size-6">
+            <div v-if="isProject" class="update level is-size-6">
                 <div class="level-left"><font-awesome-icon icon="flag" /> &nbsp; <h2><b>Update</b></h2></div>
-                <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
+                <b-dropdown position="is-bottom-left" aria-role="list" mobile-modal>
                     <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
 
                     <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
@@ -87,7 +88,7 @@
                     </b-dropdown-item>
                 </b-dropdown>
             </div>
-          <b-dropdown v-else position="is-bottom-left" aria-role="list">
+          <b-dropdown v-else position="is-bottom-left" aria-role="list" mobile-modal>
             <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
 
             <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
@@ -121,7 +122,7 @@
       project: {},
       community: {},
       isProject: Boolean,
-      isMobile: Boolean
+      isMobile: Boolean,
     },
     data() {
       return {
@@ -177,6 +178,7 @@
 </script>
 
 <style scoped>
+
 .media-left {
   margin-right: 0.5em;
 }

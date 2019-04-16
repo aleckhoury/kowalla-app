@@ -12,7 +12,12 @@
 
         <!-- post feed -->
         <div class="column is-one-half is-paddingless" id="postFeed">
-          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+          <Post
+            v-for="post in postList"
+            :key="post._id"
+            :post="post"
+            @delete-post="removePostFromPostList"
+          />
         </div>
 
         <!-- info pane -->
@@ -102,10 +107,11 @@
 
       <Post
         class="newsfeed-margin"
-
+        :isMobile="true"
         v-for="post in postList"
         :key="post._id"
         :post="post"
+        @delete-post="removePostFromPostList"
       />
     </div>
 
@@ -210,6 +216,15 @@ export default {
               isActive = false;
             }
           }
+        }
+      }
+    },
+    async removePostFromPostList(postId) {
+      for (let i in this.postList) {
+        if (this.postList[i]._id === postId) {
+          this.postList.splice(i, 1);
+          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          break;
         }
       }
     },

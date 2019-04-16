@@ -156,10 +156,10 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_nuxticons_101ce2c8 === 'function') await nuxt_plugin_nuxticons_101ce2c8(app.context, inject)
-  if (typeof nuxt_plugin_buefy_46af55d1 === 'function') await nuxt_plugin_buefy_46af55d1(app.context, inject)
-  if (typeof nuxt_plugin_templatesplugin07ea14c3_546381cc === 'function') await nuxt_plugin_templatesplugin07ea14c3_546381cc(app.context, inject)
-  if (typeof nuxt_plugin_axios_f65f5300 === 'function') await nuxt_plugin_axios_f65f5300(app.context, inject)
+  if (typeof nuxt_plugin_nuxticons_a33e6576 === 'function') await nuxt_plugin_nuxticons_a33e6576(app.context, inject)
+  if (typeof nuxt_plugin_buefy_46cfdd98 === 'function') await nuxt_plugin_buefy_46cfdd98(app.context, inject)
+  if (typeof nuxt_plugin_templatesplugina6edc000_10a6dbd2 === 'function') await nuxt_plugin_templatesplugina6edc000_10a6dbd2(app.context, inject)
+  if (typeof nuxt_plugin_axios_1ab911e3 === 'function') await nuxt_plugin_axios_1ab911e3(app.context, inject)
   if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
 
   if (process.client) {
