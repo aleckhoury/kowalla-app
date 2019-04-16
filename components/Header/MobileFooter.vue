@@ -1,10 +1,11 @@
 <template>
   <div class="size">
     <div @click="callMobileCreateModal" class="create-button-2">
-      <b-icon
-        class="dark-basic-theme"
+      <font-awesome-icon
         icon="plus"
-        size="is-medium"></b-icon>
+        class="dark-basic-theme"
+        style="font-size: 24px"
+      />
     </div>
   </div>
 </template>
@@ -16,11 +17,6 @@ export default {
   name: "MobileFooter",
   components: {
     MobileCreateModal,
-  },
-  data() {
-    return {
-
-    };
   },
   methods: {
     callMobileCreateModal() {
