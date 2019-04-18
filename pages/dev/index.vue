@@ -56,8 +56,9 @@ import MobileFooter from '~/components/Header/MobileFooter';
 
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
-import Post from "~/components/PostCard/feedPost";
 import CreatePost from "~/components/createPost";
+import SkeletonBox from '~/components/SkeletonBox.vue';
+import lazyLoadComponent from '~/utils/lazy-load-component'
 
 export default {
   middleware: 'activePost',
@@ -66,7 +67,14 @@ export default {
     CreatePost,
     Header,
     NavPane,
-    Post,
+    Post: lazyLoadComponent({
+      componentFactory: () => import('~/components/PostCard/feedPost.vue'),
+      loading: SkeletonBox,
+      props: {
+        width: `100%`,
+        height: `20em`,
+      },
+    }),
     MobileHeader,
     MobileFooter,
   },
@@ -79,7 +87,7 @@ export default {
   async mounted() {
     this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/${ this.postList.length }`);
 
-    await this.scroll();
+    this.scroll();
     this.isMounted = true;
   },
   computed: {
