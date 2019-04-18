@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  const { format, render, cancel, register } = require('timeago.js');
+  import { format, render, cancel, register } from 'timeago.js';
   export default {
     name: "LandingPostHeader",
     props: {

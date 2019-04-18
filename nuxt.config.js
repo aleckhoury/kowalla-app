@@ -31,7 +31,6 @@ module.exports = {
   */
 
   css: [
-    // 'bulma/css/bulma.css',
     '~/css/main.css',
   ],
 
@@ -54,7 +53,7 @@ module.exports = {
     '@nuxtjs/pwa',
     '@nuxtjs/proxy',
     //'@nuxtjs/onesignal',
-    'nuxt-buefy',
+    ['nuxt-buefy', { materialDesignIcons: false }],
   ],
   /*
   ** Axios module configuration
@@ -89,10 +88,10 @@ module.exports = {
         set: '@fortawesome/free-solid-svg-icons',
         icons: ['fas',],
       },
-      {
-        set: '@fortawesome/free-brands-svg-icons',
-        icons: ['fab',],
-      },
+      // {
+      //   set: '@fortawesome/free-brands-svg-icons',
+      //   icons: ['fab',],
+      // },
     ],
   },
 

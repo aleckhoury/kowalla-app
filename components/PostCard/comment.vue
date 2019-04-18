@@ -40,7 +40,7 @@
 
 <script>
   import AddComment from "./addComment";
-const { format } = require('timeago.js');
+import { format } from 'timeago.js';
 
   export default {
     name: "Comment",

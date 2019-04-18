@@ -46,6 +46,10 @@
       },
       methodProp: {type: Function},
     },
+    serverCacheKey: props => props.post._id + '::' + props.post.updatedAt,
+    render (h) {
+      return h('div', this.post._id)
+    },
     data() {
       return {
         project: {},
