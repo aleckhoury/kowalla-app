@@ -6,7 +6,7 @@
 
         <nuxt-link @click.native="closeModal()" to="/dev">
           <div class="general-navigation">
-            <font-awesome-icon icon="home" />
+            <fa icon="home" />
             <span><b>Home</b></span>
           </div>
         </nuxt-link>
@@ -15,7 +15,7 @@
         <!--
           <nuxt-link @click.native="closeModal()" to="/about">
             <div>
-              <font-awesome-icon icon="info" />
+              <fa icon="info" />
               <span><b>About</b></span>
             </div>
 
@@ -23,7 +23,7 @@
           </nuxt-link>
 
           <nuxt-link @click.native="closeModal()"  to="dev/trello">
-              <font-awesome-icon :icon="['fab', 'trello']" />
+              <fa :icon="['fab', 'trello']" />
               <span><b>Trello</b></span>
           </nuxt-link>
         -->

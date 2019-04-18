@@ -58,7 +58,7 @@
                 <!--<a class="button" @click="signupToggle()">-->
                     <!--<span>Signup</span>-->
                     <!--<span class="icon is-small">-->
-                        <!--<font-awesome-icon icon="arrow-right"></font-awesome-icon>-->
+                        <!--<fa icon="arrow-right"></fa>-->
                     <!--</span>-->
                 <!--</a>-->
             <!--</section>-->

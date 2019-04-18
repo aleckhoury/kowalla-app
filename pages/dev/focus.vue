@@ -15,35 +15,35 @@
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.bold() }"
                                                 @click="commands.bold">
-                                            <font-awesome-icon icon="bold" />
+                                            <fa icon="bold" />
                                         </a>
 
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.italic() }"
                                                 @click="commands.italic">
-                                            <font-awesome-icon icon="italic" />
+                                            <fa icon="italic" />
                                         </a>
 
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.strike() }"
                                                 @click="commands.strike">
-                                            <font-awesome-icon icon="strikethrough" />
+                                            <fa icon="strikethrough" />
                                         </a>
 
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.underline() }"
                                                 @click="commands.underline">
-                                            <font-awesome-icon icon="underline" />
+                                            <fa icon="underline" />
                                         </a>
 
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.code() }"
                                                 @click="commands.code">
-                                            <font-awesome-icon icon="code" />
+                                            <fa icon="code" />
                                         </a>
 
                                         <!--<a-->
@@ -51,7 +51,7 @@
                                         <!--:class="{ 'is-active': isActive.paragraph() }"-->
                                         <!--@click="commands.paragraph"-->
                                         <!--&gt;-->
-                                        <!--<font-awesome-icon icon="paragraph" />-->
+                                        <!--<fa icon="paragraph" />-->
                                         <!--</a>-->
 
                                         <a
@@ -77,35 +77,35 @@
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.todo_list() }"
                                                 @click="commands.todo_list">
-                                            <font-awesome-icon icon="tasks" />
+                                            <fa icon="tasks" />
                                         </a>
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.bullet_list() }"
                                                 @click="commands.bullet_list">
-                                            <font-awesome-icon icon="list-ul" />
+                                            <fa icon="list-ul" />
                                         </a>
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.ordered_list() }"
                                                 @click="commands.ordered_list">
-                                            <font-awesome-icon icon="list-ol" />
+                                            <fa icon="list-ol" />
                                         </a>
                                         <a
                                                 class="button is-white"
                                                 :class="{ 'is-active': isActive.blockquote() }"
                                                 @click="commands.blockquote">
-                                            <font-awesome-icon icon="quote-right" />
+                                            <fa icon="quote-right" />
                                         </a>
                                         <a
                                                 class="button is-white"
                                                 @click="commands.horizontal_rule">
-                                            <font-awesome-icon icon="minus" />
+                                            <fa icon="minus" />
                                         </a>
                                         <a
                                                 class="button is-white">
                                             <input class="file-input" type="file" ref="file" @change="selectFile(commands.image)">
-                                            <font-awesome-icon icon="camera" />
+                                            <fa icon="camera" />
                                         </a>
                                     </div>
                                 </editor-menu-bar>

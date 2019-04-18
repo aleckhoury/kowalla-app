@@ -83,10 +83,15 @@ module.exports = {
   },
 
   fontawesome: {
+    component: 'fa',
     imports: [
       {
         set: '@fortawesome/free-solid-svg-icons',
-        icons: ['fas',],
+        icons: [ 'faArrowRight', 'faPlus', 'faSearch', 'faSmile', 'faLink', 'faComments',
+          'faAngleDown', 'faTrashAlt', 'faArrowUp', 'faBell', 'faBold',
+          'faItalic', 'faStrikethrough', 'faUnderline', 'faCode', 'faTasks', 'faListUl',
+          'faListOl', 'faQuoteRight', 'faMinus', 'faCamera', 'faClock', 'faHome',
+          'faPencilRuler', 'faUserFriends', 'faProjectDiagram' ],
       },
       // {
       //   set: '@fortawesome/free-brands-svg-icons',

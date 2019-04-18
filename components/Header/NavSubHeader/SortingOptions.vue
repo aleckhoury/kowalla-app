@@ -4,7 +4,7 @@
       <b-dropdown class="dropdown-container" hoverable aria-role="list">
         <div slot="trigger" class="dropdown-selector">
             <b class="font theme-color selector-child">{{ sort }}</b>
-          <font-awesome-icon
+          <fa
               icon="angle-down"
               class="theme-color selector-child"/>
         </div>

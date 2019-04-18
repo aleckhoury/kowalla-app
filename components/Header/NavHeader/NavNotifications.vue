@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown position="is-bottom-left" aria-role="list" @active-change="notifsSelected" mobile-modal>
-    <font-awesome-icon
+    <fa
       icon="bell"
       class="margin"
       :class="{ 'has-notifs': hasNotifications, 'theme-color': !hasNotifications }"

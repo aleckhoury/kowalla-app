@@ -2,7 +2,7 @@
     <div>
         <article class="media">
             <a @click="toggleUpvote()">
-                <font-awesome-icon
+                <fa
                     icon="arrow-up"
                     class="media-left upvote icon"
                     :class="{ 'user-upvoted': !!userUpvoted }"

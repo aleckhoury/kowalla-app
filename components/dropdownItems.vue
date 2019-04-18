@@ -4,7 +4,7 @@
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
                 <span><b>@Kowalla</b></span>
                 <span class="icon is-medium">
-                                            <font-awesome-icon icon="angle-down" />
+                                            <fa icon="angle-down" />
                                         </span>
             </button>
         </div>

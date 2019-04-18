@@ -63,10 +63,10 @@
         </div>
         <div class="media-right">
           <b-dropdown position="is-bottom-left" aria-role="list">
-            <font-awesome-icon class="media-left" slot="trigger" icon="angle-down" style="font-size: 18px"></font-awesome-icon>
+            <fa class="media-left" slot="trigger" icon="angle-down" style="font-size: 18px"></fa>
 
             <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
-              <font-awesome-icon icon="link" />
+              <fa icon="link" />
               Copy link
             </b-dropdown-item>
 
@@ -76,7 +76,7 @@
               v-if="this.profile._id === this.$store.state.user._id"
               @click="deletePost"
             >
-              <font-awesome-icon icon="trash-alt" />
+              <fa icon="trash-alt" />
               Delete
             </b-dropdown-item>
           </b-dropdown>

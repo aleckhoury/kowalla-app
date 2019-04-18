@@ -1,8 +1,8 @@
 <template lang="html">
+    <!--NOTE: Alec removed the icon here so that we could get rid of material design icons for speed for now-->
   <b-autocomplete
     class="searchbar-container"
     placeholder="Search"
-    icon="magnify"
     v-model="name"
     field="name"
     :data="filteredDataArray"

@@ -18,7 +18,7 @@
             </a>
             <BDropdown ref="dropdown" mobile-modal>
                 <a class="button is-outlined level-item" slot="trigger">
-                    <font-awesome-icon icon="smile" />
+                    <fa icon="smile" />
                 </a>
                 <BDropdownItem custom>
                     <Picker
@@ -33,7 +33,7 @@
               class="comments level-item"
               @click="showPost()"
             >
-                <font-awesome-icon icon="comments" id="commentIcon" /> Comments
+                <fa icon="comments" id="commentIcon" /> Comments
             </div>
         </div>
     </div>

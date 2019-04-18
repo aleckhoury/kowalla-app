@@ -1,7 +1,7 @@
 <template>
   <div class="size">
     <div @click="callMobileCreateModal" class="create-button-2">
-      <font-awesome-icon
+      <fa
         icon="plus"
         class="dark-basic-theme"
         style="font-size: 24px"

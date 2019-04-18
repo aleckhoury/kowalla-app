@@ -22,7 +22,7 @@
             class="level-item align-icon"
             @click="callSearchModal"
           >
-            <font-awesome-icon
+            <fa
               class="theme-color-dark"
               icon="search"
               style="font-size: 20px"
@@ -34,7 +34,7 @@
             class="level-item align-icon"
             @click="callNotifModal"
           >
-            <font-awesome-icon
+            <fa
               class="theme-color-dark"
               icon="bell"
               style="font-size: 20px"
@@ -66,7 +66,7 @@
             />
 
             <div v-else class="center mobile-nav-link-picture">
-              <font-awesome-icon icon="home" />
+              <fa icon="home" />
             </div>
           </div>
 
@@ -75,7 +75,7 @@
           </div>
 
           <div class="level-item margin-adjust">
-            <font-awesome-icon icon="angle-down" />
+            <fa icon="angle-down" />
           </div>
         </div> <!-- End selector -->
 

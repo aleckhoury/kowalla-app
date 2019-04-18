@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="box">
       <div class="level" @click="emitSelection('post')">
-          <font-awesome-icon
+          <fa
             class="dark-basic-theme icon"
             icon="pencil-ruler"
             style="font-size: 16px"
@@ -12,7 +12,7 @@
       </div>
 
       <div class="level" @click="emitSelection('community')">
-          <font-awesome-icon
+          <fa
             class="dark-basic-theme icon"
             icon="user-friends"
             style="font-size: 16px"
@@ -22,7 +22,7 @@
       </div>
 
       <div class="level" @click="emitSelection('project')">
-          <font-awesome-icon
+          <fa
             class="dark-basic-theme icon"
             icon="project-diagram"
             style="font-size: 16px"
