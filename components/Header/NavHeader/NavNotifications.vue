@@ -56,7 +56,7 @@ export default {
               notifsToDeleteArray = notifsToDeleteArray.concat(this.notifications[i].notifIds);
             }
           }
-          this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: notifsToDeleteArray }});
+          this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: notifsToDeleteArray }});
         }
 
         else {}

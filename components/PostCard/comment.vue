@@ -86,7 +86,7 @@ const { format } = require('timeago.js');
       },
       toggleUpvote() {
         if (this.upvote.userUpvoted) {
-          this.$axios.delete(`/api/v1/comments/${ this.comment.postId }/${this.$store.state.user._id}/upvote`);
+          this.$axios.$delete(`/api/v1/comments/${ this.comment.postId }/${this.$store.state.user._id}/upvote`);
         } else {
           this.$axios.$post(`/api/v1/comments/upvote`, {
             commentId: this.comment._id,

@@ -286,7 +286,7 @@ export default {
       });
     }
     // get posts
-    this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/${this.postList.length}`);
+    this.postList = await this.$axios.$get(`/api/v1/project/posts/${ this.projectId }/${ this.sort }/${this.postList.length}`);
 
     await this.scroll();
 
@@ -324,7 +324,7 @@ export default {
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/posts/project/${ this.projectId }/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(`/api/v1/project/posts/${ this.projectId }/${ this.sort }/0`);
 
       await this.scroll();
     }
@@ -338,7 +338,7 @@ export default {
           const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 300);
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/posts/project/${this.projectId}/${this.sort}/${this.postList.length}`);
+            const posts = await this.$axios.$get(`/api/v1/project/posts/${this.projectId}/${this.sort}/${this.postList.length}`);
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
@@ -381,7 +381,7 @@ export default {
       for (let i in this.postList) {
         if (this.postList[i]._id === postId) {
           this.postList.splice(i, 1);
-          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          this.$axios.$delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
           break;
         }
       }

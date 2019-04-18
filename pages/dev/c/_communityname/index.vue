@@ -306,7 +306,7 @@ export default {
       for (let i in this.postList) {
         if (this.postList[i]._id === postId) {
           this.postList.splice(i, 1);
-          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          this.$axios.$delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
           break;
         }
       }

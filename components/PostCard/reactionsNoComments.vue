@@ -71,7 +71,7 @@
         }
       },
       async toggleReactionTrue(emoji, index, isEmojiObject) {
-        await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
+        this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
           emoji: emoji,
           postId: this.postId,
         });
@@ -88,7 +88,7 @@
         }
       },
       async toggleReactionFalse(emoji, index) {
-        await this.$axios.delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.postId}`, {
+        this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.postId}`, {
           data: {
             emoji: emoji,
           }
