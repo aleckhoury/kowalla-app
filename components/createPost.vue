@@ -24,6 +24,11 @@ import CreatePostModal from './Modals/Creation/CreatePostModal.vue'
         this.$modal.open({
             parent: this,
             component: CreatePostModal,
+            events: {
+              'post-created': postObj => {
+                this.$emit('post-created', postObj);
+              }
+            },
             hasModalCard: true,
           },
         )

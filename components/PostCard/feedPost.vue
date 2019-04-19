@@ -7,6 +7,7 @@
           :project="this.project"
           :community="this.community"
           :isProject="this.isProject"
+          :isMobile="this.isMobile"
           :postId="this.post._id"
           @delete-post="echoDeletePost"
         />
@@ -64,9 +65,7 @@
         } catch {
           console.log('error grabbing some values');
         }
-      }
-
-      if (this.post.hasOwnProperty('profileId')) {
+      } else {
         this.isProject = false;
         try {
           this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
@@ -137,18 +136,22 @@
     margin: 0;
     padding: 30px 0 0 0;
 
-    /* "transparent" only works here because == rgba(0,0,0,0) */
-    background-image: linear-gradient(to bottom, transparent, white, white);
-}
-.media-content {
-    padding: 0 2em;
-}
-.card {
-    border-radius: 6px;
-    margin-bottom: 1em;
-}
-.content {
-    word-break: break-word;
-    margin-left: 8px;
-}
+        /* "transparent" only works here because == rgba(0,0,0,0) */
+        background-image: linear-gradient(to bottom, transparent, white, white);
+    }
+    b-icon {
+        color: black;
+    }
+    .media-content {
+        padding: 0 2em;
+    }
+    .card {
+        border-radius: 6px;
+        margin-bottom: 1em;
+        overflow: hidden;
+    }
+    .content {
+        word-break: break-word;
+        margin-left: 8px;
+    }
 </style>

@@ -113,6 +113,7 @@
         });
       },
       showPost() {
+        window.history.pushState({}, '');
         this.$emit('open-post');
       }
     },

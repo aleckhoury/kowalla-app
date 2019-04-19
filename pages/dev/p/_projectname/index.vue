@@ -84,7 +84,13 @@
 
                 <!-- post feed -->
                 <div class="column is-two-thirds is-paddingless">
-                  <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+                  <Post
+                    v-for="post in postList"
+                    :key="post._id"
+                    :post="post"
+                    :isMobile="true"
+                    @delete-post="removePostFromPostList"
+                  />
                 </div>
 
                 <!-- info pane -->
@@ -167,6 +173,7 @@
         v-for="post in postList"
         :key="post._id"
         :post="post"
+        @delete-post="removePostFromPostList"
       />
     </div>
 

@@ -18,8 +18,16 @@
         </div>
 
         <div class="column is-one-half is-paddingless no-margin" id="postFeed">
-          <CreatePost v-if="this.$store.state.user.loggedIn && isMounted"></CreatePost>
-          <Post v-for="post in postList" :key="post._id" :post="post"></Post>
+          <CreatePost
+            v-if="this.$store.state.user.loggedIn && isMounted"
+            @post-created="addPostToPostList"
+          />
+          <Post
+            v-for="post in postList"
+            :key="post._id"
+            :post="post"
+            @delete-post="removePostFromPostList"
+          />
         </div>
 
         <!-- info pane -->
@@ -41,6 +49,7 @@
         v-for="post in postList"
         :key="post._id"
         :post="post"
+        :isMobile="true"
       >
       </Post>
     </div>
@@ -108,6 +117,19 @@ export default {
         }
       }
     },
+    addPostToPostList(postObj) {
+      //console.log('postcreated')
+      this.postList.unshift(postObj);
+    },
+    async removePostFromPostList(postId) {
+      for (let i in this.postList) {
+        if (this.postList[i]._id === postId) {
+          this.postList.splice(i, 1);
+          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          break;
+        }
+      }
+    }
   },
   watch: {
     async sort() {

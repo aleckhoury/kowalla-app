@@ -67,6 +67,9 @@ export default {
   },
   created() {
     this.post = this.postObj;
+    this.profile = this.infoObj.profile;
+    this.community = this.infoObj.community;
+    this.project = this.infoObj.project;
 
     if (!this.isFromNestedURL) {
       this.originalPath = this.$route.path;
@@ -74,10 +77,6 @@ export default {
         {}, null,
         `/dev/c/${this.community.name}/posts/${this.post._id}`
       );
-
-      this.profile = this.infoObj.profile;
-      this.community = this.infoObj.community;
-      this.project = this.infoObj.project;
     }
   },
   beforeDestroy() {
@@ -100,9 +99,7 @@ export default {
         } catch {
           console.log('error grabbing some values');
         }
-      }
-
-      if (this.post.hasOwnProperty('profileId')) {
+      } else {
         this.isProject = false;
         try {
           this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
