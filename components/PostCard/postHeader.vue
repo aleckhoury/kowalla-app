@@ -10,7 +10,7 @@
           </nuxt-link>
 
           <nuxt-link v-if="isProject" :to="getProjectRoute">
-            <p class="image is-64x64 profilePic">
+            <p class="image is-48x48 profilePic">
 
                 <img :src="project.profilePicture">
 
@@ -42,28 +42,75 @@
                     <b>@{{ profile.username }}</b>
                   </span>
 
-                · {{ createdAtFormatted }}
-                    <span v-if="isActive">
-                        ·
-                        <span class="liveBox">
-                            LIVE
-                        </span>
+                <span class="grey" v-if="!isMobile">· {{ createdAtFormatted }}</span>
+
+                  <span v-if="isActive">  ·
+                    <span class="liveBox">
+                        LIVE
                     </span>
+                  </span>
                 </small>
             </p>
             </nuxt-link>
 
-              <p class="communityOfPost">
-                  Posted in
-                  <nuxt-link :to="getCommunityRoute" class="community underline">
-                    <b>#{{ community.name }}</b>
-                  </nuxt-link>
-              </p>
+            <p>
+                Posted in
+                <nuxt-link :to="getCommunityRoute" class="community underline">
+                  <b>#{{ community.name }}</b>
+                </nuxt-link>
+            </p>
+
+            <p class="created-at-mobile">
+              <span class="grey" v-if="isMobile">{{ createdAtFormatted }}</span>
+            </p>
+
 
         </div>
         <div class="media-right">
-          <b-dropdown position="is-bottom-left" aria-role="list">
-            <font-awesome-icon class="media-left" slot="trigger" icon="angle-down" style="font-size: 18px"></font-awesome-icon>
+            <div v-if="isProject && !isMobile" class="update level is-size-6">
+                <div class="level-left"><font-awesome-icon icon="flag" /> &nbsp; <h2><b>Update</b></h2></div>
+                <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
+                    <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
+
+                    <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
+                        <font-awesome-icon icon="link" />
+                        Copy link
+                    </b-dropdown-item>
+
+                    <b-dropdown-item
+                            aria-role="listitem"
+                            key="1"
+                            v-if="this.profile._id === this.$store.state.user._id"
+                            @click="deletePost"
+                    >
+                        <font-awesome-icon icon="trash-alt" />
+                        Delete
+                    </b-dropdown-item>
+                </b-dropdown>
+            </div>
+            <div v-else-if="isProject && isMobile" class="update level is-mobile is-size-6">
+                <div class="mobile level-left"><font-awesome-icon icon="flag" /></div>
+                <b-dropdown class="mobile level-right has-text-white" position="is-bottom-left" aria-role="list" :mobile-modal="false">
+                    <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
+
+                    <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
+                        <font-awesome-icon icon="link" />
+                        Copy link
+                    </b-dropdown-item>
+
+                    <b-dropdown-item
+                            aria-role="listitem"
+                            key="1"
+                            v-if="this.profile._id === this.$store.state.user._id"
+                            @click="deletePost"
+                    >
+                        <font-awesome-icon icon="trash-alt" />
+                        Delete
+                    </b-dropdown-item>
+                </b-dropdown>
+            </div>
+          <b-dropdown v-else position="is-bottom-left" aria-role="list" :mobile-modal="false">
+            <font-awesome-icon slot="trigger" icon="angle-down"></font-awesome-icon>
 
             <b-dropdown-item aria-role="listitem" key="0" @click="copyPostURL">
               <font-awesome-icon icon="link" />
@@ -95,7 +142,8 @@
       profile: {},
       project: {},
       community: {},
-      isProject: Boolean
+      isProject: Boolean,
+      isMobile: Boolean,
     },
     data() {
       return {
@@ -151,9 +199,7 @@
 </script>
 
 <style scoped>
-/*.communityOfPost {*/
-    /*margin-top: 1em;*/
-/*}*/
+
 .media-left {
   margin-right: 0.5em;
 }
@@ -173,6 +219,10 @@ span {
 
 .grey {
   color: #999;
+}
+.created-at-mobile {
+    font-size: .75em;
+    padding-top: -.5em;
 }
 .community {
   color: #39C9A0;
@@ -194,4 +244,47 @@ span {
     background: red;
     color: white;
 }
+.update {
+    background-color: #39C9A0;
+    color: white;
+    width: 10em;
+    height: 100%;
+    margin-top: -10px;
+    margin-right: -2em;
+    -webkit-transform: skewX(-25deg);
+    -moz-transform: skewX(-25deg);
+    -ms-transform: skewX(-25deg);
+    -o-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+.update.is-mobile {
+    background-color: #39C9A0;
+    color: white;
+    width: 5.5em;
+    height: 85%;
+    margin-top: -10px;
+    margin-right: -2em;
+    -webkit-transform: skewX(-25deg);
+    -moz-transform: skewX(-25deg);
+    -ms-transform: skewX(-25deg);
+    -o-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+    div.level-left {
+        padding-left: 1em;
+        -webkit-transform: skewX(25deg);
+        -moz-transform: skewX(25deg);
+        -ms-transform: skewX(25deg);
+        -o-transform: skewX(25deg);
+        transform: skewX(25deg);
+    }
+    div.level-right {
+        margin-right: 2em;
+        margin-top: -.25em;
+        -webkit-transform: skewX(25deg);
+        -moz-transform: skewX(25deg);
+        -ms-transform: skewX(25deg);
+        -o-transform: skewX(25deg);
+        transform: skewX(25deg);
+    }
 </style>

@@ -108,7 +108,7 @@
 
       <Post
         class="newsfeed-margin"
-
+        :isMobile="true"
         v-for="post in postList"
         :key="post._id"
         :post="post"
