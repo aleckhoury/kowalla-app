@@ -113,8 +113,18 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    extend(config) {
+    extend(config, ctx) {
       config.resolve.alias['vue'] = 'vue/dist/vue.common'
+
+      if (ctx.isDev && ctx.isClient) {
+  config.module.rules.push({
+    enforce: "pre",
+    test: /\.(js|vue)$/,
+    loader: "eslint-loader",
+    exclude: /(node_modules)/
+  })
+}
+}
     }
     //   /*
     //   ** You can extend webpack config here
