@@ -22,10 +22,6 @@ workbox.precaching.precacheAndRoute([
     "revision": "6f580b370a40e057e793f07ad4a238a4"
   },
   {
-    "url": "/_nuxt/2de665676327338f6ff2.js",
-    "revision": "4b447c6f5e2dd4c04340d9d9a5e0093f"
-  },
-  {
     "url": "/_nuxt/6eabd49c0dc504178a51.js",
     "revision": "996aabbe6ae500fdd4a508d57ba7abb6"
   },
@@ -36,6 +32,10 @@ workbox.precaching.precacheAndRoute([
   {
     "url": "/_nuxt/8db4236991ffe7b8ba46.js",
     "revision": "60d36435f713d3b9f8f0180281d94029"
+  },
+  {
+    "url": "/_nuxt/8ec17d1e6bd91029f8a6.js",
+    "revision": "d19d8006afde4152b8c416848bdb2efb"
   },
   {
     "url": "/_nuxt/9698f53e47594208eba1.js",
@@ -82,7 +82,7 @@ workbox.precaching.precacheAndRoute([
     "revision": "8d52e218d712121446acba920c21ee75"
   }
 ], {
-  "cacheId": "kowalla-app",
+  "cacheId": "nuxt",
   "directoryIndex": "/",
   "cleanUrls": false
 })

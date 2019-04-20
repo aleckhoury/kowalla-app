@@ -1,36 +1,36 @@
 /*!
-    * tiptap v1.7.0
+    * tiptap v1.14.0
     * (c) 2019 Scrumpy UG (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-extensions v1.7.0
+    * tiptap-extensions v1.14.0
     * (c) 2019 Scrumpy UG (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-utils v1.1.0
+    * tiptap-utils v1.2.0
     * (c) 2019 Scrumpy UG (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-commands v1.3.0
+    * tiptap-commands v1.6.0
     * (c) 2019 Scrumpy UG (limited liability)
     * @license MIT
     */
 
 /**
- * vuex v3.0.1
- * (c) 2017 Evan You
+ * vuex v3.1.0
+ * (c) 2019 Evan You
  * @license MIT
  */
 
 /*!
-  * vue-router v3.0.2
-  * (c) 2018 Evan You
+  * vue-router v3.0.5
+  * (c) 2019 Evan You
   * @license MIT
   */
 
@@ -43,8 +43,8 @@
  */
 
 /**
- * vue-meta v1.5.8
- * (c) 2018 Declan de Wet & Sébastien Chopin (@Atinux)
+ * vue-meta v1.6.0
+ * (c) 2019 Declan de Wet & Sébastien Chopin (@Atinux)
  * @license MIT
  */
 
@@ -53,13 +53,6 @@
 	(c) Sindre Sorhus
 	@license MIT
 	*/
-
-/*!
- * cookie
- * Copyright(c) 2012-2014 Roman Shtylman
- * Copyright(c) 2015 Douglas Christopher Wilson
- * MIT Licensed
- */
 
 /*!
  * Vue.js v2.6.10
@@ -80,4 +73,4 @@
  * Released under the MIT License.
  */
 
-/*! Buefy v0.7.2 | MIT License | github.com/buefy/buefy */
+/*! Buefy v0.7.4 | MIT License | github.com/buefy/buefy */
