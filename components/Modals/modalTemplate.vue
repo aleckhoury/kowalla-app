@@ -11,7 +11,7 @@
 // cardModal() {
 //   this.$modal.open({
 //       parent: this,
-//       component: LoginRegisterModal,
+//       component: LoginAndRegisterModal,
 //       width: 900,
 //       hasModalCard: true,
 //     },

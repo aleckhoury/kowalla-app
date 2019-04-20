@@ -91,9 +91,8 @@ import ChangeLocationModal from '~/components/Modals/Other/ChangeLocationModal';
 import NotificationModal from '~/components/Modals/Other/NotificationModal';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 import NavNotifications from '~/components/Header/NavHeader/NavNotifications';
-import TestModal from '~/components/Modals/Other/TestModal';
 import SearchModal from '~/components/Modals/Other/SearchModal';
-import LoginRegisterModal from '~/components/LoginRegisterModal'
+import LoginAndRegisterModal from '~/components/Auth/LoginAndRegisterModal'
 
 export default {
   name: "MobileHeader",
@@ -131,7 +130,7 @@ export default {
     cardModal() {
       this.$modal.open({
                 parent: this,
-                component: LoginRegisterModal,
+                component: LoginAndRegisterModal,
                 width: 900,
                 hasModalCard: true,
               },

@@ -63,7 +63,7 @@ import Searchbar from './Searchbar';
 import NavProfilePicture from './NavProfilePicture';
 import NavNotifications from './NavNotifications';
 import HelpModal from '~/components/Modals/Other/HelpModal';
-import LoginRegisterModal from '~/components/LoginRegisterModal'
+import LoginAndRegisterModal from '~/components/Auth/LoginAndRegisterModal'
 
 export default {
   name: 'NavHeader',
@@ -94,7 +94,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: LoginRegisterModal,
+        component: LoginAndRegisterModal,
         width: 900,
         hasModalCard: true,
       });

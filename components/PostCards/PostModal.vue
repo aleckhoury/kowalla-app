@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="box is-paddingless">
           <div class="card">
-              <post-header
+              <PostHeader
                 :isActive="post.isActive"
                 :createdAt="this.post.createdAt"
                 :profile="this.profile"
@@ -13,12 +13,12 @@
                 @delete-post="echoDeletePost"
               />
               <PostTimer v-if="post.isActive" :time="post.expiration" />
-              <div class="content is-marginless" v-html="post.content">
-              </div>
+
+              <div class="content is-marginless" v-html="post.content" />
+
               <br />
-              <Reactions
-                :postId="this.post._id"
-              />
+
+              <Reactions :postId="this.post._id" />
           </div>
 
           <AddComment v-if="!activeCommentId" :postId="post._id" :updateComment="updateComment" />
@@ -35,18 +35,17 @@
 </template>
 
 <script>
-import Comment from './comment.vue';
-import AddComment from "./addComment";
-import Reactions from "./reactionsNoComments";
-import PostHeader from "./postHeader";
-import PostTimer from "./postTimer";
+import Comment from '~/components/PostCards/Comment.vue';
+import AddComment from "~/components/PostCards/AddComment";
+import Reactions from "~/components/PostCards/ReactionsNoComments";
+import PostHeader from "~/components/PostCards/PostHeader";
+import PostTimer from "~/components/PostCards/PostTimer";
 import Utils from '~/utils/helpers';
 
 export default {
   name: "PostModal",
   components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
   props: {
-    //post: Object,
     isFromNestedURL: { type: Boolean, default: false },
     isFromNewsfeed: { type: Boolean, default: false },
     fallbackURL: { type: String, default: ''},
@@ -87,7 +86,7 @@ export default {
 
 
     if (this.isFromNestedURL) {
-      // have to get information we haven't gotten from the feedPost component
+      // have to get information we haven't gotten from the NewsfeedPost component
 
       if (this.post.hasOwnProperty('projectId')) {
         this.isProject = true;

@@ -123,18 +123,18 @@
 
 <script>
 import Header from '~/components/Header/Header';
-import MobileHeader from '~/components/Header/MobileHeader';
-import MobileFooter from '~/components/Header/MobileFooter';
+import MobileHeader from '~/components/Header/Mobile/MobileHeader';
+import MobileFooter from '~/components/Header/Mobile/MobileFooter';
 
 import NavPane from '~/components/NavCards/NavPane';
-import Banner from '~/components/Banner';
+import Banner from '~/components/CommunitiesAndProjectsShared/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditCommunityModal from '~/components/Modals/Edit/EditCommunityModal';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
-import Post from "~/components/PostCard/feedPost";
-import PostModal from '~/components/PostCard/modalPost.vue';
+import Post from "~/components/PostCards/NewsfeedPost";
+import PostModal from '~/components/PostCards/PostModal.vue';
 
 export default {
   middleware: 'activePost',

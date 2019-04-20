@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <post-header
+        <PostHeader
           :isActive="post.isActive"
           :createdAt="this.post.createdAt"
           :profile="this.profile"
@@ -11,7 +11,8 @@
           :postId="this.post._id"
           @delete-post="echoDeletePost"
         />
-            <PostTimer v-if="post.isActive" :time="post.expiration" />
+
+        <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
             <div class="content is-marginless" v-html="post.content" />
 
@@ -26,10 +27,10 @@
 </template>
 
 <script>
-  import Reactions from "./reactions";
-  import PostHeader from "./postHeader";
-  import PostTimer from "./postTimer";
-  import PostModal from './modalPost.vue';
+  import Reactions from "~/components/PostCards/Reactions";
+  import PostHeader from "~/components/PostCards/PostHeader";
+  import PostTimer from "~/components/PostCards/PostTimer";
+  import PostModal from '~/components/PostCards/PostModal.vue';
   import Utils from '~/utils/helpers';
 
   export default {
@@ -136,8 +137,8 @@
     margin: 0;
     padding: 30px 0 0 0;
 
-        /* "transparent" only works here because == rgba(0,0,0,0) */
-        background-image: linear-gradient(to bottom, transparent, white, white);
+    /* "transparent" only works here because == rgba(0,0,0,0) */
+    background-image: linear-gradient(to bottom, transparent, white, white);
     }
     b-icon {
         color: black;

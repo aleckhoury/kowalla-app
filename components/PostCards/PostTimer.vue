@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: "postTimer",
+    name: "PostTimer",
     props: {
       time: String,
     },

@@ -121,8 +121,8 @@
 </template>
 
 <script>
-import MobileHeader from '~/components/Header/MobileHeader';
-import MobileFooter from '~/components/Header/MobileFooter';
+import MobileHeader from '~/components/Header/Mobile/MobileHeader';
+import MobileFooter from '~/components/Header/Mobile/MobileFooter';
 
 import NavPane from '~/components/NavCards/NavPane';
 import Header from '~/components/Header/Header';
@@ -133,7 +133,7 @@ import Card from '~/components/Card';
 import NavCard from '~/components/NavCards/NavCard';
 import EditButton from '~/components/InfoCards/EditButton';
 import EditProfileModal from '~/components/Modals/Edit/EditProfileModal';
-import Post from "~/components/PostCard/feedPost";
+import Post from "~/components/PostCards/NewsfeedPost";
 
 export default {
   middleware: 'activePost',

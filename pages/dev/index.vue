@@ -60,13 +60,13 @@
 </template>
 
 <script>
-import MobileHeader from '~/components/Header/MobileHeader';
-import MobileFooter from '~/components/Header/MobileFooter';
+import MobileHeader from '~/components/Header/Mobile/MobileHeader';
+import MobileFooter from '~/components/Header/Mobile/MobileFooter';
 
 import Header from '~/components/Header/Header';
 import NavPane from '~/components/NavCards/NavPane';
-import Post from "~/components/PostCard/feedPost";
-import CreatePost from "~/components/createPost";
+import Post from "~/components/PostCards/NewsfeedPost";
+import CreatePost from "~/components/PostCards/CreatePost";
 
 export default {
   middleware: 'activePost',

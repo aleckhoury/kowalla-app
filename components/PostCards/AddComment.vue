@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: "addComment",
+    name: "AddComment",
     props: {
       updateComment: Function,
       postId: String,
