@@ -1,19 +1,21 @@
 <template>
     <div class="card">
-        <div class="header">
-            <post-header
-                    :isActive="post.isActive"
-                    :createdAt="this.post.createdAt"
-                    :profile="this.profile"
-                    :project="this.project"
-                    :community="this.community"
-                    :isProject="this.isProject"
-                    :isMobile="this.isMobile"
-                    :postId="this.post._id"
-                    @delete-post="echoDeletePost"
-            />
-        </div>
-            <PostTimer v-if="post.isActive" :time="post.expiration" />
+      <div class="post-header-container">
+        <PostHeader
+          :isActive="post.isActive"
+          :createdAt="this.post.createdAt"
+          :profile="this.profile"
+          :project="this.project"
+          :community="this.community"
+          :isProject="this.isProject"
+          :isMobile="this.isMobile"
+          :postId="this.post._id"
+          @delete-post="echoDeletePost"
+        />
+      </div>
+
+
+        <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
             <div class="content is-marginless" v-html="post.content" />
 
@@ -28,10 +30,10 @@
 </template>
 
 <script>
-  import Reactions from "./reactions";
-  import PostHeader from "./postHeader";
-  import PostTimer from "./postTimer";
-  import PostModal from './modalPost.vue';
+  import Reactions from "~/components/PostCards/Reactions";
+  import PostHeader from "~/components/PostCards/PostHeader";
+  import PostTimer from "~/components/PostCards/PostTimer";
+  import PostModal from '~/components/PostCards/PostModal.vue';
   import Utils from '~/utils/helpers';
 
   export default {
@@ -138,19 +140,14 @@
     margin: 0;
     padding: 30px 0 0 0;
 
-        /* "transparent" only works here because == rgba(0,0,0,0) */
-        background-image: linear-gradient(to bottom, transparent, white, white);
+    /* "transparent" only works here because == rgba(0,0,0,0) */
+    background-image: linear-gradient(to bottom, transparent, white, white);
     }
     b-icon {
         color: black;
     }
     .media-content {
         padding: 0 2em;
-    }
-    div.header {
-        width: 100%;
-        border-radius: 6px;
-        overflow: hidden;
     }
     .card {
         border-radius: 6px;
@@ -159,5 +156,9 @@
     .content {
         word-break: break-word;
         margin-left: 8px;
+    }
+    div.post-header-container {
+      border-radius: 6px;
+      overflow: hidden;
     }
 </style>

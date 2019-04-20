@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  import LoginRegisterModal from "./LoginRegisterModal";
+  import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
 
   export default {
-    name: "LoginRegister",
+    name: "LoginAndRegister",
     data() {
       return {
         userDropdown: false,
@@ -22,7 +22,7 @@
       cardModal() {
         this.$modal.open({
             parent: this,
-            component: LoginRegisterModal,
+            component: LoginAndRegisterModal,
             width: 900,
             hasModalCard: true,
           },
