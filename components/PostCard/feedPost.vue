@@ -1,16 +1,18 @@
 <template>
     <div class="card">
-        <post-header
-          :isActive="post.isActive"
-          :createdAt="this.post.createdAt"
-          :profile="this.profile"
-          :project="this.project"
-          :community="this.community"
-          :isProject="this.isProject"
-          :isMobile="this.isMobile"
-          :postId="this.post._id"
-          @delete-post="echoDeletePost"
-        />
+        <div class="header">
+            <post-header
+                    :isActive="post.isActive"
+                    :createdAt="this.post.createdAt"
+                    :profile="this.profile"
+                    :project="this.project"
+                    :community="this.community"
+                    :isProject="this.isProject"
+                    :isMobile="this.isMobile"
+                    :postId="this.post._id"
+                    @delete-post="echoDeletePost"
+            />
+        </div>
             <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
             <div class="content is-marginless" v-html="post.content" />
@@ -145,10 +147,14 @@
     .media-content {
         padding: 0 2em;
     }
+    div.header {
+        width: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+    }
     .card {
         border-radius: 6px;
         margin-bottom: 1em;
-        overflow: hidden;
     }
     .content {
         word-break: break-word;
