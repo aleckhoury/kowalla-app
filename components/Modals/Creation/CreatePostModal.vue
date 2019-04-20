@@ -219,8 +219,9 @@
     async beforeDestroy() {
       if (this.clearPhoto === true) {
         const fileName = await (this.photoUrl.split('post-pics/'))[1];
-        await this.$axios.$post('/api/v1/posts/imageDelete', {
-          bucket: 'kowalla-dev/user/post-pics',
+        const type = this.postingAs.id ? 'project' : 'community';
+        await this.$axios.$post('/api/v1/imageDelete', {
+          bucket: `kowalla-dev/${type}/post-pics`,
           fileName,
           });
       }
@@ -321,7 +322,7 @@
         }
       },
       async selectFile(command) {
-        this.file = await this.$refs.file.files[0];
+        this.file = this.$refs.file.files[0];
 
         this.sendFile(command);
       },
@@ -329,6 +330,8 @@
         this.clearPhoto = true;
         const formData = new FormData();
         formData.append('file', this.file);
+        const type = this.postingAs.id ? 'project' : 'community';
+        formData.append('type', type);
         try {
           const image = await this.$axios.$post('/api/v1/posts/imageUpload', formData);
           this.photoUrl = image.file;
