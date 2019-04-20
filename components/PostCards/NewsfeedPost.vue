@@ -1,5 +1,6 @@
 <template>
     <div class="card">
+      <div class="post-header-container">
         <PostHeader
           :isActive="post.isActive"
           :createdAt="this.post.createdAt"
@@ -11,6 +12,8 @@
           :postId="this.post._id"
           @delete-post="echoDeletePost"
         />
+      </div>
+
 
         <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div id="content-box" :class="{ fullHeight: !overflow }" ref="content">
@@ -149,10 +152,13 @@
     .card {
         border-radius: 6px;
         margin-bottom: 1em;
-        overflow: hidden;
     }
     .content {
         word-break: break-word;
         margin-left: 8px;
+    }
+    div.post-header-container {
+      border-radius: 6px;
+      overflow: hidden;
     }
 </style>
