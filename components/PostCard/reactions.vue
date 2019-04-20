@@ -16,19 +16,19 @@
                         class="is-marginless is-paddingless"
                         v-for="(react, index) in reactionsFormatted.slice(0, 3)">{{ react.emoji }}</span>{{ reactionCountMobile }}</b>
             </a>
-            <BDropdown ref="dropdown" mobile-modal>
+            <b-dropdown ref="dropdown" mobile-modal>
                 <a class="button is-outlined level-item" slot="trigger">
                     <font-awesome-icon icon="smile" />
                 </a>
-                <BDropdownItem custom>
+                <b-dropdown-item custom>
                     <Picker
                         set="apple"
                         :showSkinTones="false"
                         :showPreview="false"
                         @select="toggleReaction"
                     ></Picker>
-                </BDropdownItem>
-            </BDropdown>
+                </b-dropdown-item>
+            </b-dropdown>
             <div
               class="comments level-item"
               @click="showPost()"
@@ -47,7 +47,6 @@
   }
   let { Picker } = Mart ? Mart : '';
   import 'emoji-mart-vue-fast/css/emoji-mart.css'
-  import PostModal from './modalPost.vue';
 
   export default {
     name: "Reactions",

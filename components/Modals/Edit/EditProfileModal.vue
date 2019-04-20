@@ -24,14 +24,18 @@
             maxlength="15"
           />
         </b-field>
+        <b-field label="Profile Picture" />
 
-        <b-field label="Profile Picture">
-          <b-input
-            v-model="editForm.profilePicture"
-            maxlength="200"
-          />
-        </b-field>
-
+        <div class="profilePicSection">
+          <p class="profilePic">
+            <img :src="editForm.profilePicture" />
+          </p>
+          <a class="button action" @click="">
+            <input class="file-input" type="file" ref="file" @change="selectFile()" />
+            <span v-if="editForm.profilePicture">Change Profile Picture</span>
+            <span v-else>Add Profile Picture</span> &nbsp; <font-awesome-icon icon="camera" />
+          </a>
+        </div>
         <b-field label="Description">
           <b-input
             v-model="editForm.description"
@@ -52,6 +56,7 @@ export default {
   name: "CreateSpaceModal",
   data() {
     return {
+      file: '',
       editForm: {
         firstName: '',
         lastName: '',
@@ -78,7 +83,43 @@ export default {
     this.editForm.description = this.description;
   },
   methods: {
+    async selectFile() {
+      this.file = this.$refs.file.files[0];
+      let reader = new FileReader();
+      const self = this;
+      reader.onload = (e) => {
+        self.editForm.profilePicture = e.target.result;
+      };
+      reader.readAsDataURL(this.file);
+    },
+    async uploadImage() {
+      const formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('picType', 'user');
+      try {
+        const image = await this.$axios.$post('/api/v1/profilePicUpload', formData);
+        this.editForm.profilePicture = image.file;
+      } catch(err) {
+        console.log(err);
+        this.$toast.open({
+          duration: 5000,
+          message: 'There was an error uploading your profile picture. Please try again.',
+          position: 'is-top',
+          type: 'is-danger'
+        })
+      }
+    },
     async editProfile(editForm) {
+      if (this.profilePicture !== editForm.profilePicture) {
+        await this.uploadImage();
+        if (this.profilePicture.includes('https://kowalla-dev')) {
+          const fileName = (this.profilePicture.split('profile-pics/'))[1];
+          this.$axios.$post('/api/v1/imageDelete', {
+            bucket: `kowalla-dev/user/profile-pics`,
+            fileName,
+          });
+        }
+      }
       try {
         let profileData = await this.$axios.$put(`api/v1/profiles/${this.profileId}`, {
           firstName: editForm.firstName, // will need to update local state
@@ -124,4 +165,19 @@ export default {
     color: #39C9A0;
     width: auto;
 }
+.button.action {
+  color: white;
+  background-color: #39C9A0;
+  border-color: #39C9A0;
+  margin-bottom: 1.75em;
+}
+.profilePic img {
+  width: 180px;
+  height: 180px;
+  border-radius: 0.75em;
+  object-fit: cover;
+}
+  .profilePicSection {
+    text-align: center;
+  }
 </style>

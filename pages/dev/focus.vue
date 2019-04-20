@@ -222,7 +222,7 @@
         }
       },
       async selectFile(command) {
-        this.file = await this.$refs.file.files[0];
+        this.file = this.$refs.file.files[0];
 
         this.sendFile(command);
       },
@@ -230,6 +230,8 @@
         this.clearPhoto = true;
         const formData = new FormData();
         formData.append('file', this.file);
+        const type = this.post.projectId ? 'project' : 'community';
+        formData.append('type', type);
         try {
           const image = await this.$axios.$post('/api/v1/posts/imageUpload', formData);
           this.photoUrl = image.file;
