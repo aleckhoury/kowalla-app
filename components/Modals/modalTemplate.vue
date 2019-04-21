@@ -1,9 +1,7 @@
 <template>
-    <div class="modal-content">
-        <div class="box">
-          
-        </div>
-    </div>
+  <div class="modal-content">
+    <div class="box" />
+  </div>
 </template>
 
 <script>
@@ -17,22 +15,22 @@
 //     },
 //   )
 // },
-  export default {
-    name: "PostModal",
-    components: {},
-    props: {},
-  };
+export default {
+  name: "PostModal",
+  components: {},
+  props: {},
+};
 </script>
 
 <style scoped>
-    .box {
-        width: 800px;
-        max-width: 100%;
-    }
-    .modal-content {
-        border-radius: 6px;
-        margin: 0;
-        color: #39C9A0;
-        width: auto;
-    }
+.box {
+  width: 800px;
+  max-width: 100%;
+}
+.modal-content {
+  border-radius: 6px;
+  margin: 0;
+  color: #39c9a0;
+  width: auto;
+}
 </style>

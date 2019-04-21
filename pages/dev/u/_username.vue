@@ -1,17 +1,16 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header class="is-hidden-touch"></Header>
+    <Header class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
       <div class="columns is-marginless main-margin">
-
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane></NavPane>
+          <NavPane />
         </div>
 
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless" id="postFeed">
+        <div id="postFeed" class="column is-one-half is-paddingless">
           <Post
             v-for="post in postList"
             :key="post._id"
@@ -24,46 +23,59 @@
         <div class="column is-one-quarter is-paddingless side-pane">
           <InfoPane>
             <ProfileCard
-              :name="`${this.firstName} ${this.lastName}`"
-              :profilePictureURL="profilePictureURL"
-              :username="this.username"
+              :name="`${firstName} ${lastName}`"
+              :profile-picture-url="profilePictureURL"
+              :username="username"
               :stats="profileStats"
-              type="user"></ProfileCard>
+              type="user"
+            />
 
             <DescriptionCard
-              :headerString="`About ${this.firstName}`"
-              :subheaderOn="false">
-
-              {{profileDescription}}
-
+              :header-string="`About ${firstName}`"
+              :subheader-on="false"
+            >
+              {{ profileDescription }}
             </DescriptionCard>
 
             <EditButton
-              v-if="(this.$store.state.user.username === this.username)"
+              v-if="this.$store.state.user.username === username"
               @edit-button-clicked="callEditProfileModal"
             >
               <b>Edit Settings</b>
             </EditButton>
 
             <Card
-              v-if="((profileSubs.owned.length > 0) && (this.$store.state.user.username !== this.username))"
-              :headerString="`Made by ${this.firstName}`"
-              headerOn
-              :subheaderOn="false"
+              v-if="
+                profileSubs.owned.length > 0 &&
+                  this.$store.state.user.username !== username
+              "
+              :header-string="`Made by ${firstName}`"
+              :subheader-on="false"
+              header-on
             >
               <!-- need to make NavCard more flexible -->
-              <NavCard type="profile" selector="owned" :profileSubs="profileSubs"></NavCard>
+              <NavCard
+                :profile-subs="profileSubs"
+                type="profile"
+                selector="owned"
+              />
             </Card>
 
             <Card
-              v-if="((profileSubs.subscriptions.length > 0) && (this.$store.state.user.username !== this.username))"
-              :headerString="`${this.firstName}'s Subscriptions`"
-              subheaderString="More communities you'll love"
+              v-if="
+                profileSubs.subscriptions.length > 0 &&
+                  this.$store.state.user.username !== username
+              "
+              :header-string="`${firstName}'s Subscriptions`"
+              subheader-string="More communities you'll love"
             >
               <!-- need to make NavCard more flexible -->
-              <NavCard type="profile" selector="subscriptions" :profileSubs="profileSubs"></NavCard>
+              <NavCard
+                :profile-subs="profileSubs"
+                type="profile"
+                selector="subscriptions"
+              />
             </Card>
-
           </InfoPane>
         </div>
       </div>
@@ -71,34 +83,34 @@
 
     <!-- Mobile -->
     <MobileHeader
+      :location-picture-to-display="profilePictureURL"
+      :location-to-display="`@${username}`"
       class="is-hidden-desktop"
-      :locationPictureToDisplay="this.profilePictureURL"
-      :locationToDisplay="`@${this.username}`"
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <div class="side-pane">
         <ProfileCard
-          :name="`${this.firstName} ${this.lastName}`"
-          :profilePictureURL="profilePictureURL"
-          :username="this.username"
+          :name="`${firstName} ${lastName}`"
+          :profile-picture-url="profilePictureURL"
+          :username="username"
           :stats="profileStats"
-          isMobile
-          type="user"/>
+          is-mobile
+          type="user"
+        />
       </div>
 
       <DescriptionCard
+        :header-string="`About ${firstName}`"
+        :subheader-on="false"
         class="newsfeed-margin"
-        :headerString="`About ${this.firstName}`"
-        :subheaderOn="false">
-
-        {{profileDescription}}
-
+      >
+        {{ profileDescription }}
       </DescriptionCard>
 
       <div class="side-pane">
         <EditButton
-          v-if="(this.$store.state.user.username === this.username)"
+          v-if="this.$store.state.user.username === username"
           @edit-button-clicked="callEditProfileModal"
         >
           <b>Edit Settings</b>
@@ -106,38 +118,37 @@
       </div>
 
       <Post
-        class="newsfeed-margin"
-        :isMobile="true"
         v-for="post in postList"
+        :is-mobile="true"
         :key="post._id"
         :post="post"
+        class="newsfeed-margin"
         @delete-post="removePostFromPostList"
       />
     </div>
 
-
-    <MobileFooter class="is-hidden-desktop"/>
+    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 
 <script>
-import MobileHeader from '~/components/Header/Mobile/MobileHeader';
-import MobileFooter from '~/components/Header/Mobile/MobileFooter';
+import MobileHeader from "~/components/Header/Mobile/MobileHeader";
+import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
-import NavPane from '~/components/NavCards/NavPane';
-import Header from '~/components/Header/Header';
-import ProfileCard from '~/components/InfoCards/ProfileCard';
-import DescriptionCard from '~/components/InfoCards/DescriptionCard';
-import InfoPane from '~/components/InfoCards/InfoPane';
-import Card from '~/components/Card';
-import NavCard from '~/components/NavCards/NavCard';
-import EditButton from '~/components/InfoCards/EditButton';
-import EditProfileModal from '~/components/Modals/Edit/EditProfileModal';
+import NavPane from "~/components/NavCards/NavPane";
+import Header from "~/components/Header/Header";
+import ProfileCard from "~/components/InfoCards/ProfileCard";
+import DescriptionCard from "~/components/InfoCards/DescriptionCard";
+import InfoPane from "~/components/InfoCards/InfoPane";
+import Card from "~/components/Card";
+import NavCard from "~/components/NavCards/NavCard";
+import EditButton from "~/components/InfoCards/EditButton";
+import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
 import Post from "~/components/PostCards/NewsfeedPost";
 
 export default {
-  middleware: 'activePost',
-  name: 'UserPageTest',
+  middleware: "activePost",
+  name: "UserPageTest",
   components: {
     NavPane,
     NavCard,
@@ -155,11 +166,11 @@ export default {
   data() {
     return {
       username: null,
-      profileId: '',
-      firstName: '',
-      lastName: '',
-      profilePictureURL: '',
-      profileDescription: '',
+      profileId: "",
+      firstName: "",
+      lastName: "",
+      profilePictureURL: "",
+      profileDescription: "",
 
       profileStats: [],
 
@@ -175,13 +186,51 @@ export default {
     },
     sort() {
       return this.$store.state.sorting.profile;
-    }
+    },
   },
   watch: {
     async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/profile/posts/${ this.profileId }/${ this.sort }/0`);
+      this.postList = await this.$axios.$get(
+        `/api/v1/profile/posts/${this.profileId}/${this.sort}/0`
+      );
 
       await this.scroll();
+    },
+  },
+  created() {
+    this.username = this.$route.params.username;
+  },
+  async mounted() {
+    let infoRes = await this.$axios.$get(`/api/v1/profiles/u/${this.username}`);
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    // get name
+    if (infoRes.hasOwnProperty("firstName")) {
+      this.firstName = infoRes.firstName;
+      this.lastName = infoRes.lastName;
+      this.profileDescription = infoRes.description;
+      this.profilePictureURL = infoRes.profilePicture;
+      this.profileId = infoRes._id;
+      this.profileStats.push({ name: "Rep", stat: infoRes.reputation });
+      this.profileStats.push({ name: "Posts", stat: infoRes.postCount });
+      this.profileStats.push({ name: "Replies", stat: infoRes.commentCount });
+
+      let subRes = await this.$axios.$get(
+        `/api/v1/profiles/${this.profileId}/subs`
+      );
+      this.profileSubs = subRes.profileSubscriptions;
+
+      this.postList = await this.$axios.$get(
+        `/api/v1/profile/posts/${this.profileId}/${this.sort}/${
+          this.postList.length
+        }`
+      );
+
+      await this.scroll();
+
+      document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }
   },
   methods: {
@@ -198,68 +247,45 @@ export default {
           profileId: this.profileId,
         },
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     async scroll() {
       if (this.postList.length) {
         let isActive = false;
-        window.onscroll = async ev => {
-          const feed = document.getElementById('postFeed');
-          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+        window.onscroll = async () => {
+          const feed = document.getElementById("postFeed");
+          const bottomOfWindow =
+            window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/profile/posts/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
+            const posts = await this.$axios.$get(
+              `/api/v1/profile/posts/${this.profileId}/${this.sort}/${
+                this.postList.length
+              }`
+            );
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
               isActive = false;
             }
           }
-        }
+        };
       }
     },
     async removePostFromPostList(postId) {
       for (let i in this.postList) {
         if (this.postList[i]._id === postId) {
           this.postList.splice(i, 1);
-          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          await this.$axios.delete(
+            `/api/v1/communities/${this.communityId}/posts/${postId}`
+          );
           break;
         }
       }
     },
   },
-  created() {
-    this.username = this.$route.params.username;
-  },
-  async mounted() {
-    let infoRes = await this.$axios.$get(`/api/v1/profiles/u/${this.username}`);
-    //------------------
-    // remove if statements, but keep assignments in production.
-    // they're only for quicker validation to ignore an unhelpful nuxt error throw
-    //------------------
-    // get name
-    if (infoRes.hasOwnProperty('firstName')) {
-      this.firstName = infoRes.firstName;
-      this.lastName = infoRes.lastName;
-      this.profileDescription = infoRes.description;
-      this.profilePictureURL = infoRes.profilePicture;
-      this.profileId = infoRes._id;
-      this.profileStats.push({ name: 'Rep', stat: infoRes.reputation });
-      this.profileStats.push({ name: 'Posts', stat: infoRes.postCount });
-      this.profileStats.push({ name: 'Replies', stat: infoRes.commentCount });
-
-      let subRes = await this.$axios.$get(`/api/v1/profiles/${this.profileId}/subs`);
-      this.profileSubs = subRes.profileSubscriptions;
-
-      this.postList = await this.$axios.$get(`/api/v1/profile/posts/${ this.profileId }/${ this.sort }/${ this.postList.length }`);
-
-      await this.scroll();
-
-      document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
-    }
-  },
-}
+};
 </script>
 
 <style lang="css">

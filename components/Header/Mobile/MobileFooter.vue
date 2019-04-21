@@ -1,6 +1,6 @@
 <template>
   <div class="size">
-    <div @click="callMobileCreateModal" class="create-button-2">
+    <div class="create-button-2" @click="callMobileCreateModal">
       <font-awesome-icon
         icon="plus"
         class="dark-basic-theme"
@@ -10,8 +10,8 @@
   </div>
 </template>
 <script>
-import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
-import CreatePostModal from '~/components/Modals/Creation/CreatePostModal';
+import MobileCreateModal from "~/components/Modals/Creation/MobileCreateModal";
+import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
 
 export default {
   name: "MobileFooter",
@@ -36,13 +36,11 @@ export default {
 
           project: () => {
             // call project modal
-          }
-
-        }
+          },
+        },
       });
     },
     callCreatePostModal() {
-
       this.$modal.open({
         parent: this,
         component: CreatePostModal,
@@ -50,10 +48,9 @@ export default {
         hasModalCard: true,
         canCancel: true,
       });
-    }
-  }
-
-}
+    },
+  },
+};
 </script>
 <style lang="css" scoped>
 .size {

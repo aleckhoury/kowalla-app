@@ -1,45 +1,40 @@
 <template lang="html">
   <b-dropdown position="is-bottom-left" aria-role="list">
-    <img
-      :src="profilePicture"
-      class="nav-profile-picture"
-      slot="trigger"
-    >
+    <img slot="trigger" :src="profilePicture" class="nav-profile-picture" >
 
-    <b-dropdown-item @click="goToProfile" aria-role="listitem">
-      <nuxt-link class="page-link" :to="`/dev/u/${username}`">
+    <b-dropdown-item aria-role="listitem" @click="goToProfile">
+      <nuxt-link :to="`/dev/u/${username}`" class="page-link">
         Profile
       </nuxt-link>
     </b-dropdown-item>
 
-    <b-dropdown-item @click="logout()" aria-role="listitem">
-        Logout
+    <b-dropdown-item aria-role="listitem" @click="logout()">
+      Logout
     </b-dropdown-item>
   </b-dropdown>
 </template>
 
 <script>
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export default {
-  name: 'NavProfilePicture',
+  name: "NavProfilePicture",
   props: {
-    username: String,
-    profilePicture: String,
-    dropdown: Boolean,
+    username: { type: String, default: "" },
+    profilePicture: { type: String, default: "" },
+    dropdown: { type: Boolean, default: false },
   },
   methods: {
     logout() {
-      this.$store.commit('user/clearUser');
-      Cookies.remove('token');
+      this.$store.commit("user/clearUser");
+      Cookies.remove("token");
       location.reload();
-
     },
     goToProfile() {
       this.$router.push({
-        path: `/dev/u/${this.username}`
+        path: `/dev/u/${this.username}`,
       });
-    }
+    },
   },
 };
 </script>

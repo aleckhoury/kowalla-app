@@ -1,7 +1,6 @@
 <template lang="html">
   <div class="screen background-tint">
-
-    <Header class="is-hidden-touch"></Header>
+    <Header class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
       <!--
@@ -11,13 +10,12 @@
       -->
 
       <div class="columns is-centered is-marginless main-margin">
-
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane></NavPane>
+          <NavPane />
         </div>
 
-        <div class="column is-one-half is-paddingless no-margin" id="postFeed">
+        <div id="postFeed" class="column is-one-half is-paddingless no-margin">
           <CreatePost
             v-if="this.$store.state.user.loggedIn && isMounted"
             @post-created="addPostToPostList"
@@ -39,38 +37,35 @@
 
     <MobileHeader
       class="is-hidden-desktop"
-      locationToDisplay="Home"
-      isHome
+      location-to-display="Home"
+      is-home
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <Post
-
         v-for="post in postList"
         :key="post._id"
         :post="post"
-        :isMobile="true"
-      >
-      </Post>
+        :is-mobile="true"
+      />
     </div>
 
-
-    <MobileFooter class="is-hidden-desktop"/>
+    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 
 <script>
-import MobileHeader from '~/components/Header/Mobile/MobileHeader';
-import MobileFooter from '~/components/Header/Mobile/MobileFooter';
+import MobileHeader from "~/components/Header/Mobile/MobileHeader";
+import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
-import Header from '~/components/Header/Header';
-import NavPane from '~/components/NavCards/NavPane';
+import Header from "~/components/Header/Header";
+import NavPane from "~/components/NavCards/NavPane";
 import Post from "~/components/PostCards/NewsfeedPost";
 import CreatePost from "~/components/PostCards/CreatePost";
 
 export default {
-  middleware: 'activePost',
-  name: "test",
+  middleware: "activePost",
+  name: "Test",
   components: {
     CreatePost,
     Header,
@@ -83,13 +78,7 @@ export default {
     return {
       postList: [],
       isMounted: false,
-    }
-  },
-  async mounted() {
-    this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/${ this.postList.length }`);
-
-    await this.scroll();
-    this.isMounted = true;
+    };
   },
   computed: {
     sort() {
@@ -98,23 +87,43 @@ export default {
       }
     },
   },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(
+        `/api/v1/feed/posts/${this.sort}/0`
+      );
+
+      await this.scroll();
+    },
+  },
+  async mounted() {
+    this.postList = await this.$axios.$get(
+      `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
+    );
+
+    await this.scroll();
+    this.isMounted = true;
+  },
   methods: {
     async scroll() {
       if (this.postList.length) {
         let isActive = false;
-        window.onscroll = async ev => {
-          const feed = document.getElementById('postFeed');
-          const bottomOfWindow = (window.innerHeight + window.scrollY >= feed.offsetHeight - 500);
+        window.onscroll = async () => {
+          const feed = document.getElementById("postFeed");
+          const bottomOfWindow =
+            window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(`/api/v1/feed/posts/${this.sort}/${this.postList.length}`);
+            const posts = await this.$axios.$get(
+              `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
+            );
             const newList = await this.postList.concat(posts);
             if (posts.length) {
               this.postList = await newList;
               isActive = false;
             }
           }
-        }
+        };
       }
     },
     addPostToPostList(postObj) {
@@ -125,20 +134,15 @@ export default {
       for (let i in this.postList) {
         if (this.postList[i]._id === postId) {
           this.postList.splice(i, 1);
-          await this.$axios.delete(`/api/v1/communities/${this.communityId}/posts/${postId}`);
+          await this.$axios.delete(
+            `/api/v1/communities/${this.communityId}/posts/${postId}`
+          );
           break;
         }
       }
-    }
+    },
   },
-  watch: {
-    async sort() {
-      this.postList = await this.$axios.$get(`/api/v1/feed/posts/${ this.sort }/0`);
-
-      await this.scroll();
-    }
-  }
-}
+};
 </script>
 
 <style lang="css">

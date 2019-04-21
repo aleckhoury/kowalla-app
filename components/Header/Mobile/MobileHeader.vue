@@ -1,8 +1,8 @@
 <template>
   <div class="size">
     <div
-      class="mobile-header-container is-touch"
       :class="{ 'hide-mobile-header-container': !showNavbar}"
+      class="mobile-header-container is-touch"
     >
       <!-- Mobile Header Top -->
       <div class="level half-height is-mobile mobile-header-top-container is-marginless">
@@ -11,7 +11,7 @@
             <img
               src="https://i.imgur.com/04hoRgV.png"
               class="kowalla-logo-picture"
-            />
+            >
             kowalla
 
           </div>
@@ -46,7 +46,7 @@
               <img
                 :src="this.$store.state.user.profilePicture"
                 class="mobile-nav-profile-picture"
-              />
+              >
             </nuxt-link>
             <b v-if="!this.$store.state.user.loggedIn" class="has-text-white" @click="cardModal">Login/Sign Up</b>
           </div>
@@ -63,7 +63,7 @@
               v-if="!isHome"
               :src="locationPictureToDisplay"
               class="mobile-nav-link-picture"
-            />
+            >
 
             <div v-else class="center mobile-nav-link-picture">
               <font-awesome-icon icon="home" />
@@ -71,7 +71,7 @@
           </div>
 
           <div class="level-item margin-adjust">
-            <b>{{locationToDisplay}}</b>
+            <b>{{ locationToDisplay }}</b>
           </div>
 
           <div class="level-item margin-adjust">
@@ -80,7 +80,7 @@
         </div> <!-- End selector -->
 
         <div class="level-right">
-          <SortingOptions isMobile/></SortingOptions>
+          <SortingOptions is-mobile />
         </div> <!-- End level right -->
       </div> <!-- End level -->
     </div> <!-- End mobile header bottom -->
@@ -92,11 +92,16 @@ import NotificationModal from '~/components/Modals/Other/NotificationModal';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 import NavNotifications from '~/components/Header/NavHeader/NavNotifications';
 import SearchModal from '~/components/Modals/Other/SearchModal';
-import LoginAndRegisterModal from '~/components/Auth/LoginAndRegisterModal'
+import LoginAndRegisterModal from '~/components/Auth/LoginAndRegisterModal';
 
 export default {
   name: "MobileHeader",
   components: { ChangeLocationModal, SortingOptions, NavNotifications },
+  props: {
+    locationToDisplay: { type: String, default: "" },
+    locationPictureToDisplay: {type: String, default: ''},
+    isHome: {type: Boolean, default: false},
+  },
   data() {
     return {
       showNavbar: true,
@@ -104,10 +109,13 @@ export default {
       scrollValue: 0,
     };
   },
-  props: {
-    locationToDisplay: String,
-    locationPictureToDisplay: {type: String, default: ''},
-    isHome: {type: Boolean, default: false},
+  mounted() {
+    this.lastScrollPosition = window.pageYOffset;
+    window.addEventListener('scroll', this.onScroll);
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     callChangeLocationModal() {
@@ -134,7 +142,7 @@ export default {
                 width: 900,
                 hasModalCard: true,
               },
-      )
+      );
     },
     callNotifModal() {
       this.$modal.open({
@@ -163,15 +171,7 @@ export default {
       }
     }
   },
-  mounted() {
-    this.lastScrollPosition = window.pageYOffset;
-    window.addEventListener('scroll', this.onScroll);
-  },
-
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.onScroll)
-  },
-}
+};
 </script>
 <style lang="css" scoped>
 .size {

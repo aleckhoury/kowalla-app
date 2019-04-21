@@ -7,20 +7,20 @@
   </div>
 </template>
 <script>
-import Searchbar from '~/components/Header/NavHeader/Searchbar';
+import Searchbar from "~/components/Header/NavHeader/Searchbar";
 
 export default {
   name: "SearchModal",
   components: { Searchbar },
   props: {
-    modalText: String,
+    modalText: { type: String, default: "" },
   },
   methods: {
     closeModal() {
       this.$parent.close();
-    }
+    },
   },
-}
+};
 </script>
 <style lang="css" scoped>
 .box {

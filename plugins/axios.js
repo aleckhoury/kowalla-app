@@ -5,7 +5,7 @@ export default ({ $axios, isDev }) => {
 
 
   if (process.server) {
-    return
+    return;
   }
 
   $axios.interceptors.request.use(async request => {
@@ -19,6 +19,6 @@ export default ({ $axios, isDev }) => {
     if (token) {
       request.headers.common['Authorization'] = await `Bearer ${ token }`;
     }
-    return request
-  })
-}
+    return request;
+  });
+};

@@ -18,23 +18,24 @@
 
         <div class="column is-paddingless">
           <div class="level full-height">
-              <div class="level-left">
-                <!-- placeholder for right alignment -->
-              </div>
+            <div class="level-left">
+              <!-- placeholder for right alignment -->
+            </div>
 
+            <div
+              v-if="this.$store.state.messages.messages.length > 0"
+              class="level-right"
+            >
               <div
-                v-if="this.$store.state.messages.messages.length > 0"
-                class="level-right">
-
-                <div
-                  v-for="item in this.$store.state.messages.messages"
-                  :key="item"
-                  class="level-item">
-                  <div class="message">
-                    <b>{{ item }}</b>
-                  </div>
+                v-for="item in this.$store.state.messages.messages"
+                :key="item"
+                class="level-item"
+              >
+                <div class="message">
+                  <b>{{ item }}</b>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -43,12 +44,11 @@
 </template>
 
 <script>
-import SortingOptions from './SortingOptions';
+import SortingOptions from "./SortingOptions";
 
 export default {
-  name: 'NavSubHeader',
-  components: { SortingOptions, },
-  
+  name: "NavSubHeader",
+  components: { SortingOptions },
 };
 </script>
 
@@ -72,5 +72,4 @@ export default {
 .full-height {
   height: 100%;
 }
-
 </style>

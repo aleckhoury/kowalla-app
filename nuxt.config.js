@@ -1,4 +1,4 @@
-const pkg = require("./package.json")
+const pkg = require("./package.json");
 
 export default {
   mode: "universal",
@@ -113,7 +113,7 @@ export default {
    */
   build: {
     extend(config, ctx) {
-      config.resolve.alias["vue"] = "vue/dist/vue.common"
+      config.resolve.alias["vue"] = "vue/dist/vue.common";
 
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
@@ -121,7 +121,7 @@ export default {
           test: /\.(js|vue)$/,
           loader: "eslint-loader",
           exclude: /(node_modules)/,
-        })
+        });
       }
     },
   },
@@ -139,4 +139,4 @@ export default {
   //     });
   //   }
   // },
-}
+};

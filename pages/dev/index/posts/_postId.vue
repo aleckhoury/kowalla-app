@@ -1,12 +1,11 @@
 <template lang="html">
-  <div></div>
+  <div />
 </template>
 
 <script>
 export default {
-  name: "project-post-id",
-}
+  name: "ProjectPostId",
+};
 </script>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

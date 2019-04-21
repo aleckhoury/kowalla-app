@@ -1,0 +1,7 @@
+/dist
+/.nuxt
+/node_modules
+/.git
+/assets
+/server
+/static
