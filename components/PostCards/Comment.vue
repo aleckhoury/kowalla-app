@@ -12,12 +12,12 @@
         <div class="content">
           <p id="reply">
             <small>@{{ profile.username }} · {{ createdAtFormatted }}</small>
-            <br />
+            <br >
             {{ comment.content }}
-            <br />
-            <small v-if="nestLevel < 2" @click="toggleReply()"
-              ><a>Reply</a></small
-            >
+            <br >
+            <small v-if="nestLevel < 2" @click="toggleReply()">
+              <a>Reply</a>
+            </small>
           </p>
           <AddComment
             v-if="activeComment === comment._id"
