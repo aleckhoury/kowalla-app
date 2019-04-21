@@ -40,7 +40,7 @@
   }
   let { Picker } = Mart ? Mart : '';
   import 'emoji-mart-vue-fast/css/emoji-mart.css'
-  import ReactionModal from "~/components/PostCard/reactionModal";
+  import ReactionModal from "~/components/PostCards/ReactionModal";
 
   export default {
     name: "LandingPageReactions",

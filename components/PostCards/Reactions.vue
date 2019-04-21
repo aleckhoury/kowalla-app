@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import ReactionModal from "./reactionModal";
+  import ReactionModal from "./ReactionModal";
   let Mart;
   if (process.browser) {
     Mart = require('emoji-mart-vue-fast');

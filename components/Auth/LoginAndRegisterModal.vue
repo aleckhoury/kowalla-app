@@ -70,7 +70,7 @@
 import Cookies from 'js-cookie';
 
   export default {
-    name: "LoginRegisterModal",
+    name: "LoginAndRegisterModal",
     components: {},
     data() {
       return {

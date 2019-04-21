@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import CreatePostModal from './Modals/Creation/CreatePostModal.vue'
+import CreatePostModal from '~/components/Modals/Creation/CreatePostModal';
 
   export default {
-    name: "createPost",
+    name: "CreatePost",
     data() {
       return {
         userDropdown: false,
