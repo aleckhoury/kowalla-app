@@ -1,82 +1,81 @@
-const pkg = require('./package');
+const pkg = require("./package.json");
 
-module.exports = {
-  mode: 'universal',
+export default {
+  mode: "universal",
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: pkg.name,
     meta: [
-      { charset: 'utf-8', },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1', },
-      { hid: 'description', name: 'description', content: pkg.description, },
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: pkg.description },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico', },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Nunito:Black',
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Nunito:Black",
       },
     ],
   },
 
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff', },
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#fff" },
 
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
 
   css: [
     // 'bulma/css/bulma.css',
-    '~/css/main.css',
+    "~/css/main.css",
   ],
 
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
 
   plugins: [
-    { src: '~/plugins/localStorage.js', ssr: false },
-    '~/plugins/axios'
+    { src: "~/plugins/localStorage.js", ssr: false },
+    "~/plugins/axios",
   ],
 
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios',
-    'nuxt-fontawesome',
-    '@nuxtjs/pwa',
-    '@nuxtjs/proxy',
+    "@nuxtjs/axios",
+    "nuxt-fontawesome",
+    "@nuxtjs/pwa",
+    "@nuxtjs/proxy",
     //'@nuxtjs/onesignal',
-    'nuxt-buefy',
+    "nuxt-buefy",
   ],
   /*
-  ** Axios module configuration
-  */
+   ** Axios module configuration
+   */
   // axios: {
   //   // baseURL: 'https://kowalla-backend-tob.herokuapp.com',
   //   baseURL: 'http://localhost:8080',
   //   credentials: true,
   // },
 
-  router: {
-  },
+  router: {},
   /* ------------------------------------------------------------
   | PWA Setup
   | ------------------------------------------------------------ */
 
   manifest: {
     // https://pwa.nuxtjs.org/modules/manifest
-    name: 'kowalla',
-    shortname: 'kowalla',
-    dir: 'rtl',
-    lang: 'en-US',
+    name: "kowalla",
+    shortname: "kowalla",
+    dir: "rtl",
+    lang: "en-US",
   },
 
   workbox: {
@@ -86,12 +85,12 @@ module.exports = {
   fontawesome: {
     imports: [
       {
-        set: '@fortawesome/free-solid-svg-icons',
-        icons: ['fas',],
+        set: "@fortawesome/free-solid-svg-icons",
+        icons: ["fas"],
       },
       {
-        set: '@fortawesome/free-brands-svg-icons',
-        icons: ['fab',],
+        set: "@fortawesome/free-brands-svg-icons",
+        icons: ["fab"],
       },
     ],
   },
@@ -110,25 +109,34 @@ module.exports = {
   */
 
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
-    extend(config) {
-      config.resolve.alias['vue'] = 'vue/dist/vue.common'
-    }
-    //   /*
-    //   ** You can extend webpack config here
-    //   */
-    // extend(config, ctx) {
-    //   // Run ESLint on save
-    //   if (ctx.isDev && ctx.isClient) {
-    //     config.module.rules.push({
-    //       enforce: 'pre',
-    //       test: /\.(js|vue)$/,
-    //       loader: 'eslint-loader',
-    //       exclude: /(node_modules)/,
-    //     });
-    //   }
-    // },
+    extend(config, ctx) {
+      config.resolve.alias["vue"] = "vue/dist/vue.common";
+
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)$/,
+          loader: "eslint-loader",
+          exclude: /(node_modules)/,
+        });
+      }
+    },
   },
+  //   /*
+  //   ** You can extend webpack config here
+  //   */
+  // extend(config, ctx) {
+  //   // Run ESLint on save
+  //   if (ctx.isDev && ctx.isClient) {
+  //     config.module.rules.push({
+  //       enforce: 'pre',
+  //       test: /\.(js|vue)$/,
+  //       loader: 'eslint-loader',
+  //       exclude: /(node_modules)/,
+  //     });
+  //   }
+  // },
 };

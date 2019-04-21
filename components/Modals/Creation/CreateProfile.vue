@@ -1,15 +1,12 @@
 <template>
   <div class="modal-content">
-    <div class="box">
-
-    </div>
+    <div class="box" />
   </div>
 </template>
 <script>
 export default {
   name: "CreateProfile",
-
-}
+};
 </script>
 <style lang="css" scoped>
 .box {

@@ -1,17 +1,15 @@
 <template>
   <div class="nav-card-link-container" @click="emitClickedEventToParent()">
     <nuxt-link :to="getRoute">
-      <img class="picture" :src="pictureURL"/>
+      <img :src="pictureURL" class="picture" >
     </nuxt-link>
 
     <div class="nav-card-link-content">
       <nuxt-link :to="getRoute" class="name">
-        <b>{{getPrefix}}{{name}}</b>
+        <b>{{ getPrefix }}{{ name }}</b>
       </nuxt-link>
 
-      <div class="info">
-        {{numSubs}} users
-      </div>
+      <div class="info">{{ numSubs }} users</div>
     </div>
   </div>
 </template>
@@ -19,27 +17,29 @@
 export default {
   name: "NavCardLink",
   props: {
-    name: String,
-    numSubs: Number,
-    pictureURL: String,
-    projectId: String,
-    communityId: String,
+    name: { type: String, default: "" },
+    numSubs: { type: Number, default: 0 },
+    pictureURL: { type: String, default: "" },
+    projectId: { type: String, default: "" },
+    communityId: { type: String, default: "" },
+  },
+  computed: {
+    getPrefix() {
+      return this.projectId !== null ? "@" : "#";
+    },
+
+    getRoute() {
+      return this.projectId !== null
+        ? `/dev/p/${this.name}`
+        : `/dev/c/${this.name}`;
+    },
   },
   methods: {
     emitClickedEventToParent() {
       this.$emit("nav-card-link-clicked");
-    }
-  },
-  computed: {
-    getPrefix() {
-      return (this.projectId !== null) ? '@' : '#';
     },
-
-    getRoute() {
-      return (this.projectId !== null) ? `/dev/p/${this.name}` : `/dev/c/${this.name}`;
-    }
-  }
-}
+  },
+};
 </script>
 <style lang="css" scoped>
 .nav-card-link-container {

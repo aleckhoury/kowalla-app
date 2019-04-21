@@ -1,11 +1,9 @@
 <template>
   <div class="info-pane-container">
-      <div class="wrapper-margin wrapper-container">
-        <slot>
+    <div class="wrapper-margin wrapper-container">
+      <slot />
 
-        </slot>
-
-        <!--
+      <!--
         <slot
           v-for="(item, index) in filteredItems"
           :item="item"
@@ -18,13 +16,13 @@
         >
       </slot>
       -->
-      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "InfoPane",
-}
+};
 </script>
 <style lang="css" scoped>
 .info-pane-container {

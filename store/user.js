@@ -76,7 +76,7 @@ export const actions = ({
 
 export const getters = ({
   activePost({ activePost }) {
-    return Object.keys(activePost).length ? activePost : {} ;
+    return Object.keys(activePost).length ? activePost : {}; 
   },
   isUserSubscribed: ({subscriptions, owned}) => (name) => {
     let isSubscribed = false;
@@ -126,7 +126,7 @@ export const getters = ({
     let projectIdsArray = [];
     for (let i in owned) {
       if (owned[i].hasOwnProperty('projectId')) {
-        projectIdsArray.push(owned[i].projectId)
+        projectIdsArray.push(owned[i].projectId);
       }
     }
     return projectIdsArray;

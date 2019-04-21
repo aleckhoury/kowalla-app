@@ -1,0 +1,17 @@
+{
+  "extends": ["eslint:recommended", "plugin:vue/recommended"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "no-console": "off",
+    "vue/max-attributes-per-line": "off",
+    "no-unused-vars": "off"
+  }
+}

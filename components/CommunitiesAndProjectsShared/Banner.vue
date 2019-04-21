@@ -1,25 +1,26 @@
 <template>
-  <div
-    class="banner-container"
-  >
-    <img class="image" :src="bannerURL" />
-
+  <div class="banner-container">
+    <img :src="bannerURL" class="image" >
 
     <div class="banner-subscription-button-container">
       <SubscriptionButton
         v-if="!isOwner"
-        :isSubscribed="isSubscribed"
-        @subscription-button-clicked="handleClick"
-        :isProject="bannerTitlePrefix === '@'"
+        :is-subscribed="isSubscribed"
+        :is-project="bannerTitlePrefix === '@'"
         :id="id"
+        @subscription-button-clicked="handleClick"
       />
     </div>
 
-    <div class="banner-title" :class="{'banner-font-desktop': !isMobile, 'banner-font-mobile': isMobile}">
-      <b>{{bannerTitlePrefix}}{{bannerTitle}}</b>
+    <div
+      :class="{
+        'banner-font-desktop': !isMobile,
+        'banner-font-mobile': isMobile,
+      }"
+      class="banner-title"
+    >
+      <b>{{ bannerTitlePrefix }}{{ bannerTitle }}</b>
     </div>
-
-
   </div>
 </template>
 <script>
@@ -29,20 +30,20 @@ export default {
   name: "Banner",
   components: { SubscriptionButton },
   props: {
-    id: String,
-    bannerURL: String,
-    bannerTitle: String,
-    bannerTitlePrefix: String,
-    isSubscribed: Boolean,
-    isOwner: Boolean,
-    isMobile: {type: Boolean, default: false},
+    id: { type: String, default: "" },
+    bannerURL: { type: String, default: "" },
+    bannerTitle: { type: String, default: "" },
+    bannerTitlePrefix: { type: String, default: "" },
+    isSubscribed: { type: Boolean, default: false },
+    isOwner: { type: Boolean, default: false },
+    isMobile: { type: Boolean, default: false },
   },
   methods: {
     handleClick(subBool) {
-      this.$emit('subscription-button-clicked', subBool);
-    }
+      this.$emit("subscription-button-clicked", subBool);
+    },
   },
-}
+};
 </script>
 <style lang="css" scoped>
 .banner-container {
@@ -88,5 +89,4 @@ export default {
   top: 15px;
   right: 15px;
 }
-
 </style>

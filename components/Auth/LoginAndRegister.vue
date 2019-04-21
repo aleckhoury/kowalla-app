@@ -1,75 +1,74 @@
 <template>
-    <div>
-        <div class="box level">
-            <span class="level-left is-size-4"><b>Log In</b></span>
-            <a class="button action" @click="cardModal()"><b>Create</b></a>
-        </div>
+  <div>
+    <div class="box level">
+      <span class="level-left is-size-4"><b>Log In</b></span>
+      <a class="button action" @click="cardModal()"><b>Create</b></a>
     </div>
+  </div>
 </template>
 
 <script>
-  import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
 
-  export default {
-    name: "LoginAndRegister",
-    data() {
-      return {
-        userDropdown: false,
-        commDropdown: false,
-      };
+export default {
+  name: "LoginAndRegister",
+  data() {
+    return {
+      userDropdown: false,
+      commDropdown: false,
+    };
+  },
+  methods: {
+    cardModal() {
+      this.$modal.open({
+        parent: this,
+        component: LoginAndRegisterModal,
+        width: 900,
+        hasModalCard: true,
+      });
     },
-    methods: {
-      cardModal() {
-        this.$modal.open({
-            parent: this,
-            component: LoginAndRegisterModal,
-            width: 900,
-            hasModalCard: true,
-          },
-        )
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>
-    .section {
-        padding-bottom: 0;
-    }
-    span {
-        color: #39C9A0;
-    }
-    .level {
-        padding: 1rem;
-    }
-    .modal-card-body {
-        overflow: visible;
-    }
-    .field {
-        margin: 1em 0;
-    }
-    div .modal-content {
-        width: 55%;
-        border-radius: 6px;
-        overflow: visible;
-    }
-    .modal-content.box {
-        min-height: 80%;
-    }
-    .button.action {
-        width: 12em;
-        color: white;
-        background-color: #39C9A0;
-        border-color: #39C9A0;
-    }
+.section {
+  padding-bottom: 0;
+}
+span {
+  color: #39c9a0;
+}
+.level {
+  padding: 1rem;
+}
+.modal-card-body {
+  overflow: visible;
+}
+.field {
+  margin: 1em 0;
+}
+div .modal-content {
+  width: 55%;
+  border-radius: 6px;
+  overflow: visible;
+}
+.modal-content.box {
+  min-height: 80%;
+}
+.button.action {
+  width: 12em;
+  color: white;
+  background-color: #39c9a0;
+  border-color: #39c9a0;
+}
 
-    .post {
-        margin-right: 0.75em;
-    }
-    .is-white:hover {
-        background-color: #E9EBEE;
-    }
-    .dropdown-content {
-        overflow: visible;
-    }
+.post {
+  margin-right: 0.75em;
+}
+.is-white:hover {
+  background-color: #e9ebee;
+}
+.dropdown-content {
+  overflow: visible;
+}
 </style>

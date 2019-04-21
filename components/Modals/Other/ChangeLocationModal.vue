@@ -1,10 +1,8 @@
 <template>
   <div class="modal-content">
     <div class="box is-narrow">
-
       <div class="center mobile-nav-link-picture">
-
-        <nuxt-link @click.native="closeModal()" to="/dev">
+        <nuxt-link to="/dev" @click.native="closeModal()">
           <div class="general-navigation">
             <font-awesome-icon icon="home" />
             <span><b>Home</b></span>
@@ -47,8 +45,8 @@
   </div>
 </template>
 <script>
-import NavPane from '~/components/NavCards/NavPane';
-import NavCard from '~/components/NavCards/NavCard';
+import NavPane from "~/components/NavCards/NavPane";
+import NavCard from "~/components/NavCards/NavCard";
 
 export default {
   name: "ChangeLocationModal",
@@ -56,9 +54,9 @@ export default {
   methods: {
     closeModal() {
       this.$parent.close();
-    }
+    },
   },
-}
+};
 </script>
 <style lang="css" scoped>
 .box {
@@ -85,5 +83,4 @@ export default {
   font-size: 1em;
   color: black;
 }
-
 </style>

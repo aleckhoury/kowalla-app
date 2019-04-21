@@ -1,27 +1,24 @@
 <template>
-
   <Card
-    :headerString="headerString"
-    :subheaderString="subheaderString"
-    :subheaderURL="subheaderURL"
-    :subheaderOn="subheaderOn"
-    :headerOn="headerOn">
-
+    :header-string="headerString"
+    :subheader-string="subheaderString"
+    :subheader-url="subheaderURL"
+    :subheader-on="subheaderOn"
+    :header-on="headerOn"
+  >
     <div class="description-string">
-      <slot></slot>
+      <slot />
     </div>
-
   </Card>
-
 </template>
 
 <script>
-import Card from '~/components/Card';
+import Card from "~/components/Card";
 
 export default {
-  name: "Description-Card",
+  name: "DescriptionCard",
   components: {
-    Card
+    Card,
   },
   props: {
     headerString: { type: String, default: "" },
@@ -29,8 +26,8 @@ export default {
     subheaderURL: { type: String, default: "" },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
-  }
-}
+  },
+};
 </script>
 
 <style lang="css" scoped>

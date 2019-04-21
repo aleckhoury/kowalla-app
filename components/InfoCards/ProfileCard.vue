@@ -1,65 +1,67 @@
 <template>
   <div class="profile-card-container">
     <nuxt-link :to="getRoute">
-      <img class="image" :src="profilePictureURL" />
+      <img :src="profilePictureURL" class="image" >
     </nuxt-link>
 
-
     <nuxt-link :to="getRoute" class="name font-family">
-      <b>{{name}}</b>
+      <b>{{ name }}</b>
     </nuxt-link>
 
     <div class="username font-family">
       <nuxt-link :to="getRoute" class="username-link">
-        <b>@{{username}}</b>
+        <b>@{{ username }}</b>
       </nuxt-link>
     </div>
 
-    <div class="level is-marginless" :class="{'is-mobile': isMobile}"> <!-- need to convert to mobile columns -->
-      <div v-for="item in stats" class="level-item stat-container is-paddingless">
+    <div :class="{ 'is-mobile': isMobile }" class="level is-marginless">
+      <!-- need to convert to mobile columns -->
+      <div
+        v-for="item in stats"
+        :key="item.name"
+        class="level-item stat-container is-paddingless"
+      >
         <div class="stat-title">
-          <b>{{item.name}}</b>
+          <b>{{ item.name }}</b>
         </div>
 
         <div class="stat-info">
-          <b>{{item.stat}}</b>
+          <b>{{ item.stat }}</b>
         </div>
       </div>
     </div>
 
     <div class="subheader">
       <nuxt-link :to="subheaderURL" class="subheader-content">
-        <b>{{subheaderString}}</b>
+        <b>{{ subheaderString }}</b>
       </nuxt-link>
     </div>
   </div>
-
 </template>
 <script>
-import Card from '~/components/Card';
-
 export default {
   name: "ProfileCard",
   props: {
-    name: String,
-    username: String,
-    profilePictureURL: {type: String, default: ''},
-    subheaderString: {type: String, default: 'test'},
-    subheaderURL: {type: String, default: '/about'},
-    stats: Array,
-    type: String,
-    isMobile: {type: Boolean, default: false},
+    name: { type: String, default: "" },
+    username: { type: String, default: "" },
+    profilePictureURL: { type: String, default: "" },
+    subheaderString: { type: String, default: "test" },
+    subheaderURL: { type: String, default: "/about" },
+    stats: { type: Array, default: () => [] },
+    type: { type: String, default: "" },
+    isMobile: { type: Boolean, default: false },
   },
   computed: {
     getStatInfoByIndex(i) {
       return this.stats[i].name;
     },
     getRoute() {
-      return (this.type === "project") ? `/dev/p/${this.username}` : `/dev/u/${this.username}`;
-
-    }
+      return this.type === "project"
+        ? `/dev/p/${this.username}`
+        : `/dev/u/${this.username}`;
+    },
   },
-}
+};
 </script>
 
 <style lang="css" scoped>
