@@ -1,6 +1,6 @@
 const pkg = require("./package.json");
 
-export default {
+module.exports = {
   mode: "universal",
   /*
    ** Headers of the page
