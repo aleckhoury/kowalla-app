@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Meta from 'vue-meta'
 import { createRouter } from './router.js'
-import NoSSR from './components/no-ssr.js'
+import NoSsr from './components/no-ssr.js'
 import NuxtChild from './components/nuxt-child.js'
-import NuxtLink from './components/nuxt-link.js'
 import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
 import App from './App.js'
@@ -12,24 +11,23 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_swplugin_1e712dfc from 'nuxt_plugin_swplugin_1e712dfc' // Source: ./sw.plugin.js (ssr: false)
-import nuxt_plugin_nuxticons_a33e6576 from 'nuxt_plugin_nuxticons_a33e6576' // Source: ./nuxt-icons.js
-import nuxt_plugin_buefy_46cfdd98 from 'nuxt_plugin_buefy_46cfdd98' // Source: ./buefy.js
-import nuxt_plugin_templatesplugina6edc000_10a6dbd2 from 'nuxt_plugin_templatesplugina6edc000_10a6dbd2' // Source: ./templates.plugin.a6edc000.js
-import nuxt_plugin_axios_1ab911e3 from 'nuxt_plugin_axios_1ab911e3' // Source: ./axios.js
-import nuxt_plugin_localStorage_830ec59e from 'nuxt_plugin_localStorage_830ec59e' // Source: ../plugins/localStorage.js (ssr: false)
-import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ../plugins/axios
+import nuxt_plugin_nuxticons_a33e6576 from 'nuxt_plugin_nuxticons_a33e6576' // Source: ./nuxt-icons.js (mode: 'all')
+import nuxt_plugin_buefy_46cfdd98 from 'nuxt_plugin_buefy_46cfdd98' // Source: ./buefy.js (mode: 'all')
+import nuxt_plugin_templatesplugina6edc000_10a6dbd2 from 'nuxt_plugin_templatesplugina6edc000_10a6dbd2' // Source: ./templates.plugin.a6edc000.js (mode: 'all')
+import nuxt_plugin_axios_1ab911e3 from 'nuxt_plugin_axios_1ab911e3' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_localStorage_830ec59e from 'nuxt_plugin_localStorage_830ec59e' // Source: ../plugins/localStorage.js (mode: 'client')
+import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ../plugins/axios (mode: 'all')
 
-// Component: <no-ssr>
-Vue.component(NoSSR.name, NoSSR)
+// Component: <NoSsr>
+Vue.component(NoSsr.name, NoSsr)
 
-// Component: <nuxt-child>
+// Component: <NuxtChild>
 Vue.component(NuxtChild.name, NuxtChild)
+Vue.component('NChild', NuxtChild)
 
-// Component: <nuxt-link>
-Vue.component(NuxtLink.name, NuxtLink)
+// Component NuxtLink is imported in server.js or client.js
 
-// Component: <nuxt>`
+// Component: <Nuxt>`
 Vue.component(Nuxt.name, Nuxt)
 
 // vue-meta configuration
@@ -119,7 +117,8 @@ async function createApp(ssrContext) {
     payload: ssrContext ? ssrContext.payload : undefined,
     req: ssrContext ? ssrContext.req : undefined,
     res: ssrContext ? ssrContext.res : undefined,
-    beforeRenderFns: ssrContext ? ssrContext.beforeRenderFns : undefined
+    beforeRenderFns: ssrContext ? ssrContext.beforeRenderFns : undefined,
+    ssrContext
   })
 
   const inject = function (key, value) {
@@ -157,15 +156,28 @@ async function createApp(ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_nuxticons_a33e6576 === 'function') await nuxt_plugin_nuxticons_a33e6576(app.context, inject)
-  if (typeof nuxt_plugin_buefy_46cfdd98 === 'function') await nuxt_plugin_buefy_46cfdd98(app.context, inject)
-  if (typeof nuxt_plugin_templatesplugina6edc000_10a6dbd2 === 'function') await nuxt_plugin_templatesplugina6edc000_10a6dbd2(app.context, inject)
-  if (typeof nuxt_plugin_axios_1ab911e3 === 'function') await nuxt_plugin_axios_1ab911e3(app.context, inject)
-  if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
+  if (typeof nuxt_plugin_nuxticons_a33e6576 === 'function') {
+    await nuxt_plugin_nuxticons_a33e6576(app.context, inject)
+  }
 
-  if (process.client) {
-    if (typeof nuxt_plugin_swplugin_1e712dfc === 'function') await nuxt_plugin_swplugin_1e712dfc(app.context, inject)
-    if (typeof nuxt_plugin_localStorage_830ec59e === 'function') await nuxt_plugin_localStorage_830ec59e(app.context, inject)
+  if (typeof nuxt_plugin_buefy_46cfdd98 === 'function') {
+    await nuxt_plugin_buefy_46cfdd98(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_templatesplugina6edc000_10a6dbd2 === 'function') {
+    await nuxt_plugin_templatesplugina6edc000_10a6dbd2(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_1ab911e3 === 'function') {
+    await nuxt_plugin_axios_1ab911e3(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_localStorage_830ec59e === 'function') {
+    await nuxt_plugin_localStorage_830ec59e(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_3566aa80 === 'function') {
+    await nuxt_plugin_axios_3566aa80(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first
