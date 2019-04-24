@@ -76,7 +76,9 @@ export const actions = ({
 
 export const getters = ({
   activePost({ activePost }) {
-    return Object.keys(activePost).length ? activePost : {}; 
+    if (activePost) {
+      return Object.keys(activePost).length ? activePost : {};
+    }
   },
   isUserSubscribed: ({subscriptions, owned}) => (name) => {
     let isSubscribed = false;
