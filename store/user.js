@@ -180,7 +180,7 @@ export const mutations = {
       for (let i=0; i<state.owned.length; i++) {
         if (state.owned[i].communityId === subObj.communityId) {
           state.owned[i].name = subObj.name;
-          state.owned[i].pictureURL = subObj.pictureURL;
+          state.owned[i].pictureUrl = subObj.pictureUrl;
         }
       }
     }
@@ -190,7 +190,7 @@ export const mutations = {
       for (let i=0; i<state.owned.length; i++) {
         if (state.owned[i].projectId === subObj.projectId) {
           state.owned[i].name = subObj.name;
-          state.owned[i].pictureURL = subObj.pictureURL;
+          state.owned[i].pictureUrl = subObj.pictureUrl;
         }
       }
     }

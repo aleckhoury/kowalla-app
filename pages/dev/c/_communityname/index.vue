@@ -17,7 +17,7 @@
 
         <div class="column is-three-quarters is-paddingless">
           <Banner
-            :banner-url="bannerPictureURL"
+            :banner-url="bannerPictureUrl"
             :banner-title="communityName"
             :id="communityId"
             :is-subscribed="isSubscribed"
@@ -41,7 +41,7 @@
                 <ProfileCard
                   :name="communityName"
                   :username="communityName"
-                  :profile-picture-url="profilePictureURL"
+                  :profile-picture-url="profilePictureUrl"
                   :subheader-string="`View ${communityName}'s stats`"
                   :stats="communityStats"
                   type="project"
@@ -69,14 +69,14 @@
 
     <!-- Mobile -->
     <MobileHeader
-      :location-picture-to-display="profilePictureURL"
+      :location-picture-to-display="profilePictureUrl"
       :location-to-display="`#${communityName}`"
       class="is-hidden-desktop"
     />
 
     <div class="is-hidden-desktop mobile-main-margin">
       <Banner
-        :banner-url="bannerPictureURL"
+        :banner-url="bannerPictureUrl"
         :banner-title="communityName"
         :id="communityId"
         :is-subscribed="isSubscribed"
@@ -152,15 +152,15 @@ export default {
     return {
       // backend content
       communityName: "",
-      bannerPictureURL: "",
-      profilePictureURL: "",
+      bannerPictureUrl: "",
+      profilePictureUrl: "",
       communityDescription: "",
       adminId: "",
       numSubs: "",
       communityId: "",
       communityStats: [],
 
-      isNestedURL: false,
+      isNestedUrl: false,
 
       // newsfeed content
       postList: [],
@@ -210,15 +210,15 @@ export default {
   created() {
     this.communityName = this.$route.params.communityname;
     if (this.$route.params.hasOwnProperty("postId")) {
-      this.isNestedURL = true;
+      this.isNestedUrl = true;
     }
   },
   async mounted() {
     let infoRes = await this.$axios.get(
       `/api/v1/communities/c/${this.communityName}`
     );
-    this.bannerPictureURL = infoRes.data.headerPicture;
-    this.profilePictureURL = infoRes.data.profilePicture;
+    this.bannerPictureUrl = infoRes.data.headerPicture;
+    this.profilePictureUrl = infoRes.data.profilePicture;
     this.communityId = infoRes.data._id;
     this.numSubs = infoRes.data.subscribers;
     this.communityDescription = infoRes.data.description;
@@ -228,7 +228,7 @@ export default {
     this.communityStats.push({ name: "Subs", stat: infoRes.data.subscribers });
     this.communityStats.push({ name: "Posts", stat: infoRes.data.postCount });
 
-    if (this.isNestedURL) {
+    if (this.isNestedUrl) {
       // need to launch modal to show post
       let post = await this.$axios.$get(
         `/api/v1/posts/${this.$route.params.postId}`
@@ -239,8 +239,8 @@ export default {
         component: PostModal,
         props: {
           postObj: post,
-          isFromNestedURL: true,
-          fallbackURL: `/dev/c/${this.communityName}`,
+          isFromNestedUrl: true,
+          fallbackUrl: `/dev/c/${this.communityName}`,
         },
         events: {
           "delete-post": postId => {
@@ -290,7 +290,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.communityName,
-        pictureURL: this.profilePictureURL,
+        pictureUrl: this.profilePictureUrl,
         numSubs: subBool
           ? this.communityStats[0].stat + 1
           : this.communityStats[0].stat - 1,
@@ -309,8 +309,8 @@ export default {
         component: EditCommunityModal,
         props: {
           name: this.communityName,
-          headerPicture: this.bannerPictureURL,
-          profilePicture: this.profilePictureURL,
+          headerPicture: this.bannerPictureUrl,
+          profilePicture: this.profilePictureUrl,
           description: this.communityDescription,
           communityId: this.communityId,
         },

@@ -59,11 +59,11 @@
       </p>
 
       <p class="created-at-mobile">
-        <span v-if="isMobile" class="grey">{{ createdAtFormatted }}</span>
+        <span v-if="isMobile && !isProject" class="grey">{{ createdAtFormatted }}</span>
       </p>
     </div>
     <div class="media-right">
-      <div v-if="isProject && !isMobile" class="update level is-size-6">
+      <div v-if="isProject && !isMobile && !isModal" class="update level is-size-6">
         <div class="level-left">
           <font-awesome-icon icon="flag" /> &nbsp;
           <h2><b>Update</b></h2>
@@ -75,7 +75,7 @@
         >
           <font-awesome-icon slot="trigger" icon="angle-down" />
 
-          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostURL">
+          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
             <font-awesome-icon icon="link" />
             Copy link
           </b-dropdown-item>
@@ -92,7 +92,7 @@
         </b-dropdown>
       </div>
       <div
-        v-else-if="isProject && isMobile"
+        v-else-if="isProject && isMobile && !isModal"
         class="update level is-mobile is-size-6"
       >
         <div class="mobile level-left"><font-awesome-icon icon="flag" /></div>
@@ -104,7 +104,7 @@
         >
           <font-awesome-icon slot="trigger" icon="angle-down" />
 
-          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostURL">
+          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
             <font-awesome-icon icon="link" />
             Copy link
           </b-dropdown-item>
@@ -128,7 +128,7 @@
       >
         <font-awesome-icon slot="trigger" icon="angle-down" />
 
-        <b-dropdown-item key="0" aria-role="listitem" @click="copyPostURL">
+        <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
           <font-awesome-icon icon="link" />
           Copy link
         </b-dropdown-item>
@@ -153,6 +153,7 @@ export default {
   name: "PostHeader",
   props: {
     isActive: { type: Boolean, default: false },
+    isModal: { type: Boolean, default: false },
     createdAt: { type: String, default: "" },
     postId: { type: String, default: "" },
     profile: { type: Object, default: () => {} },
@@ -179,7 +180,7 @@ export default {
     },
   },
   methods: {
-    copyPostURL() {
+    copyPostUrl() {
       let stringToCopy = "";
 
       if (this.isProject) {
@@ -265,44 +266,34 @@ span {
 .update {
   background-color: #39c9a0;
   color: white;
-  width: 10em;
+  width: 12em;
   height: 100%;
   margin-top: -10px;
-  margin-right: -2em;
-  -webkit-transform: skewX(-25deg);
-  -moz-transform: skewX(-25deg);
-  -ms-transform: skewX(-25deg);
-  -o-transform: skewX(-25deg);
-  transform: skewX(-25deg);
+  margin-right: -10px;
+  border-top-right-radius: 6px;
+}
+.update::before {
+  position: absolute;
+  /*left: -50px;*/
+  /*margin-top: 1px;*/
+  top: 0;
+  content: "";
+  border-bottom: 1.75em solid transparent;
+  border-left: 1.75em solid white;
+  border-top: 1.75em solid white;
+  border-right: 1.75em solid transparent;
 }
 .update.is-mobile {
   background-color: #39c9a0;
   color: white;
-  width: 5.5em;
-  height: 85%;
-  margin-top: -10px;
-  margin-right: -2em;
-  -webkit-transform: skewX(-25deg);
-  -moz-transform: skewX(-25deg);
-  -ms-transform: skewX(-25deg);
-  -o-transform: skewX(-25deg);
-  transform: skewX(-25deg);
+  width: 6.5em;
+  height: 100%;
 }
 div.level-left {
-  padding-left: 1em;
-  -webkit-transform: skewX(25deg);
-  -moz-transform: skewX(25deg);
-  -ms-transform: skewX(25deg);
-  -o-transform: skewX(25deg);
-  transform: skewX(25deg);
+  padding-left: 3.5em;
 }
 div.level-right {
-  margin-right: 2em;
-  margin-top: -0.25em;
-  -webkit-transform: skewX(25deg);
-  -moz-transform: skewX(25deg);
-  -ms-transform: skewX(25deg);
-  -o-transform: skewX(25deg);
-  transform: skewX(25deg);
+  margin-right: 10px;
+  /*margin-top: -0.25em;*/
 }
 </style>

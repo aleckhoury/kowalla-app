@@ -130,7 +130,7 @@
                 <font-awesome-icon icon="camera" />
               </a>
               <a
-                v-if="!Boolean(Object.keys(activePost).length)"
+                v-if="!Boolean(activePost)"
                 class="button is-white"
                 @click="toggleTimedPost"
               >
@@ -523,5 +523,8 @@ div.animation-content {
 }
 .theme-color {
   color: #39c9a0;
+}
+img {
+  border-radius: 6px;
 }
 </style>

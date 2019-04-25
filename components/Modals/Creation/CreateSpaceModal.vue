@@ -98,7 +98,7 @@ export default {
         // update local state
         let subInfo = {
           name: projectData.name,
-          pictureURL: projectData.profilePicture,
+          pictureUrl: projectData.profilePicture,
           numSubs: 1,
           projectId: projectData._id,
         };
@@ -132,7 +132,7 @@ export default {
         // update local state
         let subInfo = {
           name: communityData.name,
-          pictureURL: communityData.profilePicture,
+          pictureUrl: communityData.profilePicture,
           numSubs: 7,
           communityId: communityData._id,
         };

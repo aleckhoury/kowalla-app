@@ -1,7 +1,7 @@
 <template>
   <div class="profile-card-container">
     <nuxt-link :to="getRoute">
-      <img :src="profilePictureURL" class="image" >
+      <img :src="profilePictureUrl" class="image" >
     </nuxt-link>
 
     <nuxt-link :to="getRoute" class="name font-family">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="subheader">
-      <nuxt-link :to="subheaderURL" class="subheader-content">
+      <nuxt-link :to="subheaderUrl" class="subheader-content">
         <b>{{ subheaderString }}</b>
       </nuxt-link>
     </div>
@@ -44,9 +44,9 @@ export default {
   props: {
     name: { type: String, default: "" },
     username: { type: String, default: "" },
-    profilePictureURL: { type: String, default: "" },
+    profilePictureUrl: { type: String, default: "" },
     subheaderString: { type: String, default: "test" },
-    subheaderURL: { type: String, default: "/about" },
+    subheaderUrl: { type: String, default: "/about" },
     stats: { type: Array, default: () => [] },
     type: { type: String, default: "" },
     isMobile: { type: Boolean, default: false },

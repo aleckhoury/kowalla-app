@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <Picker
-      :native="true"
-      :show-skin-tones="false"
-      :show-preview="false"
-      @select="toggleReaction"
-    />
-  </div>
+  <Picker
+    :native="true"
+    :show-skin-tones="false"
+    :show-preview="false"
+    @select="toggleReaction"
+  />
 </template>
 
 <script>
@@ -21,8 +19,8 @@ export default {
   name: "DropdownPicker",
   components: { Picker },
   props: {
-    toggleReaction: { type: Function, default: () => {} }
-  }
+    toggleReaction: { type: Function, default: () => {} },
+  },
 };
 </script>
 

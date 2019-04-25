@@ -24,7 +24,7 @@
           <InfoPane>
             <ProfileCard
               :name="`${firstName} ${lastName}`"
-              :profile-picture-url="profilePictureURL"
+              :profile-picture-url="profilePictureUrl"
               :username="username"
               :stats="profileStats"
               type="user"
@@ -83,7 +83,7 @@
 
     <!-- Mobile -->
     <MobileHeader
-      :location-picture-to-display="profilePictureURL"
+      :location-picture-to-display="profilePictureUrl"
       :location-to-display="`@${username}`"
       class="is-hidden-desktop"
     />
@@ -92,7 +92,7 @@
       <div class="side-pane">
         <ProfileCard
           :name="`${firstName} ${lastName}`"
-          :profile-picture-url="profilePictureURL"
+          :profile-picture-url="profilePictureUrl"
           :username="username"
           :stats="profileStats"
           is-mobile
@@ -169,7 +169,7 @@ export default {
       profileId: "",
       firstName: "",
       lastName: "",
-      profilePictureURL: "",
+      profilePictureUrl: "",
       profileDescription: "",
 
       profileStats: [],
@@ -211,7 +211,7 @@ export default {
       this.firstName = infoRes.firstName;
       this.lastName = infoRes.lastName;
       this.profileDescription = infoRes.description;
-      this.profilePictureURL = infoRes.profilePicture;
+      this.profilePictureUrl = infoRes.profilePicture;
       this.profileId = infoRes._id;
       this.profileStats.push({ name: "Rep", stat: infoRes.reputation });
       this.profileStats.push({ name: "Posts", stat: infoRes.postCount });
@@ -242,7 +242,7 @@ export default {
           firstName: this.firstName,
           lastName: this.lastName,
           username: this.username,
-          profilePicture: this.profilePictureURL,
+          profilePicture: this.profilePictureUrl,
           description: this.profileDescription,
           profileId: this.profileId,
         },

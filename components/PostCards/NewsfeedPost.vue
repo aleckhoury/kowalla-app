@@ -1,18 +1,16 @@
 <template>
   <div class="card">
-    <div class="post-header-container">
-      <PostHeader
-        :is-active="post.isActive"
-        :created-at="post.createdAt"
-        :profile="profile"
-        :project="project"
-        :community="community"
-        :is-project="isProject"
-        :is-mobile="isMobile"
-        :post-id="post._id"
-        @delete-post="echoDeletePost"
-      />
-    </div>
+    <PostHeader
+      :is-active="post.isActive"
+      :created-at="post.createdAt"
+      :profile="profile"
+      :project="project"
+      :community="community"
+      :is-project="isProject"
+      :is-mobile="isMobile"
+      :post-id="post._id"
+      @delete-post="echoDeletePost"
+    />
 
     <PostTimer v-if="post.isActive" :time="post.expiration" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
@@ -233,6 +231,12 @@ export default {
       }
     },
     createPicker() {
+      if (
+        this.$children[1].$refs.picker.attributes[0].ownerElement.children
+          .length
+      ) {
+        return null;
+      }
       let ComponentClass = Vue.extend(DropdownPicker);
       let instance = new ComponentClass({
         propsData: { toggleReaction: this.toggleReaction },
@@ -278,9 +282,5 @@ b-icon {
 .content {
   word-break: break-word;
   margin-left: 8px;
-}
-div.post-header-container {
-  border-radius: 6px;
-  overflow: hidden;
 }
 </style>

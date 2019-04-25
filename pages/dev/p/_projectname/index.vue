@@ -18,7 +18,7 @@
 
         <div class="column is-three-quarters is-paddingless">
           <Banner
-            :banner-url="bannerPictureURL"
+            :banner-url="bannerPictureUrl"
             :banner-title="projectName"
             :id="projectId"
             :is-subscribed="isSubscribed"
@@ -51,7 +51,7 @@
                   <ProfileCard
                     :name="projectName"
                     :username="projectName"
-                    :profile-picture-url="projectProfilePictureURL"
+                    :profile-picture-url="projectProfilePictureUrl"
                     :subheader-string="`View ${projectName}'s stats`"
                     :stats="projectStats"
                     type="project"
@@ -62,7 +62,7 @@
                   <ProfileCard
                     :name="`${adminFirstName} ${adminLastName}`"
                     :username="adminUsername"
-                    :profile-picture-url="adminProfilePictureURL"
+                    :profile-picture-url="adminProfilePictureUrl"
                     :subheader-string="`View ${adminFirstName}'s profile`"
                     :subheader-url="`/dev/u/${adminUsername}`"
                     :stats="profileStats"
@@ -99,14 +99,14 @@
 
     <!-- Mobile -->
     <MobileHeader
-      :location-picture-to-display="projectProfilePictureURL"
+      :location-picture-to-display="projectProfilePictureUrl"
       :location-to-display="`@${projectName}`"
       class="is-hidden-desktop"
     />
 
     <div class="is-marginless is-hidden-desktop mobile-main-margin">
       <Banner
-        :banner-url="bannerPictureURL"
+        :banner-url="bannerPictureUrl"
         :banner-title="projectName"
         :id="projectId"
         :is-subscribed="isSubscribed"
@@ -131,7 +131,7 @@
           <ProfileCard
             :name="projectName"
             :username="projectName"
-            :profile-picture-url="projectProfilePictureURL"
+            :profile-picture-url="projectProfilePictureUrl"
             :subheader-string="`View ${projectName}'s stats`"
             :stats="projectStats"
             type="project"
@@ -143,7 +143,7 @@
           <ProfileCard
             :name="`${adminFirstName} ${adminLastName}`"
             :username="adminUsername"
-            :profile-picture-url="adminProfilePictureURL"
+            :profile-picture-url="adminProfilePictureUrl"
             :subheader-string="`View ${adminFirstName}'s profile`"
             :subheader-url="`/dev/u/${adminUsername}`"
             :stats="profileStats"
@@ -210,8 +210,8 @@ export default {
   data() {
     return {
       projectName: null,
-      bannerPictureURL: "",
-      projectProfilePictureURL: "",
+      bannerPictureUrl: "",
+      projectProfilePictureUrl: "",
       projectDescription: "",
       admins: null,
       numSubs: 0,
@@ -219,12 +219,12 @@ export default {
       adminFirstName: "",
       adminLastName: "",
       adminUsername: "",
-      adminProfilePictureURL: "",
+      adminProfilePictureUrl: "",
       projectStats: [],
       profileStats: [],
       // newsfeed content
       postList: [],
-      isNestedURL: false,
+      isNestedUrl: false,
     };
   },
   computed: {
@@ -271,7 +271,7 @@ export default {
   created() {
     this.projectName = this.$route.params.projectname;
     if (this.$route.params.hasOwnProperty("postId")) {
-      this.isNestedURL = true;
+      this.isNestedUrl = true;
     }
   },
   async mounted() {
@@ -283,8 +283,8 @@ export default {
     let infoRes = await this.$axios.get(
       `/api/v1/projects/p/${this.projectName}`
     );
-    this.bannerPictureURL = infoRes.data.headerPicture;
-    this.projectProfilePictureURL = infoRes.data.profilePicture;
+    this.bannerPictureUrl = infoRes.data.headerPicture;
+    this.projectProfilePictureUrl = infoRes.data.profilePicture;
     this.projectId = infoRes.data._id;
     this.numSubs = infoRes.data.subscribers;
     this.projectDescription = infoRes.data.description;
@@ -300,7 +300,7 @@ export default {
     this.adminFirstName = adminRes.data.firstName;
     this.adminLastName = adminRes.data.lastName;
     this.adminUsername = adminRes.data.username;
-    this.adminProfilePictureURL = adminRes.data.profilePicture;
+    this.adminProfilePictureUrl = adminRes.data.profilePicture;
 
     // fill profil estats
     this.profileStats.push({ name: "Rep", stat: adminRes.data.reputation });
@@ -310,7 +310,7 @@ export default {
       stat: adminRes.data.commentCount,
     });
 
-    if (this.isNestedURL) {
+    if (this.isNestedUrl) {
       // need to launch modal to show post
       let post = await this.$axios.$get(
         `/api/v1/posts/${this.$route.params.postId}`
@@ -321,8 +321,8 @@ export default {
         component: PostModal,
         props: {
           postObj: post,
-          isFromNestedURL: true,
-          fallbackURL: `/dev/p/${this.projectName}`,
+          isFromNestedUrl: true,
+          fallbackUrl: `/dev/p/${this.projectName}`,
         },
         events: {
           "delete-post": postId => {
@@ -371,7 +371,7 @@ export default {
     updateSubscriptions(subBool) {
       let subInfo = {
         name: this.projectName,
-        pictureURL: this.projectProfilePictureURL,
+        pictureUrl: this.projectProfilePictureUrl,
         numSubs: subBool
           ? this.projectStats[0].stat + 1
           : this.projectStats[0].stat - 1,
@@ -392,8 +392,8 @@ export default {
         component: EditProjectModal,
         props: {
           name: this.projectName,
-          headerPicture: this.bannerPictureURL,
-          profilePicture: this.projectProfilePictureURL,
+          headerPicture: this.bannerPictureUrl,
+          profilePicture: this.projectProfilePictureUrl,
           description: this.projectDescription,
           projectId: this.projectId,
         },

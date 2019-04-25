@@ -1,6 +1,6 @@
 <template>
   <div class="banner-container">
-    <img :src="bannerURL" class="image" >
+    <img :src="bannerUrl" class="image" >
 
     <div class="banner-subscription-button-container">
       <SubscriptionButton
@@ -31,7 +31,7 @@ export default {
   components: { SubscriptionButton },
   props: {
     id: { type: String, default: "" },
-    bannerURL: { type: String, default: "" },
+    bannerUrl: { type: String, default: "" },
     bannerTitle: { type: String, default: "" },
     bannerTitlePrefix: { type: String, default: "" },
     isSubscribed: { type: Boolean, default: false },

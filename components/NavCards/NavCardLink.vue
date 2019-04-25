@@ -1,7 +1,7 @@
 <template>
   <div class="nav-card-link-container" @click="emitClickedEventToParent()">
     <nuxt-link :to="getRoute">
-      <img :src="pictureURL" class="picture" >
+      <img :src="pictureUrl" class="picture" >
     </nuxt-link>
 
     <div class="nav-card-link-content">
@@ -19,7 +19,7 @@ export default {
   props: {
     name: { type: String, default: "" },
     numSubs: { type: Number, default: 0 },
-    pictureURL: { type: String, default: "" },
+    pictureUrl: { type: String, default: "" },
     projectId: { type: String, default: "" },
     communityId: { type: String, default: "" },
   },

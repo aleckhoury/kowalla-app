@@ -31,7 +31,7 @@
           >{{ reactionCountMobile }}
         </b>
       </a>
-      <b-dropdown ref="dropdown" mobile-modal>
+      <b-dropdown ref="dropdown" position="is-top-right" mobile-modal>
         <a
           slot="trigger"
           class="button is-outlined level-item"
