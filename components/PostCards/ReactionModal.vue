@@ -42,6 +42,8 @@ export default {
 .card {
   border-radius: 6px;
   min-width: 350px;
+  max-height: 85vh;
+  overflow-y: scroll;
 }
 .message-header {
   background: #39c9a0;

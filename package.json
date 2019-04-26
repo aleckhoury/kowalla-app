@@ -5,7 +5,7 @@
   "author": "Kowalla",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt -o",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
