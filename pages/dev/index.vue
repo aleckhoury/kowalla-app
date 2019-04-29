@@ -12,7 +12,7 @@
       <div class="columns is-centered is-marginless main-margin">
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane id="fixed" />
         </div>
 
         <div id="postFeed" class="column is-one-half is-paddingless no-margin">
@@ -165,5 +165,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+#fixed {
+  position: fixed;
 }
 </style>

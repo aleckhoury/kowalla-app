@@ -1,18 +1,16 @@
 <template>
   <div class="card">
-    <div class="post-header-container">
-      <PostHeader
-        :is-active="post.isActive"
-        :created-at="post.createdAt"
-        :profile="profile"
-        :project="project"
-        :community="community"
-        :is-project="isProject"
-        :is-mobile="isMobile"
-        :post-id="post._id"
-        @delete-post="echoDeletePost"
-      />
-    </div>
+    <PostHeader
+      :is-active="post.isActive"
+      :created-at="post.createdAt"
+      :profile="profile"
+      :project="project"
+      :community="community"
+      :is-project="isProject"
+      :is-mobile="isMobile"
+      :post-id="post._id"
+      @delete-post="echoDeletePost"
+    />
 
     <PostTimer v-if="post.isActive" :time="post.expiration" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
@@ -23,7 +21,13 @@
       </p>
     </div>
     <br >
-    <Reactions :post-id="post._id" @open-post="openPost" />
+    <Reactions
+      :post-id="post._id"
+      :create-picker="createPicker"
+      :toggle-reaction="toggleReaction"
+      :reactions-formatted="reactionsFormatted"
+      @open-post="openPost"
+    />
   </div>
 </template>
 
@@ -33,6 +37,8 @@ import PostHeader from "~/components/PostCards/PostHeader";
 import PostTimer from "~/components/PostCards/PostTimer";
 import PostModal from "~/components/PostCards/PostModal.vue";
 import Utils from "~/utils/helpers";
+import DropdownPicker from "./DropdownPicker";
+import Vue from "vue";
 
 export default {
   name: "Post",
@@ -56,6 +62,8 @@ export default {
       profile: {},
       isProject: false,
       overflow: false,
+      reactionList: [],
+      reactionsFormatted: [],
     };
   },
   async mounted() {
@@ -99,12 +107,44 @@ export default {
         this.overflow = true;
       }
     }
+    try {
+      this.reactionList = await this.$axios.$get(
+        `/api/v1/posts/${this.post._id}/reactions`
+      );
+      if (this.reactionList.length) {
+        this.reactionList.forEach(x => {
+          const userReacted = x.profileId === this.$store.state.user._id;
+          let index = this.reactionsFormatted
+            .map(y => y.emoji)
+            .indexOf(x.emoji);
+          if (index === -1) {
+            this.reactionsFormatted.push({
+              emoji: x.emoji,
+              count: 1,
+              userReacted: false,
+            });
+            if (userReacted) {
+              index = this.reactionsFormatted
+                .map(y => y.emoji)
+                .indexOf(x.emoji);
+              this.reactionsFormatted[index].userReacted = true;
+            }
+          } else {
+            this.reactionsFormatted[index].count++;
+            if (userReacted) {
+              this.reactionsFormatted[index].userReacted = true;
+            }
+          }
+        });
+      }
+    } catch {
+      console.log("some kind of error idk");
+    }
   },
   methods: {
     echoDeletePost(postId) {
       this.$emit("delete-post", postId);
     },
-
     openPost() {
       // figure out how to
       let infoObj = {
@@ -128,6 +168,81 @@ export default {
         width: 900,
         hasModalCard: true,
       });
+    },
+    async toggleReaction(emoji) {
+      const savedEmoji = typeof emoji === "string" ? emoji : emoji.native;
+      let emojiIndex = await this.reactionsFormatted
+        .map(x => x.emoji)
+        .indexOf(savedEmoji);
+      const isEmojiObject = typeof emoji === "object";
+      if (
+        emojiIndex === -1 ||
+        this.reactionsFormatted[emojiIndex].userReacted === false
+      ) {
+        return this.toggleReactionTrue(savedEmoji, emojiIndex, isEmojiObject);
+      } else if (
+        emojiIndex !== -1 &&
+        this.reactionsFormatted[emojiIndex].userReacted === true
+      ) {
+        return this.toggleReactionFalse(savedEmoji, emojiIndex);
+      }
+    },
+    async toggleReactionTrue(emoji, index, isEmojiObject) {
+      await this.$axios.$post(
+        `/api/v1/profiles/${this.$store.state.user._id}/reactions`,
+        {
+          emoji: emoji,
+          postId: this.post._id,
+        }
+      );
+      if (index === -1) {
+        this.reactionsFormatted.push({
+          emoji: emoji,
+          count: 1,
+          userReacted: false,
+        });
+        const newIndex = this.reactionsFormatted
+          .map(x => x.emoji)
+          .indexOf(emoji);
+        this.reactionsFormatted[newIndex].userReacted = true;
+      } else {
+        this.reactionsFormatted[index].userReacted = true;
+        this.reactionsFormatted[index].count++;
+      }
+      if (isEmojiObject) {
+        this.$children[1].$refs.dropdown.toggle();
+      }
+    },
+    async toggleReactionFalse(emoji, index) {
+      await this.$axios.delete(
+        `/api/v1/profiles/${this.$store.state.user._id}/reactions/${
+          this.post._id
+        }`,
+        {
+          data: {
+            emoji: emoji,
+          },
+        }
+      );
+      this.reactionsFormatted[index].count--;
+      this.reactionsFormatted[index].userReacted = false;
+      if (this.reactionsFormatted[index].count === 0) {
+        this.reactionsFormatted.splice(index, 1);
+      }
+    },
+    createPicker() {
+      if (
+        this.$children[1].$refs.picker.attributes[0].ownerElement.children
+          .length
+      ) {
+        return null;
+      }
+      let ComponentClass = Vue.extend(DropdownPicker);
+      let instance = new ComponentClass({
+        propsData: { toggleReaction: this.toggleReaction },
+      });
+      instance.$mount(); // pass nothing
+      this.$children[1].$refs.picker.appendChild(instance.$el);
     },
   },
 };
@@ -167,9 +282,5 @@ b-icon {
 .content {
   word-break: break-word;
   margin-left: 8px;
-}
-div.post-header-container {
-  border-radius: 6px;
-  overflow: hidden;
 }
 </style>

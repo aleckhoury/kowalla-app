@@ -101,8 +101,8 @@ export default {
         if (type === "profile") self.editForm.profilePicture = e.target.result;
         else self.editForm.headerPicture = e.target.result;
       };
-      if (type === "profile") reader.readAsDataURL(this.profilePicFile);
-      else reader.readAsDataURL(this.bannerPicFile);
+      if (type === "profile") reader.readAsDataUrl(this.profilePicFile);
+      else reader.readAsDataUrl(this.bannerPicFile);
     },
     async uploadImage(type) {
       const formData = new FormData();
@@ -179,7 +179,7 @@ export default {
         // update state with changes -> should probably check for changes
         let subObj = {
           name: projectData.name,
-          pictureURL: projectData.profilePicture,
+          pictureUrl: projectData.profilePicture,
           projectId: projectData._id,
         };
         //this.$store.dispatch('user/editOwned', subObj)

@@ -1,7 +1,7 @@
 import Utils from '~/utils/helpers';
 
 export default async function (context) {
-  if (context.store.state.user.loggedIn) {
+  if (context.store.state.user.loggedIn && typeof context.store.state.user.activePost === 'object') {
     if (Object.keys(context.store.state.user.activePost).length) {
       if (!Utils.isActivePost(context.store.state.user.activePost)) {
         context.store.commit('user/isActivePost', {});

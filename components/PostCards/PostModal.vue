@@ -10,6 +10,7 @@
           :community="community"
           :is-project="isProject"
           :post-id="post._id"
+          :is-modal="true"
           @delete-post="echoDeletePost"
         />
         <PostTimer v-if="post.isActive" :time="post.expiration" />
@@ -50,9 +51,9 @@ export default {
   name: "PostModal",
   components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
   props: {
-    isFromNestedURL: { type: Boolean, default: false },
+    isFromNestedUrl: { type: Boolean, default: false },
     isFromNewsfeed: { type: Boolean, default: false },
-    fallbackURL: { type: String, default: "" },
+    fallbackUrl: { type: String, default: "" },
     isProject: { type: Boolean, default: false },
     infoObj: {
       type: Object,
@@ -84,7 +85,7 @@ export default {
     this.community = this.infoObj.community;
     this.project = this.infoObj.project;
 
-    if (!this.isFromNestedURL) {
+    if (!this.isFromNestedUrl) {
       this.originalPath = this.$route.path;
       window.history.pushState(
         {},
@@ -99,7 +100,7 @@ export default {
   async mounted() {
     //this.post = await this.$axios.$get(`/api/v1/posts/${this.post._id}`);
 
-    if (this.isFromNestedURL) {
+    if (this.isFromNestedUrl) {
       // have to get information we haven't gotten from the NewsfeedPost component
 
       if (this.post.hasOwnProperty("projectId")) {
@@ -175,6 +176,8 @@ div.card {
 .box {
   width: 55em;
   max-width: 100%;
+  max-height: 85vh;
+  overflow-y: scroll;
 }
 .modal-content {
   border-radius: 6px;

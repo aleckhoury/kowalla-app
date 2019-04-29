@@ -60,8 +60,8 @@ module.exports = {
    ** Axios module configuration
    */
   // axios: {
-  //   // baseURL: 'https://kowalla-backend-tob.herokuapp.com',
-  //   baseURL: 'http://localhost:8080',
+  //   // baseUrl: 'https://kowalla-backend-tob.herokuapp.com',
+  //   baseUrl: 'http://localhost:8080',
   //   credentials: true,
   // },
 
@@ -86,11 +86,11 @@ module.exports = {
     imports: [
       {
         set: "@fortawesome/free-solid-svg-icons",
-        icons: ["fas"],
-      },
-      {
-        set: "@fortawesome/free-brands-svg-icons",
-        icons: ["fab"],
+        icons: [ 'faArrowRight', 'faPlus', 'faSearch', 'faSmile', 'faLink', 'faComments',
+        'faAngleDown', 'faTrashAlt', 'faArrowUp', 'faBell', 'faBold', 'faFlag',
+        'faItalic', 'faStrikethrough', 'faUnderline', 'faCode', 'faTasks', 'faListUl',
+        'faListOl', 'faQuoteRight', 'faMinus', 'faCamera', 'faClock', 'faHome',
+        'faPencilRuler', 'faUserFriends', 'faProjectDiagram' ],
       },
     ],
   },

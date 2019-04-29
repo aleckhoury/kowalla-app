@@ -2,7 +2,7 @@
   <Card
     :header-string="headerString"
     :subheader-string="subheaderString"
-    :subheader-url="subheaderURL"
+    :subheader-url="subheaderUrl"
     :subheader-on="subheaderOn"
     :header-on="headerOn"
   >
@@ -23,7 +23,7 @@ export default {
   props: {
     headerString: { type: String, default: "" },
     subheaderString: { type: String, default: "" },
-    subheaderURL: { type: String, default: "" },
+    subheaderUrl: { type: String, default: "" },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
   },

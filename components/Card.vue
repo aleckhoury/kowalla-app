@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container">
+  <div class="card card-container">
     <div v-if="headerOn" class="header">
       <div class="header-content">
         <b>{{ headerString }}</b>
@@ -14,7 +14,7 @@
     <div v-if="subheaderOn" class="subheader">
       <nuxt-link
         v-if="!subheaderIsButton"
-        :to="subheaderURL"
+        :to="subheaderUrl"
         class="subheader-content"
       >
         <b>{{ subheaderString }}</b>
@@ -37,7 +37,7 @@ export default {
   props: {
     headerString: { type: String, default: "" },
     subheaderString: { type: String, default: "" },
-    subheaderURL: { type: String, default: "" },
+    subheaderUrl: { type: String, default: "" },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
     subheaderIsButton: { type: Boolean, default: false },
@@ -49,7 +49,6 @@ export default {
 .card-container {
   width: 100%;
   background-color: white;
-  border: 1px solid #E0DDDD;
   border-radius: 6px;
   margin-bottom: 10px;
 }
