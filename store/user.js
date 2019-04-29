@@ -1,7 +1,7 @@
 export const defaultState = () => ({
   _id: '',
   createdAt: '',
-  activePost: {},
+  activePost: { isActive: false },
   commentCount: 0,
   description: '',
   firstName: '',
