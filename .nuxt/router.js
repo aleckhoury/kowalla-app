@@ -6,7 +6,6 @@ const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChu
 const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
 const _4fb51a10 = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
 const _31eff532 = () => interopDefault(import('../pages/dev/focus.vue' /* webpackChunkName: "pages/dev/focus" */))
-const _74c79b89 = () => interopDefault(import('../pages/dev/Trello.vue' /* webpackChunkName: "pages/dev/Trello" */))
 const _648303e5 = () => interopDefault(import('../pages/dev/c/_communityname/index.vue' /* webpackChunkName: "pages/dev/c/_communityname/index" */))
 const _a3894ad8 = () => interopDefault(import('../pages/dev/c/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/c/_communityname/index/posts/_postId" */))
 const _57bdec30 = () => interopDefault(import('../pages/dev/p/_projectname/index.vue' /* webpackChunkName: "pages/dev/p/_projectname/index" */))
@@ -105,10 +104,6 @@ export function createRouter() {
       path: "/dev/focus",
       component: _31eff532,
       name: "dev-focus"
-    }, {
-      path: "/dev/Trello",
-      component: _74c79b89,
-      name: "dev-Trello"
     }, {
       path: "/dev/c/:communityname?",
       component: _648303e5,
