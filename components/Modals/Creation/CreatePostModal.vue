@@ -459,7 +459,6 @@ span {
   width: 800px;
   max-width: 100%;
   max-height: 85vh;
-  overflow-y: scroll;
 }
 .modal-content {
   border-radius: 6px;

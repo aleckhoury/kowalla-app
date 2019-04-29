@@ -209,9 +209,9 @@ export default {
         this.reactionsFormatted[index].userReacted = true;
         this.reactionsFormatted[index].count++;
       }
-      // if (isEmojiObject) {
-      //   this.$refs.dropdown.toggle();
-      // }
+      if (isEmojiObject) {
+        this.$children[1].$refs.dropdown.toggle();
+      }
     },
     async toggleReactionFalse(emoji, index) {
       await this.$axios.delete(

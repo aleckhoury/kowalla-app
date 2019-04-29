@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container">
+  <div class="card card-container">
     <div v-if="headerOn" class="header">
       <div class="header-content">
         <b>{{ headerString }}</b>
@@ -49,7 +49,6 @@ export default {
 .card-container {
   width: 100%;
   background-color: white;
-  border: 1px solid #E0DDDD;
   border-radius: 6px;
   margin-bottom: 10px;
 }
