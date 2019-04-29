@@ -101,8 +101,8 @@ export default {
         if (type === "profile") self.editForm.profilePicture = e.target.result;
         else self.editForm.headerPicture = e.target.result;
       };
-      if (type === "profile") reader.readAsDataUrl(this.profilePicFile);
-      else reader.readAsDataUrl(this.bannerPicFile);
+      if (type === "profile") reader.readAsDataURL(this.profilePicFile);
+      else reader.readAsDataURL(this.bannerPicFile);
     },
     async uploadImage(type) {
       const formData = new FormData();

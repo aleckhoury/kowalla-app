@@ -87,7 +87,7 @@ export default {
       reader.onload = e => {
         self.editForm.profilePicture = e.target.result;
       };
-      reader.readAsDataUrl(this.file);
+      reader.readAsDataURL(this.file);
     },
     async uploadImage() {
       const formData = new FormData();
