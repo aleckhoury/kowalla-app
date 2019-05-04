@@ -217,8 +217,7 @@ export default {
 }
 .button {
   color: #39c9a0;
-  border-color: #39c9a0;
-  border-width: medium;
+  border: 2px solid #39c9a0;
   width: 3em;
   height: 2em;
   font-size: 1.2em;
@@ -226,7 +225,6 @@ export default {
 .button:hover {
   background-color: rgba(57, 201, 160, 0.3);
   color: #39c9a0;
-  border-color: #39c9a0;
 }
 .comments {
   color: #39c9a0;

@@ -18,6 +18,10 @@
           <div class="level-item" @click="callHelpModal">
             <div class="page-link"><b>Help</b></div>
           </div>
+
+          <div v-if="Object.keys(activePost).length && activePost.isActive" class="level-item">
+            <nuxt-link class="page-link has-text-white" to="/dev/focus"><b>Focus</b></nuxt-link>
+          </div>
         </div>
 
         <div class="level-right">
@@ -53,6 +57,7 @@ import NavNotifications from "./NavNotifications";
 import HelpModal from "~/components/Modals/Other/HelpModal";
 import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
 import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
+import { mapGetters } from "vuex";
 
 export default {
   name: "NavHeader",
@@ -68,6 +73,9 @@ export default {
     return {
       isMounted: false,
     };
+  },
+  computed: {
+    ...mapGetters("user", ["activePost"]),
   },
   methods: {
     newPostModal() {
