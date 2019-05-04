@@ -97,6 +97,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.$store.state.user);
     this.postList = await this.$axios.$get(
       `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
     );

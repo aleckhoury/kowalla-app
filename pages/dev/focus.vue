@@ -200,10 +200,10 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.$store.state.user);
     this.post = await this.$axios.$get(
       `/api/v1/posts/active/${this.$store.state.user._id}`
     );
-    console.log(this);
     if (this.post.isActive === true) {
       this.countdownTimer(new Date(this.post.expiration).getTime());
       this.editor = await new Editor({

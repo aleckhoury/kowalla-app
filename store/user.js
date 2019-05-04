@@ -79,6 +79,7 @@ export const getters = ({
     if (activePost) {
       return Object.keys(activePost).length ? activePost : {};
     }
+    return {};
   },
   isUserSubscribed: ({subscriptions, owned}) => (name) => {
     let isSubscribed = false;
@@ -146,7 +147,7 @@ export const mutations = {
     state.subscriptions = subs;
   },
   async clearUser(state) {
-    state = Object.assign(state, defaultState());
+    Object.assign(state, defaultState());
   },
   addSubscription(state, subObj) {
     state.subscriptions.push(subObj);

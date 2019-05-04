@@ -130,7 +130,7 @@
                 <font-awesome-icon icon="camera" />
               </a>
               <a
-                v-if="!Boolean(activePost)"
+                v-if="!Object.keys(activePost).length || !activePost.isActive"
                 class="button is-white"
                 @click="toggleTimedPost"
               >
@@ -315,6 +315,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.activePost);
     this.editor = new Editor({
       autoFocus: true,
       extensions: [
