@@ -5,7 +5,7 @@
         <div class="title">Edit {{ name }}</div>
 
         <b-field label="Community name">
-          <b-input v-model="editForm.name" maxlength="15" />
+          <b-input v-model="editForm.name" maxlength="20" />
         </b-field>
 
         <b-field label="Profile Picture" />

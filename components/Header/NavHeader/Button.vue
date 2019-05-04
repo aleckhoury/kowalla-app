@@ -39,11 +39,10 @@ export default {
 
 <style lang="css" scoped>
 .kow-button {
-  height: 35px;
+  height: 36px;
   width: 70px;
   border-radius: 6px;
   background-color: #fff;
-  border: 2px solid #2F8168;
   margin: 6px;
   font-family: "Helvetica Neue";
   color: rgb(57,201,160);

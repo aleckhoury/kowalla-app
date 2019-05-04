@@ -8,7 +8,7 @@
             <div class="title">Create a Project</div>
 
             <b-field label="Project username">
-              <b-input v-model="spaceForm.name" maxlength="15" />
+              <b-input v-model="spaceForm.name" maxlength="20" />
             </b-field>
 
             <b-field label="Profile Picture">
@@ -42,7 +42,7 @@
               <b-input
                 v-model="spaceForm.name"
                 placeholder="KowallaFanClub"
-                maxlength="15"
+                maxlength="20"
               />
             </b-field>
 

@@ -5,15 +5,15 @@
         <div class="title">Edit Your Profile</div>
 
         <b-field label="Your first name">
-          <b-input v-model="editForm.firstName" maxlength="15" />
+          <b-input v-model="editForm.firstName" maxlength="20" />
         </b-field>
 
         <b-field label="Your last name">
-          <b-input v-model="editForm.lastName" maxlength="15" />
+          <b-input v-model="editForm.lastName" maxlength="20" />
         </b-field>
 
         <b-field label="Your username">
-          <b-input v-model="editForm.username" maxlength="15" />
+          <b-input v-model="editForm.username" maxlength="20" />
         </b-field>
         <b-field label="Profile Picture" />
 

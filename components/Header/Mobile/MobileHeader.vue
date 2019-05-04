@@ -65,7 +65,7 @@
               class="mobile-nav-link-picture"
             >
 
-            <div v-else class="center mobile-nav-link-picture">
+            <div v-else class="center mobile-nav-link-picture is-size-4">
               <font-awesome-icon icon="home" />
             </div>
           </div>
@@ -92,7 +92,7 @@ import NotificationModal from '~/components/Modals/Other/NotificationModal';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 import NavNotifications from '~/components/Header/NavHeader/NavNotifications';
 import SearchModal from '~/components/Modals/Other/SearchModal';
-import LoginAndRegisterModal from '~/components/Auth/LoginAndRegisterModal';
+import LoginAndRegisterModalMobile from '~/components/Auth/LoginAndRegisterModalMobile';
 
 export default {
   name: "MobileHeader",
@@ -138,7 +138,7 @@ export default {
     cardModal() {
       this.$modal.open({
                 parent: this,
-                component: LoginAndRegisterModal,
+                component: LoginAndRegisterModalMobile,
                 width: 900,
                 hasModalCard: true,
               },
@@ -205,7 +205,7 @@ export default {
 
 .mobile-header-bottom-container {
   background-color: white;
-  border: 1px solid #2F8168;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   padding: 0px 10px 0px 10px;
 }
 
@@ -216,7 +216,8 @@ export default {
 }
 
 .selector {
-  border: 1px solid black;
+  border: 2px solid #39C9A0;
+  color: #39C9A0;
   border-radius: 6px;
   padding: 5px;
   height: 40px;
@@ -246,7 +247,6 @@ export default {
 .mobile-nav-link-picture {
   height: 30px;
   width: 30px;
-  border: 1px solid #E0DDDD;
   border-radius: 6px;
 }
 
