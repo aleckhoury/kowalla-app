@@ -287,7 +287,7 @@ span {
   background-color: #39c9a0;
   color: white;
   width: 6.5em;
-  height: 100%;
+  height: 3.5em;
 }
 div.level-left {
   padding-left: 3.5em;

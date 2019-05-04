@@ -86,7 +86,7 @@ module.exports = {
     imports: [
       {
         set: "@fortawesome/free-solid-svg-icons",
-        icons: [ 'faArrowRight', 'faPlus', 'faSearch', 'faSmile', 'faLink', 'faComments',
+        icons: [ 'faArrowRight', 'faArrowLeft', 'faPlus', 'faSearch', 'faSmile', 'faLink', 'faComments',
         'faAngleDown', 'faTrashAlt', 'faArrowUp', 'faBell', 'faBold', 'faFlag',
         'faItalic', 'faStrikethrough', 'faUnderline', 'faCode', 'faTasks', 'faListUl',
         'faListOl', 'faQuoteRight', 'faMinus', 'faCamera', 'faClock', 'faHome',

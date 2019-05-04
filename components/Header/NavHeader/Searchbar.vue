@@ -116,9 +116,7 @@ export default {
 <style lang="css" scoped>
 .searchbar-container {
   font-family: "Helvetica Neue";
-  border-radius: 6px;
   margin: 6px;
-  border: 2px solid #2F8168;
 }
 
 .searchbar-container:focus {
@@ -129,6 +127,9 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
+}
+.search-item-container input {
+  border-radius: 6px;
 }
 
 .search-item-text {

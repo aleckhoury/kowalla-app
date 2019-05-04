@@ -55,7 +55,6 @@ export default {
   border-radius: 6px;
   margin-left: 8px;
   cursor: pointer;
-  border: 1px solid #999;
 }
 
 .nav-card-link-content {

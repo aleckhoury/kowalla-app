@@ -52,12 +52,14 @@ import NavProfilePicture from "./NavProfilePicture";
 import NavNotifications from "./NavNotifications";
 import HelpModal from "~/components/Modals/Other/HelpModal";
 import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
 
 export default {
   name: "NavHeader",
   components: {
     Button,
     Searchbar,
+    CreatePostModal,
     NavProfilePicture,
     NavNotifications,
     HelpModal,
@@ -69,7 +71,16 @@ export default {
   },
   methods: {
     newPostModal() {
-      console.log("create new postmodal");
+      this.$modal.open({
+        parent: this,
+        component: CreatePostModal,
+        events: {
+          "post-created": postObj => {
+            this.$emit("post-created", postObj);
+          },
+        },
+        hasModalCard: true,
+      });
     },
     callHelpModal() {
       this.$modal.open({
@@ -95,7 +106,6 @@ export default {
 .nav-header-container {
   height: 55px;
   background-color: #39C9A0;
-  border: 1px solid #2F8168;
 }
 
 .kowalla-logo {

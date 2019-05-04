@@ -43,7 +43,6 @@ export default {
 .nav-profile-picture {
   height: 48px;
   width: 48px;
-  border: 1px solid #2F8168;
   border-radius: 6px;
 }
 .dropdown-item {
