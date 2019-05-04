@@ -40,12 +40,12 @@
         </div>
         <div v-else key="signup" class="signup">
           <span class="title">Create Account</span>
-          <b-field label="Email">
-            <b-input
-              v-model="registerForm.email"
-              @keyup.native.enter="register(registerForm)"
-            />
-          </b-field>
+          <!--<b-field label="Email">-->
+          <!--<b-input-->
+          <!--v-model="registerForm.email"-->
+          <!--@keyup.native.enter="register(registerForm)"-->
+          <!--/>-->
+          <!--</b-field>-->
           <b-field label="Username">
             <b-input
               v-model="registerForm.username"
@@ -105,7 +105,7 @@ export default {
       },
       registerForm: {
         name: "",
-        email: "",
+        // email: "",
         username: "",
         password: "",
       },
@@ -117,7 +117,7 @@ export default {
     },
     async register(registerForm) {
       if (
-        this.registerForm.email === "" ||
+        // this.registerForm.email === "" ||
         this.registerForm.username === "" ||
         this.registerForm.password === ""
       ) {
@@ -200,10 +200,10 @@ export default {
 
 <style scoped>
 /*.modal-content {*/
-  /*border-radius: 6px;*/
-  /*margin: 0;*/
-  /*color: #39c9a0;*/
-  /*width: auto;*/
+/*border-radius: 6px;*/
+/*margin: 0;*/
+/*color: #39c9a0;*/
+/*width: auto;*/
 /*}*/
 .card {
   width: 800px;
@@ -219,7 +219,7 @@ export default {
   justify-content: flex-start;
 }
 /*.card.left {*/
-  /*justify-content: flex-end;*/
+/*justify-content: flex-end;*/
 /*}*/
 /*.login {*/
 /*width: 50%;*/
@@ -276,10 +276,10 @@ div.field {
 }
 /*.fade-enter-active,*/
 /*.fade-leave-active {*/
-  /*transition: opacity 1s;*/
+/*transition: opacity 1s;*/
 /*}*/
 /*.fade-enter, .fade-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
-  /*opacity: 0;*/
+/*opacity: 0;*/
 /*}*/
 div.coverBox p small {
   font-weight: bold;
@@ -290,7 +290,8 @@ div.coverBox p small {
   color: #fff;
   text-decoration: none;
 }
-.login, .signup {
+.login,
+.signup {
   margin: auto 0;
   width: 60%;
   display: flex;
