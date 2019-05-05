@@ -77,6 +77,7 @@
           <div id="postFeed" class="columns is-marginless newsfeed-padding">
             <!-- post feed -->
             <div class="column is-two-thirds is-paddingless">
+              <EmptyPostList v-if="!postList.length" />
               <Post
                 v-for="post in postList"
                 :key="post._id"
@@ -161,7 +162,7 @@
           <b>Edit Settings</b>
         </EditButton>
       </div>
-
+      <EmptyPostList v-if="!postList.length" />
       <Post
         v-for="post in postList"
         :key="post._id"
@@ -190,11 +191,13 @@ import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 
 import Post from "~/components/PostCards/NewsfeedPost";
 import PostModal from "~/components/PostCards/PostModal.vue";
+import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
   middleware: "activePost",
   name: "UserPageTest",
   components: {
+    EmptyPostList,
     Header,
     MobileHeader,
     MobileFooter,
@@ -262,7 +265,7 @@ export default {
   watch: {
     async sort() {
       this.postList = await this.$axios.$get(
-        `/api/v1/posts/project/${this.projectId}/${this.sort}/0`
+        `/api/v1/project/posts/${this.projectId}/${this.sort}/0`
       );
 
       await this.scroll();
@@ -335,7 +338,7 @@ export default {
     }
     // get posts
     this.postList = await this.$axios.$get(
-      `/api/v1/posts/project/${this.projectId}/${this.sort}/${
+      `/api/v1/project/posts/${this.projectId}/${this.sort}/${
         this.postList.length
       }`
     );
@@ -355,7 +358,7 @@ export default {
           if (!isActive && bottomOfWindow) {
             isActive = true;
             const posts = await this.$axios.$get(
-              `/api/v1/posts/project/${this.projectId}/${this.sort}/${
+              `/api/v1/project/posts/${this.projectId}/${this.sort}/${
                 this.postList.length
               }`
             );

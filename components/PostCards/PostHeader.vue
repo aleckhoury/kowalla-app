@@ -3,13 +3,13 @@
     <figure class="media-left">
       <nuxt-link v-if="!isProject" :to="getProfileRoute">
         <p class="image is-64x64 profilePic">
-          <img :src="profile.profilePicture" >
+          <img :src="profile.profilePicture" onerror="this.src='https://gradientjoy.com/64'" >
         </p>
       </nuxt-link>
 
       <nuxt-link v-if="isProject" :to="getProjectRoute">
         <p class="image is-48x48 profilePic">
-          <img :src="project.profilePicture" >
+          <img :src="project.profilePicture" onerror="this.src='https://gradientjoy.com/48'" >
         </p>
       </nuxt-link>
     </figure>

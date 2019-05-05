@@ -2,7 +2,7 @@
   <div class="card-header">
     <figure class="media-left">
       <p class="image is-64x64 profilePic">
-        <img :src="profile.profilePicture" >
+        <img :src="profile.profilePicture" onerror="this.src='https://gradientjoy.com/64'">
       </p>
     </figure>
     <div class="card-content is-paddingless">

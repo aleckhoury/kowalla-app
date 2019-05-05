@@ -29,6 +29,7 @@
           <!-- v-for="post in postList" -->
           <div id="postFeed" class="columns is-marginless newsfeed-padding">
             <div class="column is-two-thirds is-paddingless">
+              <EmptyPostList v-if="!postList.length" />
               <Post
                 v-for="post in postList"
                 :key="post._id"
@@ -102,7 +103,7 @@
           <b>Edit Settings</b>
         </EditButton>
       </div>
-
+      <EmptyPostList v-if="!postList.length" />
       <Post
         v-for="post in postList"
         :is-mobile="true"
@@ -131,11 +132,13 @@ import EditCommunityModal from "~/components/Modals/Edit/EditCommunityModal";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import Post from "~/components/PostCards/NewsfeedPost";
 import PostModal from "~/components/PostCards/PostModal.vue";
+import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
   middleware: "activePost",
   name: "UserPageTest",
   components: {
+    EmptyPostList,
     Header,
     MobileHeader,
     MobileFooter,
@@ -258,7 +261,7 @@ export default {
         this.postList.length
       }`
     );
-
+    console.log(this.postList.length);
     await this.scroll();
 
     document.title = `Kowalla - #${this.communityName}`;

@@ -1,6 +1,6 @@
 <template>
   <div class="banner-container">
-    <img :src="bannerUrl" class="image" >
+    <img :src="bannerUrl" onerror="this.src='https://gradientjoy.com/1000x300'" >
 
     <div class="banner-subscription-button-container">
       <SubscriptionButton
@@ -49,7 +49,6 @@ export default {
 .banner-container {
   position: relative;
   height: 300px;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
 }
@@ -82,6 +81,11 @@ export default {
 
 .banner-font-mobile {
   font-size: 2em;
+}
+.banner-container img {
+  object-fit: cover;
+  min-width: 100%;
+  min-height: 100%
 }
 
 .banner-subscription-button-container {

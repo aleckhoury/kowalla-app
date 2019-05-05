@@ -12,7 +12,7 @@
 
         <div class="picSection">
           <p class="profilePic">
-            <img :src="editForm.profilePicture" >
+            <img :src="editForm.profilePicture" onerror="this.src='https://gradientjoy.com/180'" >
           </p>
           <a class="button action" >
             <input
@@ -31,7 +31,7 @@
 
         <div class="picSection">
           <p class="bannerPic">
-            <img :src="editForm.headerPicture" >
+            <img :src="editForm.headerPicture" onerror="this.src='https://gradientjoy.com/1000x250'" >
           </p>
           <a class="button action" >
             <input
