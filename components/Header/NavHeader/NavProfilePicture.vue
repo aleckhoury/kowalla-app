@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown position="is-bottom-left" aria-role="list">
-    <img slot="trigger" :src="profilePicture" class="nav-profile-picture" >
+    <img slot="trigger" :src="profilePicture" class="nav-profile-picture" onerror="this.src='https://gradientjoy.com/48'" >
 
     <b-dropdown-item aria-role="listitem" @click="goToProfile">
       <nuxt-link :to="`/dev/u/${username}`" class="page-link">

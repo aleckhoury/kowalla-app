@@ -20,6 +20,7 @@
             v-if="this.$store.state.user.loggedIn && isMounted"
             @post-created="addPostToPostList"
           />
+          <EmptyPostList v-if="!postList.length" />
           <Post
             v-for="post in postList"
             :key="post._id"
@@ -42,6 +43,7 @@
     />
 
     <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+      <EmptyPostList v-if="!postList.length" />
       <Post
         v-for="post in postList"
         :key="post._id"
@@ -62,11 +64,13 @@ import Header from "~/components/Header/Header";
 import NavPane from "~/components/NavCards/NavPane";
 import Post from "~/components/PostCards/NewsfeedPost";
 import CreatePost from "~/components/PostCards/CreatePost";
+import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
   middleware: "activePost",
   name: "Test",
   components: {
+    EmptyPostList,
     CreatePost,
     Header,
     NavPane,

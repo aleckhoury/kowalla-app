@@ -11,6 +11,7 @@
 
         <!-- post feed -->
         <div id="postFeed" class="column is-one-half is-paddingless">
+          <EmptyPostList v-if="!postList.length" />
           <Post
             v-for="post in postList"
             :key="post._id"
@@ -116,7 +117,7 @@
           <b>Edit Settings</b>
         </EditButton>
       </div>
-
+      <EmptyPostList v-if="!postList.length" />
       <Post
         v-for="post in postList"
         :is-mobile="true"
@@ -145,11 +146,13 @@ import NavCard from "~/components/NavCards/NavCard";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
 import Post from "~/components/PostCards/NewsfeedPost";
+import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
   middleware: "activePost",
   name: "UserPageTest",
   components: {
+    EmptyPostList,
     NavPane,
     NavCard,
     Card,
