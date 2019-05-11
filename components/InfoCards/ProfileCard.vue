@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-card-container">
+  <div class="card profile-card-container">
     <nuxt-link :to="getRoute">
       <img :src="profilePictureUrl" class="image" onerror="this.src='https://gradientjoy.com/40'">
     </nuxt-link>
@@ -57,8 +57,8 @@ export default {
     },
     getRoute() {
       return this.type === "project"
-        ? `/dev/p/${this.username}`
-        : `/dev/u/${this.username}`;
+        ? `/dev/project/${this.username}`
+        : `/dev/user/${this.username}`;
     },
   },
 };
@@ -71,10 +71,8 @@ export default {
   align-items: center;
   flex-direction: column;
   background-color: white;
-  border: 1px solid #E0DDDD;
   border-radius: 6px;
   height: 225px;
-  width: 215px;
 }
 
 .image {

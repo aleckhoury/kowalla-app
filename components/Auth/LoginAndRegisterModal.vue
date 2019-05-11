@@ -19,6 +19,10 @@
       <transition name="fade" mode="out-in">
         <div v-if="loginBox" key="login" class="login">
           <span class="title">Welcome Back!</span>
+          <a class="image is-48x48"
+             href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+          </a>
           <b-field label="Username">
             <b-input
               v-model="loginForm.username"
@@ -151,7 +155,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$parent.close();
-        location.reload();
+        this.$router.go();
       } catch (err) {
         console.log(err);
       }
@@ -189,7 +193,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$parent.close();
-        location.reload();
+        this.$router.go();
       } catch (err) {
         console.log(err);
       }
@@ -319,4 +323,8 @@ div.coverBox p small {
 /*.fade-enter, .fade-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
 /*opacity: 0;*/
 /*}*/
+  .image img {
+    border: 1px solid lightgray;
+    border-radius: 6px;
+  }
 </style>

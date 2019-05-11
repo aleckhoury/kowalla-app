@@ -83,19 +83,19 @@ export default {
         // eventually, we'll want to direct right to the comment in question
         if (item.hasOwnProperty("commentId") && item.hasOwnProperty("postId")) {
           this.$router.push({
-            path: `/dev/c/${item.communityName}/posts/${item.postId}`,
+            path: `/dev/community/${item.communityName}/posts/${item.postId}`,
           });
         } else if (
           !item.hasOwnProperty("commentId") &&
           item.hasOwnProperty("postId")
         ) {
           this.$router.push({
-            path: `/dev/c/${item.communityName}/posts/${item.postId}`,
+            path: `/dev/community/${item.communityName}/posts/${item.postId}`,
           });
         }
       } else if (item.hasOwnProperty("projectName")) {
         this.$router.push({
-          path: `/dev/p/${item.projectName}`,
+          path: `/dev/project/${item.projectName}`,
         });
       }
     },

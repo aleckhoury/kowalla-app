@@ -187,7 +187,7 @@ export default {
 
         // if name returned isn't the same as we started with
         if (communityData.name !== this.name) {
-          this.$router.push({ path: `/dev/c/${communityData.name}` });
+          this.$router.push({ path: `/dev/community/${communityData.name}` });
         } else {
           // otherwise, refresh
           this.$router.go();

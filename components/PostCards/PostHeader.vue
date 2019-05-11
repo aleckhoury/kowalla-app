@@ -170,13 +170,13 @@ export default {
       return format(this.createdAt, "en_US");
     },
     getProfileRoute() {
-      return `/dev/u/${this.profile.username}`;
+      return `/dev/user/${this.profile.username}`;
     },
     getProjectRoute() {
       return `/dev/p/${this.project.name}`;
     },
     getCommunityRoute() {
-      return `/dev/c/${this.community.name}`;
+      return `/dev/community/${this.community.name}`;
     },
   },
   methods: {
@@ -188,7 +188,7 @@ export default {
           this.postId
         }`;
       } else {
-        stringToCopy = `www.kowalla.co/dev/c/${this.community.name}/posts/${
+        stringToCopy = `www.kowalla.co/dev/community/${this.community.name}/posts/${
           this.postId
         }`;
       }

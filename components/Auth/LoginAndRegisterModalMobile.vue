@@ -123,7 +123,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$parent.close();
-        location.reload();
+        this.$router.go();
       } catch (err) {
         console.log(err);
       }
@@ -161,7 +161,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$parent.close();
-        location.reload();
+        this.$router.go();
       } catch (err) {
         console.log(err);
       }

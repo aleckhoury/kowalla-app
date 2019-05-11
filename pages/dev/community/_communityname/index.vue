@@ -218,7 +218,7 @@ export default {
   },
   async mounted() {
     let infoRes = await this.$axios.get(
-      `/api/v1/communities/c/${this.communityName}`
+      `/api/v1/communities/community/${this.communityName}`
     );
     this.bannerPictureUrl = infoRes.data.headerPicture;
     this.profilePictureUrl = infoRes.data.profilePicture;
@@ -243,7 +243,7 @@ export default {
         props: {
           postObj: post,
           isFromNestedUrl: true,
-          fallbackUrl: `/dev/c/${this.communityName}`,
+          fallbackUrl: `/dev/community/${this.communityName}`,
         },
         events: {
           "delete-post": postId => {

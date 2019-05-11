@@ -38,12 +38,13 @@
               {{ profileDescription }}
             </DescriptionCard>
 
-            <EditButton
-              v-if="this.$store.state.user.username === username"
-              @edit-button-clicked="callEditProfileModal"
-            >
-              <b>Edit Settings</b>
-            </EditButton>
+            <!--<EditButton v-if="this.$store.state.user.username === username">-->
+            <!--<nuxt-link :to="`/dev/user/${username}/edit`">-->
+            <!--<b>-->
+            <!--Edit Settings-->
+            <!--</b>-->
+            <!--</nuxt-link>-->
+            <!--</EditButton>-->
 
             <Card
               v-if="
@@ -204,7 +205,9 @@ export default {
     this.username = this.$route.params.username;
   },
   async mounted() {
-    let infoRes = await this.$axios.$get(`/api/v1/profiles/u/${this.username}`);
+    let infoRes = await this.$axios.$get(
+      `/api/v1/profiles/user/${this.username}`
+    );
     //------------------
     // remove if statements, but keep assignments in production.
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
@@ -292,10 +295,6 @@ export default {
 </script>
 
 <style lang="css">
-.no-padding {
-  padding: 0px;
-}
-
 .screen {
   position: absolute;
   top: 0;

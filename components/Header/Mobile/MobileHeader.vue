@@ -1,11 +1,13 @@
 <template>
   <div class="size">
     <div
-      :class="{ 'hide-mobile-header-container': !showNavbar}"
+      :class="{ 'hide-mobile-header-container': !showNavbar }"
       class="mobile-header-container is-touch"
     >
       <!-- Mobile Header Top -->
-      <div class="level half-height is-mobile mobile-header-top-container is-marginless">
+      <div
+        class="level half-height is-mobile mobile-header-top-container is-marginless"
+      >
         <nuxt-link to="/dev/">
           <div class="level-left kowalla-logo">
             <img
@@ -13,15 +15,11 @@
               class="kowalla-logo-picture"
             >
             kowalla
-
           </div>
         </nuxt-link>
 
         <div class="level-right">
-          <div
-            class="level-item align-icon"
-            @click="callSearchModal"
-          >
+          <div class="level-item align-icon" @click="callSearchModal">
             <font-awesome-icon
               class="theme-color-dark"
               icon="search"
@@ -41,17 +39,20 @@
             />
           </div>
 
-          <div class="level-item">
-            <nuxt-link v-if="this.$store.state.user.loggedIn" :to="`/dev/u/${this.$store.state.user.username}`">
-              <img
-                :src="this.$store.state.user.profilePicture"
-                class="mobile-nav-profile-picture"
-              >
-            </nuxt-link>
-            <b v-if="!this.$store.state.user.loggedIn" class="has-text-white" @click="cardModal">Login/Sign Up</b>
-          </div>
-        </div> <!-- end level-right -->
-      </div> <!-- top mobile header -->
+          <!--<div class="level-item">-->
+          <NavProfilePicture
+            v-if="this.$store.state.user.loggedIn"
+            :profile-picture="this.$store.state.user.profilePicture"
+            :username="this.$store.state.user.username"
+          />
+          <b v-else class="has-text-white" @click="cardModal">
+            Login/Sign Up
+          </b>
+          <!--</div>-->
+        </div>
+        <!-- end level-right -->
+      </div>
+      <!-- top mobile header -->
 
       <!-- Mobile Header Bottom -->
       <div class="level mobile-header-bottom-container half-height is-mobile">
@@ -77,30 +78,40 @@
           <div class="level-item margin-adjust">
             <font-awesome-icon icon="angle-down" />
           </div>
-        </div> <!-- End selector -->
+        </div>
+        <!-- End selector -->
 
         <div class="level-right">
           <SortingOptions is-mobile />
-        </div> <!-- End level right -->
-      </div> <!-- End level -->
-    </div> <!-- End mobile header bottom -->
+        </div>
+        <!-- End level right -->
+      </div>
+      <!-- End level -->
+    </div>
+    <!-- End mobile header bottom -->
   </div>
 </template>
 <script>
-import ChangeLocationModal from '~/components/Modals/Other/ChangeLocationModal';
-import NotificationModal from '~/components/Modals/Other/NotificationModal';
-import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
-import NavNotifications from '~/components/Header/NavHeader/NavNotifications';
-import SearchModal from '~/components/Modals/Other/SearchModal';
-import LoginAndRegisterModalMobile from '~/components/Auth/LoginAndRegisterModalMobile';
+import ChangeLocationModal from "~/components/Modals/Other/ChangeLocationModal";
+import NotificationModal from "~/components/Modals/Other/NotificationModal";
+import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
+import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
+import SearchModal from "~/components/Modals/Other/SearchModal";
+import LoginAndRegisterModalMobile from "~/components/Auth/LoginAndRegisterModalMobile";
+import NavProfilePicture from "~/components/Header/NavHeader/NavProfilePicture";
 
 export default {
   name: "MobileHeader",
-  components: { ChangeLocationModal, SortingOptions, NavNotifications },
+  components: {
+    ChangeLocationModal,
+    SortingOptions,
+    NavNotifications,
+    NavProfilePicture,
+  },
   props: {
     locationToDisplay: { type: String, default: "" },
-    locationPictureToDisplay: {type: String, default: ''},
-    isHome: {type: Boolean, default: false},
+    locationPictureToDisplay: { type: String, default: "" },
+    isHome: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -111,11 +122,11 @@ export default {
   },
   mounted() {
     this.lastScrollPosition = window.pageYOffset;
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener("scroll", this.onScroll);
   },
 
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.onScroll);
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll);
   },
   methods: {
     callChangeLocationModal() {
@@ -123,7 +134,7 @@ export default {
         parent: this,
         component: ChangeLocationModal,
         width: 300,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     callSearchModal() {
@@ -132,17 +143,16 @@ export default {
         component: SearchModal,
         props: { modalText: "Search" },
         width: 300,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     cardModal() {
       this.$modal.open({
-                parent: this,
-                component: LoginAndRegisterModalMobile,
-                width: 900,
-                hasModalCard: true,
-              },
-      );
+        parent: this,
+        component: LoginAndRegisterModalMobile,
+        width: 900,
+        hasModalCard: true,
+      });
     },
     callNotifModal() {
       this.$modal.open({
@@ -150,7 +160,7 @@ export default {
         component: NotificationModal,
         props: { modalText: "Notif" },
         width: 300,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     onScroll() {
@@ -169,7 +179,7 @@ export default {
         this.showNavbar = window.pageYOffset < this.lastScrollPosition;
         this.lastScrollPosition = window.pageYOffset;
       }
-    }
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="focusPage">
     <Header />
-    <div v-if="post && !post.userCompleted" class="container">
+    <div v-if="Object.keys(post).length && !post.userCompleted" class="container">
       <div class="columns is-vcentered is-centered is-marginless main-margin">
         <!-- post feed -->
         <div class="column">
@@ -200,7 +200,6 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$store.state.user);
     this.post = await this.$axios.$get(
       `/api/v1/posts/active/${this.$store.state.user._id}`
     );
@@ -233,6 +232,11 @@ export default {
           this.html = getHTML();
         },
       });
+    }
+  },
+  beforeDestroy() {
+    if (this.editor !== null) {
+      this.editor.destroy();
     }
   },
   methods: {
@@ -326,7 +330,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("https://source.unsplash.com/collection/1242150");
+  background-image: url("https://source.unsplash.com/collection/151521");
   background-size: cover;
 }
 .container {

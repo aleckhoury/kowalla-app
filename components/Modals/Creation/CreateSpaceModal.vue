@@ -115,7 +115,7 @@ export default {
 
         // change page and close modal
         this.$parent.close();
-        this.$router.push(`/dev/p/${projectData.name}`);
+        this.$router.push(`/dev/project/${projectData.name}`);
       } catch (e) {
         console.log(e);
       }
@@ -148,7 +148,7 @@ export default {
         );
 
         // change page and close modal
-        this.$router.push({ path: `/dev/c/${communityData.name}` });
+        this.$router.push({ path: `/dev/community/${communityData.name}` });
         this.$parent.close();
       } catch (e) {
         console.log(e);

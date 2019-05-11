@@ -19,7 +19,7 @@
         <div class="column is-three-quarters is-paddingless">
           <Banner
             :banner-url="bannerPictureUrl"
-            :banner-title="projectName"
+            :banner-title="name"
             :id="projectId"
             :is-subscribed="isSubscribed"
             :is-owner="isOwner"
@@ -49,10 +49,10 @@
               <div class="level">
                 <div class="level-item">
                   <ProfileCard
-                    :name="projectName"
-                    :username="projectName"
+                    :name="name"
+                    :username="name"
                     :profile-picture-url="projectProfilePictureUrl"
-                    :subheader-string="`View ${projectName}'s stats`"
+                    :subheader-string="`View ${name}'s stats`"
                     :stats="projectStats"
                     type="project"
                   />
@@ -64,7 +64,7 @@
                     :username="adminUsername"
                     :profile-picture-url="adminProfilePictureUrl"
                     :subheader-string="`View ${adminFirstName}'s profile`"
-                    :subheader-url="`/dev/u/${adminUsername}`"
+                    :subheader-url="`/dev/user/${adminUsername}`"
                     :stats="profileStats"
                     type="user"
                   />
@@ -101,14 +101,14 @@
     <!-- Mobile -->
     <MobileHeader
       :location-picture-to-display="projectProfilePictureUrl"
-      :location-to-display="`@${projectName}`"
+      :location-to-display="`@${name}`"
       class="is-hidden-desktop"
     />
 
     <div class="is-marginless is-hidden-desktop mobile-main-margin">
       <Banner
         :banner-url="bannerPictureUrl"
-        :banner-title="projectName"
+        :banner-title="name"
         :id="projectId"
         :is-subscribed="isSubscribed"
         :is-owner="isOwner"
@@ -130,10 +130,10 @@
       >
         <div class="column is-narrow">
           <ProfileCard
-            :name="projectName"
-            :username="projectName"
+            :name="name"
+            :username="name"
             :profile-picture-url="projectProfilePictureUrl"
-            :subheader-string="`View ${projectName}'s stats`"
+            :subheader-string="`View ${name}'s stats`"
             :stats="projectStats"
             type="project"
             is-mobile
@@ -146,7 +146,7 @@
             :username="adminUsername"
             :profile-picture-url="adminProfilePictureUrl"
             :subheader-string="`View ${adminFirstName}'s profile`"
-            :subheader-url="`/dev/u/${adminUsername}`"
+            :subheader-url="`/dev/user/${adminUsername}`"
             :stats="profileStats"
             type="user"
             is-mobile
@@ -212,7 +212,7 @@ export default {
   },
   data() {
     return {
-      projectName: null,
+      name: null,
       bannerPictureUrl: "",
       projectProfilePictureUrl: "",
       projectDescription: "",
@@ -231,9 +231,6 @@ export default {
     };
   },
   computed: {
-    getProjectName() {
-      return this.projectName;
-    },
     sort() {
       return this.$store.state.sorting.project;
     },
@@ -241,7 +238,7 @@ export default {
       let isOwner = false;
       if (typeof this.$store.state.user.owned !== "undefined") {
         for (let i = 0; i < this.$store.state.user.owned.length; i++) {
-          if (this.$store.state.user.owned[i].name === this.projectName) {
+          if (this.$store.state.user.owned[i].name === this.name) {
             isOwner = true;
           }
         }
@@ -253,7 +250,7 @@ export default {
       if (typeof this.$store.state.user.subscriptions !== "undefined") {
         for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
           if (
-            this.$store.state.user.subscriptions[i].name === this.projectName
+            this.$store.state.user.subscriptions[i].name === this.name
           ) {
             isSubscribed = true;
           }
@@ -272,7 +269,7 @@ export default {
     },
   },
   created() {
-    this.projectName = this.$route.params.projectname;
+    this.name = this.$route.params.projectname;
     if (this.$route.params.hasOwnProperty("postId")) {
       this.isNestedUrl = true;
     }
@@ -284,7 +281,7 @@ export default {
 
     // get project details
     let infoRes = await this.$axios.get(
-      `/api/v1/projects/p/${this.projectName}`
+      `/api/v1/projects/project/${this.name}`
     );
     this.bannerPictureUrl = infoRes.data.headerPicture;
     this.projectProfilePictureUrl = infoRes.data.profilePicture;
@@ -325,7 +322,7 @@ export default {
         props: {
           postObj: post,
           isFromNestedUrl: true,
-          fallbackUrl: `/dev/p/${this.projectName}`,
+          fallbackUrl: `/dev/project/${this.name}`,
         },
         events: {
           "delete-post": postId => {
@@ -345,7 +342,7 @@ export default {
 
     await this.scroll();
 
-    document.title = `Kowalla - @${this.projectName}`;
+    document.title = `Kowalla - @${this.name}`;
   },
   methods: {
     async scroll() {
@@ -373,7 +370,7 @@ export default {
     },
     updateSubscriptions(subBool) {
       let subInfo = {
-        name: this.projectName,
+        name: this.name,
         pictureUrl: this.projectProfilePictureUrl,
         numSubs: subBool
           ? this.projectStats[0].stat + 1
@@ -394,7 +391,7 @@ export default {
         parent: this,
         component: EditProjectModal,
         props: {
-          name: this.projectName,
+          name: this.name,
           headerPicture: this.bannerPictureUrl,
           profilePicture: this.projectProfilePictureUrl,
           description: this.projectDescription,

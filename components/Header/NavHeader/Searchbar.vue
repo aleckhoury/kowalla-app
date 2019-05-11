@@ -76,7 +76,7 @@ export default {
           );
 
           this.$router.push({
-            path: `/dev/u/${responseData.username}`,
+            path: `/dev/user/${responseData.username}`,
           });
         }
 
@@ -86,7 +86,7 @@ export default {
           );
 
           this.$router.push({
-            path: `/dev/p/${responseData.name}`,
+            path: `/dev/project/${responseData.name}`,
           });
         }
 
@@ -96,7 +96,7 @@ export default {
           );
 
           this.$router.push({
-            path: `/dev/c/${responseData.name}`,
+            path: `/dev/community/${responseData.name}`,
           });
         }
       }

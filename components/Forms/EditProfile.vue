@@ -1,56 +1,57 @@
 <template>
-  <div class="modal-content">
-    <div class="box">
-      <section>
-        <div class="title">Edit Your Profile</div>
+  <div class="box">
+    <section>
+      <div class="title">Edit Profile</div>
 
-        <b-field label="Your first name">
-          <b-input v-model="editForm.firstName" maxlength="20" />
-        </b-field>
+      <b-field label="Your first name">
+        <b-input v-model="editForm.firstName" maxlength="20" />
+      </b-field>
 
-        <b-field label="Your last name">
-          <b-input v-model="editForm.lastName" maxlength="20" />
-        </b-field>
+      <b-field label="Your last name">
+        <b-input v-model="editForm.lastName" maxlength="20" />
+      </b-field>
 
-        <b-field label="Your username">
-          <b-input v-model="editForm.username" maxlength="20" />
-        </b-field>
-        <b-field label="Profile Picture" />
+      <b-field label="Your username">
+        <b-input v-model="editForm.username" maxlength="20" />
+      </b-field>
+      <b-field label="Profile Picture" />
 
-        <div class="profilePicSection">
-          <p class="profilePic">
-            <img :src="editForm.profilePicture" onerror="this.src='https://gradientjoy.com/180'" >
-          </p>
-          <a class="button action" >
-            <input
-              ref="file"
-              class="file-input"
-              type="file"
-              @change="selectFile()"
-            >
-            <span v-if="editForm.profilePicture">Change Profile Picture</span>
-            <span v-else>Add Profile Picture</span> &nbsp;
-            <font-awesome-icon icon="camera" />
-          </a>
-        </div>
-        <b-field label="Description">
-          <b-input
-            v-model="editForm.description"
-            maxlength="500"
-            type="textarea"
-          />
-        </b-field>
-
-        <a class="button action" @click="editProfile(editForm)">
-          Submit
+      <div class="profilePicSection">
+        <p class="profilePic">
+          <img
+            :src="editForm.profilePicture"
+            onerror="this.src='https://gradientjoy.com/180'"
+          >
+        </p>
+        <a class="button action">
+          <input
+            ref="file"
+            class="file-input"
+            type="file"
+            @change="selectFile()"
+          >
+          <span v-if="editForm.profilePicture">Change Profile Picture</span>
+          <span v-else>Add Profile Picture</span> &nbsp;
+          <font-awesome-icon icon="camera" />
         </a>
-      </section>
-    </div>
+      </div>
+      <b-field label="Description">
+        <b-input
+          v-model="editForm.description"
+          maxlength="500"
+          type="textarea"
+        />
+      </b-field>
+
+      <a class="button action" @click="editProfile(editForm)">
+        Submit
+      </a>
+    </section>
   </div>
 </template>
 <script>
 export default {
-  name: "CreateSpaceModal",
+  name: "EditProfileForm",
   props: {
     firstName: { type: String, default: "" },
     lastName: { type: String, default: "" },
@@ -63,21 +64,13 @@ export default {
     return {
       file: "",
       editForm: {
-        firstName: "",
-        lastName: "",
-        username: "",
-        description: "", // text area
-        profilePicture: "", // need to add upload
+        firstName: this.firstName,
+        lastName: this.lastName,
+        username: this.username,
+        description: this.description, // text area
+        profilePicture: this.profilePicture, // need to add upload
       },
     };
-  },
-  mounted() {
-    // cast props to form
-    this.editForm.firstName = this.firstName;
-    this.editForm.lastName = this.lastName;
-    this.editForm.username = this.username;
-    this.editForm.profilePicture = this.profilePicture;
-    this.editForm.description = this.description;
   },
   methods: {
     async selectFile() {
@@ -132,7 +125,6 @@ export default {
             profilePicture: editForm.profilePicture,
           }
         );
-
         let editObj = {
           firstName: profileData.firstName,
           lastName: profileData.lastName,
@@ -142,15 +134,7 @@ export default {
         };
 
         this.$store.commit("user/editProfile", editObj);
-
-        // if name returned isn't the same as we started with
-        if (profileData.username !== this.username) {
-          this.$router.push({ path: `/dev/user/${profileData.username}` });
-        } else {
-          // otherwise, refresh
-          this.$router.go();
-        }
-        this.$parent.close();
+        this.$router.push({ path: `/dev/user/${profileData.username}` });
       } catch (e) {
         console.log(e);
       }
@@ -159,29 +143,22 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.box {
-    width: 800px;
-    max-width: 100%;
-}
-.modal-content {
+.card {
     border-radius: 6px;
-    margin: 0;
-    color: #39C9A0;
-    width: auto;
 }
 .button.action {
-  color: white;
-  background-color: #39C9A0;
-  border-color: #39C9A0;
-  margin-bottom: 1.75em;
+    color: white;
+    background-color: #39C9A0;
+    border-color: #39C9A0;
+    margin-bottom: 1.75em;
 }
 .profilePic img {
-  width: 180px;
-  height: 180px;
-  border-radius: 0.75em;
-  object-fit: cover;
+    width: 180px;
+    height: 180px;
+    border-radius: 0.75em;
+    object-fit: cover;
 }
-  .profilePicSection {
+.profilePicSection {
     text-align: center;
-  }
+}
 </style>
