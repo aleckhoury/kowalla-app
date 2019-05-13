@@ -13,9 +13,13 @@
         code: this.$route.query.code,
       });
       await Cookies.set("token", token);
+      const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
+
+      const { owned, subscriptions } = subs.profileSubscriptions;
       await Object.assign(user, {
         loggedIn: Boolean(Object.keys(user).length),
       });
+      await Object.assign(user, { subscriptions, owned });
 
       await this.$store.commit("user/setUser", user);
       await this.$router.push({

@@ -8,8 +8,8 @@
       </nuxt-link>
 
       <nuxt-link v-if="isProject" :to="getProjectRoute">
-        <p class="image is-48x48 profilePic">
-          <img :src="project.profilePicture" onerror="this.src='https://gradientjoy.com/48'" >
+        <p class="image is-48x48 profilePicProject">
+          <img :src="project.profilePicture" onerror="this.src='https://gradientjoy.com/50'" >
         </p>
       </nuxt-link>
     </figure>
@@ -173,7 +173,7 @@ export default {
       return `/dev/user/${this.profile.username}`;
     },
     getProjectRoute() {
-      return `/dev/p/${this.project.name}`;
+      return `/dev/project/${this.project.name}`;
     },
     getCommunityRoute() {
       return `/dev/community/${this.community.name}`;
@@ -184,7 +184,7 @@ export default {
       let stringToCopy = "";
 
       if (this.isProject) {
-        stringToCopy = `www.kowalla.co/dev/p/${this.project.name}/posts/${
+        stringToCopy = `www.kowalla.co/dev/project/${this.project.name}/posts/${
           this.postId
         }`;
       } else {
@@ -231,6 +231,11 @@ export default {
 }
 .profilePic img {
   border-radius: 0.75em;
+}
+.profilePicProject img {
+  border-radius: 0.75em;
+  height: 100%;
+  width: 48px;
 }
 span {
   color: #39c9a0;

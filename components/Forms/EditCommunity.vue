@@ -175,12 +175,12 @@ export default {
         );
         // update state with changes -> should probably check for changes
         let subObj = {
-          name: communityData.name,
-          pictureUrl: communityData.profilePicture,
+          name: editForm.name,
+          pictureUrl: editForm.profilePicture,
           communityId: communityData._id,
         };
         this.$store.commit("user/editOwned", subObj);
-        this.$router.push({ path: `/dev/community/${communityData.name}` });
+        this.$router.push({ path: `/dev/community/${editForm.name}` });
       } catch (e) {
         console.log(e);
       }

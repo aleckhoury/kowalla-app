@@ -7,16 +7,12 @@
           <section>
             <div class="title">Create a Project</div>
 
+            <b-field label="Project Name">
+              <b-input v-model="spaceForm.projectName" maxlength="20" />
+            </b-field>
+
             <b-field label="Project username">
               <b-input v-model="spaceForm.name" maxlength="20" />
-            </b-field>
-
-            <b-field label="Profile Picture">
-              <b-input v-model="spaceForm.profilePicture" maxlength="200" />
-            </b-field>
-
-            <b-field label="Banner Picture">
-              <b-input v-model="spaceForm.headerPicture" maxlength="200" />
             </b-field>
 
             <b-field label="Description">
@@ -46,14 +42,6 @@
               />
             </b-field>
 
-            <b-field label="Profile Picture">
-              <b-input v-model="spaceForm.profilePicture" maxlength="200" />
-            </b-field>
-
-            <b-field label="Banner Picture">
-              <b-input v-model="spaceForm.headerPicture" maxlength="200" />
-            </b-field>
-
             <b-field label="Description">
               <b-input
                 v-model="spaceForm.description"
@@ -78,6 +66,7 @@ export default {
     return {
       spaceForm: {
         name: "",
+        projectName: "",
         description: "", // text area
         profilePicture: "", // need to add upload
         headerPicture: "", // need to add upload
@@ -90,6 +79,8 @@ export default {
       try {
         let projectData = await this.$axios.$post("api/v1/projects", {
           name: spaceForm.name,
+          projectName: spaceForm.projectName,
+          isProject: true,
           description: spaceForm.description,
           profilePicture: spaceForm.profilePicture,
           headerPicture: spaceForm.headerPicture,
@@ -99,6 +90,7 @@ export default {
         let subInfo = {
           name: projectData.name,
           pictureUrl: projectData.profilePicture,
+          isProject: true,
           numSubs: 1,
           projectId: projectData._id,
         };
@@ -115,7 +107,7 @@ export default {
 
         // change page and close modal
         this.$parent.close();
-        this.$router.push(`/dev/project/${projectData.name}`);
+        this.$router.push(`/dev/project/${projectData.name}/edit`);
       } catch (e) {
         console.log(e);
       }
@@ -125,14 +117,14 @@ export default {
         let communityData = await this.$axios.$post("api/v1/communities", {
           name: spaceForm.name,
           description: spaceForm.description,
-          profilePicture: spaceForm.profilePicture,
-          headerPicture: spaceForm.headerPicture,
+          isProject: false,
           admins: [this.$store.state.user.username],
         });
         // update local state
         let subInfo = {
           name: communityData.name,
           pictureUrl: communityData.profilePicture,
+          isProject: false,
           numSubs: 7,
           communityId: communityData._id,
         };
@@ -148,7 +140,7 @@ export default {
         );
 
         // change page and close modal
-        this.$router.push({ path: `/dev/community/${communityData.name}` });
+        this.$router.push({ path: `/dev/community/${communityData.name}/edit` });
         this.$parent.close();
       } catch (e) {
         console.log(e);

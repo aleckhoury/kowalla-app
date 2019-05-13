@@ -1,7 +1,7 @@
 <template>
   <div class="card profile-card-container">
     <nuxt-link :to="getRoute">
-      <img :src="profilePictureUrl" class="image" onerror="this.src='https://gradientjoy.com/40'">
+      <img :src="profilePictureUrl" :class="{ 'is-mobile': isMobile }" class="image" onerror="this.src='https://gradientjoy.com/40'">
     </nuxt-link>
 
     <nuxt-link :to="getRoute" class="name font-family">
@@ -68,11 +68,12 @@ export default {
 .profile-card-container {
   display: flex;
   width: 100%;
+  text-align: center;
   align-items: center;
   flex-direction: column;
   background-color: white;
   border-radius: 6px;
-  height: 225px;
+  height: auto;
 }
 
 .image {
@@ -84,6 +85,11 @@ export default {
   border: 1px solid #E0DDDD;
 }
 
+.image.is-mobile {
+  height: 48px;
+  width: 48px;
+}
+
 .font-family {
   font-family: "Helvetica Neue";
   text-decoration: none;
@@ -93,6 +99,7 @@ export default {
   font-size: 1em;
   color: black;
   text-decoration: none;
+  text-align: center;
 }
 
 .username {
@@ -106,15 +113,10 @@ export default {
   cursor: pointer;
 }
 
-.stats-container {
-  width: 100%;
-}
-
 .stat-container {
   display: flex;
   flex-direction: column;
   width: 48px;
-  margin: 0px 5px 0px 5px;
 }
 
 .stat-title {

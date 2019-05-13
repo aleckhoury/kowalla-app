@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header class="is-hidden-touch" />
+    <Header :home-feed="false" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
       <!--
@@ -29,7 +29,7 @@
 
           <!-- new columns for description, profile and project cards -->
           <div class="columns is-marginless newsfeed-padding">
-            <div class="column is-half is-paddingless">
+            <div class="column is-half">
               <DescriptionCard
                 :subheader-on="false"
                 header-string="Description"
@@ -45,36 +45,31 @@
               </EditButton>
             </div>
 
-            <div class="column is-half is-paddingless">
-              <div class="level">
-                <div class="level-item">
-                  <ProfileCard
-                    :name="name"
-                    :username="name"
-                    :profile-picture-url="projectProfilePictureUrl"
-                    :subheader-string="`View ${name}'s stats`"
-                    :stats="projectStats"
-                    type="project"
-                  />
-                </div>
-
-                <div class="level-item">
-                  <ProfileCard
-                    :name="`${adminFirstName} ${adminLastName}`"
-                    :username="adminUsername"
-                    :profile-picture-url="adminProfilePictureUrl"
-                    :subheader-string="`View ${adminFirstName}'s profile`"
-                    :subheader-url="`/dev/user/${adminUsername}`"
-                    :stats="profileStats"
-                    type="user"
-                  />
-                </div>
-              </div>
+            <div class="column is-one-quarter">
+              <ProfileCard
+                :name="projectName"
+                :username="name"
+                :profile-picture-url="projectProfilePictureUrl"
+                :subheader-string="`View ${name}'s stats`"
+                :stats="projectStats"
+                type="project"
+              />
+            </div>
+            <div class="column is-one-quarter">
+              <ProfileCard
+                :name="`${adminFirstName} ${adminLastName}`"
+                :username="adminUsername"
+                :profile-picture-url="adminProfilePictureUrl"
+                :subheader-string="`View ${adminFirstName}'s profile`"
+                :subheader-url="`/dev/user/${adminUsername}`"
+                :stats="profileStats"
+                type="user"
+              />
             </div>
           </div>
 
           <!-- new columns for content and info pane -->
-          <div id="postFeed" class="columns is-marginless newsfeed-padding">
+          <div id="postFeed" class="columns is-marginless">
             <!-- post feed -->
             <div class="column is-two-thirds is-paddingless">
               <EmptyPostList v-if="!postList.length" />
@@ -128,9 +123,9 @@
       <div
         class="columns is-marginless is-paddingless is-mobile is-centered is-centered is-multiline"
       >
-        <div class="column is-narrow">
+        <div class="column isMobile is-narrow">
           <ProfileCard
-            :name="name"
+            :name="projectName"
             :username="name"
             :profile-picture-url="projectProfilePictureUrl"
             :subheader-string="`View ${name}'s stats`"
@@ -140,7 +135,7 @@
           />
         </div>
 
-        <div class="column is-narrow">
+        <div class="column isMobile is-narrow">
           <ProfileCard
             :name="`${adminFirstName} ${adminLastName}`"
             :username="adminUsername"
@@ -167,7 +162,7 @@
         v-for="post in postList"
         :key="post._id"
         :post="post"
-        class="newsfeed-margin"
+        is-mobile
         @delete-post="removePostFromPostList"
       />
     </div>
@@ -194,8 +189,7 @@ import PostModal from "~/components/PostCards/PostModal.vue";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
-  middleware: "activePost",
-  name: "UserPageTest",
+  name: "ProjectPage",
   components: {
     EmptyPostList,
     Header,
@@ -222,6 +216,7 @@ export default {
       adminFirstName: "",
       adminLastName: "",
       adminUsername: "",
+      projectName: "",
       adminProfilePictureUrl: "",
       projectStats: [],
       profileStats: [],
@@ -249,9 +244,7 @@ export default {
       let isSubscribed = false;
       if (typeof this.$store.state.user.subscriptions !== "undefined") {
         for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
-          if (
-            this.$store.state.user.subscriptions[i].name === this.name
-          ) {
+          if (this.$store.state.user.subscriptions[i].name === this.name) {
             isSubscribed = true;
           }
         }
@@ -286,6 +279,7 @@ export default {
     this.bannerPictureUrl = infoRes.data.headerPicture;
     this.projectProfilePictureUrl = infoRes.data.profilePicture;
     this.projectId = infoRes.data._id;
+    this.projectName = infoRes.data.projectName;
     this.numSubs = infoRes.data.subscribers;
     this.projectDescription = infoRes.data.description;
     this.admins = infoRes.data.admins;
@@ -387,18 +381,8 @@ export default {
       this.$store.dispatch("user/updateSubscriptions", subObj);
     },
     callEditProjectModal() {
-      this.$modal.open({
-        parent: this,
-        component: EditProjectModal,
-        props: {
-          name: this.name,
-          headerPicture: this.bannerPictureUrl,
-          profilePicture: this.projectProfilePictureUrl,
-          description: this.projectDescription,
-          projectId: this.projectId,
-        },
-        width: 900,
-        hasModalCard: true,
+      this.$router.push({
+        path: `/dev/project/${this.name}/edit`,
       });
     },
     async removePostFromPostList(postId) {
@@ -416,4 +400,21 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.column.isMobile {
+  width: 50%;
+}
+.column.is-half {
+  padding: 0;
+}
+.column.is-one-quarter {
+  padding-top: 0;
+  padding-right: 0;
+}
+.mobile-main-margin {
+  padding-top: 100px;
+}
+div.level {
+  top: 0;
+}
+</style>

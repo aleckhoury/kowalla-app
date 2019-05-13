@@ -1,5 +1,5 @@
 <template>
-  <div class="banner-container">
+  <div :class="{'isMobile': isMobile}" class="banner-container">
     <img :src="bannerUrl" onerror="this.src='https://gradientjoy.com/1000x300'" >
 
     <div class="banner-subscription-button-container">
@@ -16,6 +16,8 @@
       :class="{
         'banner-font-desktop': !isMobile,
         'banner-font-mobile': isMobile,
+        'banner-title-desktop': !isMobile,
+        'banner-title-mobile': isMobile
       }"
       class="banner-title"
     >
@@ -53,6 +55,10 @@ export default {
   flex-direction: column;
 }
 
+.banner-container.isMobile {
+  height: auto;
+}
+
 .image {
   display: block;
   height: 100%;
@@ -74,13 +80,16 @@ export default {
   justify-content: flex-start;
   align-items: center;
 }
+.banner-title-mobile {
+  height: auto;
+}
 
 .banner-font-desktop {
   font-size: 3.75em;
 }
 
 .banner-font-mobile {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .banner-container img {
   object-fit: cover;

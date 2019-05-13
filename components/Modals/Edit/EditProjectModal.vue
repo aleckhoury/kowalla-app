@@ -2,6 +2,7 @@
   <div class="modal-content">
     <div class="box">
       <section>
+        s
         <div class="title">Edit {{ name }}</div>
 
         <b-field label="Project username">
@@ -12,7 +13,10 @@
 
         <div class="picSection">
           <p class="profilePic">
-            <img :src="editForm.profilePicture" onerror="this.src='https://gradientjoy.com/40'" >
+            <img
+              :src="editForm.profilePicture"
+              onerror="this.src='https://gradientjoy.com/40'"
+            >
           </p>
           <a class="button action">
             <input
@@ -31,7 +35,10 @@
 
         <div class="picSection">
           <p class="bannerPic">
-            <img :src="editForm.headerPicture" onerror="this.src='https://gradientjoy.com/1000x300'" >
+            <img
+              :src="editForm.headerPicture"
+              onerror="this.src='https://gradientjoy.com/1000x300'"
+            >
           </p>
           <a class="button action">
             <input

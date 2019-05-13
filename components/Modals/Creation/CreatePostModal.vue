@@ -309,6 +309,11 @@ export default {
           list.push({ name: sub.name, id: sub.communityId });
         }
       });
+      this.$store.state.user.owned.forEach(function(own) {
+        if (!own.isProject) {
+          list.push({ name: own.name, id: own.communityId });
+        }
+      });
       if (list.length) {
         return list;
       }

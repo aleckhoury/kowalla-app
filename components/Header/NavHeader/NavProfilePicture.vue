@@ -1,5 +1,5 @@
 <template lang="html">
-  <b-dropdown position="is-bottom-left" aria-role="list">
+  <b-dropdown :mobile-modal="false" position="is-bottom-left" aria-role="list">
     <img slot="trigger" :src="profilePicture" class="nav-profile-picture level-item" onerror="this.src='https://gradientjoy.com/48'" >
 
     <b-dropdown-item aria-role="listitem" has-link>
@@ -43,7 +43,7 @@ export default {
 <style lang="css" scoped>
 .nav-profile-picture {
   height: auto;
-  width: 48px;
+  width: 42px;
   border-radius: 6px;
 }
 .dropdown-item {

@@ -12,7 +12,9 @@ const _7a6a274e = () => interopDefault(import('../pages/dev/community/_community
 const _57098e5f = () => interopDefault(import('../pages/dev/project/_projectname/index.vue' /* webpackChunkName: "pages/dev/project/_projectname/index" */))
 const _4fcdf0e4 = () => interopDefault(import('../pages/dev/project/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/project/_projectname/index/posts/_postId" */))
 const _26a45ff5 = () => interopDefault(import('../pages/dev/user/_username/index.vue' /* webpackChunkName: "pages/dev/user/_username/index" */))
-const _f97d1e92 = () => interopDefault(import('../pages/dev/user/_username/edit.vue' /* webpackChunkName: "pages/dev/user/_username/edit" */))
+const _728d896d = () => interopDefault(import('../pages/dev/community/_communityname/Edit.vue' /* webpackChunkName: "pages/dev/community/_communityname/Edit" */))
+const _38fb9da6 = () => interopDefault(import('../pages/dev/project/_projectname/Edit.vue' /* webpackChunkName: "pages/dev/project/_projectname/Edit" */))
+const _f1c85652 = () => interopDefault(import('../pages/dev/user/_username/Edit.vue' /* webpackChunkName: "pages/dev/user/_username/Edit" */))
 const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -133,9 +135,17 @@ export function createRouter() {
       component: _26a45ff5,
       name: "dev-user-username"
     }, {
-      path: "/dev/user/:username?/edit",
-      component: _f97d1e92,
-      name: "dev-user-username-edit"
+      path: "/dev/community/:communityname?/Edit",
+      component: _728d896d,
+      name: "dev-community-communityname-Edit"
+    }, {
+      path: "/dev/project/:projectname?/Edit",
+      component: _38fb9da6,
+      name: "dev-project-projectname-Edit"
+    }, {
+      path: "/dev/user/:username?/Edit",
+      component: _f1c85652,
+      name: "dev-user-username-Edit"
     }, {
       path: "/",
       component: _3687ba5b,

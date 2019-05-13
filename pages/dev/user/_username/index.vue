@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header class="is-hidden-touch" />
+    <Header :home-feed="false" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
       <div class="columns is-marginless main-margin">
@@ -150,7 +150,6 @@ import Post from "~/components/PostCards/NewsfeedPost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
-  middleware: "activePost",
   name: "UserPageTest",
   components: {
     EmptyPostList,

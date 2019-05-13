@@ -35,6 +35,6 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 0.75em;
   color: #999999;
-  margin: 8px;
+  padding: 8px;
 }
 </style>

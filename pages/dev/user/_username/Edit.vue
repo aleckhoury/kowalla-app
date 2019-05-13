@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header class="is-hidden-touch" />
+    <Header :type="'ProfileSettingsActiveTab'" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
       <div class="columns is-marginless main-margin">
@@ -11,49 +11,45 @@
 
         <!-- post feed -->
         <div class="column is-one-half is-paddingless">
-          <EditProfileForm
-            v-if="infoRes"
-            :first-name="firstName"
-            :last-name="lastName"
-            :username="username"
-            :profile-picture="profilePictureUrl"
-            :description="profileDescription"
-            :profile-id="profileId"
-          />
+          <b-tabs id="columnTabs" v-model="activeTab">
+            <b-tab-item>
+              <EditProfileForm
+                v-if="infoRes"
+                :first-name="firstName"
+                :last-name="lastName"
+                :username="username"
+                :profile-picture="profilePictureUrl"
+                :description="profileDescription"
+                :profile-id="profileId"
+              />
+            </b-tab-item>
+            <b-tab-item>
+              Test!
+            </b-tab-item>
+          </b-tabs>
         </div>
         <div class="column is-one-quarter is-paddingless" />
       </div>
     </div>
 
     <!-- Mobile -->
-    <!--<MobileHeader-->
-    <!--:location-picture-to-display="profilePictureUrl"-->
-    <!--:location-to-display="`@${username}`"-->
-    <!--class="is-hidden-desktop"-->
-    <!--/>-->
+    <MobileHeader
+      :location-picture-to-display="profilePictureUrl"
+      :location-to-display="`@${username}`"
+      class="is-hidden-desktop"
+    />
 
-    <!--<div class="columns is-marginless is-hidden-desktop mobile-main-margin">-->
-    <!--<div class="side-pane">-->
-    <!--<ProfileCard-->
-    <!--:name="`${firstName} ${lastName}`"-->
-    <!--:profile-picture-url="profilePictureUrl"-->
-    <!--:username="username"-->
-    <!--:stats="profileStats"-->
-    <!--is-mobile-->
-    <!--type="user"-->
-    <!--/>-->
-    <!--</div>-->
-
-    <!--<DescriptionCard-->
-    <!--:header-string="`About ${firstName}`"-->
-    <!--:subheader-on="false"-->
-    <!--class="newsfeed-margin"-->
-    <!--&gt;-->
-    <!--{{ profileDescription }}-->
-    <!--</DescriptionCard>-->
-    <!--</div>-->
-
-    <!--<MobileFooter class="is-hidden-desktop" />-->
+    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+      <EditProfileForm
+        v-if="infoRes"
+        :first-name="firstName"
+        :last-name="lastName"
+        :username="username"
+        :profile-picture="profilePictureUrl"
+        :description="profileDescription"
+        :profile-id="profileId"
+      />
+    </div>
   </div>
 </template>
 
@@ -74,7 +70,6 @@ import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import EditProfileForm from "~/components/Forms/EditProfile";
 
 export default {
-  middleware: "activePost",
   name: "Edit",
   components: {
     NavPane,
@@ -105,8 +100,19 @@ export default {
     sort() {
       return this.$store.state.sorting.profile;
     },
+    activeTab() {
+      if (process.browser) {
+        return this.$store.state.activeTabs.ProfileSettingsActiveTab;
+      }
+    },
   },
   async mounted() {
+    if (this.username !== this.$store.state.user.username) {
+      this.$router.push({
+        path: `/dev/user/${this.username}`,
+      });
+    }
+
     this.infoRes = await this.$axios.$get(
       `/api/v1/profiles/user/${this.username}`
     );

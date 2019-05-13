@@ -67,7 +67,6 @@ import CreatePost from "~/components/PostCards/CreatePost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
-  middleware: "activePost",
   name: "Test",
   components: {
     EmptyPostList,

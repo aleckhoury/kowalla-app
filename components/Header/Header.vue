@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="size">
     <NavHeader />
-    <NavSubHeader />
+    <NavSubHeader :type="type" :home-feed="homeFeed" />
   </div>
 </template>
 
@@ -12,6 +12,10 @@ import NavSubHeader from "~/components/Header/NavSubHeader/NavSubHeader";
 export default {
   name: "Header",
   components: { NavHeader, NavSubHeader },
+  props: {
+    type: { type: String, default: "NewsFeedActiveTab" },
+    homeFeed: { type: Boolean, default: true },
+  },
 };
 </script>
 

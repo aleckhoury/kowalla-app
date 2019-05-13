@@ -123,6 +123,15 @@ li[data-done="false"] {
     text-decoration: none;
 }
 
+div.b-tabs section.tab-content {
+    padding: 0 !important;
+    margin: 0;
+}
+
+div #columnTabs.b-tabs ul {
+    display: none !important;
+}
+
 a.dropdown-item.is-active {
     background-color: #39C9A0;
 }
