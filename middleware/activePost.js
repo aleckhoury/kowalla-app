@@ -10,7 +10,7 @@ export default async function (context) {
         });
       }
     } else {
-      const activePost = await context.$axios.$get(`/api/v1/posts/active/${context.store.state.user.id}`);
+      const activePost = await context.$axios.$get(`/api/v1/posts/active/${context.store.state.user._id}`);
       if (Utils.isActivePost(activePost)) {
         context.store.commit('user/isActivePost', activePost);
       } else if (Object.keys(activePost).length) {

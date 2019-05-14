@@ -19,8 +19,34 @@ export default {
       editor: null,
     };
   },
+  computed: {
+    postInList() {
+      let list = [];
+      this.$store.state.user.subscriptions.forEach(function(sub) {
+        if (!sub.isProject) {
+          list.push({ name: sub.name, id: sub.communityId });
+        }
+      });
+      this.$store.state.user.owned.forEach(function(own) {
+        if (!own.isProject) {
+          list.push({ name: own.name, id: own.communityId });
+        }
+      });
+      if (list.length) {
+        return list;
+      }
+    },
+  },
   methods: {
     cardModal() {
+      if (!this.postInList.length) {
+        return this.$toast.open({
+          duration: 4000,
+          message: "You need to subscribe to a community so that you can post in it!",
+          position: "is-top",
+          type: "is-danger",
+        });
+      }
       this.$modal.open({
         parent: this,
         component: CreatePostModal,

@@ -202,11 +202,19 @@ export default {
       try {
         let successful = document.execCommand("copy");
         let msg = successful ? "successful" : "unsuccessful";
-        this.$toast.open("Link copied! :)");
+        this.$toast.open({
+          duration: 4000,
+          message: "Link copied! :)",
+          position: "is-top",
+          type: "is-success",
+        });
       } catch (err) {
-        this.$toast.open(
-          "Link copy failed, try opening the post and copying the URL directly"
-        );
+        this.$toast.open({
+          duration: 4000,
+          message: "Link copy failed, try opening the post and copying the URL directly",
+          position: "is-top",
+          type: "is-danger",
+        });
       }
       document.body.removeChild(x);
     },

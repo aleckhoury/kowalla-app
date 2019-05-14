@@ -1,5 +1,5 @@
 <template>
-  <b-tabs position="is-right" @change="changeTab">
+  <b-tabs :value="activeTab" position="is-right" @change="changeTab">
     <b-tab-item v-for="(tab, idx) in tabs" :label="tab" :key="idx"></b-tab-item>
   </b-tabs>
 </template>
@@ -23,6 +23,9 @@ export default {
       } else {
         return this.settingsOptions;
       }
+    },
+    activeTab() {
+      return this.$store.state.activeTabs[this.type];
     },
   },
   methods: {

@@ -20,13 +20,26 @@
             v-if="this.$store.state.user.loggedIn && isMounted"
             @post-created="addPostToPostList"
           />
-          <EmptyPostList v-if="!postList.length" />
-          <Post
-            v-for="post in postList"
-            :key="post._id"
-            :post="post"
-            @delete-post="removePostFromPostList"
-          />
+          <b-tabs id="columnTabs" v-model="activeTab">
+            <b-tab-item>
+              <EmptyPostList v-if="!postList.length" />
+              <Post
+                v-for="post in postList"
+                :key="post._id"
+                :post="post"
+                @delete-post="removePostFromPostList"
+              />
+            </b-tab-item>
+            <b-tab-item>
+              <EmptyPostList v-if="!subscribedPostList.length" />
+              <Post
+                v-for="post in subscribedPostList"
+                :key="post._id"
+                :post="post"
+                @delete-post="removePostFromPostList"
+              />
+            </b-tab-item>
+          </b-tabs>
         </div>
 
         <!-- info pane -->
@@ -80,6 +93,7 @@ export default {
   data() {
     return {
       postList: [],
+      subscribedPostList: [],
       isMounted: false,
     };
   },
@@ -89,20 +103,32 @@ export default {
         return this.$store.state.sorting.newsfeed;
       }
     },
+    activeTab() {
+      if (process.browser) {
+        return this.$store.state.activeTabs.NewsFeedActiveTab;
+      }
+    },
   },
   watch: {
     async sort() {
       this.postList = await this.$axios.$get(
         `/api/v1/feed/posts/${this.sort}/0`
       );
+      this.subscribedPostList = await this.$axios.$get(
+        `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/0`
+      );
 
       await this.scroll();
     },
   },
   async mounted() {
-    console.log(this.$store.state.user);
     this.postList = await this.$axios.$get(
       `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
+    );
+    this.subscribedPostList = await this.$axios.$get(
+      `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
+        this.subscribedPostList.length
+      }`
     );
 
     await this.scroll();
@@ -110,7 +136,7 @@ export default {
   },
   methods: {
     async scroll() {
-      if (this.postList.length) {
+      if (this.postList.length || this.subscribedPostList.length) {
         let isActive = false;
         window.onscroll = async () => {
           const feed = document.getElementById("postFeed");
@@ -118,13 +144,29 @@ export default {
             window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(
-              `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
-            );
-            const newList = await this.postList.concat(posts);
-            if (posts.length) {
-              this.postList = await newList;
-              isActive = false;
+            let posts;
+            let newList;
+            console.log(this.activeTab);
+            if (this.activeTab === 0) {
+              posts = await this.$axios.$get(
+                `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
+              );
+              newList = await this.postList.concat(posts);
+              if (posts.length) {
+                this.postList = await newList;
+                isActive = false;
+              }
+            } else {
+              posts = await this.$axios.$get(
+                `/api/v1/feed/posts/${this.$store.state.user._id}/${
+                  this.sort
+                }/${this.subscribedPostList.length}`
+              );
+              newList = await this.subscribedPostList.concat(posts);
+              if (posts.length) {
+                this.subscribedPostList = await newList;
+                isActive = false;
+              }
             }
           }
         };
