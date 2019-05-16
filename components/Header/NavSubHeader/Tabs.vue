@@ -1,5 +1,5 @@
 <template>
-  <b-tabs :value="activeTab" position="is-right" @change="changeTab">
+  <b-tabs :value="activeTab" :destroy-on-hide="false" position="is-right" @change="changeTab">
     <b-tab-item v-for="(tab, idx) in tabs" :label="tab" :key="idx"></b-tab-item>
   </b-tabs>
 </template>

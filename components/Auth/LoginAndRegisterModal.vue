@@ -44,6 +44,10 @@
         </div>
         <div v-else key="signup" class="signup">
           <span class="title">Create Account</span>
+          <a class="image is-48x48"
+             href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+          </a>
           <!--<b-field label="Email">-->
           <!--<b-input-->
           <!--v-model="registerForm.email"-->

@@ -20,7 +20,7 @@
             v-if="this.$store.state.user.loggedIn && isMounted"
             @post-created="addPostToPostList"
           />
-          <b-tabs id="columnTabs" v-model="activeTab">
+          <b-tabs id="columnTabs" v-model="activeTab" :destroy-on-hide="false">
             <b-tab-item>
               <EmptyPostList v-if="!postList.length" />
               <Post
@@ -31,7 +31,8 @@
               />
             </b-tab-item>
             <b-tab-item>
-              <EmptyPostList v-if="!subscribedPostList.length" />
+              <EmptyPostList v-if="!subscribedPostList.length && this.$store.state.user.loggedIn" />
+              <h1 class="noPosts">Create an account or sign in to subscribe to communities and projects!</h1>
               <Post
                 v-for="post in subscribedPostList"
                 :key="post._id"
@@ -125,11 +126,13 @@ export default {
     this.postList = await this.$axios.$get(
       `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
     );
+    if (this.$store.state.user.loggedIn) {
     this.subscribedPostList = await this.$axios.$get(
       `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
         this.subscribedPostList.length
       }`
     );
+    }
 
     await this.scroll();
     this.isMounted = true;
@@ -156,7 +159,7 @@ export default {
                 this.postList = await newList;
                 isActive = false;
               }
-            } else {
+            } else if (this.activeTab === 0 && this.$store.state.user.loggedIn) {
               posts = await this.$axios.$get(
                 `/api/v1/feed/posts/${this.$store.state.user._id}/${
                   this.sort
@@ -175,6 +178,9 @@ export default {
     addPostToPostList(postObj) {
       //console.log('postcreated')
       this.postList.unshift(postObj);
+      if (this.$store.state.user.loggedIn) {
+        this.subscribedPostList.unshift(postObj);
+      }
     },
     async removePostFromPostList(postId) {
       for (let i in this.postList) {
@@ -182,6 +188,15 @@ export default {
           this.postList.splice(i, 1);
           await this.$axios.delete(
             `/api/v1/communities/${this.communityId}/posts/${postId}`
+          );
+          break;
+        }
+      }
+      for (let i in this.subscribedPostList) {
+        if (this.subscribedPostList[i]._id === postId) {
+          this.subscribedPostList.splice(i, 1);
+          await this.$axios.delete(
+                  `/api/v1/communities/${this.communityId}/posts/${postId}`
           );
           break;
         }
