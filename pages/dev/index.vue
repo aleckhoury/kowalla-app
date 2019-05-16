@@ -20,13 +20,27 @@
             v-if="this.$store.state.user.loggedIn && isMounted"
             @post-created="addPostToPostList"
           />
-          <EmptyPostList v-if="!postList.length" />
-          <Post
-            v-for="post in postList"
-            :key="post._id"
-            :post="post"
-            @delete-post="removePostFromPostList"
-          />
+          <b-tabs id="columnTabs" v-model="activeTab" :destroy-on-hide="false">
+            <b-tab-item>
+              <EmptyPostList v-if="!postList.length" />
+              <Post
+                v-for="post in postList"
+                :key="post._id"
+                :post="post"
+                @delete-post="removePostFromPostList"
+              />
+            </b-tab-item>
+            <b-tab-item>
+              <EmptyPostList v-if="!subscribedPostList.length && this.$store.state.user.loggedIn" />
+              <h1 class="noPosts">Create an account or sign in to subscribe to communities and projects!</h1>
+              <Post
+                v-for="post in subscribedPostList"
+                :key="post._id"
+                :post="post"
+                @delete-post="removePostFromPostList"
+              />
+            </b-tab-item>
+          </b-tabs>
         </div>
 
         <!-- info pane -->
@@ -67,7 +81,6 @@ import CreatePost from "~/components/PostCards/CreatePost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
-  middleware: "activePost",
   name: "Test",
   components: {
     EmptyPostList,
@@ -81,6 +94,7 @@ export default {
   data() {
     return {
       postList: [],
+      subscribedPostList: [],
       isMounted: false,
     };
   },
@@ -90,28 +104,42 @@ export default {
         return this.$store.state.sorting.newsfeed;
       }
     },
+    activeTab() {
+      if (process.browser) {
+        return this.$store.state.activeTabs.NewsFeedActiveTab;
+      }
+    },
   },
   watch: {
     async sort() {
       this.postList = await this.$axios.$get(
         `/api/v1/feed/posts/${this.sort}/0`
       );
+      this.subscribedPostList = await this.$axios.$get(
+        `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/0`
+      );
 
       await this.scroll();
     },
   },
   async mounted() {
-    console.log(this.$store.state.user);
     this.postList = await this.$axios.$get(
       `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
     );
+    if (this.$store.state.user.loggedIn) {
+    this.subscribedPostList = await this.$axios.$get(
+      `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
+        this.subscribedPostList.length
+      }`
+    );
+    }
 
     await this.scroll();
     this.isMounted = true;
   },
   methods: {
     async scroll() {
-      if (this.postList.length) {
+      if (this.postList.length || this.subscribedPostList.length) {
         let isActive = false;
         window.onscroll = async () => {
           const feed = document.getElementById("postFeed");
@@ -119,13 +147,29 @@ export default {
             window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
           if (!isActive && bottomOfWindow) {
             isActive = true;
-            const posts = await this.$axios.$get(
-              `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
-            );
-            const newList = await this.postList.concat(posts);
-            if (posts.length) {
-              this.postList = await newList;
-              isActive = false;
+            let posts;
+            let newList;
+            console.log(this.activeTab);
+            if (this.activeTab === 0) {
+              posts = await this.$axios.$get(
+                `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
+              );
+              newList = await this.postList.concat(posts);
+              if (posts.length) {
+                this.postList = await newList;
+                isActive = false;
+              }
+            } else if (this.activeTab === 0 && this.$store.state.user.loggedIn) {
+              posts = await this.$axios.$get(
+                `/api/v1/feed/posts/${this.$store.state.user._id}/${
+                  this.sort
+                }/${this.subscribedPostList.length}`
+              );
+              newList = await this.subscribedPostList.concat(posts);
+              if (posts.length) {
+                this.subscribedPostList = await newList;
+                isActive = false;
+              }
             }
           }
         };
@@ -134,6 +178,9 @@ export default {
     addPostToPostList(postObj) {
       //console.log('postcreated')
       this.postList.unshift(postObj);
+      if (this.$store.state.user.loggedIn) {
+        this.subscribedPostList.unshift(postObj);
+      }
     },
     async removePostFromPostList(postId) {
       for (let i in this.postList) {
@@ -141,6 +188,15 @@ export default {
           this.postList.splice(i, 1);
           await this.$axios.delete(
             `/api/v1/communities/${this.communityId}/posts/${postId}`
+          );
+          break;
+        }
+      }
+      for (let i in this.subscribedPostList) {
+        if (this.subscribedPostList[i]._id === postId) {
+          this.subscribedPostList.splice(i, 1);
+          await this.$axios.delete(
+                  `/api/v1/communities/${this.communityId}/posts/${postId}`
           );
           break;
         }

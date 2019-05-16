@@ -1,77 +1,79 @@
 <template>
-  <div class="modal-content">
-    <div class="box">
-      <section>
-        s
-        <div class="title">Edit {{ name }}</div>
+  <div class="box">
+    <section>
+      <div class="title">Edit @{{ name }}</div>
 
-        <b-field label="Project username">
-          <b-input v-model="editForm.name" maxlength="20" />
-        </b-field>
+      <b-field label="Project username">
+        <b-input v-model="editForm.projectName" maxlength="20" />
+      </b-field>
 
-        <b-field label="Profile Picture" />
+      <b-field label="Project username">
+        <b-input v-model="editForm.name" maxlength="20" />
+      </b-field>
 
-        <div class="picSection">
-          <p class="profilePic">
-            <img
-              :src="editForm.profilePicture"
-              onerror="this.src='https://gradientjoy.com/40'"
-            >
-          </p>
-          <a class="button action">
-            <input
-              ref="profilePicFile"
-              class="file-input"
-              type="file"
-              @change="selectFile('profile')"
-            >
-            <span v-if="editForm.profilePicture">Change Profile Picture</span>
-            <span v-else>Add Profile Picture</span> &nbsp;
-            <font-awesome-icon icon="camera" />
-          </a>
-        </div>
+      <b-field label="Profile Picture" />
 
-        <b-field label="Banner Picture" />
-
-        <div class="picSection">
-          <p class="bannerPic">
-            <img
-              :src="editForm.headerPicture"
-              onerror="this.src='https://gradientjoy.com/1000x300'"
-            >
-          </p>
-          <a class="button action">
-            <input
-              ref="bannerPicFile"
-              class="file-input"
-              type="file"
-              @change="selectFile('banner')"
-            >
-            <span v-if="editForm.headerPicture">Change Banner Picture</span>
-            <span v-else>Add Banner Picture</span> &nbsp;
-            <font-awesome-icon icon="camera" />
-          </a>
-        </div>
-
-        <b-field label="Description">
-          <b-input
-            v-model="editForm.description"
-            maxlength="500"
-            type="textarea"
-          />
-        </b-field>
-        <a class="button action" @click="editProject(editForm)">
-          Submit
+      <div class="picSection">
+        <p class="profilePic">
+          <img
+            :src="editForm.profilePicture"
+            onerror="this.src='https://gradientjoy.com/40'"
+          >
+        </p>
+        <a class="button action">
+          <input
+            ref="profilePicFile"
+            class="file-input"
+            type="file"
+            @change="selectFile('profile')"
+          >
+          <span v-if="editForm.profilePicture">Change Profile Picture</span>
+          <span v-else>Add Profile Picture</span> &nbsp;
+          <font-awesome-icon icon="camera" />
         </a>
-      </section>
-    </div>
+      </div>
+
+      <b-field label="Banner Picture" />
+
+      <div class="picSection">
+        <p class="bannerPic">
+          <img
+            :src="editForm.headerPicture"
+            onerror="this.src='https://gradientjoy.com/1000x300'"
+          >
+        </p>
+        <a class="button action">
+          <input
+            ref="bannerPicFile"
+            class="file-input"
+            type="file"
+            @change="selectFile('banner')"
+          >
+          <span v-if="editForm.headerPicture">Change Banner Picture</span>
+          <span v-else>Add Banner Picture</span> &nbsp;
+          <font-awesome-icon icon="camera" />
+        </a>
+      </div>
+
+      <b-field label="Description">
+        <b-input
+          v-model="editForm.description"
+          maxlength="500"
+          type="textarea"
+        />
+      </b-field>
+      <a class="button action" @click="editProject(editForm)">
+        Submit
+      </a>
+    </section>
   </div>
 </template>
 <script>
 export default {
-  name: "CreateSpaceModal",
+  name: "EditProjectForm",
   props: {
     name: { type: String, default: "" },
+    projectName: { type: String, default: "" },
     headerPicture: { type: String, default: "" },
     profilePicture: { type: String, default: "" },
     description: { type: String, default: "" },
@@ -82,20 +84,14 @@ export default {
       profilePicFile: "",
       bannerPicFile: "",
       editForm: {
-        name: "",
-        description: "", // text area
-        profilePicture: "", // need to add upload
-        headerPicture: "", // need to add upload
+        name: this.name,
+        projectName: this.projectName,
+        description: this.description, // text area
+        profilePicture: this.profilePicture, // need to add upload
+        headerPicture: this.headerPicture, // need to add upload
         admins: [], // just the current user for now
       },
     };
-  },
-  mounted() {
-    // cast props to form
-    this.editForm.name = this.name;
-    this.editForm.headerPicture = this.headerPicture;
-    this.editForm.profilePicture = this.profilePicture;
-    this.editForm.description = this.description;
   },
   methods: {
     async selectFile(type) {
@@ -193,13 +189,7 @@ export default {
         this.$store.commit("user/editOwned", subObj);
 
         // if name returned isn't the same as we started with
-        if (projectData.name !== this.name) {
-          this.$router.push({ path: `/dev/project/${projectData.name}` });
-        } else {
-          // otherwise, refresh
-          this.$router.go();
-        }
-        this.$parent.close();
+        this.$router.push({ path: `/dev/project/${projectData.name}` });
       } catch (e) {
         console.log(e);
       }
@@ -208,35 +198,25 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.box {
-    width: 800px;
-    max-width: 100%;
-}
-.modal-content {
-    border-radius: 6px;
-    margin: 0;
-    color: #39C9A0;
-    width: auto;
-}
 .button.action {
-  color: white;
-  background-color: #39C9A0;
-  border-color: #39C9A0;
-  margin-bottom: 1.75em;
+    color: white;
+    background-color: #39C9A0;
+    border-color: #39C9A0;
+    margin-bottom: 1.75em;
 }
 .profilePic img {
-  width: 180px;
-  height: 180px;
-  border-radius: 0.75em;
-  object-fit: cover;
+    width: 180px;
+    height: 180px;
+    border-radius: 0.75em;
+    object-fit: cover;
 }
 .picSection {
-  text-align: center;
+    text-align: center;
 }
 .bannerPic img {
-  width: 1000px;
-  max-width: 100%;
-  max-height: 250px;
-  object-fit: cover;
+    width: 1000px;
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: cover;
 }
 </style>

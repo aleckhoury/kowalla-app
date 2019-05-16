@@ -40,7 +40,7 @@
             />
           </div>
 
-          <div v-if="!this.$store.state.user.loggedIn" class="level-item">
+          <div v-else class="level-item">
             <b class="page-link" @click="cardModal">Login or Register</b>
           </div>
         </div>

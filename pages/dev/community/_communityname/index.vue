@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header class="is-hidden-touch" />
+    <Header :home-feed="false" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
       <!--
@@ -75,7 +75,7 @@
       class="is-hidden-desktop"
     />
 
-    <div class="is-hidden-desktop mobile-main-margin">
+    <div class="is-marginless is-hidden-desktop mobile-main-margin">
       <Banner
         :banner-url="bannerPictureUrl"
         :banner-title="communityName"
@@ -135,7 +135,6 @@ import PostModal from "~/components/PostCards/PostModal.vue";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 
 export default {
-  middleware: "activePost",
   name: "UserPageTest",
   components: {
     EmptyPostList,
@@ -218,7 +217,7 @@ export default {
   },
   async mounted() {
     let infoRes = await this.$axios.get(
-      `/api/v1/communities/c/${this.communityName}`
+      `/api/v1/communities/community/${this.communityName}`
     );
     this.bannerPictureUrl = infoRes.data.headerPicture;
     this.profilePictureUrl = infoRes.data.profilePicture;
@@ -243,7 +242,7 @@ export default {
         props: {
           postObj: post,
           isFromNestedUrl: true,
-          fallbackUrl: `/dev/c/${this.communityName}`,
+          fallbackUrl: `/dev/community/${this.communityName}`,
         },
         events: {
           "delete-post": postId => {
@@ -336,4 +335,11 @@ export default {
 };
 </script>
 
-<style lang="css"></style>
+<style lang="css" scoped>
+  .mobile-main-margin {
+    padding-top: 100px !important;
+  }
+  .card-container {
+    margin-bottom: 0;
+  }
+</style>

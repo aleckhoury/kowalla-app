@@ -64,8 +64,6 @@ module.exports = {
   //   baseUrl: 'http://localhost:8080',
   //   credentials: true,
   // },
-
-  router: {},
   /* ------------------------------------------------------------
   | PWA Setup
   | ------------------------------------------------------------ */
@@ -76,6 +74,10 @@ module.exports = {
     shortname: "kowalla",
     dir: "rtl",
     lang: "en-US",
+  },
+  router: {
+    // Run the middleware/user-agent.js on every page
+    middleware: 'activePost'
   },
 
   workbox: {

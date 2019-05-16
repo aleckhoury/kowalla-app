@@ -15,6 +15,7 @@ void (function updateModules() {
   // Enforce store modules
   store.modules = store.modules || {}
 
+  resolveStoreModules(require('@/store/activeTabs.js'), 'activeTabs.js')
   resolveStoreModules(require('@/store/commentBox.js'), 'commentBox.js')
   resolveStoreModules(require('@/store/messages.js'), 'messages.js')
   resolveStoreModules(require('@/store/mobile.js'), 'mobile.js')

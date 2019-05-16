@@ -90,7 +90,7 @@ export default {
       window.history.pushState(
         {},
         null,
-        `/dev/c/${this.community.name}/posts/${this.post._id}`
+        `/dev/community/${this.community.name}/posts/${this.post._id}`
       );
     }
   },

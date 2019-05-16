@@ -12,6 +12,7 @@
     "semi": [2, "always"],
     "no-console": "off",
     "vue/max-attributes-per-line": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "vue/html-self-closing": "any"
   }
 }

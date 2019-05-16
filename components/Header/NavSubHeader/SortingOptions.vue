@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="sorting">
     <div>
-      <b-dropdown class="dropdown-container" hoverable aria-role="list">
+      <b-dropdown :position="isMobile ? 'is-bottom-left' : null" class="dropdown-container" hoverable aria-role="list">
         <div slot="trigger" class="dropdown-selector">
           <b class="font theme-color selector-child">{{ sort }}</b>
           <font-awesome-icon
@@ -21,13 +21,13 @@
       </b-dropdown>
     </div>
     <div
-      v-if="!isMobile && (type === '/p/' || type === '/u/')"
+      v-if="!isMobile && (type === '/project/' || type === '/user/')"
       class="font margin predicate"
     >
       from
     </div>
     <div
-      v-if="!isMobile && (type === '/c/' || type === '/')"
+      v-if="!isMobile && (type === '/community/' || type === '/')"
       class="font margin predicate"
     >
       in
@@ -67,15 +67,15 @@ export default {
   },
   computed: {
     getPrefix() {
-      return this.type === "/p/" || this.type === "/u/" ? "@" : "#";
+      return this.type === "/project/" || this.type === "/user/" ? "@" : "#";
     },
 
     getSuffix() {
-      if (this.type === "/p/") {
+      if (this.type === "/project/") {
         return this.$route.params.projectname;
-      } else if (this.type === "/u/") {
+      } else if (this.type === "/user/") {
         return this.$route.params.username;
-      } else if (this.type === "/c/") {
+      } else if (this.type === "/community/") {
         return this.$route.params.communityname;
       } else {
         return "";
@@ -84,13 +84,13 @@ export default {
     sort() {
       let pageType;
       switch (this.type) {
-        case "/p/":
+        case "/project/":
           pageType = "project";
           break;
-        case "/u/":
+        case "/user/":
           pageType = "profile";
           break;
-        case "/c/":
+        case "/community/":
           pageType = "community";
           break;
         case "/":
@@ -106,7 +106,7 @@ export default {
   },
   created() {
     try {
-      let re = new RegExp("/[u,p,c]/");
+      let re = new RegExp("/[user,project,community]/");
       this.type = this.$route.fullPath.match(re)[0];
     } catch {
       this.type = "/";
@@ -115,11 +115,11 @@ export default {
   methods: {
     handleCommand(value) {
       // this.selectedOption = command;
-      if (this.type === "/p/") {
+      if (this.type === "/project/") {
         this.$store.commit("sorting/updateProjectSortingOption", value);
-      } else if (this.type === "/u/") {
+      } else if (this.type === "/user/") {
         this.$store.commit("sorting/updateProfileSortingOption", value);
-      } else if (this.type === "/c/") {
+      } else if (this.type === "/community/") {
         this.$store.commit("sorting/updateCommunitySortingOption", value);
       } else {
         this.$store.commit("sorting/updateNewsfeedSortingOption", value);

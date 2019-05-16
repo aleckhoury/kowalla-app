@@ -1,10 +1,16 @@
 <template lang="html">
-  <b-dropdown position="is-bottom-left" aria-role="list">
-    <img slot="trigger" :src="profilePicture" class="nav-profile-picture" onerror="this.src='https://gradientjoy.com/48'" >
+  <b-dropdown :mobile-modal="false" position="is-bottom-left" aria-role="list">
+    <img slot="trigger" :src="profilePicture" class="nav-profile-picture level-item" onerror="this.src='https://gradientjoy.com/48'" >
 
-    <b-dropdown-item aria-role="listitem" @click="goToProfile">
-      <nuxt-link :to="`/dev/u/${username}`" class="page-link">
+    <b-dropdown-item aria-role="listitem" has-link>
+      <nuxt-link :to="`/dev/user/${username}`" class="page-link">
         Profile
+      </nuxt-link>
+    </b-dropdown-item>
+
+    <b-dropdown-item aria-role="listitem" has-link>
+      <nuxt-link :to="`/dev/user/${username}/edit`" class="page-link">
+        Settings
       </nuxt-link>
     </b-dropdown-item>
 
@@ -28,12 +34,7 @@ export default {
     logout() {
       this.$store.commit("user/clearUser");
       Cookies.remove("token");
-      location.reload();
-    },
-    goToProfile() {
-      this.$router.push({
-        path: `/dev/u/${this.username}`,
-      });
+      this.$router.go();
     },
   },
 };
@@ -41,8 +42,8 @@ export default {
 
 <style lang="css" scoped>
 .nav-profile-picture {
-  height: 48px;
-  width: 48px;
+  height: auto;
+  width: 42px;
   border-radius: 6px;
 }
 .dropdown-item {

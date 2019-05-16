@@ -5,6 +5,10 @@
         <b-tab-item label="Login">
           <section>
             <span class="title">Welcome Back!</span>
+            <a class="image is-48x48"
+               href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
+              <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+            </a>
             <b-field label="Username">
               <b-input
                 v-model="loginForm.username"
@@ -29,7 +33,10 @@
         <b-tab-item label="Signup">
           <section>
             <span class="title">Create Account</span>
-
+            <a class="image is-48x48"
+               href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
+              <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
+            </a>
             <b-field label="Username">
               <b-input
                 v-model="registerForm.username"
@@ -123,7 +130,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$parent.close();
-        location.reload();
+        this.$router.go();
       } catch (err) {
         console.log(err);
       }
@@ -161,7 +168,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$parent.close();
-        location.reload();
+        this.$router.go();
       } catch (err) {
         console.log(err);
       }
@@ -172,8 +179,8 @@ export default {
 
 <style scoped>
 .box {
-  width: 800px;
   max-width: 100%;
+  max-height: 90vh;
 }
 .modal-content {
   border-radius: 6px;
@@ -190,6 +197,10 @@ export default {
   color: white;
   background-color: #39c9a0;
   border-color: #39c9a0;
+}
+.image img {
+  border: 1px solid lightgray;
+  border-radius: 6px;
 }
 /*.column {*/
 /*border-radius: 0 6px 6px 0;*/

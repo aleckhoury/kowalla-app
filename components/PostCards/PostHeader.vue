@@ -8,8 +8,8 @@
       </nuxt-link>
 
       <nuxt-link v-if="isProject" :to="getProjectRoute">
-        <p class="image is-48x48 profilePic">
-          <img :src="project.profilePicture" onerror="this.src='https://gradientjoy.com/48'" >
+        <p class="image is-48x48 profilePicProject">
+          <img :src="project.profilePicture" onerror="this.src='https://gradientjoy.com/50'" >
         </p>
       </nuxt-link>
     </figure>
@@ -170,13 +170,13 @@ export default {
       return format(this.createdAt, "en_US");
     },
     getProfileRoute() {
-      return `/dev/u/${this.profile.username}`;
+      return `/dev/user/${this.profile.username}`;
     },
     getProjectRoute() {
-      return `/dev/p/${this.project.name}`;
+      return `/dev/project/${this.project.name}`;
     },
     getCommunityRoute() {
-      return `/dev/c/${this.community.name}`;
+      return `/dev/community/${this.community.name}`;
     },
   },
   methods: {
@@ -184,11 +184,11 @@ export default {
       let stringToCopy = "";
 
       if (this.isProject) {
-        stringToCopy = `www.kowalla.co/dev/p/${this.project.name}/posts/${
+        stringToCopy = `www.kowalla.co/dev/project/${this.project.name}/posts/${
           this.postId
         }`;
       } else {
-        stringToCopy = `www.kowalla.co/dev/c/${this.community.name}/posts/${
+        stringToCopy = `www.kowalla.co/dev/community/${this.community.name}/posts/${
           this.postId
         }`;
       }
@@ -202,11 +202,19 @@ export default {
       try {
         let successful = document.execCommand("copy");
         let msg = successful ? "successful" : "unsuccessful";
-        this.$toast.open("Link copied! :)");
+        this.$toast.open({
+          duration: 4000,
+          message: "Link copied! :)",
+          position: "is-top",
+          type: "is-success",
+        });
       } catch (err) {
-        this.$toast.open(
-          "Link copy failed, try opening the post and copying the URL directly"
-        );
+        this.$toast.open({
+          duration: 4000,
+          message: "Link copy failed, try opening the post and copying the URL directly",
+          position: "is-top",
+          type: "is-danger",
+        });
       }
       document.body.removeChild(x);
     },
@@ -231,6 +239,11 @@ export default {
 }
 .profilePic img {
   border-radius: 0.75em;
+}
+.profilePicProject img {
+  border-radius: 0.75em;
+  height: 100%;
+  width: 48px;
 }
 span {
   color: #39c9a0;

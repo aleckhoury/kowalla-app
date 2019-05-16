@@ -30,8 +30,8 @@ export default {
 
     getRoute() {
       return this.projectId !== null
-        ? `/dev/p/${this.name}`
-        : `/dev/c/${this.name}`;
+        ? `/dev/project/${this.name}`
+        : `/dev/community/${this.name}`;
     },
   },
   methods: {

@@ -123,6 +123,26 @@ li[data-done="false"] {
     text-decoration: none;
 }
 
+div.b-tabs section.tab-content {
+    padding: 0 !important;
+    margin: 0;
+}
+
+div #columnTabs.b-tabs ul {
+    display: none !important;
+}
+
 a.dropdown-item.is-active {
     background-color: #39C9A0;
+}
+.noPosts {
+    text-align: center;
+    font-size: 24pt;
+    font-weight: 500;
+    color: #35495e;
+    font-style: italic;
+}
+.loading-overlay div.loading-icon:after {
+    border-bottom-color: #39C9A0;
+    border-left-color: #39C9A0;
 }
