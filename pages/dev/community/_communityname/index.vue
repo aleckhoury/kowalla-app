@@ -12,7 +12,7 @@
       <!-- three columns, navpane, content, infopane -->
       <div class="columns is-marginless main-margin">
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane class="fixed" />
         </div>
 
         <div class="column is-three-quarters is-paddingless">
@@ -39,6 +39,7 @@
             </div>
             <div class="column is-one-third is-paddingless side-pane">
               <InfoPane>
+                <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
                 <ProfileCard
                   :name="communityName"
                   :username="communityName"
@@ -133,10 +134,12 @@ import ProfileCard from "~/components/InfoCards/ProfileCard";
 import Post from "~/components/PostCards/NewsfeedPost";
 import PostModal from "~/components/PostCards/PostModal.vue";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
+import SignupCard from "../../../../components/InfoCards/SignupCard";
 
 export default {
   name: "UserPageTest",
   components: {
+    SignupCard,
     EmptyPostList,
     Header,
     MobileHeader,
@@ -341,5 +344,16 @@ export default {
   }
   .card-container {
     margin-bottom: 0;
+  }
+  .fixed {
+    position: fixed;
+  }
+  .side-pane {
+    display: flex;
+    justify-content: center;
+    padding: 0 2em 2em 2em;
+  }
+  .fullWidth {
+    width: 100% !important;
   }
 </style>

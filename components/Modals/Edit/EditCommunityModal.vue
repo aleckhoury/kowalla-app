@@ -220,7 +220,7 @@ export default {
 .profilePic img {
   width: 180px;
   height: 180px;
-  border-radius: 0.75em;
+  border-radius: 6px;
   object-fit: cover;
 }
 .picSection {

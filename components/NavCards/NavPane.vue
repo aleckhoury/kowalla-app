@@ -47,7 +47,6 @@ export default {
 
 <style lang="css" scoped>
 .navigation-pane-container {
-  max-width: 250px;
-  width: 100%;
+  width: 18%;
 }
 </style>

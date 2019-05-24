@@ -4,10 +4,10 @@
       <div :class="[loginBox ? 'right' : 'left', 'coverBox']">
         <p class="kowalla-logo is-size-1">kowalla</p>
         <p v-if="loginBox" class="has-text-white">
-          <small>You new here? Create an account!</small>
+          <small>You new here? Create an account to react, subscribe, and make your own posts!</small>
         </p>
         <p v-else class="has-text-white">
-          <small>Already have an account? Click here!</small>
+          <small>Already have an account?</small>
         </p>
         <a v-if="loginBox" class="button" @click="toggleFlow">
           <font-awesome-icon icon="arrow-left" />&nbsp; Signup
@@ -19,10 +19,24 @@
       <transition name="fade" mode="out-in">
         <div v-if="loginBox" key="login" class="login">
           <span class="title">Welcome Back!</span>
-          <a class="image is-48x48"
-             href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
-          </a>
+          <div class="row">
+            <a
+              class="image is-48x48 twitter"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
+              />
+            </a>
+            <a
+              class="image is-48x48 github"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+              />
+            </a>
+          </div>
           <b-field label="Username">
             <b-input
               v-model="loginForm.username"
@@ -44,10 +58,24 @@
         </div>
         <div v-else key="signup" class="signup">
           <span class="title">Create Account</span>
-          <a class="image is-48x48"
-             href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
-          </a>
+          <div class="row">
+            <a
+              class="image is-48x48 twitter"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
+              />
+            </a>
+            <a
+              class="image is-48x48 github"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+              />
+            </a>
+          </div>
           <!--<b-field label="Email">-->
           <!--<b-input-->
           <!--v-model="registerForm.email"-->
@@ -103,10 +131,13 @@ import Cookies from "js-cookie";
 export default {
   name: "LoginAndRegisterModal",
   components: {},
-  props: {},
+  props: {
+    initialState: { type: Boolean, default: true },
+  },
   data() {
     return {
-      loginBox: false,
+      toggledLoginBox: this.initialState,
+      count: 0,
       loginForm: {
         username: "",
         password: "",
@@ -119,9 +150,18 @@ export default {
       },
     };
   },
+  computed: {
+    loginBox() {
+      if (this.count === 0) return this.initialState;
+      return this.toggledLoginBox;
+    },
+  },
   methods: {
     toggleFlow() {
-      this.loginBox = !this.loginBox;
+      if (this.count === 0) {
+        this.count++;
+      }
+      this.toggledLoginBox = !this.toggledLoginBox;
     },
     async register(registerForm) {
       if (
@@ -291,6 +331,8 @@ div.field {
 /*}*/
 div.coverBox p small {
   font-weight: bold;
+  display: flex;
+  text-align: center;
 }
 .kowalla-logo {
   font-family: "Nunito";
@@ -327,8 +369,15 @@ div.coverBox p small {
 /*.fade-enter, .fade-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
 /*opacity: 0;*/
 /*}*/
-  .image img {
-    border: 1px solid lightgray;
-    border-radius: 6px;
-  }
+.image img {
+  border: 1px solid lightgray;
+  border-radius: 6px;
+}
+div.row {
+  display: flex;
+  flex-direction: row;
+}
+.twitter {
+  margin-right: 1em;
+}
 </style>

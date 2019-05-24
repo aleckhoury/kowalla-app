@@ -31,7 +31,7 @@
           >{{ reactionCountMobile }}
         </b>
       </a>
-      <b-dropdown ref="dropdown" mobile-modal>
+      <b-dropdown v-if="this.$store.state.user.loggedIn" ref="dropdown" mobile-modal>
         <a
           slot="trigger"
           class="button is-outlined level-item"
@@ -52,6 +52,7 @@
 
 <script>
 import ReactionModal from "./ReactionModal";
+import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
 
 export default {
   name: "Reactions",
@@ -84,6 +85,17 @@ export default {
   async mounted() {},
   methods: {
     cardModal() {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginAndRegisterModal,
+          width: 900,
+          hasModalCard: true,
+          props: {
+            initialState: false,
+          },
+        });
+      }
       this.$modal.open({
         parent: this,
         component: ReactionModal,
