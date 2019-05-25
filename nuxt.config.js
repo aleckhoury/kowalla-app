@@ -6,6 +6,22 @@ module.exports = {
    ** Headers of the page
    */
   head: {
+    script: [
+      {
+        async: true,
+        src: "https://www.googletagmanager.com/gtag/js?id=UA-140796518-1",
+      },
+      {
+        innerHTML: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-140796518-1');
+        `
+      },
+    ],
+    __dangerouslyDisableSanitizers: ["script"],
     title: pkg.name,
     meta: [
       { charset: "utf-8" },
@@ -77,7 +93,7 @@ module.exports = {
   },
   router: {
     // Run the middleware/user-agent.js on every page
-    middleware: 'activePost'
+    middleware: "activePost",
   },
 
   workbox: {
@@ -88,11 +104,36 @@ module.exports = {
     imports: [
       {
         set: "@fortawesome/free-solid-svg-icons",
-        icons: [ 'faArrowRight', 'faArrowLeft', 'faPlus', 'faSearch', 'faSmile', 'faLink', 'faComments',
-        'faAngleDown', 'faTrashAlt', 'faArrowUp', 'faBell', 'faBold', 'faFlag',
-        'faItalic', 'faStrikethrough', 'faUnderline', 'faCode', 'faTasks', 'faListUl',
-        'faListOl', 'faQuoteRight', 'faMinus', 'faCamera', 'faClock', 'faHome',
-        'faPencilRuler', 'faUserFriends', 'faProjectDiagram' ],
+        icons: [
+          "faArrowRight",
+          "faArrowLeft",
+          "faPlus",
+          "faSearch",
+          "faSmile",
+          "faLink",
+          "faComments",
+          "faAngleDown",
+          "faTrashAlt",
+          "faArrowUp",
+          "faBell",
+          "faBold",
+          "faFlag",
+          "faItalic",
+          "faStrikethrough",
+          "faUnderline",
+          "faCode",
+          "faTasks",
+          "faListUl",
+          "faListOl",
+          "faQuoteRight",
+          "faMinus",
+          "faCamera",
+          "faClock",
+          "faHome",
+          "faPencilRuler",
+          "faUserFriends",
+          "faProjectDiagram",
+        ],
       },
     ],
   },
