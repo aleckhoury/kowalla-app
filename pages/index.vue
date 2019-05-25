@@ -57,7 +57,7 @@
               :subheader-on="false"
               header-string="Sign up for our email list!"
             >
-              <EmailSignup />
+              <!--<EmailSignup />-->
             </DescriptionCard>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default {
   },
   async mounted() {
     document.title = `Kowalla - Home`;
-    this.posts = await this.$axios.$get("/api/v1/posts/Oldest/0");
+    this.posts = await this.$axios.$get("/api/v1/feed/posts/Oldest/0");
     this.postList = this.posts.filter(
       post => post._id === "bOVESikDy" || post._id === "uxWP0nd_C"
     );
