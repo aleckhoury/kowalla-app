@@ -1,77 +1,79 @@
 <template>
-  <div class="profile-card-container">
+  <div class="card profile-card-container">
     <nuxt-link :to="getRoute">
-      <img class="image" :src="profilePictureURL" />
+      <img :src="profilePictureUrl" :class="{ 'is-mobile': isMobile }" class="image" onerror="this.src='https://gradientjoy.com/40'">
     </nuxt-link>
 
-
     <nuxt-link :to="getRoute" class="name font-family">
-      <b>{{name}}</b>
+      <b>{{ name }}</b>
     </nuxt-link>
 
     <div class="username font-family">
       <nuxt-link :to="getRoute" class="username-link">
-        <b>@{{username}}</b>
+        <b>@{{ username }}</b>
       </nuxt-link>
     </div>
 
-    <div class="level is-marginless">
-      <div v-for="item in stats" class="level-item stat-container is-paddingless">
+    <div :class="{ 'is-mobile': isMobile }" class="level is-marginless">
+      <!-- need to convert to mobile columns -->
+      <div
+        v-for="item in stats"
+        :key="item.name"
+        class="level-item stat-container is-paddingless"
+      >
         <div class="stat-title">
-          <b>{{item.name}}</b>
+          <b>{{ item.name }}</b>
         </div>
 
         <div class="stat-info">
-          <b>{{item.stat}}</b>
+          <b>{{ item.stat }}</b>
         </div>
       </div>
     </div>
 
     <div class="subheader">
-      <nuxt-link :to="subheaderURL" class="subheader-content">
-        <b>{{subheaderString}}</b>
+      <nuxt-link :to="subheaderUrl" class="subheader-content">
+        <b>{{ subheaderString }}</b>
       </nuxt-link>
     </div>
   </div>
-
 </template>
 <script>
-import Card from '~/components/Card';
-
 export default {
   name: "ProfileCard",
   props: {
-    name: String,
-    username: String,
-    profilePictureURL: {type: String, default: ''},
-    subheaderString: {type: String, default: 'test'},
-    subheaderURL: {type: String, default: '/about'},
-    stats: Array,
-    type: String,
+    name: { type: String, default: "" },
+    username: { type: String, default: "" },
+    profilePictureUrl: { type: String, default: "" },
+    subheaderString: { type: String, default: "test" },
+    subheaderUrl: { type: String, default: "/about" },
+    stats: { type: Array, default: () => [] },
+    type: { type: String, default: "" },
+    isMobile: { type: Boolean, default: false },
   },
   computed: {
     getStatInfoByIndex(i) {
       return this.stats[i].name;
     },
     getRoute() {
-      return (this.type === "project") ? `/dev/p/${this.username}` : `/dev/u/${this.username}`;
-
-    }
+      return this.type === "project"
+        ? `/dev/project/${this.username}`
+        : `/dev/user/${this.username}`;
+    },
   },
-}
+};
 </script>
 
 <style lang="css" scoped>
 .profile-card-container {
   display: flex;
   width: 100%;
+  text-align: center;
   align-items: center;
   flex-direction: column;
   background-color: white;
-  border: 1px solid #E0DDDD;
   border-radius: 6px;
-  height: 225px;
-  width: 215px;
+  height: auto;
 }
 
 .image {
@@ -83,6 +85,11 @@ export default {
   border: 1px solid #E0DDDD;
 }
 
+.image.is-mobile {
+  height: 48px;
+  width: 48px;
+}
+
 .font-family {
   font-family: "Helvetica Neue";
   text-decoration: none;
@@ -92,6 +99,7 @@ export default {
   font-size: 1em;
   color: black;
   text-decoration: none;
+  text-align: center;
 }
 
 .username {
@@ -105,15 +113,10 @@ export default {
   cursor: pointer;
 }
 
-.stats-container {
-  width: 100%;
-}
-
 .stat-container {
   display: flex;
   flex-direction: column;
   width: 48px;
-  margin: 5px;
 }
 
 .stat-title {
@@ -131,7 +134,6 @@ export default {
   border-top: 1px solid #E0DDDD;
   padding-top: 4px;
   padding-bottom: 4px;
-  padding-left: 8px;
   width: 100%;
   text-align: center;
   vertical-align: middle;

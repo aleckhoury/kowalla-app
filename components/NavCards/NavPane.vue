@@ -1,49 +1,48 @@
 <template lang="html">
   <div class="navigation-pane-container">
     <Card
-      headerString="Projects and Communities"
-      subheaderString="Create a new space"
-      subheaderURL="/about"
-      subheaderOn
-      subheaderIsButton
+      header-string="Projects and Communities"
+      subheader-string="Create a new space"
+      subheader-url="/about"
+      subheader-on
+      subheader-is-button
+      header-on
       @subheader-clicked="callCreateSpaceModal"
-      headerOn
     >
-      <NavCard type="user" selector="owned"></NavCard>
+      <NavCard type="user" selector="owned" />
     </Card>
 
     <Card
-      headerString="Subscriptions"
-      subheaderString="More things you'll love"
-      subheaderURL="/about"
-      subheaderOn
-      headerOn
+      header-string="Subscriptions"
+      subheader-string="More things you'll love"
+      subheader-url="/about"
+      subheader-on
+      header-on
     >
-      <NavCard type="user" selector="subscriptions"></NavCard>
+      <NavCard type="user" selector="subscriptions" />
     </Card>
   </div>
 </template>
 
 <script>
-import Card from '~/components/Card';
-import NavCard from './NavCard';
-import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
+import Card from "~/components/Card";
+import NavCard from "./NavCard";
+import CreateSpaceModal from "~/components/Modals/Creation/CreateSpaceModal";
 
 export default {
   name: "NavPane",
   components: { Card, NavCard, CreateSpaceModal },
   methods: {
     callCreateSpaceModal() {
-      console.log('button pressed')
       this.$modal.open({
         parent: this,
         component: CreateSpaceModal,
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>
@@ -51,5 +50,4 @@ export default {
   max-width: 250px;
   width: 100%;
 }
-
 </style>

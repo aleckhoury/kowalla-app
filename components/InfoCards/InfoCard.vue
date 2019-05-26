@@ -1,16 +1,10 @@
 <template>
-  <div>
-
-  </div>
+  <div />
 </template>
 <script>
 export default {
   name: "",
-  data: () => ({
-
-  })
-}
+  data: () => ({}),
+};
 </script>
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>

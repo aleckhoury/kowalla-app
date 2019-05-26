@@ -7,22 +7,22 @@
     @click="handleClick"
   >
     <span v-if="$slots.default">
-      <slot/>
+      <slot />
     </span>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'KowButton',
+  name: "KowButton",
   props: {
     nativeType: {
       type: String,
-      default: 'button',
+      default: "button",
     },
-    loading: Boolean,
-    disabled: Boolean,
-    autofocus: Boolean,
+    loading: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    autofocus: { type: Boolean, default: false },
   },
   computed: {
     buttonDisabled() {
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleClick(event) {
-      this.$emit('kow-button-click', event);
+      this.$emit("kow-button-click", event);
     },
   },
 };
@@ -39,11 +39,10 @@ export default {
 
 <style lang="css" scoped>
 .kow-button {
-  height: 35px;
+  height: 36px;
   width: 70px;
   border-radius: 6px;
   background-color: #fff;
-  border: 2px solid #2F8168;
   margin: 6px;
   font-family: "Helvetica Neue";
   color: rgb(57,201,160);

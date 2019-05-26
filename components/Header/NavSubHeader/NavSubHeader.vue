@@ -6,37 +6,37 @@
           <!-- placeholder for right alignment -->
         </div>
 
-        <div class="column is-one-quarter is-paddingless">
+        <div class="column is-one-half is-paddingless">
           <div class="level full-height">
-            <div class="level-left">
-              <div class="level-item">
-                <SortingOptions />
-              </div>
+            <div v-if="isNewsFeed" class="level-left full-height">
+              <SortingOptions />
+            </div>
+            <div v-if="homeFeed" :class="[isNewsFeed ? 'level-right' : '', 'level-item', 'full-height']">
+              <Tabs :type="type" />
             </div>
           </div>
         </div>
 
-        <div class="column is-paddingless">
+        <div class="column is-one-quarter is-paddingless">
           <div class="level full-height">
-              <div class="level-left">
-                <!-- placeholder for right alignment -->
-              </div>
+            <div class="level-left">
+              <!-- placeholder for right alignment -->
+            </div>
 
+            <div
+              v-if="this.$store.state.messages.messages.length > 0"
+              class="level-right"
+            >
               <div
-                v-if="$store.state.messages.messages.length > 0"
-                class="level-right">
-
-                <div
-                  v-for="item in $store.state.messages.messages"
-                  :key="item"
-                  class="level-item">
-                  <div class="message">
-                    <b>{{ item }}</b>
-                  </div>
-
+                v-for="item in this.$store.state.messages.messages"
+                :key="item"
+                class="level-item"
+              >
+                <div class="message">
+                  <b>{{ item }}</b>
                 </div>
-
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -45,19 +45,27 @@
 </template>
 
 <script>
-import SortingOptions from './SortingOptions';
+import SortingOptions from "./SortingOptions";
+import Tabs from "./Tabs";
 
 export default {
-  name: 'NavSubHeader',
-  components: { SortingOptions, },
+  name: "NavSubHeader",
+  components: { SortingOptions, Tabs },
+  props: {
+    type: { type: String, default: "NewsFeedActiveTab" },
+    homeFeed: { type: Boolean, default: true },
+  },
+  computed: {
+    isNewsFeed() {
+      return this.type === 'NewsFeedActiveTab';
+    }
+  },
 };
 </script>
 
 <style lang="css" scoped>
-
-
 .nav-subheader-parent {
-  border: 1px solid #E0DDDD;
+  border-bottom: 1px solid #E0DDDD;
   background-color: white;
   height: 40px;
 }
@@ -72,9 +80,5 @@ export default {
 
 .full-height {
   height: 100%;
-}
-
-.test-outline {
-  border: 1px solid black;
 }
 </style>

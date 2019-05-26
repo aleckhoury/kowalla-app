@@ -1,72 +1,114 @@
 <template lang="html">
+  <b-autocomplete
+    v-model="name"
+    :data="filteredDataArray"
+    class="searchbar-container"
+    placeholder="Search"
+    icon="magnify"
+    field="name"
+    @input="fetchData"
+    @select="optionSelected"
+  >
+    <!--<template slot="empty">No results found</template>-->
+    <template slot-scope="props">
+      <div class="search-item-container">
+        <div class="media-left">
+          <img :src="props.option.picture" width="40" onerror="this.src='https://gradientjoy.com/40'" >
+        </div>
+        <div>
+          <span class="search-item-text">{{ props.option.name }}</span>
 
-  <div>
-    <b-autocomplete
-      class="searchbar-container"
-      placeholder="Search"
-      icon="magnify"
-      @select="option => selected = option">
-      <template slot="empty">No results found</template>
-    </b-autocomplete>
-  </div>
+          <br >
+          <small v-if="props.option.hasOwnProperty('profileId')">
+            Profile
+          </small>
 
-  <!--
-    <el-autocomplete
-      :fetch-suggestions="querySearchAsync"
-      class="searchbar-container"
-      placeholder="Search"
-      prefix-icon="el-icon-search"
-      size="small"
-      @select="handleSelect"
-    />
-  -->
+          <small v-if="props.option.hasOwnProperty('projectId')">
+            Project
+          </small>
+
+          <small v-if="props.option.hasOwnProperty('communityId')">
+            Community
+          </small>
+        </div>
+      </div>
+    </template>
+  </b-autocomplete>
 </template>
 
 <script>
-// https://element.eleme.io/#/en-US/component/input#remote-search
+import { debounce } from "debounce";
 
 export default {
-  name: 'Searchbar',
+  name: "Searchbar",
   data() {
     return {
-      search: '',
-      links: [],
-      state4: '',
-      timeout: null,
+      data: [],
+      searchResults: [],
+      selected: "",
+      name: "",
+      isFetchingData: false,
     };
   },
-  mounted() {
-    this.links = this.loadAll();
+  computed: {
+    filteredDataArray() {
+      return this.searchResults.filter(option => {
+        // data can be objects
+        return (
+          option.name
+            .toString()
+            .toLowerCase()
+            .indexOf(this.name.toLowerCase()) >= 0
+        );
+      });
+    },
   },
   methods: {
-    loadAll() {
-      return [
-        { value: 'tob', link: 'https://github.com/vuejs/vue', },
-        { value: 'is', link: 'https://github.com/ElemeFE/element', },
-        { value: 'the', link: 'https://github.com/ElemeFE/cooking', },
-        { value: 'realest', link: 'https://github.com/ElemeFE/mint-ui', },
-        { value: 'og', link: 'https://github.com/vuejs/vuex', },
-      ];
-    },
-    querySearchAsync(queryString, cb) {
-      var links = this.links;
-      var results = queryString
-        ? links.filter(this.createFilter(queryString))
-        : links;
+    optionSelected: async function(option) {
+      // emit event for search modal to close
+      this.$emit("option-selected");
 
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        cb(results);
-      }, 1000 * Math.random());
+      if (option !== null) {
+        // for some reason this sometimes gets pushed through as "null"
+        if (option.hasOwnProperty("profileId")) {
+          let responseData = await this.$axios.get(
+            `/api/v1/profiles/${option.profileId}`
+          );
+
+          this.$router.push({
+            path: `/dev/user/${responseData.username}`,
+          });
+        }
+
+        if (option.hasOwnProperty("projectId")) {
+          let responseData = await this.$axios.$get(
+            `/api/v1/projects/${option.projectId}`
+          );
+
+          this.$router.push({
+            path: `/dev/project/${responseData.name}`,
+          });
+        }
+
+        if (option.hasOwnProperty("communityId")) {
+          let responseData = await this.$axios.$get(
+            `/api/v1/communities/${option.communityId}`
+          );
+
+          this.$router.push({
+            path: `/dev/community/${responseData.name}`,
+          });
+        }
+      }
     },
-    createFilter(queryString) {
-      return link => {
-        return link.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0;
-      };
-    },
-    handleSelect(item) {
-      console.log(item);
-    },
+
+    fetchData: debounce(async function() {
+      this.isFetchingData = true; // for loading animation eventually
+
+      this.searchResults = await this.$axios.$get("/api/v1/search/");
+
+      this.isFetchingData = false;
+    }, 500),
   },
 };
 </script>
@@ -74,12 +116,24 @@ export default {
 <style lang="css" scoped>
 .searchbar-container {
   font-family: "Helvetica Neue";
-  border-radius: 6px;
   margin: 6px;
-  border: 2px solid #2F8168;
 }
 
 .searchbar-container:focus {
   outline: none;
+}
+
+.search-item-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.search-item-container input {
+  border-radius: 6px;
+}
+
+.search-item-text {
+  height: 50%;
+  font-size: 1em;
 }
 </style>

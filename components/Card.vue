@@ -1,23 +1,31 @@
 <template>
-  <div class="card-container">
+  <div class="card card-container">
     <div v-if="headerOn" class="header">
       <div class="header-content">
-        <b>{{headerString}}</b>
+        <b>{{ headerString }}</b>
       </div>
     </div>
 
     <div v-if="$slots.default">
-      <slot></slot>
+      <slot />
     </div>
 
     <!-- TODO add v-if and update -->
     <div v-if="subheaderOn" class="subheader">
-      <nuxt-link v-if="!subheaderIsButton" :to="subheaderURL" class="subheader-content">
-        <b>{{subheaderString}}</b>
+      <nuxt-link
+        v-if="!subheaderIsButton"
+        :to="subheaderUrl"
+        class="subheader-content"
+      >
+        <b>{{ subheaderString }}</b>
       </nuxt-link>
 
-      <span v-if="subheaderIsButton" class="subheader-content" @click="$emit('subheader-clicked')">
-        <b>{{subheaderString}}</b>
+      <span
+        v-if="subheaderIsButton"
+        class="subheader-content"
+        @click="$emit('subheader-clicked')"
+      >
+        <b>{{ subheaderString }}</b>
       </span>
     </div>
   </div>
@@ -29,19 +37,18 @@ export default {
   props: {
     headerString: { type: String, default: "" },
     subheaderString: { type: String, default: "" },
-    subheaderURL: { type: String, default: "" },
+    subheaderUrl: { type: String, default: "" },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
     subheaderIsButton: { type: Boolean, default: false },
   },
-}
+};
 </script>
 
 <style lang="css" scoped>
 .card-container {
   width: 100%;
   background-color: white;
-  border: 1px solid #E0DDDD;
   border-radius: 6px;
   margin-bottom: 10px;
 }

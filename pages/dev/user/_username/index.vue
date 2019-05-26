@@ -1,0 +1,304 @@
+<template lang="html">
+  <div class="screen background-tint">
+    <Header :home-feed="false" class="is-hidden-touch" />
+
+    <div class="container is-fullhd is-hidden-touch">
+      <div class="columns is-marginless main-margin">
+        <!-- nav pane -->
+        <div class="column is-one-quarter is-paddingless side-pane">
+          <NavPane />
+        </div>
+
+        <!-- post feed -->
+        <div id="postFeed" class="column is-one-half is-paddingless">
+          <EmptyPostList v-if="!postList.length" />
+          <Post
+            v-for="post in postList"
+            :key="post._id"
+            :post="post"
+            @delete-post="removePostFromPostList"
+          />
+        </div>
+
+        <!-- info pane -->
+        <div class="column is-one-quarter is-paddingless side-pane">
+          <InfoPane>
+            <ProfileCard
+              :name="`${firstName} ${lastName}`"
+              :profile-picture-url="profilePictureUrl"
+              :username="username"
+              :stats="profileStats"
+              type="user"
+            />
+
+            <DescriptionCard
+              :header-string="`About ${firstName}`"
+              :subheader-on="false"
+            >
+              {{ profileDescription }}
+            </DescriptionCard>
+
+            <!--<EditButton v-if="this.$store.state.user.username === username">-->
+            <!--<nuxt-link :to="`/dev/user/${username}/edit`">-->
+            <!--<b>-->
+            <!--Edit Settings-->
+            <!--</b>-->
+            <!--</nuxt-link>-->
+            <!--</EditButton>-->
+
+            <Card
+              v-if="
+                profileSubs.owned.length > 0 &&
+                  this.$store.state.user.username !== username
+              "
+              :header-string="`Made by ${firstName}`"
+              :subheader-on="false"
+              header-on
+            >
+              <!-- need to make NavCard more flexible -->
+              <NavCard
+                :profile-subs="profileSubs"
+                type="profile"
+                selector="owned"
+              />
+            </Card>
+
+            <Card
+              v-if="
+                profileSubs.subscriptions.length > 0 &&
+                  this.$store.state.user.username !== username
+              "
+              :header-string="`${firstName}'s Subscriptions`"
+              subheader-string="More communities you'll love"
+            >
+              <!-- need to make NavCard more flexible -->
+              <NavCard
+                :profile-subs="profileSubs"
+                type="profile"
+                selector="subscriptions"
+              />
+            </Card>
+          </InfoPane>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <MobileHeader
+      :location-picture-to-display="profilePictureUrl"
+      :location-to-display="`@${username}`"
+      class="is-hidden-desktop"
+    />
+
+    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+      <div class="side-pane">
+        <ProfileCard
+          :name="`${firstName} ${lastName}`"
+          :profile-picture-url="profilePictureUrl"
+          :username="username"
+          :stats="profileStats"
+          is-mobile
+          type="user"
+        />
+      </div>
+
+      <DescriptionCard
+        :header-string="`About ${firstName}`"
+        :subheader-on="false"
+        class="newsfeed-margin"
+      >
+        {{ profileDescription }}
+      </DescriptionCard>
+
+      <div class="side-pane">
+        <EditButton
+          v-if="this.$store.state.user.username === username"
+          @edit-button-clicked="callEditProfileModal"
+        >
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+      <EmptyPostList v-if="!postList.length" />
+      <Post
+        v-for="post in postList"
+        :is-mobile="true"
+        :key="post._id"
+        :post="post"
+        class="newsfeed-margin"
+        @delete-post="removePostFromPostList"
+      />
+    </div>
+
+    <MobileFooter class="is-hidden-desktop" />
+  </div>
+</template>
+
+<script>
+import MobileHeader from "~/components/Header/Mobile/MobileHeader";
+import MobileFooter from "~/components/Header/Mobile/MobileFooter";
+
+import NavPane from "~/components/NavCards/NavPane";
+import Header from "~/components/Header/Header";
+import ProfileCard from "~/components/InfoCards/ProfileCard";
+import DescriptionCard from "~/components/InfoCards/DescriptionCard";
+import InfoPane from "~/components/InfoCards/InfoPane";
+import Card from "~/components/Card";
+import NavCard from "~/components/NavCards/NavCard";
+import EditButton from "~/components/InfoCards/EditButton";
+import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
+import Post from "~/components/PostCards/NewsfeedPost";
+import EmptyPostList from "~/components/PostCards/EmptyPostList";
+
+export default {
+  name: "UserPageTest",
+  components: {
+    EmptyPostList,
+    NavPane,
+    NavCard,
+    Card,
+    Header,
+    ProfileCard,
+    InfoPane,
+    DescriptionCard,
+    EditButton,
+    EditProfileModal,
+    Post,
+    MobileHeader,
+    MobileFooter,
+  },
+  data() {
+    return {
+      username: null,
+      profileId: "",
+      firstName: "",
+      lastName: "",
+      profilePictureUrl: "",
+      profileDescription: "",
+
+      profileStats: [],
+
+      profileSubs: { subscriptions: [], owned: [] },
+
+      // newsfeed content
+      postList: [],
+    };
+  },
+  computed: {
+    getUsername() {
+      return this.username;
+    },
+    sort() {
+      return this.$store.state.sorting.profile;
+    },
+  },
+  watch: {
+    async sort() {
+      this.postList = await this.$axios.$get(
+        `/api/v1/profile/posts/${this.profileId}/${this.sort}/0`
+      );
+
+      await this.scroll();
+    },
+  },
+  created() {
+    this.username = this.$route.params.username;
+  },
+  async mounted() {
+    let infoRes = await this.$axios.$get(
+      `/api/v1/profiles/user/${this.username}`
+    );
+    //------------------
+    // remove if statements, but keep assignments in production.
+    // they're only for quicker validation to ignore an unhelpful nuxt error throw
+    //------------------
+    // get name
+    if (infoRes.hasOwnProperty("firstName")) {
+      this.firstName = infoRes.firstName;
+      this.lastName = infoRes.lastName;
+      this.profileDescription = infoRes.description;
+      this.profilePictureUrl = infoRes.profilePicture;
+      this.profileId = infoRes._id;
+      this.profileStats.push({ name: "Rep", stat: infoRes.reputation });
+      this.profileStats.push({ name: "Posts", stat: infoRes.postCount });
+      this.profileStats.push({ name: "Replies", stat: infoRes.commentCount });
+
+      let subRes = await this.$axios.$get(
+        `/api/v1/profiles/${this.profileId}/subs`
+      );
+      this.profileSubs = subRes.profileSubscriptions;
+
+      this.postList = await this.$axios.$get(
+        `/api/v1/profile/posts/${this.profileId}/${this.sort}/${
+          this.postList.length
+        }`
+      );
+
+      await this.scroll();
+
+      document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
+    }
+  },
+  methods: {
+    callEditProfileModal() {
+      this.$modal.open({
+        parent: this,
+        component: EditProfileModal,
+        props: {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          profilePicture: this.profilePictureUrl,
+          description: this.profileDescription,
+          profileId: this.profileId,
+        },
+        width: 900,
+        hasModalCard: true,
+      });
+    },
+    async scroll() {
+      if (this.postList.length) {
+        let isActive = false;
+        window.onscroll = async () => {
+          const feed = document.getElementById("postFeed");
+          const bottomOfWindow =
+            window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
+          if (!isActive && bottomOfWindow) {
+            isActive = true;
+            const posts = await this.$axios.$get(
+              `/api/v1/profile/posts/${this.profileId}/${this.sort}/${
+                this.postList.length
+              }`
+            );
+            const newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            }
+          }
+        };
+      }
+    },
+    async removePostFromPostList(postId) {
+      for (let i in this.postList) {
+        if (this.postList[i]._id === postId) {
+          this.postList.splice(i, 1);
+          await this.$axios.delete(
+            `/api/v1/communities/${this.communityId}/posts/${postId}`
+          );
+          break;
+        }
+      }
+    },
+  },
+};
+</script>
+
+<style lang="css">
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>

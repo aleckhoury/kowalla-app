@@ -1,15 +1,15 @@
 <template>
   <div class="modal-content">
     <div class="box">
-      Experiencing issues? Got a bug report? Let us know about it at <b>help@kowalla.co</b>
+      Experiencing issues? Got a bug report? Let us know about it at
+      <b>help@kowalla.co</b>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "HelpModal",
-
-}
+};
 </script>
 <style lang="css" scoped>
 .box {

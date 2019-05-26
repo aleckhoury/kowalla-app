@@ -6,24 +6,25 @@
         <b-tab-item label="Project">
           <section>
             <div class="title">Create a Project</div>
-            <div>what are projects description</div>
+
+            <b-field label="Project Name">
+              <b-input v-model="spaceForm.projectName" maxlength="20" />
+            </b-field>
+
             <b-field label="Project username">
-                <b-input v-model="spaceForm.name" maxlength="15"></b-input>
-            </b-field>
-
-            <b-field label="Profile Picture">
-                <b-input v-model="spaceForm.profilePicture" maxlength="200"></b-input>
-            </b-field>
-
-            <b-field label="Banner Picture">
-                <b-input v-model="spaceForm.headerPicture" maxlength="200"></b-input>
+              <b-input v-model="spaceForm.name" maxlength="20" />
             </b-field>
 
             <b-field label="Description">
-                <b-input v-model="spaceForm.description" maxlength="500" type="textarea"></b-input>
+              <b-input
+                v-model="spaceForm.description"
+                maxlength="500"
+                type="textarea"
+              />
             </b-field>
+
             <a class="button action" @click="createProject(spaceForm)">
-                Create
+              Create
             </a>
           </section>
         </b-tab-item>
@@ -32,24 +33,25 @@
         <b-tab-item label="Community">
           <section>
             <div class="title">Create a Community</div>
-            <div>what are communities description</div>
+
             <b-field label="Community name">
-                <b-input v-model="spaceForm.name" maxlength="15"></b-input>
-            </b-field>
-
-            <b-field label="Profile Picture">
-                <b-input v-model="spaceForm.profilePicture" maxlength="200"></b-input>
-            </b-field>
-
-            <b-field label="Banner Picture">
-                <b-input v-model="spaceForm.headerPicture" maxlength="200"></b-input>
+              <b-input
+                v-model="spaceForm.name"
+                placeholder="KowallaFanClub"
+                maxlength="20"
+              />
             </b-field>
 
             <b-field label="Description">
-                <b-input v-model="spaceForm.description" maxlength="200" type="textarea"></b-input>
+              <b-input
+                v-model="spaceForm.description"
+                maxlength="200"
+                type="textarea"
+              />
             </b-field>
+
             <a class="button action" @click="createCommunity(spaceForm)">
-                Create
+              Create
             </a>
           </section>
         </b-tab-item>
@@ -63,86 +65,89 @@ export default {
   data() {
     return {
       spaceForm: {
-        name: '',
-        description: '', // text area
-        profilePicture: '', // need to add upload
-        headerPicture: '', // need to add upload
+        name: "",
+        projectName: "",
+        description: "", // text area
+        profilePicture: "", // need to add upload
+        headerPicture: "", // need to add upload
         admins: [], // just the current user for now
       },
     };
   },
   methods: {
     async createProject(spaceForm) {
-      console.log('create project');
       try {
-        let projectData = await this.$axios.post('api/v1/projects', {
+        let projectData = await this.$axios.$post("api/v1/projects", {
           name: spaceForm.name,
+          projectName: spaceForm.projectName,
+          isProject: true,
           description: spaceForm.description,
           profilePicture: spaceForm.profilePicture,
           headerPicture: spaceForm.headerPicture,
-          admins: [this.$store.state.user.username]
+          admins: [this.$store.state.user.username],
         });
-        console.log(projectData);
+        // update local state
+        let subInfo = {
+          name: projectData.name,
+          pictureUrl: projectData.profilePicture,
+          isProject: true,
+          numSubs: 1,
+          projectId: projectData._id,
+        };
+        let subObj = { subBool: true, ...subInfo };
 
-        if (projectData.status === 201) {
-          // update local state
-          let subInfo = {
-            name: projectData.data.name,
-            pictureURL: projectData.data.profilePicture,
-            numSubs: 7,
-            communityId: projectData.data._id
-          };
-          let subObj = { subBool: true, ...subInfo };
+        // this will also update server-side subscriptions
+        this.$store.dispatch("user/updateOwned", subObj);
+        this.$axios.$post(
+          `/api/v1/profiles/${this.$store.state.user._id}/subs`,
+          {
+            projectId: projectData._id,
+          }
+        );
 
-          // this will also update server-side subscriptions
-          this.$store.dispatch('user/updateOwned', subObj)
-
-          // change page and close modal
-          this.$router.push({ path: `/dev/p/${projectData.data.name}` });
-          this.$parent.close();
-        }
-      }
-      catch (e) {
+        // change page and close modal
+        this.$parent.close();
+        this.$router.push(`/dev/project/${projectData.name}/edit`);
+      } catch (e) {
         console.log(e);
       }
     },
     async createCommunity(spaceForm) {
-      console.log('create community');
       try {
-        let communityData = await this.$axios.post('api/v1/communities', {
+        let communityData = await this.$axios.$post("api/v1/communities", {
           name: spaceForm.name,
           description: spaceForm.description,
-          profilePicture: spaceForm.profilePicture,
-          headerPicture: spaceForm.headerPicture,
-          admins: [this.$store.state.user.username]
+          isProject: false,
+          admins: [this.$store.state.user.username],
         });
-        console.log(communityData);
+        // update local state
+        let subInfo = {
+          name: communityData.name,
+          pictureUrl: communityData.profilePicture,
+          isProject: false,
+          numSubs: 7,
+          communityId: communityData._id,
+        };
+        let subObj = { subBool: true, ...subInfo };
 
-        if (communityData.status === 201) {
-          // update local state
-          let subInfo = {
-            name: communityData.data.name,
-            pictureURL: communityData.data.profilePicture,
-            numSubs: 7,
-            communityId: communityData.data._id
-          };
-          let subObj = { subBool: true, ...subInfo };
+        // this will also update server-side subscriptions
+        this.$store.dispatch("user/updateOwned", subObj);
+        this.$axios.$post(
+          `/api/v1/profiles/${this.$store.state.user._id}/subs`,
+          {
+            communityId: communityData._id,
+          }
+        );
 
-          // this will also update server-side subscriptions
-          this.$store.dispatch('user/updateOwned', subObj)
-
-          // change page and close modal
-          this.$router.push({ path: `/dev/c/${communityData.data.name}` });
-          this.$parent.close();
-        }
-      }
-      catch (e) {
+        // change page and close modal
+        this.$router.push({ path: `/dev/community/${communityData.name}/edit` });
+        this.$parent.close();
+      } catch (e) {
         console.log(e);
       }
-    }
+    },
   },
-
-}
+};
 </script>
 <style lang="css" scoped>
 .box {

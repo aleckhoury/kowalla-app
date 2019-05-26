@@ -7,22 +7,22 @@
     @click="handleClick"
   >
     <span v-if="$slots.default">
-      <slot/>
+      <slot />
     </span>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'KowButton',
+  name: "KowButton",
   props: {
     nativeType: {
       type: String,
-      default: 'button',
+      default: "button",
     },
-    loading: Boolean,
-    disabled: Boolean,
-    autofocus: Boolean,
+    loading: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    autofocus: { type: Boolean, default: false },
   },
   computed: {
     buttonDisabled() {
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     handleClick(event) {
-      this.$emit('edit-button-clicked', event);
+      this.$emit("edit-button-clicked", event);
     },
   },
 };

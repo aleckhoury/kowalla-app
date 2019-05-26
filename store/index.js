@@ -1,13 +1,8 @@
-//import createPersistedState from 'vuex-persistedstate';
-
-//export const plugins = [ createPersistedState() ];
-
 export const getters = {
   isAuthenticated(state) {
-    return state.auth.loggedIn;
+    return state.user.loggedIn;
   },
-
   loggedInUser(state) {
-    return state.auth.user;
+    return state.user.user;
   },
 };

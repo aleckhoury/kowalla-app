@@ -1,7 +1,6 @@
 <template lang="html">
   <div class="screen background-tint">
-
-    <Header></Header>
+    <Header />
 
     <div class="container is-fullhd">
       <!--
@@ -11,25 +10,22 @@
       -->
 
       <div class="columns is-centered is-marginless main-margin">
-
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless test-outline">
+        <div class="column is-one-half is-paddingless">
           about
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Header from '~/components/Header/Header';
+import Header from "~/components/Header/Header";
 
 export default {
-  name: 'About',
+  name: "About",
   components: { Header },
 };
 </script>
 
-<style lang="css">
-</style>
+<style lang="css"></style>
