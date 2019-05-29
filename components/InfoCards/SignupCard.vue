@@ -8,7 +8,7 @@
         <a
           id="twitter"
           class="image is-48x48"
-          href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+          @click="getTwitterCreds"
         >
           <img
             src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
 
 export default {
@@ -47,6 +48,11 @@ export default {
         },
       });
     },
+    async getTwitterCreds() {
+      const twitterCreds = await this.$axios.$post('api/v1/twitter/signin');
+      Cookies.set("twitterToken", twitterCreds.oauth_token);
+      window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${twitterCreds.oauth_token}`;
+    }
   },
 };
 </script>
