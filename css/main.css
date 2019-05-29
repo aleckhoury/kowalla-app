@@ -128,7 +128,7 @@ div.b-tabs section.tab-content {
     margin: 0;
 }
 
-div #columnTabs.b-tabs ul {
+div #columnTabs.b-tabs nav.tabs ul {
     display: none !important;
 }
 

@@ -26,8 +26,8 @@ export default {
 </script>
 <style lang="css" scoped>
 .info-pane-container {
-  max-width: 250px;
   width: 100%;
+  margin-left: 5%;
 }
 .wrapper-container {
   display: flex;

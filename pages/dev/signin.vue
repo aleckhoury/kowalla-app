@@ -37,7 +37,32 @@ export default {
       await this.$router.push({
         path: `/dev/user/${user.username}`,
       });
+    } else if (this.$route.query.oauth_token) {
+
+      const { oauth_token, oauth_verifier } = this.$route.query;
+      const authToken = await Cookies.get('twitterToken');
+      if (oauth_token === authToken) {
+        const { isNew, token, user } = await this.$axios.$post('api/v1/twitter/verify', {
+          oauthToken: oauth_token,
+          verifier: oauth_verifier,
+        });
+        await Cookies.set("token", token);
+        const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
+
+        const { owned, subscriptions } = subs.profileSubscriptions;
+        await Object.assign(user, {
+          loggedIn: Boolean(Object.keys(user).length),
+        });
+        await Object.assign(user, { subscriptions, owned });
+
+        await this.$store.commit("user/setUser", user);
+        await this.$router.push({
+          path: `/dev/user/${user.username}`,
+        });
+      }
     }
+  },
+  methods: {
   },
 };
 </script>
