@@ -57,7 +57,7 @@ export default {
   box-shadow: none;
 }
 .profilePic img {
-  border-radius: 0.75em;
+  border-radius: 6px;
 }
 span {
   color: #39c9a0;

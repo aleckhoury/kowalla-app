@@ -20,24 +20,6 @@
         </b-dropdown-item>
       </b-dropdown>
     </div>
-    <div
-      v-if="!isMobile && (type === '/project/' || type === '/user/')"
-      class="font margin predicate"
-    >
-      from
-    </div>
-    <div
-      v-if="!isMobile && (type === '/community/' || type === '/')"
-      class="font margin predicate"
-    >
-      in
-    </div>
-    <div v-if="!isMobile && type !== '/'" class="font margin subject">
-      <b>{{ getPrefix }}{{ getSuffix }}</b>
-    </div>
-    <div v-if="!isMobile && type === '/'" class="font margin predicate">
-      your timeline
-    </div>
   </div>
 </template>
 
@@ -66,21 +48,6 @@ export default {
     };
   },
   computed: {
-    getPrefix() {
-      return this.type === "/project/" || this.type === "/user/" ? "@" : "#";
-    },
-
-    getSuffix() {
-      if (this.type === "/project/") {
-        return this.$route.params.projectname;
-      } else if (this.type === "/user/") {
-        return this.$route.params.username;
-      } else if (this.type === "/community/") {
-        return this.$route.params.communityname;
-      } else {
-        return "";
-      }
-    },
     sort() {
       let pageType;
       switch (this.type) {

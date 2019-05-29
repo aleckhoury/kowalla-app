@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import NuxtLoading from './components/nuxt-loading.vue'
 
 import '../node_modules/buefy/dist/buefy.css'
 
@@ -12,10 +11,9 @@ import _6f6c098b from '../layouts/default.vue'
 const layouts = { "_default": _6f6c098b }
 
 export default {
-  head: {"script":[{"async":true,"src":"https:\u002F\u002Fwww.googletagmanager.com\u002Fgtag\u002Fjs?id=UA-140796518-1"},{"innerHTML":"\n        window.dataLayer = window.dataLayer || [];\n        function gtag(){dataLayer.push(arguments);}\n        gtag('js', new Date());\n\n        gtag('config', 'UA-140796518-1');\n        "}],"__dangerouslyDisableSanitizers":["script"],"title":"kowalla-app","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Build Together Here"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"kowalla"},{"hid":"author","name":"author","content":"Kowalla"},{"hid":"theme-color","name":"theme-color","content":"#fff"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"kowalla"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"kowalla"},{"hid":"og:description","name":"og:description","property":"og:description","content":"Build Together Here"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Nunito:Black"},{"rel":"stylesheet","type":"text\u002Fcss","href":"\u002F\u002Fcdn.materialdesignicons.com\u002F2.4.85\u002Fcss\u002Fmaterialdesignicons.min.css"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.2788421e.json"},{"rel":"shortcut icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_64.8408w000280.png"},{"rel":"apple-touch-icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_512.8408w000280.png","sizes":"512x512"}],"style":[],"htmlAttrs":{"lang":"en-US"}},
+  head: {"script":[{"async":true,"src":"https:\u002F\u002Fwww.googletagmanager.com\u002Fgtag\u002Fjs?id=UA-140796518-1"},{"innerHTML":"\n        window.dataLayer = window.dataLayer || [];\n        function gtag(){dataLayer.push(arguments);}\n        gtag('js', new Date());\n\n        gtag('config', 'UA-140796518-1');\n        "}],"__dangerouslyDisableSanitizers":["script"],"title":"kowalla-app","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Build Together Here"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"kowalla"},{"hid":"author","name":"author","content":"Kowalla"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"kowalla"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"kowalla"},{"hid":"og:description","name":"og:description","property":"og:description","content":"Build Together Here"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Nunito:Black"},{"rel":"stylesheet","type":"text\u002Fcss","href":"\u002F\u002Fcdn.materialdesignicons.com\u002F2.4.85\u002Fcss\u002Fmaterialdesignicons.min.css"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.9504bcac.json"},{"rel":"shortcut icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_64.8408w000280.png"},{"rel":"apple-touch-icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_512.8408w000280.png","sizes":"512x512"}],"style":[],"htmlAttrs":{"lang":"en-US"}},
 
   render(h, props) {
-    const loadingEl = h('NuxtLoading', { ref: 'loading' })
     const layoutEl = h(this.layout || 'nuxt')
     const templateEl = h('div', {
       domProps: {
@@ -44,7 +42,7 @@ export default {
         id: '__nuxt'
       }
     }, [
-      loadingEl,
+
       transitionEl
     ])
   },
@@ -71,13 +69,6 @@ export default {
     this.error = this.nuxt.error
   },
 
-  mounted() {
-    this.$loading = this.$refs.loading
-  },
-  watch: {
-    'nuxt.err': 'errorChanged'
-  },
-
   computed: {
     isOffline() {
       return !this.isOnline
@@ -97,13 +88,6 @@ export default {
       }
     },
 
-    errorChanged() {
-      if (this.nuxt.err && this.$loading) {
-        if (this.$loading.fail) this.$loading.fail()
-        if (this.$loading.finish) this.$loading.finish()
-      }
-    },
-
     setLayout(layout) {
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
@@ -120,6 +104,5 @@ export default {
     }
   },
   components: {
-    NuxtLoading
   }
 }

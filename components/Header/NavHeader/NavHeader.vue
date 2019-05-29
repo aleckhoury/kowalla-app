@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="nav-header-container">
     <div class="container is-fullhd">
-      <nav class="level is-marginless">
+      <nav class="level">
         <div class="level-left">
           <div class="level-item">
             <nuxt-link class="kowalla-logo" to="/dev">kowalla</nuxt-link>
@@ -41,7 +41,7 @@
           </div>
 
           <div v-else class="level-item">
-            <b class="page-link" @click="cardModal">Login or Register</b>
+            <b class="page-link" @click="cardModal">Login</b>
           </div>
         </div>
       </nav>
@@ -128,7 +128,7 @@ export default {
   font-family: "Helvetica Neue";
   font-size: 1em;
   display: flex;
-  color: #2F8168;
+  color: white;
   align-items: center;
   padding: 6px;
   text-decoration: none;

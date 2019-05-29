@@ -38,6 +38,7 @@ import PostTimer from "~/components/PostCards/PostTimer";
 import PostModal from "~/components/PostCards/PostModal.vue";
 import Utils from "~/utils/helpers";
 import DropdownPicker from "./DropdownPicker";
+import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
 import Vue from "vue";
 
 export default {
@@ -170,6 +171,17 @@ export default {
       });
     },
     async toggleReaction(emoji) {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginAndRegisterModal,
+          width: 900,
+          hasModalCard: true,
+          props: {
+            initialState: false,
+          },
+        });
+      }
       const savedEmoji = typeof emoji === "string" ? emoji : emoji.native;
       let emojiIndex = await this.reactionsFormatted
         .map(x => x.emoji)
@@ -259,7 +271,7 @@ export default {
 }
 #content-box .read-more {
   position: absolute;
-  bottom: 4em;
+  bottom: 3em;
   left: 0;
   width: 100%;
   text-align: center;
@@ -277,7 +289,7 @@ b-icon {
 }
 .card {
   border-radius: 6px;
-  margin-bottom: 1em;
+  margin-bottom: 0.65em;
 }
 .content {
   word-break: break-word;

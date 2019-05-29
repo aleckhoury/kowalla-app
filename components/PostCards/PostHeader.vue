@@ -2,7 +2,7 @@
   <div class="card-header">
     <figure class="media-left">
       <nuxt-link v-if="!isProject" :to="getProfileRoute">
-        <p class="image is-64x64 profilePic">
+        <p class="image is-48x48 profilePic">
           <img :src="profile.profilePicture" onerror="this.src='https://gradientjoy.com/64'" >
         </p>
       </nuxt-link>
@@ -238,10 +238,10 @@ export default {
   box-shadow: none;
 }
 .profilePic img {
-  border-radius: 0.75em;
+  border-radius: 6px;
 }
 .profilePicProject img {
-  border-radius: 0.75em;
+  border-radius: 6px;
   height: 100%;
   width: 48px;
 }

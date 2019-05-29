@@ -11,8 +11,8 @@
 
       <div class="columns is-centered is-marginless main-margin">
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane id="fixed" />
+        <div class="column is-one-quarter side-pane">
+          <NavPane class="fixed" />
         </div>
 
         <div id="postFeed" class="column is-one-half is-paddingless no-margin">
@@ -44,8 +44,8 @@
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          info
+        <div class="column is-one-quarter side-pane">
+          <SignupCard v-if="!this.$store.state.user.loggedIn" class="fixed" />
         </div>
       </div>
     </div>
@@ -79,10 +79,12 @@ import NavPane from "~/components/NavCards/NavPane";
 import Post from "~/components/PostCards/NewsfeedPost";
 import CreatePost from "~/components/PostCards/CreatePost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
+import SignupCard from "~/components/InfoCards/SignupCard";
 
 export default {
   name: "Test",
   components: {
+    SignupCard,
     EmptyPostList,
     CreatePost,
     Header,
@@ -218,6 +220,7 @@ export default {
 .side-pane {
   display: flex;
   justify-content: center;
+  padding: 0 2em 2em 2em;
 }
 
 .screen {
@@ -227,7 +230,8 @@ export default {
   width: 100%;
   height: 100%;
 }
-#fixed {
+.fixed {
+  width: 100%;
   position: fixed;
 }
 </style>

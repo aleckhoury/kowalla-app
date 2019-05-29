@@ -1,10 +1,17 @@
 <template>
-  <b-tabs :value="activeTab" :destroy-on-hide="false" position="is-right" @change="changeTab">
+  <b-tabs
+    :value="activeTab"
+    :destroy-on-hide="false"
+    position="is-right"
+    @change="changeTab"
+  >
     <b-tab-item v-for="(tab, idx) in tabs" :label="tab" :key="idx"></b-tab-item>
   </b-tabs>
 </template>
 
 <script>
+import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+
 export default {
   name: "Tabs",
   props: {
@@ -30,6 +37,17 @@ export default {
   },
   methods: {
     changeTab(idx) {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginAndRegisterModal,
+          width: 900,
+          hasModalCard: true,
+          props: {
+            initialState: false,
+          },
+        });
+      }
         this.$store.commit(`activeTabs/update${this.type}`, idx);
     },
   },

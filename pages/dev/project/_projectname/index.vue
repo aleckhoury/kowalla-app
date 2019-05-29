@@ -13,7 +13,7 @@
       <div class="columns is-marginless  main-margin">
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane class="fixed" />
         </div>
 
         <div class="column is-three-quarters is-paddingless">
@@ -77,15 +77,14 @@
                 v-for="post in postList"
                 :key="post._id"
                 :post="post"
-                :is-mobile="true"
                 @delete-post="removePostFromPostList"
               />
             </div>
 
             <!-- info pane -->
-            <div class="column is-one-third side-pane">
+            <div class="column is-one-third side-pane is-paddingless">
               <InfoPane>
-                <!-- fill with children components -->
+                <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
               </InfoPane>
             </div>
           </div>
@@ -187,10 +186,12 @@ import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 import Post from "~/components/PostCards/NewsfeedPost";
 import PostModal from "~/components/PostCards/PostModal.vue";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
+import SignupCard from "../../../../components/InfoCards/SignupCard";
 
 export default {
   name: "ProjectPage",
   components: {
+    SignupCard,
     EmptyPostList,
     Header,
     MobileHeader,
@@ -416,5 +417,13 @@ export default {
 }
 div.level {
   top: 0;
+}
+.fixed {
+  position: fixed;
+}
+.side-pane {
+  display: flex;
+  justify-content: center;
+  padding: 0 2em 2em 2em;
 }
 </style>

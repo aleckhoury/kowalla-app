@@ -6,7 +6,7 @@
       <div class="columns is-marginless main-margin">
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane class="fixed" />
         </div>
 
         <!-- post feed -->
@@ -23,6 +23,7 @@
         <!-- info pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
           <InfoPane>
+            <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
             <ProfileCard
               :name="`${firstName} ${lastName}`"
               :profile-picture-url="profilePictureUrl"
@@ -148,6 +149,7 @@ import EditButton from "~/components/InfoCards/EditButton";
 import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
 import Post from "~/components/PostCards/NewsfeedPost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
+import SignupCard from "~/components/InfoCards/SignupCard";
 
 export default {
   name: "UserPageTest",
@@ -165,6 +167,7 @@ export default {
     Post,
     MobileHeader,
     MobileFooter,
+    SignupCard,
   },
   data() {
     return {
@@ -300,5 +303,13 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+.side-pane {
+  display: flex;
+  justify-content: center;
+  padding: 0 2em 2em 2em;
+}
+.fullWidth {
+  width: 100% !important;
 }
 </style>
