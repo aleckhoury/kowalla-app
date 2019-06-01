@@ -63,6 +63,7 @@
         </div>
       </div>
     </div>
+    <nuxt-link to="/dev"><a id="hidden" class="button" /></nuxt-link>
   </div>
 </template>
 
@@ -148,5 +149,10 @@ export default {
   color: #2f8168;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+#hidden.button {
+  color: transparent;
+  background-color: transparent;
+  border: none;
 }
 </style>
