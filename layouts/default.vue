@@ -41,8 +41,8 @@ html {
 .button--grey {
   display: inline-block;
   border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
+  border: 1px solid #02075d;
+  color: #02075d;
   text-decoration: none;
   padding: 10px 30px;
   margin-left: 15px;
@@ -50,6 +50,6 @@ html {
 
 .button--grey:hover {
   color: #fff;
-  background-color: #35495e;
+  background-color: #02075d;
 }
 </style>

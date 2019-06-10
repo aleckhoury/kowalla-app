@@ -133,8 +133,19 @@ module.exports = {
           "faPencilRuler",
           "faUserFriends",
           "faProjectDiagram",
+          "faEnvelope",
+          "faTools",
+          "faHandshake",
+          "faChevronRight"
         ],
       },
+      {
+        set: "@fortawesome/free-brands-svg-icons",
+        icons: [
+          "faTwitter",
+          "faGithub"
+        ]
+      }
     ],
   },
 
