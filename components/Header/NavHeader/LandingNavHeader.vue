@@ -4,44 +4,7 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <nuxt-link class="kowalla-logo" to="/dev">kowalla</nuxt-link>
-          </div>
-
-          <div class="level-item">
-            <nuxt-link class="page-link" to="/dev"><b>Feed</b></nuxt-link>
-          </div>
-
-          <div class="level-item">
-            <nuxt-link class="page-link" to="/about"><b>About</b></nuxt-link>
-          </div>
-
-          <div class="level-item" @click="callHelpModal">
-            <div class="page-link"><b>Help</b></div>
-          </div>
-
-          <div v-if="Object.keys(activePost).length && activePost.isActive" class="level-item">
-            <nuxt-link class="page-link has-text-white" to="/dev/focus"><b>Focus</b></nuxt-link>
-          </div>
-        </div>
-
-        <div class="level-right">
-          <div v-if="this.$store.state.user.loggedIn" class="level-item">
-            <Button @kow-button-click="newPostModal"><b>New</b></Button>
-
-            <Searchbar />
-
-            <NavNotifications
-              :has-notifications="this.$store.state.user.hasNotifications"
-            />
-
-            <NavProfilePicture
-              :profile-picture="this.$store.state.user.profilePicture"
-              :username="this.$store.state.user.username"
-            />
-          </div>
-
-          <div v-else class="level-item">
-            <b class="page-link" @click="cardModal">Login</b>
+            <p class="kowalla-logo">kowalla</p>
           </div>
         </div>
       </nav>
@@ -60,7 +23,7 @@ import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "NavHeader",
+  name: "LandingNavHeader",
   components: {
     Button,
     Searchbar,
@@ -112,31 +75,30 @@ export default {
 
 <style lang="css" scoped>
 .nav-header-container {
-  z-index: 100;
-  height: 55px;
-  background-color: #39C9A0;
+    height: 55px;
+    background-color: #39C9A0;
 }
 
 .kowalla-logo {
-  font-family: 'Nunito';
-  font-size: 2.25em;
-  color: #fff;
-  text-decoration: none;
-  margin-right: 10px;
+    font-family: 'Nunito';
+    font-size: 2.25em;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
 }
 
 .page-link {
-  font-family: "Helvetica Neue";
-  font-size: 1em;
-  display: flex;
-  color: white;
-  align-items: center;
-  padding: 6px;
-  text-decoration: none;
-  cursor: pointer;
+    font-family: "Helvetica Neue";
+    font-size: 1em;
+    display: flex;
+    color: white;
+    align-items: center;
+    padding: 6px;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .main-theme {
-  background-color: #39C9A0;
+    background-color: #39C9A0;
 }
 </style>
