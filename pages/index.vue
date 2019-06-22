@@ -9,14 +9,15 @@
               Coworking, anywhere.
             </h1>
             <h2 class="subtitle">
-              Kowalla empowers you to build projects anywhere. We give you the community and accountability of a
-              coworking space, without the desk.
+              Kowalla empowers you to build projects anywhere. We give you the
+              community and accountability of a coworking space, without the
+              desk.
             </h2>
             <a class="button action" @click="cardModal">
-              Sign Up &nbsp;
-              <font-awesome-icon icon="envelope" />&nbsp;
-              <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
-              <font-awesome-icon :icon="['fab', 'github']" />
+              Join Waitlist &nbsp;
+              <!--<font-awesome-icon icon="envelope" />&nbsp;-->
+              <!--<font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;-->
+              <!--<font-awesome-icon :icon="['fab', 'github']" />-->
             </a>
             <h2 class="subtitle">
               <b>What does that <i>really</i> mean?</b>
@@ -48,8 +49,16 @@
             </h2>
           </div>
           <div class="column">
-            <img id="web" class="is-hidden-touch" src="../static/screenshot_web.png" />
-            <img id="mobile" class="is-hidden-touch" src="../static/screenshot.png" />
+            <img
+              id="web"
+              class="is-hidden-mobile"
+              src="../static/screenshot_web.png"
+            />
+            <img
+              id="mobile"
+              class="is-hidden-mobile"
+              src="../static/screenshot.png"
+            />
           </div>
         </div>
       </div>
@@ -63,8 +72,9 @@
                 Online Coworking
               </h1>
               <h2 class="subtitle">
-                People work better when they have accountability, feedback, and support. We're an online destination
-                for you to work alongside others you can depend on.
+                People work better when they have accountability, feedback, and
+                support. We're an online destination for you to work alongside
+                others you can depend on.
               </h2>
             </div>
           </div>
@@ -1218,8 +1228,8 @@
             </h1>
             <h2 class="subtitle">
               Kowalla is focused on creating an online space for entrepreneurs
-              to connect and collaborate, but anyone can join and build their
-              project with our site.
+              to connect and collaborate. We're not a platform for fake influencers
+              and ads, we're here to help you build your dreams.
             </h2>
           </div>
         </div>
@@ -1233,8 +1243,9 @@
               The World's Startup Hub
             </h1>
             <h2 class="subtitle">
-              Kowalla is more than just building projects together.
-              We have a mission to build the world's first online startup hub. Silicon Valley doesn't scale, we do.
+              Kowalla is more than just building projects together. We have a
+              mission to build the world's first online startup hub. Silicon
+              Valley doesn't scale, we do.
             </h2>
           </div>
           <div class="column has-text-centered is-one-half">
@@ -1539,13 +1550,16 @@
     <div class="hero final">
       <div class="hero-body final">
         <div class="columns is-vcentered">
-          <div class="column has-text-left is-one-half has-text-black">
+          <div class="column has-text-centered is-one-half has-text-black">
             <h2 class="subtitle has-text-black">
-              Join our mailing list for details about our 2019 launch. No spam.
+              Join below for details about our 2019 launch. No spam.
             </h2>
-          </div>
-          <div class="column has-text-centered is-one-half">
-            Email input form here
+            <a class="button action" @click="cardModal">
+              Join Waitlist &nbsp;
+              <!--<font-awesome-icon icon="envelope" />&nbsp;-->
+              <!--<font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;-->
+              <!--<font-awesome-icon :icon="['fab', 'github']" />-->
+            </a>
           </div>
         </div>
       </div>
@@ -1579,18 +1593,12 @@ export default {
       postList: [],
     };
   },
-  async mounted() {
-    document.title = `Kowalla - Home`;
-    this.posts = await this.$axios.$get("/api/v1/feed/posts/Oldest/0");
-    this.postList = this.posts.filter(
-      post => post._id === "bOVESikDy" || post._id === "uxWP0nd_C"
-    );
-  },
+  async mounted() {},
   methods: {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: LoginAndRegisterModal,
+        component: EmailSignup,
         width: 900,
         hasModalCard: true,
       });
@@ -1656,7 +1664,8 @@ export default {
   padding: 1em;
 }
 
-.hero-body.first, .hero-body.second,
+.hero-body.first,
+.hero-body.second,
 .hero-body.third {
   -webkit-transform: skewY(5deg);
   -moz-transform: skewY(5deg);
@@ -1678,14 +1687,15 @@ export default {
   margin: 2em auto;
   background-color: #02075d;
 }
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .columns {
     max-width: 82%;
   }
   .hero-body.first {
     padding: 6em 0 4em 0;
   }
-  .hero-body.second, .hero-body.fourth {
+  .hero-body.second,
+  .hero-body.fourth {
     padding: 1em 0;
   }
   .hero-body.third {
@@ -1699,7 +1709,7 @@ export default {
   margin: auto;
 }
 /*.column#cta {*/
-  /*max-width: 45%;*/
+/*max-width: 45%;*/
 /*}*/
 .hero-body.first #mobile {
   margin-top: 5em;
@@ -1722,7 +1732,6 @@ export default {
   /*background-color: rgba(250, 250, 250, 0.7);*/
 }
 .uvpBullet {
-
   font-size: 1.4em;
 }
 .lp-accent {
@@ -1776,7 +1785,7 @@ export default {
   width: 12em;
   color: #0a2049;
   background-color: white;
-  border-color: white;
+  border: 1px solid #0a2049;
   margin: 0 auto;
   font-size: 1.3em;
 }
