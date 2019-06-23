@@ -90,6 +90,13 @@ module.exports = {
     shortname: "kowalla",
     dir: "rtl",
     lang: "en-US",
+    background_color: '#39c9a0',
+    theme_color: '#39c9a0',
+    icons: [{
+      src: 'static/icon.png',
+      sizes: '512x512',
+      type: 'image/png'
+    }]
   },
   router: {
     // Run the middleware/user-agent.js on every page
