@@ -76,7 +76,7 @@ export default {
 <style lang="css" scoped>
 .nav-header-container {
     height: 55px;
-    background-color: #39C9A0;
+    /*background-color: #39C9A0;*/
 }
 
 .kowalla-logo {
@@ -96,9 +96,5 @@ export default {
     padding: 6px;
     text-decoration: none;
     cursor: pointer;
-}
-
-.main-theme {
-    background-color: #39C9A0;
 }
 </style>

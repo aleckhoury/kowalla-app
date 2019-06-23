@@ -13,15 +13,15 @@
               community and accountability of a coworking space, without the
               desk.
             </h2>
-            <a class="button action" @click="cardModal">
+            <a id="topButton" class="button action" @click="cardModal">
               Join Waitlist &nbsp;
               <!--<font-awesome-icon icon="envelope" />&nbsp;-->
               <!--<font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;-->
               <!--<font-awesome-icon :icon="['fab', 'github']" />-->
             </a>
             <h2 class="subtitle">
-              <b>What does that <i>really</i> mean?</b>
-              <hr />
+              <!--<b>What does that <i>really</i> mean?</b>-->
+              <!--<hr />-->
               <div class="columns is-vcentered is-mobile">
                 <div class="column is-one-fifth">
                   <font-awesome-icon icon="user-friends" class="uvpBullet" />
@@ -1228,8 +1228,8 @@
             </h1>
             <h2 class="subtitle">
               Kowalla is focused on creating an online space for entrepreneurs
-              to connect and collaborate. We're not a platform for fake influencers
-              and ads, we're here to help you build your dreams.
+              to connect and collaborate. We're not a platform for fake
+              influencers and ads, we're here to help you build your dreams.
             </h2>
           </div>
         </div>
@@ -1623,38 +1623,29 @@ export default {
   -o-transform: none;
   transform: none;
   background-color: white;
-  margin-top: -5em;
+  margin-top: -7em;
   padding: 8em 0 5em 0;
 }
-.hero {
-  -webkit-transform: skewY(-5deg);
-  -moz-transform: skewY(-5deg);
-  -ms-transform: skewY(-5deg);
-  -o-transform: skewY(-5deg);
-  transform: skewY(-5deg);
-}
+/*.hero {*/
+  /*-webkit-transform: skewY(-5deg);*/
+  /*-moz-transform: skewY(-5deg);*/
+  /*-ms-transform: skewY(-5deg);*/
+  /*-o-transform: skewY(-5deg);*/
+  /*transform: skewY(-5deg);*/
+/*}*/
 .hero.second {
   background-color: #efbbcc;
-  background-image: none;
+  clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
 }
-/*.hero.third {*/
-/*background-color: white;*/
-/*}*/
+.hero.third {
+  clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
+}
 
 .hero.fourth {
-  -webkit-transform: skewY(5deg);
-  -moz-transform: skewY(5deg);
-  -ms-transform: skewY(5deg);
-  -o-transform: skewY(5deg);
-  transform: skewY(5deg);
   background-color: #db9dee;
+  clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
 }
 .hero.fifth {
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-  transform: none;
   padding: 10em 0;
   background-color: white;
   margin-top: -5em;
@@ -1664,22 +1655,6 @@ export default {
   padding: 1em;
 }
 
-.hero-body.first,
-.hero-body.second,
-.hero-body.third {
-  -webkit-transform: skewY(5deg);
-  -moz-transform: skewY(5deg);
-  -ms-transform: skewY(5deg);
-  -o-transform: skewY(5deg);
-  transform: skewY(5deg);
-}
-.hero-body.fourth {
-  -webkit-transform: skewY(-5deg);
-  -moz-transform: skewY(-5deg);
-  -ms-transform: skewY(-5deg);
-  -o-transform: skewY(-5deg);
-  transform: skewY(-5deg);
-}
 .hero-body.fifth {
   background-color: white;
 }
@@ -1692,11 +1667,11 @@ export default {
     max-width: 82%;
   }
   .hero-body.first {
-    padding: 6em 0 4em 0;
+    padding: 6em 0 2em 0;
   }
   .hero-body.second,
   .hero-body.fourth {
-    padding: 1em 0;
+    padding: 4em 0;
   }
   .hero-body.third {
     padding: 3em 0;
@@ -1713,13 +1688,14 @@ export default {
 /*}*/
 .hero-body.first #mobile {
   margin-top: 5em;
-  width: 15% !important;
+  right: 2em;
+  width: 13% !important;
   position: absolute;
   height: auto;
 }
 .hero-body.first #web {
   margin-top: -1em;
-  width: 50% !important;
+  width: 45% !important;
   position: absolute;
   height: auto;
 }
@@ -1768,12 +1744,23 @@ export default {
     flex-direction: column-reverse;
     display: flex;
   }
+  .hero.third {
+    clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%);
+  }
+  .hero.second, .hero.fourth {
+    padding: 2em 0;
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
+  }
+  .hero.final {
+    padding: 4.5em 2.5em;
+  }
 }
 
 .subtitle {
   font-size: 1.3em;
   color: white;
   padding: 1em 0;
+  line-height: 1.5em;
 }
 #hidden.button {
   color: transparent;
@@ -1793,6 +1780,10 @@ export default {
 .button.action:hover {
   cursor: pointer;
   animation: jelly 0.5s;
+}
+
+#topButton {
+  border: none;
 }
 
 @keyframes jelly {
