@@ -86,8 +86,8 @@ module.exports = {
 
   manifest: {
     // https://pwa.nuxtjs.org/modules/manifest
-    name: "kowalla",
-    shortname: "kowalla",
+    name: "Kowalla",
+    shortname: "Kowalla",
     dir: "rtl",
     lang: "en-US",
     background_color: '#39c9a0',
