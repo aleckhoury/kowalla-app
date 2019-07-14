@@ -9,7 +9,10 @@
           normal laptop resolution
       -->
 
-      <div class="columns is-centered is-marginless main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-centered is-marginless main-margin"
+      >
         <!-- nav pane -->
         <div class="column is-one-quarter side-pane">
           <NavPane class="fixed" />
@@ -31,8 +34,15 @@
               />
             </b-tab-item>
             <b-tab-item>
-              <EmptyPostList v-if="!subscribedPostList.length && this.$store.state.user.loggedIn" />
-              <h1 class="noPosts">Create an account or sign in to subscribe to communities and projects!</h1>
+              <EmptyPostList
+                v-if="
+                  !subscribedPostList.length && this.$store.state.user.loggedIn
+                "
+              />
+              <h1 class="noPosts">
+                Create an account or sign in to subscribe to communities and
+                projects!
+              </h1>
               <Post
                 v-for="post in subscribedPostList"
                 :key="post._id"
@@ -56,7 +66,10 @@
       is-home
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+    <div
+      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+      class="columns is-marginless is-hidden-desktop mobile-main-margin"
+    >
       <EmptyPostList v-if="!postList.length" />
       <Post
         v-for="post in postList"
@@ -80,7 +93,6 @@ import Post from "~/components/PostCards/NewsfeedPost";
 import CreatePost from "~/components/PostCards/CreatePost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "~/components/InfoCards/SignupCard";
-
 export default {
   name: "Test",
   components: {
@@ -93,11 +105,13 @@ export default {
     MobileHeader,
     MobileFooter,
   },
+
   data() {
     return {
       postList: [],
       subscribedPostList: [],
       isMounted: false,
+      test: true,
     };
   },
   computed: {
@@ -129,11 +143,11 @@ export default {
       `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
     );
     if (this.$store.state.user.loggedIn) {
-    this.subscribedPostList = await this.$axios.$get(
-      `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
-        this.subscribedPostList.length
-      }`
-    );
+      this.subscribedPostList = await this.$axios.$get(
+        `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
+          this.subscribedPostList.length
+        }`
+      );
     }
 
     await this.scroll();
@@ -151,7 +165,6 @@ export default {
             isActive = true;
             let posts;
             let newList;
-            console.log(this.activeTab);
             if (this.activeTab === 0) {
               posts = await this.$axios.$get(
                 `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
@@ -161,7 +174,10 @@ export default {
                 this.postList = await newList;
                 isActive = false;
               }
-            } else if (this.activeTab === 0 && this.$store.state.user.loggedIn) {
+            } else if (
+              this.activeTab === 0 &&
+              this.$store.state.user.loggedIn
+            ) {
               posts = await this.$axios.$get(
                 `/api/v1/feed/posts/${this.$store.state.user._id}/${
                   this.sort
@@ -198,7 +214,7 @@ export default {
         if (this.subscribedPostList[i]._id === postId) {
           this.subscribedPostList.splice(i, 1);
           await this.$axios.delete(
-                  `/api/v1/communities/${this.communityId}/posts/${postId}`
+            `/api/v1/communities/${this.communityId}/posts/${postId}`
           );
           break;
         }

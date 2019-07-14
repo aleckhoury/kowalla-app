@@ -27,6 +27,8 @@ module.exports = {
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { hid: "description", name: "description", content: pkg.description },
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent'}
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
@@ -34,6 +36,17 @@ module.exports = {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css?family=Nunito:Black",
       },
+      { rel: 'apple-touch-icon', href: 'icon.png' },
+      { rel: "apple-touch-startup-image", href: "iphone5_splash.png", media: "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" },
+      { rel: "apple-touch-startup-image", href: "iphone6_splash.png", media: "(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" },
+      { rel: "apple-touch-startup-image", href: "iphoneplus_splash.png", media: "(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" },
+      { rel: "apple-touch-startup-image", href: "iphonex_splash.png", media: "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" },
+      { rel: "apple-touch-startup-image", href: "iphonexr_splash.png", media: "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" },
+      { rel: "apple-touch-startup-image", href: "iphonexsmax_splash.png", media: "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" },
+      { rel: "apple-touch-startup-image", href: "ipad_splash.png", media: "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" },
+      { rel: "apple-touch-startup-image", href: "ipadpro1_splash.png", media: "(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" },
+      { rel: "apple-touch-startup-image", href: "ipadpro3_splash.png", media: "(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" },
+      { rel: "apple-touch-startup-image", href: "ipadpro2_splash.png", media: "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" },
     ],
   },
 
@@ -143,7 +156,8 @@ module.exports = {
           "faEnvelope",
           "faTools",
           "faHandshake",
-          "faChevronRight"
+          "faChevronRight",
+          "faTimes"
         ],
       },
       {

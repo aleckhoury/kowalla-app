@@ -21,6 +21,7 @@ void (function updateModules() {
 
   resolveStoreModules(require('@/store/activeTabs.js'), 'activeTabs.js')
   resolveStoreModules(require('@/store/commentBox.js'), 'commentBox.js')
+  resolveStoreModules(require('@/store/firstVisit.js'), 'firstVisit.js')
   resolveStoreModules(require('@/store/messages.js'), 'messages.js')
   resolveStoreModules(require('@/store/mobile.js'), 'mobile.js')
   resolveStoreModules(require('@/store/sorting.js'), 'sorting.js')
@@ -33,6 +34,7 @@ void (function updateModules() {
     module.hot.accept([
       '@/store/activeTabs.js',
       '@/store/commentBox.js',
+      '@/store/firstVisit.js',
       '@/store/index.js',
       '@/store/messages.js',
       '@/store/mobile.js',

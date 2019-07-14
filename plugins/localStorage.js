@@ -4,6 +4,7 @@ import Utils from '~/utils/helpers';
 export default ({ store, $axios }) => {
   window.onNuxtReady(async () => {
     createPersistedState()(store);
+    store.commit('firstVisit/setFirstVisit');
     if (store.state.user.loggedIn) {
       const user = await $axios.$get(
         `api/v1/users/${store.state.user.username}`

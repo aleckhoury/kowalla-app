@@ -20,6 +20,9 @@ div.dropdown div.button {
   padding-right: 0px;
   padding-bottom: 0px;
 }
+.main-margin.firstVisit {
+    padding-top: 18rem;
+}
 
 .modal-content {
     align-self: center;
@@ -34,6 +37,10 @@ div.dropdown div.button {
   padding-left: 0px;
   padding-right: 0px;
   padding-bottom: 50px;
+}
+
+.mobile-main-margin.firstVisit {
+    padding-top: 20rem;
 }
 
 .newsfeed-padding {
@@ -146,3 +153,4 @@ a.dropdown-item.is-active {
     border-bottom-color: #39C9A0;
     border-left-color: #39C9A0;
 }
+

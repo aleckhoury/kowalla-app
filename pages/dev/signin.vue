@@ -24,6 +24,7 @@ export default {
           code: this.$route.query.code,
         }
       );
+      await Cookies.set('firstVisit', true);
       await Cookies.set("token", token);
       const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 
@@ -38,16 +39,20 @@ export default {
         path: `/dev/user/${user.username}`,
       });
     } else if (this.$route.query.oauth_token) {
-
       const { oauth_token, oauth_verifier } = this.$route.query;
-      const authToken = await Cookies.get('twitterToken');
+      const authToken = await Cookies.get("twitterToken");
       if (oauth_token === authToken) {
-        const { isNew, token, user } = await this.$axios.$post('api/v1/twitter/verify', {
-          oauthToken: oauth_token,
-          verifier: oauth_verifier,
-        });
+        const { isNew, token, user } = await this.$axios.$post(
+          "api/v1/twitter/verify",
+          {
+            oauthToken: oauth_token,
+            verifier: oauth_verifier,
+          }
+        );
         await Cookies.set("token", token);
-        const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
+        const subs = await this.$axios.$get(
+          `/api/v1/profiles/${user._id}/subs`
+        );
 
         const { owned, subscriptions } = subs.profileSubscriptions;
         await Object.assign(user, {
@@ -62,22 +67,21 @@ export default {
       }
     }
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 
 <style scoped>
-  .fullPage {
-    height: 100vh;
-    width: 100%;
-    background-color: #39C9A0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .image {
-    height: 20em;
-    width:auto
-  }
+.fullPage {
+  height: 100vh;
+  width: 100%;
+  background-color: #39c9a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image {
+  height: 20em;
+  width: auto;
+}
 </style>

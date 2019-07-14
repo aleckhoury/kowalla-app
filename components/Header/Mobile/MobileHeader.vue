@@ -13,7 +13,7 @@
             <img
               src="https://i.imgur.com/04hoRgV.png"
               class="kowalla-logo-picture"
-            >
+            />
             kowalla
           </div>
         </nuxt-link>
@@ -64,7 +64,7 @@
               v-if="!isHome"
               :src="locationPictureToDisplay"
               class="mobile-nav-link-picture"
-            >
+            />
 
             <div v-else class="center mobile-nav-link-picture is-size-4">
               <font-awesome-icon icon="home" />
@@ -88,6 +88,59 @@
       </div>
       <!-- End level -->
     </div>
+    <div v-if="this.$store.state.firstVisit.firstVisit" :class="{ 'hide-mobile-header-container': !showNavbar }" class="hero">
+      <div class="bannerStripe"></div>
+      <div class="hero-body">
+        <h1 class="title is-5">
+          Welcome!
+          <div class="delete is-medium is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
+        </h1>
+        <h2 class="subtitle is-6">
+          Kowalla is the coworking space that lives in your pocket, so you're
+          never more than a tap away from the community and support you need to
+          build your dreams. That means:
+          <ul>
+            <li>
+              Reddit-like communities
+            </li>
+            <li>
+              Live Posts to work remotely with others
+            </li>
+            <li>
+              Integrations to showcase your work without you lifting a finger
+            </li>
+          </ul>
+        </h2>
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        width="100%"
+        height="13.4rem"
+        fill="#db9dee"
+      >
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="10"
+              result="blur"
+            />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -12"
+              result="goo"
+            />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+          </filter>
+        </defs>
+        <g filter="url('#goo')">
+          <rect width="100%" height="30px" />
+          <circle id="one" cx="90%" cy="0" r="50" />
+        </g>
+      </svg>
+    </div>
     <!-- End mobile header bottom -->
   </div>
 </template>
@@ -99,7 +152,6 @@ import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
 import SearchModal from "~/components/Modals/Other/SearchModal";
 import LoginAndRegisterModalMobile from "~/components/Auth/LoginAndRegisterModalMobile";
 import NavProfilePicture from "~/components/Header/NavHeader/NavProfilePicture";
-
 export default {
   name: "MobileHeader",
   components: {
@@ -108,6 +160,7 @@ export default {
     NavNotifications,
     NavProfilePicture,
   },
+
   props: {
     locationToDisplay: { type: String, default: "" },
     locationPictureToDisplay: { type: String, default: "" },
@@ -205,7 +258,7 @@ export default {
 
 .hide-mobile-header-container {
   box-shadow: none;
-  transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -200%, 0);
 }
 
 .mobile-header-top-container {
@@ -281,5 +334,57 @@ export default {
   padding: 6px;
   text-decoration: none;
   cursor: pointer;
+}
+.hero {
+  overflow:scroll;
+  height: 13.4rem;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  z-index: 2;
+  transition: 0.3s all ease-out;
+}
+.hero-body {
+  z-index: 3;
+  padding: 5px;
+}
+.bannerStripe {
+  height: 30px;
+  width: 100%;
+  background-color: #db9dee;
+  z-index: 1;
+  position: absolute;
+}
+.title {
+  color: #0A2049;
+}
+.subtitle {
+  font-size: 1.2em;
+  line-height: 1.4;
+  color: #0A2049;
+}
+.delete {
+  margin-top: -2px;
+}
+ul {
+  margin-left:20px;
+  list-style: inside;
+}
+ul li {
+  list-style-type: disc;
+}
+svg {
+  position: fixed;
+  z-index: -1;
+  background-color: #efbbcc;
+}
+circle {
+  animation-duration: 15s;
+  animation-timing-function:ease-in-out;
+  animation-iteration-count:infinite;
+}
+#one{animation-name: one;}
+@keyframes one{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(0,180px)}
+  0%{transform:translate(0,0)}
 }
 </style>

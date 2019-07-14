@@ -148,6 +148,7 @@ export default {
           password: registerForm.password,
         });
         await Cookies.set("token", token);
+        await Cookies.set('firstVisit', true);
         const user = await this.$axios.$get(
           `api/v1/users/${registerForm.username}`
         );

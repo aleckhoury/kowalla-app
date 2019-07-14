@@ -10,7 +10,10 @@
       -->
 
       <!-- three columns, navpane, content, infopane -->
-      <div class="columns is-marginless main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-marginless main-margin"
+      >
         <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane class="fixed" />
         </div>
@@ -39,7 +42,10 @@
             </div>
             <div class="column is-one-third is-paddingless side-pane">
               <InfoPane>
-                <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
+                <SignupCard
+                  v-if="!this.$store.state.user.loggedIn"
+                  class="fullWidth"
+                />
                 <ProfileCard
                   :name="communityName"
                   :username="communityName"
@@ -76,7 +82,10 @@
       class="is-hidden-desktop"
     />
 
-    <div class="is-marginless is-hidden-desktop mobile-main-margin">
+    <div
+      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+      class="is-marginless is-hidden-desktop mobile-main-margin"
+    >
       <Banner
         :banner-url="bannerPictureUrl"
         :banner-title="communityName"
@@ -135,7 +144,6 @@ import Post from "~/components/PostCards/NewsfeedPost";
 import PostModal from "~/components/PostCards/PostModal.vue";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "../../../../components/InfoCards/SignupCard";
-
 export default {
   name: "UserPageTest",
   components: {
@@ -153,6 +161,7 @@ export default {
     EditCommunityModal,
     Post,
   },
+
   data() {
     return {
       // backend content
@@ -339,21 +348,21 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  .mobile-main-margin {
-    padding-top: 100px !important;
-  }
-  .card-container {
-    margin-bottom: 0;
-  }
-  .fixed {
-    position: fixed;
-  }
-  .side-pane {
-    display: flex;
-    justify-content: center;
-    padding: 0 2em 2em 2em;
-  }
-  .fullWidth {
-    width: 100% !important;
-  }
+.mobile-main-margin {
+  padding-top: 100px !important;
+}
+.card-container {
+  margin-bottom: 0;
+}
+.fixed {
+  position: fixed;
+}
+.side-pane {
+  display: flex;
+  justify-content: center;
+  padding: 0 2em 2em 2em;
+}
+.fullWidth {
+  width: 100% !important;
+}
 </style>

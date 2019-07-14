@@ -3,7 +3,10 @@
     <Header :type="'ProjectSettingsActiveTab'" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
-      <div class="columns is-marginless main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-marginless main-margin"
+      >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane />
@@ -38,7 +41,10 @@
       class="is-hidden-desktop"
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+    <div
+      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+      class="columns is-marginless is-hidden-desktop mobile-main-margin"
+    >
       <EditProjectForm
         v-if="infoRes"
         :name="name"
@@ -65,7 +71,6 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditProjectForm from "~/components/Forms/EditProject";
 import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
-
 export default {
   name: "UserPageTest",
   components: {
@@ -81,6 +86,7 @@ export default {
     EditButton,
     EditProjectModal,
   },
+
   data() {
     return {
       bannerPictureUrl: "",

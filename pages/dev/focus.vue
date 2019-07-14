@@ -1,8 +1,14 @@
 <template>
   <div class="focusPage">
     <Header />
-    <div v-if="Object.keys(post).length && !post.userCompleted" class="container">
-      <div class="columns is-vcentered is-centered is-marginless main-margin">
+    <div
+      v-if="Object.keys(post).length && !post.userCompleted"
+      class="container"
+    >
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-vcentered is-centered is-marginless main-margin"
+      >
         <!-- post feed -->
         <div class="column">
           <div class="card livePost">
@@ -120,7 +126,7 @@
                       class="file-input"
                       type="file"
                       @change="selectFile(commands.image)"
-                    >
+                    />
                     <font-awesome-icon icon="camera" />
                   </a>
                 </div>
@@ -136,9 +142,7 @@
         </div>
         <div class="column">
           <div class="card liveTimer">
-            <b
-            ><span class="countdown">{{ countdown }}</span></b
-            >
+            <b><span class="countdown">{{ countdown }}</span></b>
           </div>
         </div>
       </div>
@@ -187,6 +191,7 @@ export default {
     EditorContent,
     EditorMenuBar,
   },
+
   data() {
     return {
       editor: null,

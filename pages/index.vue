@@ -1627,11 +1627,11 @@ export default {
   padding: 8em 0 5em 0;
 }
 /*.hero {*/
-  /*-webkit-transform: skewY(-5deg);*/
-  /*-moz-transform: skewY(-5deg);*/
-  /*-ms-transform: skewY(-5deg);*/
-  /*-o-transform: skewY(-5deg);*/
-  /*transform: skewY(-5deg);*/
+/*-webkit-transform: skewY(-5deg);*/
+/*-moz-transform: skewY(-5deg);*/
+/*-ms-transform: skewY(-5deg);*/
+/*-o-transform: skewY(-5deg);*/
+/*transform: skewY(-5deg);*/
 /*}*/
 .hero.second {
   background-color: #efbbcc;
@@ -1747,7 +1747,8 @@ export default {
   .hero.third {
     clip-path: polygon(0 0, 100% 5%, 100% 95%, 0 100%);
   }
-  .hero.second, .hero.fourth {
+  .hero.second,
+  .hero.fourth {
     padding: 2em 0;
     clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
   }

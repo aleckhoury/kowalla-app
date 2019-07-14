@@ -10,7 +10,10 @@
       -->
 
       <!-- two columns, navpane and banner -->
-      <div class="columns is-marginless  main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-marginless  main-margin"
+      >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane class="fixed" />
@@ -84,7 +87,10 @@
             <!-- info pane -->
             <div class="column is-one-third side-pane is-paddingless">
               <InfoPane>
-                <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
+                <SignupCard
+                  v-if="!this.$store.state.user.loggedIn"
+                  class="fullWidth"
+                />
               </InfoPane>
             </div>
           </div>
@@ -99,7 +105,10 @@
       class="is-hidden-desktop"
     />
 
-    <div class="is-marginless is-hidden-desktop mobile-main-margin">
+    <div
+      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+      class="is-marginless is-hidden-desktop mobile-main-margin"
+    >
       <Banner
         :banner-url="bannerPictureUrl"
         :banner-title="name"
@@ -187,7 +196,6 @@ import Post from "~/components/PostCards/NewsfeedPost";
 import PostModal from "~/components/PostCards/PostModal.vue";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "../../../../components/InfoCards/SignupCard";
-
 export default {
   name: "ProjectPage",
   components: {
@@ -205,6 +213,7 @@ export default {
     EditProjectModal,
     Post,
   },
+
   data() {
     return {
       name: null,

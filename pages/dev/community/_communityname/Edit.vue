@@ -3,7 +3,10 @@
     <Header :type="'CommunitySettingsActiveTab'" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
-      <div class="columns is-marginless main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-marginless main-margin"
+      >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane />
@@ -36,7 +39,10 @@
       :location-to-display="`#${communityName}`"
       class="is-hidden-desktop"
     />
-    <div class="is-marginless is-hidden-desktop mobile-main-margin">
+    <div
+      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+      class="is-marginless is-hidden-desktop mobile-main-margin"
+    >
       <EditCommunityForm
         v-if="infoRes"
         :name="name"
@@ -62,7 +68,6 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditCommunityForm from "~/components/Forms/EditCommunity";
 import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
-
 export default {
   name: "Edit",
   components: {
@@ -77,6 +82,7 @@ export default {
     EditButton,
     EditProjectModal,
   },
+
   data() {
     return {
       // backend content

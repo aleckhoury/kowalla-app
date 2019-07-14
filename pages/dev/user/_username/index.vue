@@ -3,7 +3,10 @@
     <Header :home-feed="false" class="is-hidden-touch" />
 
     <div class="container is-fullhd is-hidden-touch">
-      <div class="columns is-marginless main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-marginless main-margin"
+      >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
           <NavPane class="fixed" />
@@ -23,7 +26,10 @@
         <!-- info pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
           <InfoPane>
-            <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
+            <SignupCard
+              v-if="!this.$store.state.user.loggedIn"
+              class="fullWidth"
+            />
             <ProfileCard
               :name="`${firstName} ${lastName}`"
               :profile-picture-url="profilePictureUrl"
@@ -91,7 +97,10 @@
       class="is-hidden-desktop"
     />
 
-    <div class="columns is-marginless is-hidden-desktop mobile-main-margin">
+    <div
+      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+      class="columns is-marginless is-hidden-desktop mobile-main-margin"
+    >
       <div class="side-pane">
         <ProfileCard
           :name="`${firstName} ${lastName}`"
@@ -150,7 +159,6 @@ import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
 import Post from "~/components/PostCards/NewsfeedPost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "~/components/InfoCards/SignupCard";
-
 export default {
   name: "UserPageTest",
   components: {
@@ -169,6 +177,7 @@ export default {
     MobileFooter,
     SignupCard,
   },
+
   data() {
     return {
       username: null,

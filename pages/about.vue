@@ -9,7 +9,10 @@
           normal laptop resolution
       -->
 
-      <div class="columns is-centered is-marginless main-margin">
+      <div
+        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+        class="columns is-centered is-marginless main-margin"
+      >
         <!-- post feed -->
         <div class="column is-one-half is-paddingless">
           about
