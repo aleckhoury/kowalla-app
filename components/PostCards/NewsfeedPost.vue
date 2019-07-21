@@ -12,7 +12,7 @@
       @delete-post="echoDeletePost"
     />
 
-    <PostTimer v-if="post.isActive" :time="post.expiration" />
+    <PostTimer v-if="post.isActive" :start-time="post.start" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
       <div class="content is-marginless" v-html="post.content" />
 
@@ -92,16 +92,6 @@ export default {
       } catch {
         console.log("error grabbing some values");
       }
-    }
-    if (
-      this.post.expiration !== null &&
-      !!this.post.isActive &&
-      !Utils.isActivePost(this.post)
-    ) {
-      this.post.isActive = false;
-      this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
-        isActive: false,
-      });
     }
     if (this.$refs["content"]) {
       if (this.$refs["content"].getBoundingClientRect().height >= 480) {

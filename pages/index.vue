@@ -1577,6 +1577,7 @@ import SignupCard from "../components/InfoCards/SignupCard";
 import LoginAndRegisterModal from "../components/Auth/LoginAndRegisterModal";
 
 export default {
+  layout: 'none',
   name: "Index",
   auth: false,
   components: {

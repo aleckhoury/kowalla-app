@@ -138,16 +138,6 @@ export default {
         `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
       );
     });
-    if (
-      this.post.expiration !== null &&
-      !!this.post.isActive &&
-      !Utils.isActivePost(this.post)
-    ) {
-      this.post.isActive = false;
-      this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
-        isActive: false,
-      });
-    }
   },
   methods: {
     updateComment(comment) {

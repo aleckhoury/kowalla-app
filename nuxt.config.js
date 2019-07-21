@@ -70,6 +70,7 @@ module.exports = {
 
   plugins: [
     { src: "~/plugins/localStorage.js", ssr: false },
+    { src: '~/plugins/socket.io.js', ssr: false },
     "~/plugins/axios",
   ],
 
@@ -113,7 +114,6 @@ module.exports = {
   },
   router: {
     // Run the middleware/user-agent.js on every page
-    middleware: "activePost",
   },
 
   workbox: {
@@ -157,7 +157,8 @@ module.exports = {
           "faTools",
           "faHandshake",
           "faChevronRight",
-          "faTimes"
+          "faTimes",
+          "faCheck"
         ],
       },
       {

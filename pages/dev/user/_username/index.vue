@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header :home-feed="false" class="is-hidden-touch" />
-
     <div class="container is-fullhd is-hidden-touch">
       <div
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
@@ -91,12 +89,6 @@
     </div>
 
     <!-- Mobile -->
-    <MobileHeader
-      :location-picture-to-display="profilePictureUrl"
-      :location-to-display="`@${username}`"
-      class="is-hidden-desktop"
-    />
-
     <div
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="columns is-marginless is-hidden-desktop mobile-main-margin"
@@ -138,8 +130,6 @@
         @delete-post="removePostFromPostList"
       />
     </div>
-
-    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 
@@ -306,18 +296,6 @@ export default {
 </script>
 
 <style lang="css">
-.screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.side-pane {
-  display: flex;
-  justify-content: center;
-  padding: 0 2em 2em 2em;
-}
 .fullWidth {
   width: 100% !important;
 }

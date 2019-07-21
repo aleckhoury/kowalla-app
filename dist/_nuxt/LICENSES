@@ -1,40 +1,4 @@
 /*!
-    * tiptap v1.7.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-extensions v1.7.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-utils v1.1.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-commands v1.3.0
-    * (c) 2019 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/**
- * vuex v3.0.1
- * (c) 2017 Evan You
- * @license MIT
- */
-
-/*!
-  * vue-router v3.0.2
-  * (c) 2018 Evan You
-  * @license MIT
-  */
-
-/*!
  * JavaScript Cookie v2.2.0
  * https://github.com/js-cookie/js-cookie
  *
@@ -43,8 +7,20 @@
  */
 
 /**
- * vue-meta v1.5.8
- * (c) 2018 Declan de Wet & Sébastien Chopin (@Atinux)
+ * vuex v3.1.0
+ * (c) 2019 Evan You
+ * @license MIT
+ */
+
+/*!
+  * vue-router v3.0.6
+  * (c) 2019 Evan You
+  * @license MIT
+  */
+
+/**
+ * vue-meta v1.6.0
+ * (c) 2019 Declan de Wet & Sébastien Chopin (@Atinux)
  * @license MIT
  */
 
@@ -53,13 +29,6 @@
 	(c) Sindre Sorhus
 	@license MIT
 	*/
-
-/*!
- * cookie
- * Copyright(c) 2012-2014 Roman Shtylman
- * Copyright(c) 2015 Douglas Christopher Wilson
- * MIT Licensed
- */
 
 /*!
  * Vue.js v2.6.10
@@ -75,9 +44,42 @@
  */
 
 /*!
+    * tiptap-commands v1.7.0
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap v1.16.1
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-extensions v1.16.1
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+    * tiptap-utils v1.2.0
+    * (c) 2019 Scrumpy UG (limited liability)
+    * @license MIT
+    */
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * vue-no-ssr v1.1.1
  * (c) 2018-present egoist <0x142857@gmail.com>
  * Released under the MIT License.
  */
 
-/*! Buefy v0.7.2 | MIT License | github.com/buefy/buefy */
+/*! Buefy v0.7.10 | MIT License | github.com/buefy/buefy */
+
+/*! https://mths.be/utf8js v2.1.2 by @mathias */

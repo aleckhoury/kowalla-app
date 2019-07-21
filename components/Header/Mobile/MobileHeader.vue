@@ -8,7 +8,7 @@
       <div
         class="level half-height is-mobile mobile-header-top-container is-marginless"
       >
-        <nuxt-link to="/dev/">
+        <nuxt-link to="/dev">
           <div class="level-left kowalla-logo">
             <img
               src="https://i.imgur.com/04hoRgV.png"
@@ -40,10 +40,12 @@
           </div>
 
           <!--<div class="level-item">-->
-          <NavProfilePicture
+          <img
             v-if="this.$store.state.user.loggedIn"
-            :profile-picture="this.$store.state.user.profilePicture"
-            :username="this.$store.state.user.username"
+            :src="this.$store.state.user.profilePicture"
+            class="nav-profile-picture level-item"
+            onerror="this.src='https://gradientjoy.com/48'"
+            @click="openSidebar()"
           />
           <b v-else class="has-text-white" @click="cardModal">
             Login/Sign Up
@@ -55,45 +57,27 @@
       <!-- top mobile header -->
 
       <!-- Mobile Header Bottom -->
-      <div class="level mobile-header-bottom-container half-height is-mobile">
-        <!-- Level left -->
-        <div class="level-left selector" @click="callChangeLocationModal">
-          <!-- Selector -->
-          <div class="level-item">
-            <img
-              v-if="!isHome"
-              :src="locationPictureToDisplay"
-              class="mobile-nav-link-picture"
-            />
-
-            <div v-else class="center mobile-nav-link-picture is-size-4">
-              <font-awesome-icon icon="home" />
-            </div>
-          </div>
-
-          <div class="level-item margin-adjust">
-            <b>{{ locationToDisplay }}</b>
-          </div>
-
-          <div class="level-item margin-adjust">
-            <font-awesome-icon icon="angle-down" />
-          </div>
+      <div class="level mobile-header-bottom-container is-mobile">
+        <!-- Level item -->
+        <div class="level-item">
+          <Tabs :type="type" />
         </div>
-        <!-- End selector -->
-
-        <div class="level-right">
-          <SortingOptions is-mobile />
-        </div>
-        <!-- End level right -->
       </div>
       <!-- End level -->
     </div>
-    <div v-if="this.$store.state.firstVisit.firstVisit" :class="{ 'hide-mobile-header-container': !showNavbar }" class="hero">
+    <div
+      v-if="this.$store.state.firstVisit.firstVisit"
+      :class="{ 'hide-mobile-header-container': !showNavbar }"
+      class="hero"
+    >
       <div class="bannerStripe"></div>
       <div class="hero-body">
         <h1 class="title is-5">
           Welcome!
-          <div class="delete is-medium is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
+          <div
+            class="delete is-medium is-pulled-right"
+            @click="$store.commit('firstVisit/cancelFirstVisit')"
+          />
         </h1>
         <h2 class="subtitle is-6">
           Kowalla is the coworking space that lives in your pocket, so you're
@@ -104,7 +88,7 @@
               Reddit-like communities
             </li>
             <li>
-              Live Posts to work remotely with others
+              Live Posts to easily cowork with others
             </li>
             <li>
               Integrations to showcase your work without you lifting a finger
@@ -117,7 +101,7 @@
         version="1.1"
         width="100%"
         height="13.4rem"
-        fill="#db9dee"
+        fill="#bd56e1"
       >
         <defs>
           <filter id="goo">
@@ -135,7 +119,7 @@
             <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
         </defs>
-        <g filter="url('#goo')">
+        <g>
           <rect width="100%" height="30px" />
           <circle id="one" cx="90%" cy="0" r="50" />
         </g>
@@ -151,26 +135,32 @@ import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
 import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
 import SearchModal from "~/components/Modals/Other/SearchModal";
 import LoginAndRegisterModalMobile from "~/components/Auth/LoginAndRegisterModalMobile";
-import NavProfilePicture from "~/components/Header/NavHeader/NavProfilePicture";
+import SideMenu from "./SideMenu";
+import Tabs from "../NavSubHeader/Tabs";
+
 export default {
   name: "MobileHeader",
   components: {
+    Tabs,
+    SideMenu,
     ChangeLocationModal,
     SortingOptions,
     NavNotifications,
-    NavProfilePicture,
   },
 
   props: {
+    openSidebar: { type: Function, default: () => {} },
     locationToDisplay: { type: String, default: "" },
     locationPictureToDisplay: { type: String, default: "" },
     isHome: { type: Boolean, default: false },
+    type: { type: String, default: "NewsFeedActiveTab" },
   },
   data() {
     return {
       showNavbar: true,
       lastScrollPosition: 0,
       scrollValue: 0,
+      toggleSidebar: false,
     };
   },
   mounted() {
@@ -251,7 +241,6 @@ export default {
 }
 
 .mobile-header-container {
-  height: 100px;
   transform: translate3d(0, 0, 0);
   transition: 0.3s all ease-out;
 }
@@ -349,17 +338,17 @@ export default {
 .bannerStripe {
   height: 30px;
   width: 100%;
-  background-color: #db9dee;
+  background-color: #bd56e1;
   z-index: 1;
   position: absolute;
 }
 .title {
-  color: #0A2049;
+  color: white;
 }
 .subtitle {
   font-size: 1.2em;
   line-height: 1.4;
-  color: #0A2049;
+  color: white;
 }
 .delete {
   margin-top: -2px;
@@ -374,7 +363,7 @@ ul li {
 svg {
   position: fixed;
   z-index: -1;
-  background-color: #efbbcc;
+  background-color: #cd7be8;
 }
 circle {
   animation-duration: 15s;
@@ -386,5 +375,10 @@ circle {
   0%{transform:translate(0,0)}
   50%{transform:translate(0,180px)}
   0%{transform:translate(0,0)}
+}
+.nav-profile-picture {
+  height: auto;
+  width: 42px;
+  border-radius: 6px;
 }
 </style>

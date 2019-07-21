@@ -19,8 +19,8 @@
             <div class="page-link"><b>Help</b></div>
           </div>
 
-          <div v-if="Object.keys(activePost).length && activePost.isActive" class="level-item">
-            <nuxt-link class="page-link has-text-white" to="/dev/focus"><b>Focus</b></nuxt-link>
+          <div v-if="activePost" class="level-item">
+            <nuxt-link :to="`/dev/focus/${this.$store.state.user.username}`" class="page-link has-text-white"><b>Focus</b></nuxt-link>
           </div>
         </div>
 
@@ -75,7 +75,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("user", ["activePost"]),
+    ...mapGetters("coworkers", ["activePost"]),
   },
   methods: {
     newPostModal() {

@@ -9,6 +9,7 @@
 import Cookies from "js-cookie";
 
 export default {
+  layout: 'none',
   name: "SignIn",
   data() {
     return {

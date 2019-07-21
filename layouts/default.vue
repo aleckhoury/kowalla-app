@@ -1,13 +1,78 @@
 <template>
   <div>
-    <nuxt/>
+    <Header
+      :home-feed="isHomeFeed"
+      :type="headerType"
+      class="is-hidden-touch"
+    />
+    <MobileHeader
+      :type="headerType"
+      :open-sidebar="openSidebar"
+      class="is-hidden-desktop"
+    />
+    <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" />
+    <nuxt />
+    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
+<script>
+import Header from "../components/Header/Header";
+import MobileHeader from "../components/Header/Mobile/MobileHeader";
+import MobileFooter from "../components/Header/Mobile/MobileFooter";
+import SideMenu from "../components/Header/Mobile/SideMenu";
+import Utils from '~/utils/helpers';
 
+export default {
+  components: { SideMenu, MobileHeader, MobileFooter, Header },
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  computed: {
+    isHomeFeed() {
+      return this.$route.path === "/dev";
+    },
+    headerType() {
+      const regex1 = RegExp("/dev/user/.*/edit");
+      const regex2 = RegExp("/dev/project/.*/edit");
+      const regex3 = RegExp("/dev/community/.*/edit");
+      if (regex1.test(this.$route.path)) return "ProfileSettingsActiveTab";
+      else if (regex2.test(this.$route.path)) return "ProjectSettingsActiveTab";
+      else if (regex3.test(this.$route.path))
+        return "CommunitySettingsActiveTab";
+      else return "NewsFeedActiveTab";
+    },
+  },
+  mounted() {
+    this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);
+  },
+  sockets: {
+    updateUsers(data) {
+      this.$store.commit("coworkers/SOCKET_JOIN", data);
+    },
+    checkForUser(data) {
+      if (data === this.$store.state.user.username) {
+        this.$socket.emit("join", {
+          username: this.$store.state.user.username,
+          profilePicture: this.$store.state.user.profilePicture,
+        });
+      } else {
+        this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);
+      }
+    }
+  },
+  methods: {
+    openSidebar() {
+      this.isOpen = !this.isOpen;
+    },
+  },
+};
+</script>
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header :home-feed="false" class="is-hidden-touch" />
-
     <div class="container is-fullhd is-hidden-touch">
       <!--
           we'll want to dial in the container fullhd breakpoint
@@ -99,12 +97,6 @@
     </div>
 
     <!-- Mobile -->
-    <MobileHeader
-      :location-picture-to-display="projectProfilePictureUrl"
-      :location-to-display="`@${name}`"
-      class="is-hidden-desktop"
-    />
-
     <div
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="is-marginless is-hidden-desktop mobile-main-margin"
@@ -174,8 +166,6 @@
         @delete-post="removePostFromPostList"
       />
     </div>
-
-    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 
@@ -426,13 +416,5 @@ export default {
 }
 div.level {
   top: 0;
-}
-.fixed {
-  position: fixed;
-}
-.side-pane {
-  display: flex;
-  justify-content: center;
-  padding: 0 2em 2em 2em;
 }
 </style>
