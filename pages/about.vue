@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header />
 
     <div class="container is-fullhd">
       <!--
@@ -23,11 +22,8 @@
 </template>
 
 <script>
-import Header from "~/components/Header/Header";
-
 export default {
   name: "About",
-  components: { Header },
 };
 </script>
 

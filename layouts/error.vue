@@ -10,7 +10,7 @@
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-centered is-marginless main-margin">
         <div class="column is-half is-paddingless card">
           <p>Uh oh! Looks like you're lost!</p>
-          <nuxt-link to="/dev/">
+          <nuxt-link to="/dev">
             <a class="button action">Head Home</a>
           </nuxt-link>
           <img src="https://imgflip.com/s/meme/Surprised-Koala.jpg">

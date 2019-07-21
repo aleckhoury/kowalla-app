@@ -1,7 +1,6 @@
 export const defaultState = () => ({
   _id: '',
   createdAt: '',
-  activePost: { isActive: false },
   commentCount: 0,
   description: '',
   firstName: '',
@@ -75,12 +74,6 @@ export const actions = ({
 });
 
 export const getters = ({
-  activePost({ activePost }) {
-    if (activePost) {
-      return Object.keys(activePost).length ? activePost : {};
-    }
-    return {};
-  },
   isUserSubscribed: ({subscriptions, owned}) => (name) => {
     let isSubscribed = false;
     if (typeof subscriptions !== 'undefined') {
@@ -137,9 +130,6 @@ export const getters = ({
 });
 
 export const mutations = {
-  async isActivePost(state, payload) {
-    state.activePost = payload;
-  },
   async setUser(state, user) {
     state = Object.assign(state, user);
   },

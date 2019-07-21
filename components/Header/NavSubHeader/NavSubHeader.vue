@@ -11,7 +11,7 @@
             <div v-if="isNewsFeed" class="level-left full-height">
               <SortingOptions />
             </div>
-            <div v-if="homeFeed" :class="[isNewsFeed ? 'level-right' : '', 'level-item', 'full-height']">
+            <div :class="[isNewsFeed ? 'level-right' : '', 'level-item', 'full-height']">
               <Tabs :type="type" />
             </div>
           </div>
@@ -65,7 +65,7 @@ export default {
 
 <style lang="css" scoped>
 .nav-subheader-parent {
-  border-bottom: 1px solid #E0DDDD;
+  border-bottom: 2px solid #E0DDDD;
   background-color: white;
   height: 40px;
 }

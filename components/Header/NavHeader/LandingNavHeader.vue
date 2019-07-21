@@ -37,9 +37,6 @@ export default {
       isMounted: false,
     };
   },
-  computed: {
-    ...mapGetters("user", ["activePost"]),
-  },
   methods: {
     newPostModal() {
       this.$modal.open({

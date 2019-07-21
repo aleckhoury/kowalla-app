@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header :type="'ProfileSettingsActiveTab'" class="is-hidden-touch" />
-
     <div class="container is-fullhd is-hidden-touch">
       <div
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
@@ -36,25 +34,26 @@
     </div>
 
     <!-- Mobile -->
-    <MobileHeader
-      :location-picture-to-display="profilePictureUrl"
-      :location-to-display="`@${username}`"
-      class="is-hidden-desktop"
-    />
-
     <div
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="columns is-marginless is-hidden-desktop mobile-main-margin"
     >
-      <EditProfileForm
-        v-if="infoRes"
-        :first-name="firstName"
-        :last-name="lastName"
-        :username="username"
-        :profile-picture="profilePictureUrl"
-        :description="profileDescription"
-        :profile-id="profileId"
-      />
+      <b-tabs id="columnTabs" v-model="activeTab">
+        <b-tab-item>
+          <EditProfileForm
+            v-if="infoRes"
+            :first-name="firstName"
+            :last-name="lastName"
+            :username="username"
+            :profile-picture="profilePictureUrl"
+            :description="profileDescription"
+            :profile-id="profileId"
+          />
+        </b-tab-item>
+        <b-tab-item>
+          Test!
+        </b-tab-item>
+      </b-tabs>
     </div>
   </div>
 </template>
@@ -134,11 +133,4 @@ export default {
 </script>
 
 <style lang="css">
-.screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 </style>

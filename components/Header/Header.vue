@@ -10,15 +10,15 @@
           <div class="delete is-large is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
         </h1>
         <h2 class="subtitle">
-          Kowalla is the coworking space that lives in your pocket, so you're
-          never more than a tap away from the community and support you need to
+          Kowalla is the coworking space that goes where you go, so you're
+          never more than a click away from the community and support you need to
           build your dreams. That means:
           <ul>
             <li>
               Reddit-like communities
             </li>
             <li>
-              Live Posts to work remotely with others
+              Live Posts to easily cowork with others
             </li>
             <li>
               Integrations to showcase your work without you lifting a finger
@@ -31,7 +31,7 @@
         version="1.1"
         width="100%"
         height="11.4rem"
-        fill="#db9dee"
+        fill="#bd56e1"
       >
         <defs>
           <filter id="goo">
@@ -49,7 +49,7 @@
             <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
         </defs>
-        <g filter="url('#goo')">
+        <g filter="url(#goo)">
           <rect width="100%" height="40px" />
           <circle id="one" cx="87%" cy="100" r="80" />
           <circle id="two" cx="95%" cy="100" r="30" />
@@ -69,7 +69,6 @@ import NavSubHeader from "~/components/Header/NavSubHeader/NavSubHeader";
 export default {
   name: "Header",
   components: { NavHeader, NavSubHeader },
-
   props: {
     type: { type: String, default: "NewsFeedActiveTab" },
     homeFeed: { type: Boolean, default: true },
@@ -105,18 +104,18 @@ export default {
 .bannerStripe {
   height: 40px;
   width: 100%;
-  background-color: #db9dee;
+  background-color: #bd56e1;
   z-index: 1;
   position: absolute;
 }
 .title {
   padding-bottom: 0.2em;
-  color: #0A2049;
+  color: white;
 }
 .subtitle {
   font-size: 1.2rem;
-  line-height: 1.4;
-  color: #0A2049;
+  line-height: 1.5;
+  color: white;
   max-width: 60%;
 }
 ul {
@@ -129,7 +128,7 @@ ul li {
 svg {
   position: fixed;
   z-index: -1;
-  background-color: #efbbcc;
+  background-color: #cd7be8;
 }
 circle {
   animation-duration: 15s;

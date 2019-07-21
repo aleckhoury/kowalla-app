@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="screen background-tint">
-    <Header class="is-hidden-touch" />
-
     <div class="container is-fullhd is-hidden-touch">
       <!--
           we'll want to dial in the container fullhd breakpoint
@@ -18,12 +16,15 @@
           <NavPane class="fixed" />
         </div>
 
-        <div id="postFeed" class="column is-one-half is-paddingless no-margin">
+        <div
+          id="postFeed"
+          class="column is-one-half is-paddingless is-marginless"
+        >
           <CreatePost
             v-if="this.$store.state.user.loggedIn && isMounted"
             @post-created="addPostToPostList"
           />
-          <b-tabs id="columnTabs" v-model="activeTab" :destroy-on-hide="false">
+          <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
               <EmptyPostList v-if="!postList.length" />
               <Post
@@ -39,7 +40,7 @@
                   !subscribedPostList.length && this.$store.state.user.loggedIn
                 "
               />
-              <h1 class="noPosts">
+              <h1 v-if="!this.$store.state.user.loggedIn" class="noPosts">
                 Create an account or sign in to subscribe to communities and
                 projects!
               </h1>
@@ -56,30 +57,45 @@
         <!-- info pane -->
         <div class="column is-one-quarter side-pane">
           <SignupCard v-if="!this.$store.state.user.loggedIn" class="fixed" />
+          <ActiveCoworkers />
         </div>
       </div>
     </div>
-
-    <MobileHeader
-      class="is-hidden-desktop"
-      location-to-display="Home"
-      is-home
-    />
 
     <div
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="columns is-marginless is-hidden-desktop mobile-main-margin"
     >
-      <EmptyPostList v-if="!postList.length" />
-      <Post
-        v-for="post in postList"
-        :key="post._id"
-        :post="post"
-        :is-mobile="true"
-      />
+      <ActiveCoworkers />
+      <b-tabs id="columnTabs" v-model="activeTab">
+        <b-tab-item>
+          <EmptyPostList v-if="!postList.length" />
+          <Post
+            v-for="post in postList"
+            :key="post._id"
+            :post="post"
+            :is-mobile="true"
+            @delete-post="removePostFromPostList"
+          />
+        </b-tab-item>
+        <b-tab-item>
+          <EmptyPostList
+            v-if="!subscribedPostList.length && this.$store.state.user.loggedIn"
+          />
+          <h1 v-if="!this.$store.state.user.loggedIn" class="noPosts">
+            Create an account or sign in to subscribe to communities and
+            projects!
+          </h1>
+          <Post
+            v-for="post in subscribedPostList"
+            :key="post._id"
+            :post="post"
+            :is-mobile="true"
+            @delete-post="removePostFromPostList"
+          />
+        </b-tab-item>
+      </b-tabs>
     </div>
-
-    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 
@@ -93,9 +109,12 @@ import Post from "~/components/PostCards/NewsfeedPost";
 import CreatePost from "~/components/PostCards/CreatePost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "~/components/InfoCards/SignupCard";
+import ActiveCoworkers from "../../components/InfoCards/ActiveCoworkers";
 export default {
+  layout: "default",
   name: "Test",
   components: {
+    ActiveCoworkers,
     SignupCard,
     EmptyPostList,
     CreatePost,
@@ -224,30 +243,5 @@ export default {
 };
 </script>
 
-<style lang="css">
-.no-padding {
-  padding: 0px;
-}
-
-.no-margin {
-  margin: 0px;
-}
-
-.side-pane {
-  display: flex;
-  justify-content: center;
-  padding: 0 2em 2em 2em;
-}
-
-.screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.fixed {
-  width: 100%;
-  position: fixed;
-}
+<style lang="css" scoped>
 </style>

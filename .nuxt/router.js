@@ -5,10 +5,10 @@ import { interopDefault } from './utils'
 const _16cfdf96 = () => interopDefault(import('../pages/about.vue' /* webpackChunkName: "pages/about" */))
 const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
 const _4fb51a10 = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
-const _31eff532 = () => interopDefault(import('../pages/dev/focus.vue' /* webpackChunkName: "pages/dev/focus" */))
 const _07a69623 = () => interopDefault(import('../pages/dev/signin.vue' /* webpackChunkName: "pages/dev/signin" */))
 const _ad2d83c2 = () => interopDefault(import('../pages/dev/community/_communityname/index.vue' /* webpackChunkName: "pages/dev/community/_communityname/index" */))
 const _7a6a274e = () => interopDefault(import('../pages/dev/community/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/community/_communityname/index/posts/_postId" */))
+const _dea35960 = () => interopDefault(import('../pages/dev/focus/_username/index.vue' /* webpackChunkName: "pages/dev/focus/_username/index" */))
 const _57098e5f = () => interopDefault(import('../pages/dev/project/_projectname/index.vue' /* webpackChunkName: "pages/dev/project/_projectname/index" */))
 const _4fcdf0e4 = () => interopDefault(import('../pages/dev/project/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/project/_projectname/index/posts/_postId" */))
 const _26a45ff5 = () => interopDefault(import('../pages/dev/user/_username/index.vue' /* webpackChunkName: "pages/dev/user/_username/index" */))
@@ -105,10 +105,6 @@ export function createRouter() {
         name: "dev-index-posts-postId"
       }]
     }, {
-      path: "/dev/focus",
-      component: _31eff532,
-      name: "dev-focus"
-    }, {
       path: "/dev/signin",
       component: _07a69623,
       name: "dev-signin"
@@ -121,6 +117,10 @@ export function createRouter() {
         component: _7a6a274e,
         name: "dev-community-communityname-index-posts-postId"
       }]
+    }, {
+      path: "/dev/focus/:username?",
+      component: _dea35960,
+      name: "dev-focus-username"
     }, {
       path: "/dev/project/:projectname?",
       component: _57098e5f,

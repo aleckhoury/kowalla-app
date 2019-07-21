@@ -1,7 +1,7 @@
 <template>
   <div class="level">
     <div class="level-item">
-      <span class="liveBox">{{ countdown }}</span>
+      <span class="liveBox">{{ countUp }}</span>
     </div>
   </div>
 </template>
@@ -10,26 +10,27 @@
 export default {
   name: "PostTimer",
   props: {
-    time: { type: String, default: "" },
+    startTime: { type: String, default: "" },
   },
   data() {
     return {
-      countdown: "",
+      countUp: "",
     };
   },
   mounted() {
-    this.countdownTimer(new Date(this.time).getTime());
+    this.countUpTimer();
   },
   methods: {
-    countdownTimer(expireTimeMS) {
+    countUpTimer() {
+      const start = new Date(this.startTime).getTime();
       const self = this;
       let x = setInterval(function() {
         let now = new Date().getTime();
 
-        let distance = expireTimeMS - now;
+        let distance = now - start;
 
         let hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -38,10 +39,7 @@ export default {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        self.countdown = `${hours}:${minutes}:${seconds}`;
-        if (self.countdown === "00:00:00") {
-          clearInterval(x);
-        }
+        self.countUp = `${hours}:${minutes}:${seconds}`;
       }, 1000);
     },
   },
