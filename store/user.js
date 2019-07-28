@@ -14,6 +14,7 @@ export const defaultState = () => ({
   updatedAt: '',
   loggedIn: false,
   hasNotifications: false,
+  integrations: [],
 });
 
 const initialState = defaultState();
@@ -163,6 +164,13 @@ export const mutations = {
       if (state.owned[i].name === subObj.name) {
         state.owned.splice(i, 1);
       }
+    }
+  },
+  toggleIntegration(state, integrationObj) {
+    if (integrationObj.index !== -1) {
+      state.integrations.splice(integrationObj.index, 1);
+    } else {
+      state.integrations.push(integrationObj.name);
     }
   },
   editOwned(state, subObj) {

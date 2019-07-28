@@ -25,7 +25,7 @@
               />
             </b-tab-item>
             <b-tab-item>
-              Test!
+              <IntegrationCard v-for="(test, idx) in integrationList" :key="idx" :name="test.name" :description="test.description" />
             </b-tab-item>
           </b-tabs>
         </div>
@@ -73,9 +73,11 @@ import EditButton from "~/components/InfoCards/EditButton";
 import Post from "~/components/PostCards/NewsfeedPost";
 import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import EditProfileForm from "~/components/Forms/EditProfile";
+import IntegrationCard from "../../../../components/Forms/IntegrationCard";
 export default {
   name: "Edit",
   components: {
+    IntegrationCard,
     NavPane,
     NavCard,
     Card,
@@ -96,6 +98,7 @@ export default {
       profilePictureUrl: "",
       profileDescription: "",
       infoRes: false,
+      integrationList: [],
     };
   },
   computed: {
@@ -126,6 +129,8 @@ export default {
     this.profileDescription = this.infoRes.description;
     this.profilePictureUrl = this.infoRes.profilePicture;
     this.profileId = this.infoRes._id;
+
+    this.integrationList = await this.$axios.$get(`/api/v1/integrations`);
     document.title = `Kowalla - Edit Profile`;
   },
   methods: {},

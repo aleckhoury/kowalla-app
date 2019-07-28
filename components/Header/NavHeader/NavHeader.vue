@@ -4,7 +4,13 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <nuxt-link class="kowalla-logo" to="/dev">kowalla</nuxt-link>
+            <nuxt-link class="kowalla-logo" to="/dev">
+              <img
+                src="https://i.imgur.com/04hoRgV.png"
+                class="kowalla-logo-picture"
+              />
+              kowalla
+            </nuxt-link>
           </div>
 
           <div class="level-item">
@@ -138,5 +144,10 @@ export default {
 
 .main-theme {
   background-color: #39C9A0;
+}
+
+.kowalla-logo-picture {
+  height: 50px;
+  vertical-align: middle;
 }
 </style>

@@ -137,9 +137,9 @@
                 @click="toggleLivePost"
               >
                 <span v-if="!livePost" class="dot" />
-                <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live
-                Post
+                <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live Post
               </BButton>
+              <EmbedButton v-if="embedIsActive" :command="commands.iframe" @enterUrl="insertVideo" />
             </div>
           </editor-menu-bar>
           <div class="editor content">
@@ -237,10 +237,13 @@ import {
   History,
 } from "tiptap-extensions";
 import { mapGetters } from "vuex";
+import Iframe from './Iframe';
+import EmbedButton from "./EmbedButton";
 
 export default {
   name: "CreatePostModal",
   components: {
+    EmbedButton,
     Editor,
     EditorContent,
     EditorMenuBar,
@@ -295,6 +298,9 @@ export default {
         return list;
       }
     },
+    embedIsActive() {
+      return this.$store.state.user.integrations.indexOf('Embed Video') !== -1;
+    }
   },
   mounted() {
     this.editor = new Editor({
@@ -318,6 +324,8 @@ export default {
         new Strike(),
         new Underline(),
         new History(),
+        // Custom Extensions
+        new Iframe(),
       ],
       content: "<p></p><p></p><p></p><p></p>",
       onUpdate: ({ getHTML }) => {
@@ -337,6 +345,11 @@ export default {
     await this.editor.destroy();
   },
   methods: {
+    insertVideo(data) {
+      if (data.command !== null) {
+        data.command(data.data);
+      }
+    },
     toggleLivePost() {
       if (this.postAsList.some(x => x.type === 'project')) {
         this.livePost = !this.livePost;

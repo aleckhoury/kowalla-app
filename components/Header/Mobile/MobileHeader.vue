@@ -303,8 +303,8 @@ export default {
 }
 
 .kowalla-logo-picture {
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
   margin-right: 5px;
 }
 

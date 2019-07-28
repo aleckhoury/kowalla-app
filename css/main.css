@@ -164,4 +164,8 @@ a.dropdown-item.is-active {
     border-bottom-color: #39C9A0;
     border-left-color: #39C9A0;
 }
+iframe {
+    width: 100%;
+    height: 20rem;
+}
 
