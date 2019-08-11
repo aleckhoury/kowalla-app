@@ -254,9 +254,6 @@ export default {
   padding-top: 0;
   padding-right: 0;
 }
-.mobile-main-margin {
-  padding-top: 100px;
-}
 div.level {
   top: 0;
 }

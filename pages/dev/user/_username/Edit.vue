@@ -105,9 +105,6 @@ export default {
     username() {
       return this.$route.params.username;
     },
-    sort() {
-      return this.$store.state.sorting.feed;
-    },
     activeTab() {
       if (process.browser) {
         return this.$store.state.activeTabs.SettingsActiveTab;

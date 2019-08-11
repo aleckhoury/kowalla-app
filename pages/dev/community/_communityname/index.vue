@@ -230,9 +230,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.mobile-main-margin {
-  padding-top: 100px !important;
-}
 .card-container {
   margin-bottom: 0;
 }

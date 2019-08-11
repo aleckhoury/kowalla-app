@@ -121,6 +121,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.level:not(:last-child) {
+  margin: 0;
+}
 .button {
   color: #39c9a0;
   border: 2px solid #39c9a0;

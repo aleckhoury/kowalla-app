@@ -208,9 +208,6 @@ export default {
     };
   },
   computed: {
-    sort() {
-      return this.$store.state.sorting.feed;
-    },
     isOwner() {
       let isOwner = false;
       if (typeof this.$store.state.user.owned !== "undefined") {
@@ -313,9 +310,6 @@ export default {
 .column.is-one-quarter {
   padding-top: 0;
   padding-right: 0;
-}
-.mobile-main-margin {
-  padding-top: 100px;
 }
 div.level {
   top: 0;

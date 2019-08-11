@@ -170,9 +170,6 @@ export default {
     getUsername() {
       return this.username;
     },
-    sort() {
-      return this.$store.state.sorting.feed;
-    },
   },
   created() {
     this.username = this.$route.params.username;
