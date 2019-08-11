@@ -1,16 +1,13 @@
 <template>
   <div>
     <Header
-      :home-feed="isHomeFeed"
-      :type="headerType"
       class="is-hidden-touch"
     />
     <MobileHeader
-      :type="headerType"
       :open-sidebar="openSidebar"
       class="is-hidden-desktop"
     />
-    <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" />
+    <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" class="is-hidden-desktop" />
     <nuxt />
     <MobileFooter class="is-hidden-desktop" />
   </div>
@@ -28,21 +25,6 @@ export default {
     return {
       isOpen: false,
     };
-  },
-  computed: {
-    isHomeFeed() {
-      return this.$route.path === "/dev";
-    },
-    headerType() {
-      const regex1 = RegExp("/dev/user/.*/edit");
-      const regex2 = RegExp("/dev/project/.*/edit");
-      const regex3 = RegExp("/dev/community/.*/edit");
-      if (regex1.test(this.$route.path)) return "ProfileSettingsActiveTab";
-      else if (regex2.test(this.$route.path)) return "ProjectSettingsActiveTab";
-      else if (regex3.test(this.$route.path))
-        return "CommunitySettingsActiveTab";
-      else return "NewsFeedActiveTab";
-    },
   },
   mounted() {
     this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);

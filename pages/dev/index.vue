@@ -17,43 +17,12 @@
         </div>
 
         <div
-          id="postFeed"
           class="column is-one-half is-paddingless is-marginless"
         >
-          <CreatePost
-            v-if="this.$store.state.user.loggedIn && isMounted"
-            @post-created="addPostToPostList"
+          <PostFeed
+            type="NewsFeedActiveTab"
           />
-          <b-tabs id="columnTabs" v-model="activeTab">
-            <b-tab-item>
-              <EmptyPostList v-if="!postList.length" />
-              <Post
-                v-for="post in postList"
-                :key="post._id"
-                :post="post"
-                @delete-post="removePostFromPostList"
-              />
-            </b-tab-item>
-            <b-tab-item>
-              <EmptyPostList
-                v-if="
-                  !subscribedPostList.length && this.$store.state.user.loggedIn
-                "
-              />
-              <h1 v-if="!this.$store.state.user.loggedIn" class="noPosts">
-                Create an account or sign in to subscribe to communities and
-                projects!
-              </h1>
-              <Post
-                v-for="post in subscribedPostList"
-                :key="post._id"
-                :post="post"
-                @delete-post="removePostFromPostList"
-              />
-            </b-tab-item>
-          </b-tabs>
         </div>
-
         <!-- info pane -->
         <div class="column is-one-quarter side-pane">
           <SignupCard v-if="!this.$store.state.user.loggedIn" class="fixed" />
@@ -67,34 +36,11 @@
       class="columns is-marginless is-hidden-desktop mobile-main-margin"
     >
       <ActiveCoworkers />
-      <b-tabs id="columnTabs" v-model="activeTab">
-        <b-tab-item>
-          <EmptyPostList v-if="!postList.length" />
-          <Post
-            v-for="post in postList"
-            :key="post._id"
-            :post="post"
-            :is-mobile="true"
-            @delete-post="removePostFromPostList"
-          />
-        </b-tab-item>
-        <b-tab-item>
-          <EmptyPostList
-            v-if="!subscribedPostList.length && this.$store.state.user.loggedIn"
-          />
-          <h1 v-if="!this.$store.state.user.loggedIn" class="noPosts">
-            Create an account or sign in to subscribe to communities and
-            projects!
-          </h1>
-          <Post
-            v-for="post in subscribedPostList"
-            :key="post._id"
-            :post="post"
-            :is-mobile="true"
-            @delete-post="removePostFromPostList"
-          />
-        </b-tab-item>
-      </b-tabs>
+      <SortingOptions :is-mobile="true" />
+      <PostFeed
+        :is-mobile="true"
+        type="NewsFeedActiveTab"
+      />
     </div>
   </div>
 </template>
@@ -105,140 +51,34 @@ import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
 import NavPane from "~/components/NavCards/NavPane";
-import Post from "~/components/PostCards/NewsfeedPost";
 import CreatePost from "~/components/PostCards/CreatePost";
-import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import ActiveCoworkers from "../../components/InfoCards/ActiveCoworkers";
+import PostFeed from "~/components/PostCards/PostFeed";
+import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
+
 export default {
   layout: "default",
-  name: "Test",
+  name: "Home",
   components: {
+    SortingOptions,
     ActiveCoworkers,
     SignupCard,
-    EmptyPostList,
     CreatePost,
     Header,
     NavPane,
-    Post,
     MobileHeader,
     MobileFooter,
+    PostFeed,
   },
 
   data() {
     return {
-      postList: [],
-      subscribedPostList: [],
       isMounted: false,
-      test: true,
     };
   },
-  computed: {
-    sort() {
-      if (process.browser) {
-        return this.$store.state.sorting.newsfeed;
-      }
-    },
-    activeTab() {
-      if (process.browser) {
-        return this.$store.state.activeTabs.NewsFeedActiveTab;
-      }
-    },
-  },
-  watch: {
-    async sort() {
-      this.postList = await this.$axios.$get(
-        `/api/v1/feed/posts/${this.sort}/0`
-      );
-      this.subscribedPostList = await this.$axios.$get(
-        `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/0`
-      );
-
-      await this.scroll();
-    },
-  },
-  async mounted() {
-    this.postList = await this.$axios.$get(
-      `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
-    );
-    if (this.$store.state.user.loggedIn) {
-      this.subscribedPostList = await this.$axios.$get(
-        `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
-          this.subscribedPostList.length
-        }`
-      );
-    }
-
-    await this.scroll();
+  mounted() {
     this.isMounted = true;
-  },
-  methods: {
-    async scroll() {
-      if (this.postList.length || this.subscribedPostList.length) {
-        let isActive = false;
-        window.onscroll = async () => {
-          const feed = document.getElementById("postFeed");
-          const bottomOfWindow =
-            window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
-          if (!isActive && bottomOfWindow) {
-            isActive = true;
-            let posts;
-            let newList;
-            if (this.activeTab === 0) {
-              posts = await this.$axios.$get(
-                `/api/v1/feed/posts/${this.sort}/${this.postList.length}`
-              );
-              newList = await this.postList.concat(posts);
-              if (posts.length) {
-                this.postList = await newList;
-                isActive = false;
-              }
-            } else if (
-              this.activeTab === 0 &&
-              this.$store.state.user.loggedIn
-            ) {
-              posts = await this.$axios.$get(
-                `/api/v1/feed/posts/${this.$store.state.user._id}/${
-                  this.sort
-                }/${this.subscribedPostList.length}`
-              );
-              newList = await this.subscribedPostList.concat(posts);
-              if (posts.length) {
-                this.subscribedPostList = await newList;
-                isActive = false;
-              }
-            }
-          }
-        };
-      }
-    },
-    addPostToPostList(postObj) {
-      //console.log('postcreated')
-      this.postList.unshift(postObj);
-      if (this.$store.state.user.loggedIn) {
-        this.subscribedPostList.unshift(postObj);
-      }
-    },
-    async removePostFromPostList(postId) {
-      for (let i in this.postList) {
-        if (this.postList[i]._id === postId) {
-          this.postList.splice(i, 1);
-          await this.$axios.delete(
-            `/api/v1/communities/${this.communityId}/posts/${postId}`
-          );
-          break;
-        }
-      }
-      for (let i in this.subscribedPostList) {
-        if (this.subscribedPostList[i]._id === postId) {
-          this.subscribedPostList.splice(i, 1);
-          await this.$axios.delete(
-            `/api/v1/communities/${this.communityId}/posts/${postId}`
-          );
-          break;
-        }
-      }
-    },
   },
 };
 </script>

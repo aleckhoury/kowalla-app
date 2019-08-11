@@ -28,6 +28,19 @@
       :reactions-formatted="reactionsFormatted"
       @open-post="openPost"
     />
+    <AddComment
+      v-if="!activeCommentId"
+      :post-id="post._id"
+      :update-comment="updateComment"
+    />
+    <Comment
+      v-for="comment in commentList"
+      :active-comment="activeCommentId"
+      :key="comment._id"
+      :comment="comment"
+      :nest-level="0"
+      :toggle="toggleComment"
+    />
   </div>
 </template>
 
@@ -55,6 +68,7 @@ export default {
       default: false,
     },
     methodProp: { type: Function, default: () => {} },
+    truncate: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -93,9 +107,11 @@ export default {
         console.log("error grabbing some values");
       }
     }
-    if (this.$refs["content"]) {
-      if (this.$refs["content"].getBoundingClientRect().height >= 480) {
-        this.overflow = true;
+    if (this.truncate) {
+      if (this.$refs["content"]) {
+        if (this.$refs["content"].getBoundingClientRect().height >= 480) {
+          this.overflow = true;
+        }
       }
     }
     try {
@@ -143,22 +159,30 @@ export default {
         project: this.isProject ? this.project : {},
         profile: this.isProject ? {} : this.profile,
       };
-      this.$modal.open({
-        parent: this,
-        component: PostModal,
-        props: {
-          infoObj: infoObj,
-          postObj: this.post,
-          isProject: this.isProject,
-        },
-        events: {
-          "delete-post": postId => {
-            this.echoDeletePost(postId);
+      if (this.isMobile) {
+        if (Object.keys(this.community).length) {
+          this.$router.push(`/dev/community/${this.community.name}/posts/${this.post._id}`);
+        } else {
+          this.$router.push(`/dev/project/${this.project.name}/posts/${this.post._id}`);
+        }
+      } else {
+        this.$modal.open({
+          parent: this,
+          component: PostModal,
+          props: {
+            infoObj: infoObj,
+            postObj: this.post,
+            isProject: this.isProject,
           },
-        },
-        width: 900,
-        hasModalCard: true,
-      });
+          events: {
+            "delete-post": postId => {
+              this.echoDeletePost(postId);
+            },
+          },
+          width: 900,
+          hasModalCard: true,
+        });
+      }
     },
     async toggleReaction(emoji) {
       if (!this.$store.state.user.loggedIn) {

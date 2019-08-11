@@ -1,13 +1,7 @@
 <template lang="html">
   <div class="screen background-tint">
     <div class="container is-fullhd is-hidden-touch">
-      <!--
-          we'll want to dial in the container fullhd breakpoint
-          right now it isn't contained to just ultra-wides, and effects
-          normal laptop resolution
-      -->
 
-      <!-- three columns, navpane, content, infopane -->
       <div
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
         class="columns is-marginless main-margin"
@@ -17,18 +11,16 @@
         </div>
 
         <div class="column is-three-quarters is-paddingless">
-          <Banner
-            :banner-url="bannerPictureUrl"
-            :banner-title="communityName"
-            :id="communityId"
-            :is-subscribed="isSubscribed"
-            :is-owner="isOwner"
-            banner-title-prefix="#"
-            @subscription-button-clicked="updateSubscriptions"
-          />
-          <div id="postFeed" class="columns is-marginless newsfeed-padding">
+          <div id="postFeed" class="columns is-marginless">
             <div class="column is-two-thirds is-paddingless">
-              <PostFeed v-if="communityId" :page-id="communityId" type="community" />
+              <Post
+                id="communityPost"
+                :key="post._id"
+                :post="post"
+                :is-mobile="false"
+                :truncate="false"
+                @delete-post="removePostFromPostList"
+              />
             </div>
             <div class="column is-one-third is-paddingless side-pane">
               <InfoPane>
@@ -70,34 +62,13 @@
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="is-marginless is-hidden-desktop mobile-main-margin"
     >
-      <Banner
-        :banner-url="bannerPictureUrl"
-        :banner-title="communityName"
-        :id="communityId"
-        :is-subscribed="isSubscribed"
-        :is-owner="isOwner"
-        banner-title-prefix="#"
-        is-mobile
-        @subscription-button-clicked="updateSubscriptions"
+      <Post
+        :key="post._id"
+        :post="post"
+        :is-mobile="true"
+        :truncate="false"
+        @delete-post="removePostFromPostList"
       />
-
-      <DescriptionCard
-        :subheader-on="false"
-        class="newsfeed-margin"
-        header-string="Description"
-      >
-        {{ communityDescription }}
-      </DescriptionCard>
-
-      <div class="side-pane">
-        <EditButton
-          v-if="this.$store.state.user._id === adminId"
-          @edit-button-clicked="callEditCommunityModal"
-        >
-          <b>Edit Settings</b>
-        </EditButton>
-      </div>
-      <PostFeed v-if="communityId" :page-id="communityId" :is-mobile="true" type="community" />
     </div>
   </div>
 </template>
@@ -115,13 +86,12 @@ import EditButton from "~/components/InfoCards/EditButton";
 import EditCommunityModal from "~/components/Modals/Edit/EditCommunityModal";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import SignupCard from "~/components/InfoCards/SignupCard";
-import PostFeed from "~/components/PostCards/PostFeed";
-
+import Post from "~/components/PostCards/NewsfeedPost";
 
 export default {
   name: "UserPageTest",
   components: {
-    PostFeed,
+    Post,
     SignupCard,
     Header,
     MobileHeader,
@@ -146,6 +116,7 @@ export default {
       numSubs: "",
       communityId: "",
       communityStats: [],
+      post: {},
     };
   },
   computed: {
@@ -181,6 +152,8 @@ export default {
     let infoRes = await this.$axios.get(
       `/api/v1/communities/community/${this.communityName}`
     );
+    this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+
     this.bannerPictureUrl = infoRes.data.headerPicture;
     this.profilePictureUrl = infoRes.data.profilePicture;
     this.communityId = infoRes.data._id;
@@ -191,6 +164,12 @@ export default {
     // fill stats
     this.communityStats.push({ name: "Subs", stat: infoRes.data.subscribers });
     this.communityStats.push({ name: "Posts", stat: infoRes.data.postCount });
+
+    if ('scrollRestoration' in history) {
+      // Back off, browser, I got this...
+      history.scrollRestoration = 'manual';
+    }
+
     document.title = `Kowalla - #${this.communityName}`;
   },
   methods: {
@@ -224,6 +203,11 @@ export default {
         width: 900,
         hasModalCard: true,
       });
+    },
+    async removePostFromPostList() {
+      await this.$axios.delete(
+              `/api/v1/posts/${this.post._id}`
+      );
     },
   },
 };

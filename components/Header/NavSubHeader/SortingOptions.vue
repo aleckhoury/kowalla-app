@@ -1,25 +1,34 @@
 <template lang="html">
   <div class="sorting">
-    <div>
-      <b-dropdown :position="isMobile ? 'is-bottom-left' : null" class="dropdown-container" hoverable aria-role="list">
-        <div slot="trigger" class="dropdown-selector">
-          <b class="font theme-color selector-child">{{ sort }}</b>
-          <font-awesome-icon
-            icon="angle-down"
-            class="theme-color selector-child"
-          />
-        </div>
-        <b-dropdown-item
-          v-for="item in options"
-          :value="item.value"
-          :key="item.value"
-          aria-role="listitem"
-          @click="handleCommand(item.value)"
-        >
-          {{ item.value }}
-        </b-dropdown-item>
-      </b-dropdown>
+    <div
+      v-if="isMobile"
+      class="is-hidden-desktop sortIcons"
+    >
+      <font-awesome-icon
+        v-if="this.$store.state.sorting.feed === 'Newest'"
+        icon="sort-amount-down"
+        @click="handleCommand('Oldest')"
+      />
+      <font-awesome-icon v-else icon="sort-amount-up" @click="handleCommand('Newest')" />
     </div>
+    <b-dropdown v-else class="dropdown-container is-hidden-touch" aria-role="list" hoverable>
+      <div slot="trigger" class="dropdown-selector">
+        <b class="font theme-color">{{ this.$store.state.sorting.feed }}</b>
+        <font-awesome-icon
+          icon="angle-down"
+          class="theme-color selector-child"
+        />
+      </div>
+      <b-dropdown-item
+        v-for="item in options"
+        :value="item.value"
+        :key="item.value"
+        aria-role="listitem"
+        @click="handleCommand(item.value)"
+      >
+        {{ item.value }}
+      </b-dropdown-item>
+    </b-dropdown>
   </div>
 </template>
 
@@ -47,30 +56,7 @@ export default {
       ],
     };
   },
-  computed: {
-    sort() {
-      let pageType;
-      switch (this.type) {
-        case "/project/":
-          pageType = "project";
-          break;
-        case "/user/":
-          pageType = "profile";
-          break;
-        case "/community/":
-          pageType = "community";
-          break;
-        case "/":
-          pageType = "newsfeed";
-          break;
-      }
-      if (process.browser) {
-        return this.$store.state.sorting[pageType];
-      } else {
-        return "";
-      }
-    },
-  },
+  computed: {},
   created() {
     try {
       let re = new RegExp("/[user,project,community]/");
@@ -81,16 +67,7 @@ export default {
   },
   methods: {
     handleCommand(value) {
-      // this.selectedOption = command;
-      if (this.type === "/project/") {
-        this.$store.commit("sorting/updateProjectSortingOption", value);
-      } else if (this.type === "/user/") {
-        this.$store.commit("sorting/updateProfileSortingOption", value);
-      } else if (this.type === "/community/") {
-        this.$store.commit("sorting/updateCommunitySortingOption", value);
-      } else {
-        this.$store.commit("sorting/updateNewsfeedSortingOption", value);
-      }
+      this.$store.commit("sorting/updateFeedSort", value);
     },
   },
 };
@@ -104,23 +81,10 @@ export default {
   justify-content: center;
 }
 
-.dropdown-container {
-  height: 30px;
-  border: 2px solid #39C9A0;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
 .dropdown-selector {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-right: 5px;
-  margin-left: 5px;
-}
-
-.margin {
-  margin-left: 5px;
 }
 
 .selector-child {
@@ -151,4 +115,9 @@ export default {
  .theme-color {
    color: #39C9A0;
  }
+.sortIcons {
+  color: #999;
+  font-size: 1.8em;
+  margin-left: 85vw;
+}
 </style>

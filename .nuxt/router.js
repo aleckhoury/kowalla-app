@@ -7,14 +7,14 @@ const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpac
 const _4fb51a10 = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
 const _07a69623 = () => interopDefault(import('../pages/dev/signin.vue' /* webpackChunkName: "pages/dev/signin" */))
 const _ad2d83c2 = () => interopDefault(import('../pages/dev/community/_communityname/index.vue' /* webpackChunkName: "pages/dev/community/_communityname/index" */))
-const _7a6a274e = () => interopDefault(import('../pages/dev/community/_communityname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/community/_communityname/index/posts/_postId" */))
 const _dea35960 = () => interopDefault(import('../pages/dev/focus/_username/index.vue' /* webpackChunkName: "pages/dev/focus/_username/index" */))
 const _57098e5f = () => interopDefault(import('../pages/dev/project/_projectname/index.vue' /* webpackChunkName: "pages/dev/project/_projectname/index" */))
-const _4fcdf0e4 = () => interopDefault(import('../pages/dev/project/_projectname/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/project/_projectname/index/posts/_postId" */))
 const _26a45ff5 = () => interopDefault(import('../pages/dev/user/_username/index.vue' /* webpackChunkName: "pages/dev/user/_username/index" */))
 const _728d896d = () => interopDefault(import('../pages/dev/community/_communityname/Edit.vue' /* webpackChunkName: "pages/dev/community/_communityname/Edit" */))
 const _38fb9da6 = () => interopDefault(import('../pages/dev/project/_projectname/Edit.vue' /* webpackChunkName: "pages/dev/project/_projectname/Edit" */))
 const _f1c85652 = () => interopDefault(import('../pages/dev/user/_username/Edit.vue' /* webpackChunkName: "pages/dev/user/_username/Edit" */))
+const _761ce70b = () => interopDefault(import('../pages/dev/community/_communityname/posts/_postId.vue' /* webpackChunkName: "pages/dev/community/_communityname/posts/_postId" */))
+const _10ee116a = () => interopDefault(import('../pages/dev/project/_projectname/posts/_postId.vue' /* webpackChunkName: "pages/dev/project/_projectname/posts/_postId" */))
 const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -111,12 +111,7 @@ export function createRouter() {
     }, {
       path: "/dev/community/:communityname?",
       component: _ad2d83c2,
-      name: "dev-community-communityname",
-      children: [{
-        path: "posts/:postId?",
-        component: _7a6a274e,
-        name: "dev-community-communityname-index-posts-postId"
-      }]
+      name: "dev-community-communityname"
     }, {
       path: "/dev/focus/:username?",
       component: _dea35960,
@@ -124,12 +119,7 @@ export function createRouter() {
     }, {
       path: "/dev/project/:projectname?",
       component: _57098e5f,
-      name: "dev-project-projectname",
-      children: [{
-        path: "posts/:postId?",
-        component: _4fcdf0e4,
-        name: "dev-project-projectname-index-posts-postId"
-      }]
+      name: "dev-project-projectname"
     }, {
       path: "/dev/user/:username?",
       component: _26a45ff5,
@@ -146,6 +136,14 @@ export function createRouter() {
       path: "/dev/user/:username?/Edit",
       component: _f1c85652,
       name: "dev-user-username-Edit"
+    }, {
+      path: "/dev/community/:communityname?/posts/:postId?",
+      component: _761ce70b,
+      name: "dev-community-communityname-posts-postId"
+    }, {
+      path: "/dev/project/:projectname?/posts/:postId?",
+      component: _10ee116a,
+      name: "dev-project-projectname-posts-postId"
     }, {
       path: "/",
       component: _3687ba5b,

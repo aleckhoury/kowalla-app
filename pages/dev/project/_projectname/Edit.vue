@@ -102,7 +102,6 @@ export default {
       profileStats: [],
       // newsfeed content
       postList: [],
-      isNestedUrl: false,
       infoRes: false,
     };
   },

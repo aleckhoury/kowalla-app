@@ -51,7 +51,7 @@
           />
         </b-tab-item>
         <b-tab-item>
-          Test!
+          <IntegrationCard v-for="(test, idx) in integrationList" :key="idx" :name="test.name" :description="test.description" />
         </b-tab-item>
       </b-tabs>
     </div>
@@ -106,11 +106,11 @@ export default {
       return this.$route.params.username;
     },
     sort() {
-      return this.$store.state.sorting.profile;
+      return this.$store.state.sorting.feed;
     },
     activeTab() {
       if (process.browser) {
-        return this.$store.state.activeTabs.ProfileSettingsActiveTab;
+        return this.$store.state.activeTabs.SettingsActiveTab;
       }
     },
   },

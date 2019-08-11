@@ -14,11 +14,8 @@
           @delete-post="echoDeletePost"
         />
         <PostTimer v-if="post.isActive" :time="post.expiration" />
-
         <div class="content is-marginless" v-html="post.content" />
-
         <br >
-
         <Reactions :post-id="post._id" />
       </div>
 
@@ -51,7 +48,6 @@ export default {
   name: "PostModal",
   components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
   props: {
-    isFromNestedUrl: { type: Boolean, default: false },
     isFromNewsfeed: { type: Boolean, default: false },
     fallbackUrl: { type: String, default: "" },
     isProject: { type: Boolean, default: false },
@@ -85,12 +81,18 @@ export default {
     this.community = this.infoObj.community;
     this.project = this.infoObj.project;
 
-    if (!this.isFromNestedUrl) {
-      this.originalPath = this.$route.path;
+    this.originalPath = this.$route.path;
+    if (Object.keys(this.community).length) {
       window.history.pushState(
         {},
         null,
         `/dev/community/${this.community.name}/posts/${this.post._id}`
+      );
+    } else {
+      window.history.pushState(
+        {},
+        null,
+        `/dev/project/${this.project.name}/posts/${this.post._id}`
       );
     }
   },
@@ -98,38 +100,6 @@ export default {
     window.history.pushState({}, null, `${this.$route.path}`);
   },
   async mounted() {
-    //this.post = await this.$axios.$get(`/api/v1/posts/${this.post._id}`);
-
-    if (this.isFromNestedUrl) {
-      // have to get information we haven't gotten from the NewsfeedPost component
-
-      if (this.post.hasOwnProperty("projectId")) {
-        this.isProject = true;
-        try {
-          this.project = await this.$axios.$get(
-            `/api/v1/projects/${this.post.projectId}`
-          );
-          this.community = await this.$axios.$get(
-            `/api/v1/communities/${this.post.communityId}`
-          );
-        } catch {
-          console.log("error grabbing some values");
-        }
-      } else {
-        this.isProject = false;
-        try {
-          this.profile = await this.$axios.$get(
-            `/api/v1/profiles/${this.post.profileId}`
-          );
-          this.community = await this.$axios.$get(
-            `/api/v1/communities/${this.post.communityId}`
-          );
-        } catch {
-          console.log("error grabbing some values");
-        }
-      }
-    }
-
     this.commentList = await this.$axios.$get(
       `/api/v1/comments/${this.post._id}`
     );
@@ -166,8 +136,8 @@ div.card {
 .box {
   width: 55em;
   max-width: 100%;
-  max-height: 85vh;
   overflow-y: scroll;
+  max-height: 87vh;
 }
 .modal-content {
   border-radius: 6px;
@@ -179,7 +149,7 @@ div.card {
 }
 .content {
   max-height: 60vh;
-  padding: 1em 1em;
+  padding: 2em 1em;
   overflow-y: scroll;
   word-break: break-word;
 }

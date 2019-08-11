@@ -64,6 +64,7 @@ export default {
     logout() {
       this.$store.commit("user/clearUser");
       Cookies.remove("token");
+      this.$store.commit('activeTabs/updateNewsFeedActiveTab', 0);
       this.$router.go();
     },
     closeActions() {
