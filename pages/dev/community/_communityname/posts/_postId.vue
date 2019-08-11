@@ -86,7 +86,7 @@ import EditButton from "~/components/InfoCards/EditButton";
 import EditCommunityModal from "~/components/Modals/Edit/EditCommunityModal";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import SignupCard from "~/components/InfoCards/SignupCard";
-import Post from "~/components/PostCards/NewsfeedPost";
+import Post from "~/components/PostCards/Post";
 
 export default {
   name: "UserPageTest",

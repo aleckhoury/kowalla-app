@@ -69,9 +69,6 @@ import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import Card from "~/components/Card";
 import NavCard from "~/components/NavCards/NavCard";
-import EditButton from "~/components/InfoCards/EditButton";
-import Post from "~/components/PostCards/NewsfeedPost";
-import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import EditProfileForm from "~/components/Forms/EditProfile";
 import IntegrationCard from "../../../../components/Forms/IntegrationCard";
 export default {

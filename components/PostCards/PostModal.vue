@@ -16,9 +16,8 @@
         <PostTimer v-if="post.isActive" :time="post.expiration" />
         <div class="content is-marginless" v-html="post.content" />
         <br >
-        <Reactions :post-id="post._id" />
+        <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
       </div>
-
       <AddComment
         v-if="!activeCommentId"
         :post-id="post._id"
@@ -39,7 +38,7 @@
 <script>
 import Comment from "~/components/PostCards/Comment.vue";
 import AddComment from "~/components/PostCards/AddComment";
-import Reactions from "~/components/PostCards/ReactionsNoComments";
+import Reactions from "~/components/PostCards/Reactions";
 import PostHeader from "~/components/PostCards/PostHeader";
 import PostTimer from "~/components/PostCards/PostTimer";
 import Utils from "~/utils/helpers";

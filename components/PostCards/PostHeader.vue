@@ -51,7 +51,7 @@
         </p>
       </nuxt-link>
 
-      <p>
+      <p v-if="community.name">
         Posted in
         <nuxt-link :to="getCommunityRoute" class="community underline">
           <b>#{{ community.name }}</b>

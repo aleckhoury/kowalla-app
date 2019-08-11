@@ -26,10 +26,12 @@
       :create-picker="createPicker"
       :toggle-reaction="toggleReaction"
       :reactions-formatted="reactionsFormatted"
+      :is-feed="isFeed"
       @open-post="openPost"
+      @toggle="toggleComment"
     />
     <AddComment
-      v-if="!activeCommentId"
+      v-if="!activeCommentId && !isFeed"
       :post-id="post._id"
       :update-comment="updateComment"
     />
@@ -49,6 +51,8 @@ import Reactions from "~/components/PostCards/Reactions";
 import PostHeader from "~/components/PostCards/PostHeader";
 import PostTimer from "~/components/PostCards/PostTimer";
 import PostModal from "~/components/PostCards/PostModal.vue";
+import Comment from "~/components/PostCards/Comment.vue";
+import AddComment from "~/components/PostCards/AddComment";
 import Utils from "~/utils/helpers";
 import DropdownPicker from "./DropdownPicker";
 import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
@@ -56,10 +60,10 @@ import Vue from "vue";
 
 export default {
   name: "Post",
-  components: { PostTimer, PostHeader, Reactions },
+  components: { PostTimer, PostHeader, Reactions, Comment, AddComment },
   props: {
     post: { type: Object, default: () => {} },
-    hideComments: {
+    isFeed: {
       type: Boolean,
       default: false,
     },
@@ -79,30 +83,40 @@ export default {
       overflow: false,
       reactionList: [],
       reactionsFormatted: [],
+      commentList: [],
+      activeCommentId: "",
     };
   },
   async mounted() {
     if (this.post.hasOwnProperty("projectId")) {
       this.isProject = true;
       try {
-        this.project = await this.$axios.$get(
-          `/api/v1/projects/${this.post.projectId}`
-        );
-        this.community = await this.$axios.$get(
-          `/api/v1/communities/${this.post.communityId}`
-        );
+        if (this.post.projectId) {
+          this.project = await this.$axios.$get(
+                  `/api/v1/projects/${this.post.projectId}`
+          );
+        }
+        if (this.post.communityId) {
+          this.community = await this.$axios.$get(
+                  `/api/v1/communities/${this.post.communityId}`
+          );
+        }
       } catch {
         console.log("error grabbing some values");
       }
     } else {
       this.isProject = false;
       try {
-        this.profile = await this.$axios.$get(
-          `/api/v1/profiles/${this.post.profileId}`
-        );
-        this.community = await this.$axios.$get(
-          `/api/v1/communities/${this.post.communityId}`
-        );
+        if (this.post.profileId) {
+          this.profile = await this.$axios.$get(
+                  `/api/v1/profiles/${this.post.profileId}`
+          );
+        }
+        if (this.post.communityId) {
+          this.community = await this.$axios.$get(
+                  `/api/v1/communities/${this.post.communityId}`
+          );
+        }
       } catch {
         console.log("error grabbing some values");
       }
@@ -113,6 +127,16 @@ export default {
           this.overflow = true;
         }
       }
+    }
+    if (!this.isFeed) {
+      this.commentList = await this.$axios.$get(
+              `/api/v1/comments/${this.post._id}`
+      );
+      this.commentList.map(async (comment, idx) => {
+        this.commentList[idx].upvote = await this.$axios.$get(
+                `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
+        );
+      });
     }
     try {
       this.reactionList = await this.$axios.$get(
@@ -269,6 +293,12 @@ export default {
       });
       instance.$mount(); // pass nothing
       this.$children[1].$refs.picker.appendChild(instance.$el);
+    },
+    updateComment(comment) {
+      this.commentList.unshift(comment);
+    },
+    toggleComment(activeCommentId) {
+      this.activeCommentId = activeCommentId;
     },
   },
 };

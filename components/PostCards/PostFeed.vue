@@ -9,6 +9,7 @@
           :key="post._id"
           :post="post"
           :is-mobile="isMobile"
+          :is-feed="true"
           @delete-post="removePostFromPostList"
         />
       </b-tab-item>
@@ -19,6 +20,7 @@
           :key="post._id"
           :post="post"
           :is-mobile="isMobile"
+          :is-feed="true"
           @delete-post="removePostFromPostList"
         />
       </b-tab-item>
@@ -27,7 +29,7 @@
 </template>
 
 <script>
-import Post from "./NewsfeedPost";
+import Post from "./Post";
 import EmptyPostList from "./EmptyPostList";
 import CreatePost from "./CreatePost";
 import { debounce } from 'debounce';

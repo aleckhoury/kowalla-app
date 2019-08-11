@@ -63,7 +63,16 @@
           <Tabs :type="headerType" />
         </div>
         <div v-else>
-          <SortingOptions :is-mobile="true" />
+          <div
+            v-if="headerType === 'Post'"
+            class="is-hidden-desktop sortIcons"
+          >
+            <font-awesome-icon
+              icon="arrow-left"
+              @click="$router.go(-1)"
+            />
+          </div>
+          <SortingOptions v-else :is-mobile="true" />
         </div>
       </div>
       <!-- End level -->
@@ -380,13 +389,13 @@ svg {
   z-index: -1;
   background-color: #cd7be8;
 }
-.sortIcons {
-  color: #39C9A0;
+.sortIcons svg {
+  color: #999;
+  font-size: 1.8em;
+  margin-right: 85vw;
   z-index: 12;
-  background-color: transparent;
-  font-size: 1.7em;
-  position: absolute;
-  right: 10px;
+  position: unset;
+  background: transparent !important;
 }
 circle {
   animation-duration: 15s;

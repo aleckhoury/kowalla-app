@@ -1570,7 +1570,6 @@
 <script>
 import InfoPane from "~/components/InfoCards/InfoPane";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
-import Post from "~/components/LandingPageComponents/LandingPagePost";
 import EmailSignup from "~/components/LandingPageComponents/emailSignup";
 import LandingNavHeader from "../components/Header/NavHeader/LandingNavHeader";
 import SignupCard from "../components/InfoCards/SignupCard";
@@ -1585,14 +1584,10 @@ export default {
     LandingNavHeader,
     DescriptionCard,
     InfoPane,
-    Post,
     EmailSignup,
   },
   data() {
-    return {
-      posts: [],
-      postList: [],
-    };
+    return {};
   },
   async mounted() {},
   methods: {

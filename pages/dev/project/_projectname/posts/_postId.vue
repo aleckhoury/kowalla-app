@@ -104,7 +104,7 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 import SignupCard from "~/components/InfoCards/SignupCard";
-import Post from "~/components/PostCards/NewsfeedPost";
+import Post from "~/components/PostCards/Post";
 
 export default {
   name: "ProjectPage",
