@@ -99,7 +99,7 @@ export default {
     },
     activeTab() {
       if (process.browser) {
-        return this.$store.state.activeTabs.CommunitySettingsActiveTab;
+        return this.$store.state.activeTabs.SettingsActiveTab;
       }
     },
   },

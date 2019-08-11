@@ -158,7 +158,9 @@ module.exports = {
           "faHandshake",
           "faChevronRight",
           "faTimes",
-          "faCheck"
+          "faCheck",
+          "faSortAmountUp",
+          "faSortAmountDown",
         ],
       },
       {

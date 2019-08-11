@@ -51,7 +51,7 @@
           />
         </b-tab-item>
         <b-tab-item>
-          Test!
+          <IntegrationCard v-for="(test, idx) in integrationList" :key="idx" :name="test.name" :description="test.description" />
         </b-tab-item>
       </b-tabs>
     </div>
@@ -69,9 +69,6 @@ import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import Card from "~/components/Card";
 import NavCard from "~/components/NavCards/NavCard";
-import EditButton from "~/components/InfoCards/EditButton";
-import Post from "~/components/PostCards/NewsfeedPost";
-import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import EditProfileForm from "~/components/Forms/EditProfile";
 import IntegrationCard from "../../../../components/Forms/IntegrationCard";
 export default {
@@ -105,12 +102,9 @@ export default {
     username() {
       return this.$route.params.username;
     },
-    sort() {
-      return this.$store.state.sorting.profile;
-    },
     activeTab() {
       if (process.browser) {
-        return this.$store.state.activeTabs.ProfileSettingsActiveTab;
+        return this.$store.state.activeTabs.SettingsActiveTab;
       }
     },
   },

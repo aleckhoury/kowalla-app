@@ -12,13 +12,7 @@
 
         <!-- post feed -->
         <div id="postFeed" class="column is-one-half is-paddingless">
-          <EmptyPostList v-if="!postList.length" />
-          <Post
-            v-for="post in postList"
-            :key="post._id"
-            :post="post"
-            @delete-post="removePostFromPostList"
-          />
+          <PostFeed v-if="profileId" :page-id="profileId" type="profile" />
         </div>
 
         <!-- info pane -->
@@ -120,15 +114,7 @@
           <b>Edit Settings</b>
         </EditButton>
       </div>
-      <EmptyPostList v-if="!postList.length" />
-      <Post
-        v-for="post in postList"
-        :is-mobile="true"
-        :key="post._id"
-        :post="post"
-        class="newsfeed-margin"
-        @delete-post="removePostFromPostList"
-      />
+      <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" type="profile" />
     </div>
   </div>
 </template>
@@ -146,13 +132,13 @@ import Card from "~/components/Card";
 import NavCard from "~/components/NavCards/NavCard";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
-import Post from "~/components/PostCards/NewsfeedPost";
-import EmptyPostList from "~/components/PostCards/EmptyPostList";
 import SignupCard from "~/components/InfoCards/SignupCard";
+import PostFeed from "~/components/PostCards/PostFeed";
+
+
 export default {
   name: "UserPageTest",
   components: {
-    EmptyPostList,
     NavPane,
     NavCard,
     Card,
@@ -162,10 +148,10 @@ export default {
     DescriptionCard,
     EditButton,
     EditProfileModal,
-    Post,
     MobileHeader,
     MobileFooter,
     SignupCard,
+    PostFeed,
   },
 
   data() {
@@ -176,30 +162,13 @@ export default {
       lastName: "",
       profilePictureUrl: "",
       profileDescription: "",
-
       profileStats: [],
-
       profileSubs: { subscriptions: [], owned: [] },
-
-      // newsfeed content
-      postList: [],
     };
   },
   computed: {
     getUsername() {
       return this.username;
-    },
-    sort() {
-      return this.$store.state.sorting.profile;
-    },
-  },
-  watch: {
-    async sort() {
-      this.postList = await this.$axios.$get(
-        `/api/v1/profile/posts/${this.profileId}/${this.sort}/0`
-      );
-
-      await this.scroll();
     },
   },
   created() {
@@ -229,14 +198,6 @@ export default {
       );
       this.profileSubs = subRes.profileSubscriptions;
 
-      this.postList = await this.$axios.$get(
-        `/api/v1/profile/posts/${this.profileId}/${this.sort}/${
-          this.postList.length
-        }`
-      );
-
-      await this.scroll();
-
       document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }
   },
@@ -256,40 +217,6 @@ export default {
         width: 900,
         hasModalCard: true,
       });
-    },
-    async scroll() {
-      if (this.postList.length) {
-        let isActive = false;
-        window.onscroll = async () => {
-          const feed = document.getElementById("postFeed");
-          const bottomOfWindow =
-            window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
-          if (!isActive && bottomOfWindow) {
-            isActive = true;
-            const posts = await this.$axios.$get(
-              `/api/v1/profile/posts/${this.profileId}/${this.sort}/${
-                this.postList.length
-              }`
-            );
-            const newList = await this.postList.concat(posts);
-            if (posts.length) {
-              this.postList = await newList;
-              isActive = false;
-            }
-          }
-        };
-      }
-    },
-    async removePostFromPostList(postId) {
-      for (let i in this.postList) {
-        if (this.postList[i]._id === postId) {
-          this.postList.splice(i, 1);
-          await this.$axios.delete(
-            `/api/v1/communities/${this.communityId}/posts/${postId}`
-          );
-          break;
-        }
-      }
     },
   },
 };

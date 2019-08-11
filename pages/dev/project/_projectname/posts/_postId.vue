@@ -18,67 +18,52 @@
         </div>
 
         <div class="column is-three-quarters is-paddingless">
-          <Banner
-            :banner-url="bannerPictureUrl"
-            :banner-title="name"
-            :id="projectId"
-            :is-subscribed="isSubscribed"
-            :is-owner="isOwner"
-            banner-title-prefix="@"
-            @subscription-button-clicked="updateSubscriptions"
-          />
-
-          <!-- new columns for description, profile and project cards -->
-          <div class="columns is-marginless newsfeed-padding">
-            <div class="column is-half">
-              <DescriptionCard
-                :subheader-on="false"
-                header-string="Description"
-              >
-                {{ projectDescription }}
-              </DescriptionCard>
-
-              <EditButton
-                v-if="this.$store.state.user.username === adminUsername"
-                @edit-button-clicked="callEditProjectModal"
-              >
-                <b>Edit Settings</b>
-              </EditButton>
-            </div>
-
-            <div class="column is-one-quarter">
-              <ProfileCard
-                :name="projectName"
-                :username="name"
-                :profile-picture-url="projectProfilePictureUrl"
-                :subheader-string="`View ${name}'s stats`"
-                :stats="projectStats"
-                type="project"
-              />
-            </div>
-            <div class="column is-one-quarter">
-              <ProfileCard
-                :name="`${adminFirstName} ${adminLastName}`"
-                :username="adminUsername"
-                :profile-picture-url="adminProfilePictureUrl"
-                :subheader-string="`View ${adminFirstName}'s profile`"
-                :subheader-url="`/dev/user/${adminUsername}`"
-                :stats="profileStats"
-                type="user"
-              />
-            </div>
-          </div>
-
           <!-- new columns for content and info pane -->
           <div id="postFeed" class="columns is-marginless">
             <!-- post feed -->
             <div class="column is-two-thirds is-paddingless">
-              <PostFeed v-if="projectId" :page-id="projectId" type="project" />
+              <Post
+                id="projectPost"
+                :key="post._id"
+                :post="post"
+                :is-mobile="false"
+                :truncate="false"
+                @delete-post="removePostFromPostList"
+              />
             </div>
 
             <!-- info pane -->
             <div class="column is-one-third side-pane is-paddingless">
               <InfoPane>
+                <DescriptionCard
+                  :subheader-on="false"
+                  header-string="Description"
+                >
+                  {{ projectDescription }}
+                </DescriptionCard>
+                <ProfileCard
+                  :name="projectName"
+                  :username="name"
+                  :profile-picture-url="projectProfilePictureUrl"
+                  :subheader-string="`View ${name}'s stats`"
+                  :stats="projectStats"
+                  type="project"
+                />
+                <ProfileCard
+                  :name="`${adminFirstName} ${adminLastName}`"
+                  :username="adminUsername"
+                  :profile-picture-url="adminProfilePictureUrl"
+                  :subheader-string="`View ${adminFirstName}'s profile`"
+                  :subheader-url="`/dev/user/${adminUsername}`"
+                  :stats="profileStats"
+                  type="user"
+                />
+                <EditButton
+                  v-if="this.$store.state.user.username === adminUsername"
+                  @edit-button-clicked="callEditProjectModal"
+                >
+                  <b>Edit Settings</b>
+                </EditButton>
                 <SignupCard
                   v-if="!this.$store.state.user.loggedIn"
                   class="fullWidth"
@@ -95,63 +80,13 @@
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="is-marginless is-hidden-desktop mobile-main-margin"
     >
-      <Banner
-        :banner-url="bannerPictureUrl"
-        :banner-title="name"
-        :id="projectId"
-        :is-subscribed="isSubscribed"
-        :is-owner="isOwner"
-        banner-title-prefix="@"
-        is-mobile
-        @subscription-button-clicked="updateSubscriptions"
+      <Post
+        :key="post._id"
+        :post="post"
+        :is-mobile="true"
+        :truncate="false"
+        @delete-post="removePostFromPostList"
       />
-
-      <DescriptionCard
-        :subheader-on="false"
-        class="newsfeed-margin"
-        header-string="Description"
-      >
-        {{ projectDescription }}
-      </DescriptionCard>
-
-      <div
-        class="columns is-marginless is-paddingless is-mobile is-centered is-centered is-multiline"
-      >
-        <div class="column isMobile is-narrow">
-          <ProfileCard
-            :name="projectName"
-            :username="name"
-            :profile-picture-url="projectProfilePictureUrl"
-            :subheader-string="`View ${name}'s stats`"
-            :stats="projectStats"
-            type="project"
-            is-mobile
-          />
-        </div>
-
-        <div class="column isMobile is-narrow">
-          <ProfileCard
-            :name="`${adminFirstName} ${adminLastName}`"
-            :username="adminUsername"
-            :profile-picture-url="adminProfilePictureUrl"
-            :subheader-string="`View ${adminFirstName}'s profile`"
-            :subheader-url="`/dev/user/${adminUsername}`"
-            :stats="profileStats"
-            type="user"
-            is-mobile
-          />
-        </div>
-      </div>
-
-      <div class="side-pane">
-        <EditButton
-          v-if="this.$store.state.user.username === adminUsername"
-          @edit-button-clicked="callEditProjectModal"
-        >
-          <b>Edit Settings</b>
-        </EditButton>
-      </div>
-      <PostFeed v-if="projectId" :page-id="projectId" :is-mobile="true" type="project" />
     </div>
   </div>
 </template>
@@ -169,13 +104,11 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 import SignupCard from "~/components/InfoCards/SignupCard";
-import PostFeed from "~/components/PostCards/PostFeed";
-
+import Post from "~/components/PostCards/Post";
 
 export default {
   name: "ProjectPage",
   components: {
-    PostFeed,
     SignupCard,
     Header,
     MobileHeader,
@@ -187,6 +120,7 @@ export default {
     InfoPane,
     EditButton,
     EditProjectModal,
+    Post,
   },
 
   data() {
@@ -205,6 +139,7 @@ export default {
       adminProfilePictureUrl: "",
       projectStats: [],
       profileStats: [],
+      post: {},
     };
   },
   computed: {
@@ -243,6 +178,10 @@ export default {
     let infoRes = await this.$axios.get(
       `/api/v1/projects/project/${this.name}`
     );
+    this.post = await this.$axios.$get(
+      `/api/v1/posts/${this.$route.params.postId}`
+    );
+
     this.bannerPictureUrl = infoRes.data.headerPicture;
     this.projectProfilePictureUrl = infoRes.data.profilePicture;
     this.projectId = infoRes.data._id;
@@ -270,6 +209,7 @@ export default {
       name: "Replies",
       stat: adminRes.data.commentCount,
     });
+
     document.title = `Kowalla - @${this.name}`;
   },
   methods: {
@@ -295,6 +235,9 @@ export default {
       this.$router.push({
         path: `/dev/project/${this.name}/edit`,
       });
+    },
+    async removePostFromPostList() {
+      await this.$axios.delete(`/api/v1/posts/${this.post._id}`);
     },
   },
 };

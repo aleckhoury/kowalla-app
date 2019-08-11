@@ -57,4 +57,7 @@ span {
     display: flex;
     flex-direction: column;
 }
+.switch.item {
+  float: right;
+}
 </style>

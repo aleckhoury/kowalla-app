@@ -8,11 +8,11 @@
 
         <div class="column is-one-half is-paddingless">
           <div class="level full-height">
-            <div v-if="isNewsFeed" class="level-left full-height">
+            <div v-if="isFeed" class="level-left full-height">
               <SortingOptions />
             </div>
-            <div :class="[isNewsFeed ? 'level-right' : '', 'level-item', 'full-height']">
-              <Tabs :type="type" />
+            <div :class="[isFeed ? 'level-right' : '', 'level-item', 'full-height']">
+              <Tabs :type="headerType" />
             </div>
           </div>
         </div>
@@ -51,14 +51,19 @@ import Tabs from "./Tabs";
 export default {
   name: "NavSubHeader",
   components: { SortingOptions, Tabs },
-  props: {
-    type: { type: String, default: "NewsFeedActiveTab" },
-    homeFeed: { type: Boolean, default: true },
-  },
+  props: {},
   computed: {
-    isNewsFeed() {
-      return this.type === 'NewsFeedActiveTab';
-    }
+    isFeed() {
+      if (this.headerType === 'NewsFeedActiveTab' || this.headerType === 'sortOnly') {
+        return true;
+      }
+    },
+    headerType() {
+      if (this.$route.path.includes('edit')) return "SettingsActiveTab";
+      else if (this.$route.path.includes('posts')) return "Post";
+      else if (this.$route.path === '/dev') return "NewsFeedActiveTab";
+      return 'sortOnly';
+    },
   },
 };
 </script>

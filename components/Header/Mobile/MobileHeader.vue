@@ -59,8 +59,20 @@
       <!-- Mobile Header Bottom -->
       <div class="level mobile-header-bottom-container is-mobile">
         <!-- Level item -->
-        <div class="level-item">
-          <Tabs :type="type" />
+        <div v-if="!isEmpty" class="level-item">
+          <Tabs :type="headerType" />
+        </div>
+        <div v-else>
+          <div
+            v-if="headerType === 'Post'"
+            class="is-hidden-desktop sortIcons"
+          >
+            <font-awesome-icon
+              icon="arrow-left"
+              @click="$router.go(-1)"
+            />
+          </div>
+          <SortingOptions v-else :is-mobile="true" />
         </div>
       </div>
       <!-- End level -->
@@ -131,29 +143,27 @@
 <script>
 import ChangeLocationModal from "~/components/Modals/Other/ChangeLocationModal";
 import NotificationModal from "~/components/Modals/Other/NotificationModal";
-import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
 import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
 import SearchModal from "~/components/Modals/Other/SearchModal";
 import LoginAndRegisterModalMobile from "~/components/Auth/LoginAndRegisterModalMobile";
 import SideMenu from "./SideMenu";
 import Tabs from "../NavSubHeader/Tabs";
+import SortingOptions from "../NavSubHeader/SortingOptions";
 
 export default {
   name: "MobileHeader",
   components: {
+    SortingOptions,
     Tabs,
     SideMenu,
     ChangeLocationModal,
-    SortingOptions,
     NavNotifications,
   },
-
   props: {
     openSidebar: { type: Function, default: () => {} },
     locationToDisplay: { type: String, default: "" },
     locationPictureToDisplay: { type: String, default: "" },
     isHome: { type: Boolean, default: false },
-    type: { type: String, default: "NewsFeedActiveTab" },
   },
   data() {
     return {
@@ -162,6 +172,19 @@ export default {
       scrollValue: 0,
       toggleSidebar: false,
     };
+  },
+  computed: {
+    isEmpty() {
+      if (this.headerType === 'Post' || this.headerType === 'sortOnly') {
+        return true;
+      }
+    },
+    headerType() {
+      if (this.$route.path.includes('edit')) return "SettingsActiveTab";
+      else if (this.$route.path.includes('posts')) return "Post";
+      else if (this.$route.path === '/dev') return "NewsFeedActiveTab";
+      return 'sortOnly';
+    },
   },
   mounted() {
     this.lastScrollPosition = window.pageYOffset;
@@ -259,6 +282,7 @@ export default {
   background-color: white;
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   padding: 0px 10px 0px 10px;
+  height: 42px;
 }
 
 .on-bottom {
@@ -365,6 +389,14 @@ svg {
   z-index: -1;
   background-color: #cd7be8;
 }
+.sortIcons svg {
+  color: #999;
+  font-size: 1.8em;
+  margin-right: 85vw;
+  z-index: 12;
+  position: unset;
+  background: transparent !important;
+}
 circle {
   animation-duration: 15s;
   animation-timing-function:ease-in-out;
@@ -380,5 +412,9 @@ circle {
   height: auto;
   width: 42px;
   border-radius: 6px;
+}
+.b-tabs:not(:last-child) {
+  margin-bottom: 0 !important;
+  position: absolute;
 }
 </style>

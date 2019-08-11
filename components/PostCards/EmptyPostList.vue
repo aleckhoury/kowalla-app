@@ -1,6 +1,9 @@
 <template>
   <div class="noPosts">
-    <h1>No posts here yet!</h1>
+    <h1 v-if="this.$store.state.user.loggedIn">No posts here yet!</h1>
+    <h1 v-else>
+      Create an account or sign in to subscribe to communities and projects!
+    </h1>
   </div>
 </template>
 

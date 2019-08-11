@@ -27,12 +27,14 @@ export default {
     tabs() {
       if (this.type === "NewsFeedActiveTab") {
         return this.feedOptions;
-      } else {
+      } else if (this.type === "SettingsActiveTab") {
         return this.settingsOptions;
+      } else {
+        return [];
       }
     },
     activeTab() {
-      return this.$store.state.activeTabs[this.type];
+      return this.$store.state.activeTabs[this.type] || 0;
     },
   },
   methods: {

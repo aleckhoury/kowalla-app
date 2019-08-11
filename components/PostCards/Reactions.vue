@@ -43,8 +43,11 @@
           <div ref="picker" />
         </b-dropdown-item>
       </b-dropdown>
-      <div class="comments level-item" @click="showPost()">
-        <font-awesome-icon id="commentIcon" icon="comments" /> Comments
+      <div v-if="isFeed" class="comments level-item" @click="showPost()">
+        <font-awesome-icon class="commentIcon" icon="comments" /> Comments
+      </div>
+      <div v-else class="comments level-item" @click="$emit('toggle', '')">
+        <font-awesome-icon class="commentIcon" icon="comments" /> Reply
       </div>
     </div>
   </div>
@@ -62,6 +65,7 @@ export default {
     createPicker: { type: Function, default: () => {} },
     reactionsFormatted: { type: Array, default: () => [] },
     toggleReaction: { type: Function, default: () => {} },
+    isFeed: { type: Boolean, default: true },
   },
   data() { return {}; },
   computed: {
@@ -121,6 +125,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.level:not(:last-child) {
+  margin: 0;
+}
 .button {
   color: #39c9a0;
   border: 2px solid #39c9a0;
@@ -152,7 +159,7 @@ div.dropdown-item,
 .visible {
   display: none;
 }
-#commentIcon {
+.commentIcon {
   margin-right: 0.25em;
 }
 </style>

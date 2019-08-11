@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="size">
     <NavHeader />
-    <NavSubHeader :type="type" :home-feed="homeFeed" />
+    <NavSubHeader />
     <div v-if="this.$store.state.firstVisit.firstVisit" class="hero">
       <div class="bannerStripe"></div>
       <div class="hero-body">
@@ -70,7 +70,6 @@ export default {
   name: "Header",
   components: { NavHeader, NavSubHeader },
   props: {
-    type: { type: String, default: "NewsFeedActiveTab" },
     homeFeed: { type: Boolean, default: true },
   },
 };
