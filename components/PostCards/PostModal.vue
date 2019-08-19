@@ -102,11 +102,13 @@ export default {
     this.commentList = await this.$axios.$get(
       `/api/v1/comments/${this.post._id}`
     );
-    this.commentList.map(async (comment, idx) => {
-      this.commentList[idx].upvote = await this.$axios.$get(
-        `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
-      );
-    });
+    if (this.$store.state.user.loggedIn) {
+      this.commentList.map(async (comment, idx) => {
+        this.commentList[idx].upvote = await this.$axios.$get(
+                `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
+        );
+      });
+    }
   },
   methods: {
     updateComment(comment) {

@@ -1573,7 +1573,6 @@ import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import EmailSignup from "~/components/LandingPageComponents/emailSignup";
 import LandingNavHeader from "../components/Header/NavHeader/LandingNavHeader";
 import SignupCard from "../components/InfoCards/SignupCard";
-import LoginAndRegisterModal from "../components/Auth/LoginAndRegisterModal";
 
 export default {
   layout: 'none',
@@ -1607,7 +1606,7 @@ export default {
 .title {
   font-family: "Nunito";
   display: block;
-  font-weight: 300;
+  font-weight: 900;
   font-size: 3em;
   color: #fff;
   letter-spacing: 1px;

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
+import CreatePost from "~/components/Modals/Creation/CreatePost";
 
 export default {
   name: "CreatePost",
@@ -39,17 +39,17 @@ export default {
   },
   methods: {
     cardModal() {
-      if (!this.postInList.length) {
+      if (!this.postInList || !this.postInList.length) {
         return this.$toast.open({
           duration: 4000,
-          message: "You need to subscribe to a community so that you can post in it!",
+          message: "You need to subscribe to a community to create a post in it!",
           position: "is-top",
           type: "is-danger",
         });
       }
       this.$modal.open({
         parent: this,
-        component: CreatePostModal,
+        component: CreatePost,
         events: {
           "post-created": postObj => {
             this.$emit("post-created", postObj);

@@ -92,11 +92,13 @@ export default {
       // this.replyList.map(async (nestComment, idx) => {
       //   this.replyList[idx].upvote =
       // });
-      this.upvote = await this.$axios.$get(
-        `/api/v1/comments/${this.comment._id}/${
-          this.$store.state.user._id
-        }/upvote`
-      );
+      if (this.$store.state.user.loggedIn) {
+        this.upvote = await this.$axios.$get(
+                `/api/v1/comments/${this.comment._id}/${
+                        this.$store.state.user._id
+                }/upvote`
+        );
+      }
     } catch {
       console.log("error grabbing some values");
     }

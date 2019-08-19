@@ -31,7 +31,7 @@
 
 <script>
 import Cookies from 'js-cookie';
-import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
 
 export default {
   name: "SignupCard",
@@ -40,7 +40,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: LoginAndRegisterModal,
+        component: LoginHandler,
         width: 900,
         hasModalCard: true,
         props: {

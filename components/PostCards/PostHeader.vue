@@ -3,7 +3,7 @@
     <figure class="media-left">
       <nuxt-link v-if="!isProject" :to="getProfileRoute">
         <p class="image is-48x48 profilePic">
-          <img :src="profile.profilePicture" onerror="this.src='https://gradientjoy.com/64'" >
+          <img :src="profile.profilePicture" onerror="this.src='https://gradientjoy.com/50'" >
         </p>
       </nuxt-link>
 
@@ -242,7 +242,7 @@ export default {
 }
 .profilePicProject img {
   border-radius: 6px;
-  height: 100%;
+  height: 48px;
   width: 48px;
 }
 span {

@@ -80,6 +80,13 @@ export default {
   mounted() {
     this.isMounted = true;
   },
+  methods: {
+    sendEmail() {
+      this.$axios.post('/api/v1/email/signup', {
+        firstName: 'Alec',
+      });
+    }
+  },
 };
 </script>
 

@@ -18,8 +18,8 @@ import Searchbar from "./Searchbar";
 import NavProfilePicture from "./NavProfilePicture";
 import NavNotifications from "./NavNotifications";
 import HelpModal from "~/components/Modals/Other/HelpModal";
-import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
-import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
+import CreatePost from "~/components/Modals/Creation/CreatePost";
 import { mapGetters } from "vuex";
 
 export default {
@@ -27,7 +27,7 @@ export default {
   components: {
     Button,
     Searchbar,
-    CreatePostModal,
+    CreatePost,
     NavProfilePicture,
     NavNotifications,
     HelpModal,
@@ -41,7 +41,7 @@ export default {
     newPostModal() {
       this.$modal.open({
         parent: this,
-        component: CreatePostModal,
+        component: CreatePost,
         events: {
           "post-created": postObj => {
             this.$emit("post-created", postObj);
@@ -61,7 +61,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: LoginAndRegisterModal,
+        component: LoginHandler,
         width: 900,
         hasModalCard: true,
       });
@@ -78,6 +78,7 @@ export default {
 
 .kowalla-logo {
     font-family: 'Nunito';
+    font-weight: 900;
     font-size: 2.25em;
     color: #fff;
     text-decoration: none;

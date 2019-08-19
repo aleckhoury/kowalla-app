@@ -12,7 +12,7 @@
             <img
               :src="this.$store.state.user.profilePicture"
               class="nav-profile-picture"
-              onerror="this.src='https://gradientjoy.com/48'"
+              onerror="this.src='https://gradientjoy.com/50'"
             />
           </div>
           <div class="column is-two-thirds">

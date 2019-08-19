@@ -10,7 +10,6 @@ export const defaultState = () => ({
   postCount: 0,
   profilePicture: '',
   reputation: 0,
-  uiColor: '',
   updatedAt: '',
   loggedIn: false,
   hasNotifications: false,

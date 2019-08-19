@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
+import CreatePost from "~/components/Modals/Creation/CreatePost";
 
 export default {
   name: "IntegrationCard",

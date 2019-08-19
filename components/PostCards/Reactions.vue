@@ -55,7 +55,7 @@
 
 <script>
 import ReactionModal from "./ReactionModal";
-import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
 
 export default {
   name: "Reactions",
@@ -92,12 +92,9 @@ export default {
       if (!this.$store.state.user.loggedIn) {
         return this.$modal.open({
           parent: this,
-          component: LoginAndRegisterModal,
+          component: LoginHandler,
           width: 900,
           hasModalCard: true,
-          props: {
-            initialState: false,
-          },
         });
       }
       this.$modal.open({

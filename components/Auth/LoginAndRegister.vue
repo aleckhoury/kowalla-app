@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
 
 export default {
   name: "LoginAndRegister",
@@ -22,7 +22,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: LoginAndRegisterModal,
+        component: LoginHandler,
         width: 900,
         hasModalCard: true,
       });
@@ -32,43 +32,16 @@ export default {
 </script>
 
 <style scoped>
-.section {
-  padding-bottom: 0;
-}
 span {
   color: #39c9a0;
 }
 .level {
   padding: 1rem;
 }
-.modal-card-body {
-  overflow: visible;
-}
-.field {
-  margin: 1em 0;
-}
-div .modal-content {
-  width: 55%;
-  border-radius: 6px;
-  overflow: visible;
-}
-.modal-content.box {
-  min-height: 80%;
-}
 .button.action {
   width: 12em;
   color: white;
   background-color: #39c9a0;
   border-color: #39c9a0;
-}
-
-.post {
-  margin-right: 0.75em;
-}
-.is-white:hover {
-  background-color: #e9ebee;
-}
-.dropdown-content {
-  overflow: visible;
 }
 </style>

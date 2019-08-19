@@ -180,11 +180,11 @@ import {
   History,
 } from "tiptap-extensions";
 import Header from "~/components/Header/Header";
-import CreatePostModal from "~/components/Modals/Creation/CreatePostModal";
+import CreatePost from "~/components/Modals/Creation/CreatePost";
 export default {
   name: "Focus",
   components: {
-    CreatePostModal,
+    CreatePost,
     Header,
     Editor,
     EditorContent,
@@ -242,7 +242,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: CreatePostModal,
+        component: CreatePost,
         props: {
           reactionsFormatted: this.reactionsFormatted,
         },

@@ -1,127 +1,117 @@
 <template>
-  <div class="modal-content">
-    <div :class="[loginBox ? 'right' : 'left']" class="card is-paddingless">
-      <div :class="[loginBox ? 'right' : 'left', 'coverBox']">
-        <p class="kowalla-logo is-size-1">kowalla</p>
-        <p v-if="loginBox" class="has-text-white">
-          <small>You new here? Create an account to react, subscribe, and make your own posts!</small>
-        </p>
-        <p v-else class="has-text-white">
-          <small>Already have an account?</small>
-        </p>
-        <a v-if="loginBox" class="button" @click="toggleFlow">
-          <font-awesome-icon icon="arrow-left" />&nbsp; Signup
-        </a>
-        <a v-else class="button" @click="toggleFlow">
-          Login &nbsp;<font-awesome-icon icon="arrow-right" />
+  <div :class="[loginBox ? 'right' : 'left']" class="card is-paddingless">
+    <div :class="[loginBox ? 'right' : 'left', 'coverBox']">
+      <p class="kowalla-logo is-size-1">kowalla</p>
+      <p v-if="loginBox" class="has-text-white">
+        <small>
+          You new here? Create an account to react, subscribe, and make your
+          own posts!
+        </small>
+      </p>
+      <p v-else class="has-text-white">
+        <small>Already have an account?</small>
+      </p>
+      <a v-if="loginBox" class="button" @click="toggleFlow">
+        <font-awesome-icon icon="arrow-left" />&nbsp; Signup
+      </a>
+      <a v-else class="button" @click="toggleFlow">
+        Login &nbsp;<font-awesome-icon icon="arrow-right" />
+      </a>
+    </div>
+    <transition name="fade" mode="out-in">
+      <div v-if="loginBox" key="login" class="login">
+        <span class="title">Welcome Back!</span>
+        <div class="row">
+          <a class="image is-48x48 twitter" @click="getTwitterCreds">
+            <img
+              src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
+            />
+          </a>
+          <a
+            class="image is-48x48 github"
+            href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+          >
+            <img
+              src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+            />
+          </a>
+        </div>
+        <b-field label="Username or Email">
+          <b-input
+            v-model="loginForm.usernameOrEmail"
+            @keyup.native.enter="login(loginForm)"
+          />
+        </b-field>
+
+        <b-field label="Password">
+          <b-input
+            v-model="loginForm.password"
+            type="password"
+            password-reveal
+            @keyup.native.enter="login(loginForm)"
+          />
+        </b-field>
+        <a class="button action" @click="login(loginForm)">
+          Submit
         </a>
       </div>
-      <transition name="fade" mode="out-in">
-        <div v-if="loginBox" key="login" class="login">
-          <span class="title">Welcome Back!</span>
-          <div class="row">
-            <a
-              class="image is-48x48 twitter"
-              @click="getTwitterCreds"
-            >
-              <img
-                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-              />
-            </a>
-            <a
-              class="image is-48x48 github"
-              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-            >
-              <img
-                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-              />
-            </a>
-          </div>
-          <b-field label="Username">
-            <b-input
-              v-model="loginForm.username"
-              @keyup.native.enter="login(loginForm)"
+      <div v-else key="signup" class="signup">
+        <span class="title">Create Account</span>
+        <div class="row">
+          <a class="image is-48x48 twitter" @click="getTwitterCreds">
+            <img
+              src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
             />
-          </b-field>
-
-          <b-field label="Password">
-            <b-input
-              v-model="loginForm.password"
-              type="password"
-              password-reveal
-              @keyup.native.enter="login(loginForm)"
+          </a>
+          <a
+            class="image is-48x48 github"
+            href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+          >
+            <img
+              src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
             />
-          </b-field>
-          <a class="button action" @click="login(loginForm)">
-            Submit
           </a>
         </div>
-        <div v-else key="signup" class="signup">
-          <span class="title">Create Account</span>
-          <div class="row">
-            <a
-              class="image is-48x48 twitter"
-              @click="getTwitterCreds"
-            >
-              <img
-                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-              />
-            </a>
-            <a
-              class="image is-48x48 github"
-              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-            >
-              <img
-                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-              />
-            </a>
-          </div>
-          <!--<b-field label="Email">-->
-          <!--<b-input-->
-          <!--v-model="registerForm.email"-->
-          <!--@keyup.native.enter="register(registerForm)"-->
-          <!--/>-->
-          <!--</b-field>-->
-          <b-field label="Username">
-            <b-input
-              v-model="registerForm.username"
-              maxlength="20"
-              @keyup.native.enter="register(registerForm)"
-            />
-          </b-field>
-          <b-field label="Password">
-            <b-input
-              v-model="registerForm.password"
-              type="password"
-              password-reveal
-              @keyup.native.enter="register(registerForm)"
-            />
-          </b-field>
-          <a class="button action" @click="register(registerForm)">
-            Submit
-          </a>
-        </div>
-      </transition>
-      <!--<div class="coverBox">-->
-      <!---->
-      <!--<b-tabs v-model="activeTab">-->
-      <!--<b-tab-item label="Login">-->
-      <!--</b-tab-item>-->
-      <!--<b-tab-item label="Signup">-->
-      <!--</b-tab-item>-->
-      <!--</b-tabs>-->
-      <!--</div>-->
-      <!--<section class="column toggle" style="background-color: #39C9A0;">-->
-      <!--<h1 class="kowalla-logo">kowalla</h1>-->
-      <!--<p>You new here? Create an account!</p>-->
-      <!--<a class="button" @click="signupToggle()">-->
-      <!--<span>Signup</span>-->
-      <!--<span class="icon is-small">-->
-      <!--<font-awesome-icon icon="arrow-right"></font-awesome-icon>-->
-      <!--</span>-->
-      <!--</a>-->
-      <!--</section>-->
-    </div>
+        <!--<b-field label="Email">-->
+        <!--<b-input-->
+        <!--v-model="registerForm.email"-->
+        <!--@keyup.native.enter="register(registerForm)"-->
+        <!--/>-->
+        <!--</b-field>-->
+        <b-field label="Email">
+          <b-input
+            v-model="registerForm.email"
+            :has-counter="false"
+            type="email"
+            validation-message="You must submit a valid email"
+            maxlength="320"
+            @keyup.native.enter="register(registerForm)"
+          />
+        </b-field>
+        <b-field label="Username">
+          <b-input
+            v-model="registerForm.username"
+            pattern="^([\w,:\s/-]*)$"
+            validation-message="No special characters or spaces allowed"
+            maxlength="20"
+            @keyup.native.enter="register(registerForm)"
+          />
+        </b-field>
+        <b-field label="Password">
+          <b-input
+            v-model="registerForm.password"
+            pattern=".{8,}"
+            validation-message="Passwords must be 8 characters or more (We recommend more!)"
+            type="password"
+            password-reveal
+            @keyup.native.enter="register(registerForm)"
+          />
+        </b-field>
+        <a class="button action" @click="register(registerForm)">
+          Submit
+        </a>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -139,12 +129,12 @@ export default {
       toggledLoginBox: this.initialState,
       count: 0,
       loginForm: {
-        username: "",
+        usernameOrEmail: "",
         password: "",
       },
       registerForm: {
         name: "",
-        // email: "",
+        email: "",
         username: "",
         password: "",
       },
@@ -155,12 +145,21 @@ export default {
       if (this.count === 0) return this.initialState;
       return this.toggledLoginBox;
     },
+    validRegister() {
+      const validUsername = new RegExp("^([\\w,:\\s/-]*)$");
+      if (!this.registerForm.email.includes('@')) return false;
+      else if (!validUsername.test(this.registerForm.username)) return false;
+      else if (this.registerForm.password.length <= 8) return false;
+      return true;
+    },
   },
   methods: {
     async getTwitterCreds() {
-      const twitterCreds = await this.$axios.$post('api/v1/twitter/signin');
+      const twitterCreds = await this.$axios.$post("api/v1/twitter/signin");
       Cookies.set("twitterToken", twitterCreds.oauth_token);
-      window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${twitterCreds.oauth_token}`;
+      window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${
+        twitterCreds.oauth_token
+      }`;
     },
     toggleFlow() {
       if (this.count === 0) {
@@ -170,27 +169,35 @@ export default {
     },
     async register(registerForm) {
       if (
-        // this.registerForm.email === "" ||
+        this.registerForm.email === "" ||
         this.registerForm.username === "" ||
         this.registerForm.password === ""
       ) {
         this.$toast.open({
-          duration: 5000,
+          duration: 4000,
           message: "Please fill out the full form",
           position: "is-top",
           type: "is-danger",
         });
 
         return null;
+      } else if (!this.validRegister) {
+        this.$toast.open({
+          duration: 4000,
+          message: "Invalid information",
+          position: "is-top",
+          type: "is-danger",
+        });
       }
 
       try {
         await this.$axios.$post("api/v1/users", {
+          email: registerForm.email,
           username: registerForm.username,
           password: registerForm.password,
         });
         const token = await this.$axios.$post("/api/v1/users/login", {
-          username: registerForm.username,
+          usernameOrEmail: registerForm.username,
           password: registerForm.password,
         });
         await Cookies.set("token", token);
@@ -203,14 +210,21 @@ export default {
         });
 
         await this.$store.commit("user/setUser", user);
-        await this.$parent.close();
-        this.$router.go();
+        await this.$emit('close');
+        this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
+        this.$router.push(`dev/user/${registerForm.username}/edit`);
       } catch (err) {
         console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
     async login(loginForm) {
-      if (this.loginForm.username === "" || this.loginForm.password === "") {
+      if (this.loginForm.usernameOrEmail === "" || this.loginForm.password === "") {
         this.$toast.open({
           duration: 5000,
           message: "Please fill out the full form",
@@ -223,12 +237,12 @@ export default {
 
       try {
         const res = await this.$axios.$post("/api/v1/users/login", {
-          username: loginForm.username,
+          usernameOrEmail: loginForm.usernameOrEmail,
           password: loginForm.password,
         });
         Cookies.set("token", res.token);
         const user = await this.$axios.$get(
-          `api/v1/users/${loginForm.username}`
+          `api/v1/users/${res.username}`
         );
         const subs = await this.$axios.$get(
           `/api/v1/profiles/${user._id}/subs`
@@ -241,10 +255,16 @@ export default {
         await Object.assign(user, { subscriptions, owned });
 
         await this.$store.commit("user/setUser", user);
-        await this.$parent.close();
+        await this.$emit('close');
         this.$router.go();
       } catch (err) {
         console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
   },
@@ -252,12 +272,12 @@ export default {
 </script>
 
 <style scoped>
-/*.modal-content {*/
-/*border-radius: 6px;*/
-/*margin: 0;*/
-/*color: #39c9a0;*/
-/*width: auto;*/
-/*}*/
+.modal-content {
+border-radius: 6px;
+margin: 0;
+color: #39c9a0;
+width: auto;
+}
 .card {
   width: 800px;
   max-width: 100%;
@@ -341,6 +361,7 @@ div.coverBox p small {
 }
 .kowalla-logo {
   font-family: "Nunito";
+  font-weight: 900;
   font-size: 2.5em;
   color: #fff;
   text-decoration: none;

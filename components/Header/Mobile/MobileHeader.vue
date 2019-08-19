@@ -44,7 +44,7 @@
             v-if="this.$store.state.user.loggedIn"
             :src="this.$store.state.user.profilePicture"
             class="nav-profile-picture level-item"
-            onerror="this.src='https://gradientjoy.com/48'"
+            onerror="this.src='https://gradientjoy.com/50'"
             @click="openSidebar()"
           />
           <b v-else class="has-text-white" @click="cardModal">
@@ -145,7 +145,7 @@ import ChangeLocationModal from "~/components/Modals/Other/ChangeLocationModal";
 import NotificationModal from "~/components/Modals/Other/NotificationModal";
 import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
 import SearchModal from "~/components/Modals/Other/SearchModal";
-import LoginAndRegisterModalMobile from "~/components/Auth/LoginAndRegisterModalMobile";
+import LoginHandler from "~/components/Auth/LoginHandler";
 import SideMenu from "./SideMenu";
 import Tabs from "../NavSubHeader/Tabs";
 import SortingOptions from "../NavSubHeader/SortingOptions";
@@ -215,7 +215,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: LoginAndRegisterModalMobile,
+        component: LoginHandler,
         width: 900,
         hasModalCard: true,
       });
@@ -337,6 +337,7 @@ export default {
   font-size: 1.75em;
   color: #fff;
   text-decoration: none;
+  font-weight: 900;
 }
 .page-link {
   font-family: "Helvetica Neue";
@@ -384,7 +385,7 @@ ul {
 ul li {
   list-style-type: disc;
 }
-svg {
+.hero svg {
   position: fixed;
   z-index: -1;
   background-color: #cd7be8;
@@ -409,7 +410,7 @@ circle {
   0%{transform:translate(0,0)}
 }
 .nav-profile-picture {
-  height: auto;
+  height: 42px;
   width: 42px;
   border-radius: 6px;
 }

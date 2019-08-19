@@ -20,7 +20,7 @@
         <p class="profilePic">
           <img
             :src="editForm.profilePicture"
-            onerror="this.src='https://gradientjoy.com/180'"
+            onerror="this.src='https://gradientjoy.com/200'"
           >
         </p>
         <a class="button action">

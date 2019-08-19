@@ -30,12 +30,11 @@
         </div>
       </div>
     </div>
-
-    <div class="subheader">
-      <nuxt-link :to="subheaderUrl" class="subheader-content">
-        <b>{{ subheaderString }}</b>
-      </nuxt-link>
-    </div>
+    <!--<div class="subheader">-->
+    <!--<nuxt-link :to="subheaderUrl" class="subheader-content">-->
+    <!--<b>{{ subheaderString }}</b>-->
+    <!--</nuxt-link>-->
+    <!--</div>-->
   </div>
 </template>
 <script>

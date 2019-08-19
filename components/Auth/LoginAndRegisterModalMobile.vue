@@ -1,103 +1,103 @@
 <template>
-  <div class="modal-content">
-    <div class="box">
-      <b-tabs v-model="activeTab">
-        <b-tab-item label="Login">
-          <section>
-            <span class="title">Welcome Back!</span>
-            <div class="row">
-              <a
-                class="image is-48x48 twitter"
-                href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-              >
-                <img
-                  src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-                />
-              </a>
-              <a
-                class="image is-48x48 github"
-                href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-              >
-                <img
-                  src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                />
-              </a>
-            </div>
-            <b-field label="Username">
-              <b-input
-                v-model="loginForm.username"
-                maxlength="20"
-                @keyup.native.enter="login(loginForm)"
+  <div class="box">
+    <b-tabs v-model="activeTab">
+      <b-tab-item label="Login">
+        <section>
+          <span class="title">Welcome Back!</span>
+          <div class="row">
+            <a
+              class="image is-48x48 twitter"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
               />
-            </b-field>
-
-            <b-field label="Password">
-              <b-input
-                v-model="loginForm.password"
-                type="password"
-                password-reveal
-                @keyup.native.enter="login(loginForm)"
-              />
-            </b-field>
-            <a class="button action" @click="login(loginForm)">
-              Submit
             </a>
-          </section>
-        </b-tab-item>
-        <b-tab-item label="Signup">
-          <section>
-            <span class="title">Create Account</span>
-            <div class="row">
-              <a
-                class="image is-48x48 twitter"
-                href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-              >
-                <img
-                  src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-                />
-              </a>
-              <a
-                class="image is-48x48 github"
-                href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-              >
-                <img
-                  src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                />
-              </a>
-            </div>
-            <b-field label="Username">
-              <b-input
-                v-model="registerForm.username"
-                maxlength="20"
-                @keyup.native.enter="register(registerForm)"
+            <a
+              class="image is-48x48 github"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
               />
-            </b-field>
-
-            <b-field label="Password">
-              <b-input
-                v-model="registerForm.password"
-                type="password"
-                password-reveal
-                @keyup.native.enter="register(registerForm)"
-              />
-            </b-field>
-            <a class="button action" @click="register(registerForm)">
-              Submit
             </a>
-          </section>
-        </b-tab-item>
-      </b-tabs>
-      <!--<section class="column toggle" style="background-color: #39C9A0;">-->
-      <!--<h1 class="kowalla-logo">kowalla</h1>-->
-      <!--<p>You new here? Create an account!</p>-->
-      <!--<a class="button" @click="signupToggle()">-->
-      <!--<span>Signup</span>-->
-      <!--<span class="icon is-small">-->
-      <!--<font-awesome-icon icon="arrow-right"></font-awesome-icon>-->
-      <!--</span>-->
-      <!--</a>-->
-      <!--</section>-->
-    </div>
+          </div>
+          <b-field label="Username or Email">
+            <b-input
+              v-model="loginForm.usernameOrEmail"
+              @keyup.native.enter="login(loginForm)"
+            />
+          </b-field>
+
+          <b-field label="Password">
+            <b-input
+              v-model="loginForm.password"
+              type="password"
+              password-reveal
+              @keyup.native.enter="login(loginForm)"
+            />
+          </b-field>
+          <a class="button action" @click="login(loginForm)">
+            Submit
+          </a>
+        </section>
+      </b-tab-item>
+      <b-tab-item label="Signup">
+        <section>
+          <span class="title">Create Account</span>
+          <div class="row">
+            <a
+              class="image is-48x48 twitter"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
+              />
+            </a>
+            <a
+              class="image is-48x48 github"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+              />
+            </a>
+          </div>
+          <b-field label="Email">
+            <b-input
+              v-model="registerForm.email"
+              :has-counter="false"
+              pattern="/^(([^<>()\[\]\\.,;:\s@&quot;]+(\.[^<>()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/"
+              validation-message="You must submit a valid email"
+              maxlength="320"
+              @keyup.native.enter="register(registerForm)"
+            />
+          </b-field>
+          <b-field label="Username">
+            <b-input
+              v-model="registerForm.username"
+              pattern="^([\w,:\s/-]*)$"
+              validation-message="No special characters or spaces allowed"
+              maxlength="20"
+              @keyup.native.enter="register(registerForm)"
+            />
+          </b-field>
+          <b-field label="Password">
+            <b-input
+              v-model="registerForm.password"
+              pattern=".{8,}"
+              validation-message="Passwords must be 8 characters or more (We recommend more!)"
+              type="password"
+              password-reveal
+              @keyup.native.enter="register(registerForm)"
+            />
+          </b-field>
+          <a class="button action" @click="register(registerForm)">
+            Submit
+          </a>
+        </section>
+      </b-tab-item>
+    </b-tabs>
   </div>
 </template>
 
@@ -111,7 +111,7 @@ export default {
     return {
       activeTab: 0,
       loginForm: {
-        username: "",
+        usernameOrEmail: "",
         password: "",
       },
       registerForm: {
@@ -125,6 +125,7 @@ export default {
   methods: {
     async register(registerForm) {
       if (
+        this.registerForm.email === "" ||
         this.registerForm.username === "" ||
         this.registerForm.password === ""
       ) {
@@ -140,15 +141,16 @@ export default {
 
       try {
         await this.$axios.$post("api/v1/users", {
+          email: registerForm.email,
           username: registerForm.username,
           password: registerForm.password,
         });
         const token = await this.$axios.$post("/api/v1/users/login", {
-          username: registerForm.username,
+          usernameOrEmail: registerForm.username,
           password: registerForm.password,
         });
         await Cookies.set("token", token);
-        await Cookies.set('firstVisit', true);
+        await Cookies.set("firstVisit", true);
         const user = await this.$axios.$get(
           `api/v1/users/${registerForm.username}`
         );
@@ -158,14 +160,20 @@ export default {
         });
 
         await this.$store.commit("user/setUser", user);
-        await this.$parent.close();
+        await this.$emit('close');
         this.$router.go();
       } catch (err) {
         console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
     async login(loginForm) {
-      if (this.loginForm.username === "" || this.loginForm.password === "") {
+      if (this.loginForm.usernameOrEmail === "" || this.loginForm.password === "") {
         this.$toast.open({
           duration: 5000,
           message: "Please fill out the full form",
@@ -178,12 +186,12 @@ export default {
 
       try {
         const res = await this.$axios.$post("/api/v1/users/login", {
-          username: loginForm.username,
+          usernameOrEmail: loginForm.usernameOrEmail,
           password: loginForm.password,
         });
         Cookies.set("token", res.token);
         const user = await this.$axios.$get(
-          `api/v1/users/${loginForm.username}`
+          `api/v1/users/${res.username}`
         );
         const subs = await this.$axios.$get(
           `/api/v1/profiles/${user._id}/subs`
@@ -196,10 +204,15 @@ export default {
         await Object.assign(user, { subscriptions, owned });
 
         await this.$store.commit("user/setUser", user);
-        await this.$parent.close();
+        await this.$emit('close');
         this.$router.go();
       } catch (err) {
-        console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
   },
@@ -210,12 +223,6 @@ export default {
 .box {
   max-width: 100%;
   max-height: 90vh;
-}
-.modal-content {
-  border-radius: 6px;
-  margin: 0;
-  color: #39c9a0;
-  width: auto;
 }
 .title {
   color: #39c9a0;
@@ -238,23 +245,4 @@ div.row {
   display: flex;
   flex-direction: row;
 }
-/*.column {*/
-/*border-radius: 0 6px 6px 0;*/
-/*}*/
-/*.kowalla-logo {*/
-/*font-family: 'Nunito';*/
-/*font-size: 2.25em;*/
-/*color: #fff;*/
-/*text-decoration: none;*/
-/*margin-right: 10px;*/
-/*}*/
-/*.toggle {*/
-/*z-index: 5;*/
-/*}*/
-/*.fade-enter-active, .fade-leave-active {*/
-/*transition: opacity .5s;*/
-/*}*/
-/*.fade-enter, .fade-leave-to !* .fade-leave-active below version 2.1.8 *! {*/
-/*opacity: 0;*/
-/*}*/
 </style>

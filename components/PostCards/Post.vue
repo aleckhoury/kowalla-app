@@ -55,7 +55,7 @@ import Comment from "~/components/PostCards/Comment.vue";
 import AddComment from "~/components/PostCards/AddComment";
 import Utils from "~/utils/helpers";
 import DropdownPicker from "./DropdownPicker";
-import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
 import Vue from "vue";
 
 export default {
@@ -132,11 +132,13 @@ export default {
       this.commentList = await this.$axios.$get(
               `/api/v1/comments/${this.post._id}`
       );
-      this.commentList.map(async (comment, idx) => {
-        this.commentList[idx].upvote = await this.$axios.$get(
-                `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
-        );
-      });
+      if (this.$store.state.user.loggedIn) {
+        this.commentList.map(async (comment, idx) => {
+          this.commentList[idx].upvote = await this.$axios.$get(
+                  `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
+          );
+        });
+      }
     }
     try {
       this.reactionList = await this.$axios.$get(
@@ -212,12 +214,9 @@ export default {
       if (!this.$store.state.user.loggedIn) {
         return this.$modal.open({
           parent: this,
-          component: LoginAndRegisterModal,
+          component: LoginHandler,
           width: 900,
           hasModalCard: true,
-          props: {
-            initialState: false,
-          },
         });
       }
       const savedEmoji = typeof emoji === "string" ? emoji : emoji.native;

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import LoginAndRegisterModal from "~/components/Auth/LoginAndRegisterModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
 
 export default {
   name: "Tabs",
@@ -42,12 +42,9 @@ export default {
       if (!this.$store.state.user.loggedIn) {
         return this.$modal.open({
           parent: this,
-          component: LoginAndRegisterModal,
+          component: LoginHandler,
           width: 900,
           hasModalCard: true,
-          props: {
-            initialState: false,
-          },
         });
       }
         this.$store.commit(`activeTabs/update${this.type}`, idx);

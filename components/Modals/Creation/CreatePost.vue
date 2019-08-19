@@ -154,7 +154,7 @@
               <b v-else>Post</b>
             </a>
             <div class="level-right">
-              <span v-if="postAsList.length" class="level-item has-text-grey">as</span>
+              <b v-if="postAsList.length" class="level-item has-text-grey">as</b>
               <b-dropdown
                 v-if="postAsList.length"
                 class="level-item dropdown-container"
@@ -163,7 +163,7 @@
                 required
               >
                 <div slot="trigger" class="dropdown-selector">
-                  <b class="font theme-color selector-child"
+                  <b class="font theme-color"
                   >@{{ postingAs.name }}</b
                   >
                   <font-awesome-icon
@@ -180,7 +180,7 @@
                   @{{ item.name }}
                 </b-dropdown-item>
               </b-dropdown>
-              <span v-if="postInList.length" class="level-item has-text-grey">in</span>
+              <b v-if="postInList.length" class="level-item has-text-grey">in</b>
               <div>
                 <b-dropdown
                   v-if="postInList.length"
@@ -188,7 +188,7 @@
                   position="is-bottom-left"
                   aria-role="list">
                   <div slot="trigger" class="dropdown-selector">
-                    <b class="font theme-color selector-child">{{ postingIn.name === 'Select' ? postingIn.name : `#${postingIn.name}` }}</b>
+                    <b class="font theme-color">{{ postingIn.name === 'Select' ? postingIn.name : `#${postingIn.name}` }}</b>
                     <font-awesome-icon
                       icon="angle-down"
                       class="theme-color selector-child"
@@ -241,7 +241,7 @@ import Iframe from './Iframe';
 import EmbedButton from "./EmbedButton";
 
 export default {
-  name: "CreatePostModal",
+  name: "CreatePost",
   components: {
     EmbedButton,
     Editor,
@@ -521,8 +521,6 @@ div.animation-content {
   word-break: break-word;
 }
 .dropdown-container {
-  height: 30px;
-  border: 2px solid #39c9a0;
   border-radius: 6px;
   cursor: pointer;
 }
