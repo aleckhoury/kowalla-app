@@ -47,7 +47,7 @@ export default {
           hasModalCard: true,
         });
       }
-        this.$store.commit(`activeTabs/update${this.type}`, idx);
+      if (this.type !== 'sortOnly') { this.$store.commit(`activeTabs/update${this.type}`, idx); }
     },
   },
 };

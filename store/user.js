@@ -44,7 +44,7 @@ export const actions = ({
         typeId = subObj.communityId;
       }
 
-      this.$axios.delete(`/api/v1/profiles/${state._id}/subs/${type}/${typeId}`);
+      this.$axios.$delete(`/api/v1/profiles/${state._id}/subs/${type}/${typeId}`);
       */
     }
   },

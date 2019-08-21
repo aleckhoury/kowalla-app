@@ -138,14 +138,14 @@ export default {
       if (!isOwner) this.$router.push({ path: `/dev/user/${this.name}` });
     }
     // get project details
-    this.infoRes = await this.$axios.get(
+    this.infoRes = await this.$axios.$get(
       `/api/v1/projects/project/${this.name}`
     );
-    this.projectName = this.infoRes.data.projectName;
-    this.bannerPictureUrl = this.infoRes.data.headerPicture;
-    this.projectProfilePictureUrl = this.infoRes.data.profilePicture;
-    this.projectId = this.infoRes.data._id;
-    this.projectDescription = this.infoRes.data.description;
+    this.projectName = this.infoRes.projectName;
+    this.bannerPictureUrl = this.infoRes.headerPicture;
+    this.projectProfilePictureUrl = this.infoRes.profilePicture;
+    this.projectId = this.infoRes._id;
+    this.projectDescription = this.infoRes.description;
 
     document.title = `Kowalla - @${this.name} Settings`;
   },

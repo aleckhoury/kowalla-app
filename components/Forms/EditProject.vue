@@ -95,8 +95,7 @@ export default {
   },
   methods: {
     async selectFile(type) {
-      if (type === "profile")
-        this.profilePicFile = this.$refs.profilePicFile.files[0];
+      if (type === "profile") { this.profilePicFile = this.$refs.profilePicFile.files[0]; }
       else this.bannerPicFile = this.$refs.bannerPicFile.files[0];
       let reader = new FileReader();
       const self = this;

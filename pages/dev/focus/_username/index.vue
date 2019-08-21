@@ -146,7 +146,7 @@
         </div>
       </div>
     </div>
-    <div v-else class="container is-size-1">
+    <div v-else :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="container is-size-1">
       <div class="startNew">
         <b><span>Start a new live post!</span></b>
         <p>
@@ -181,6 +181,8 @@ import {
 } from "tiptap-extensions";
 import Header from "~/components/Header/Header";
 import CreatePost from "~/components/Modals/Creation/CreatePost";
+import CreatePostMobile from "~/components/Modals/Creation/CreatePostMobile";
+
 export default {
   name: "Focus",
   components: {
@@ -197,6 +199,11 @@ export default {
       post: {},
       countUp: "",
     };
+  },
+  computed: {
+    isMobile() {
+      return window.innerWidth < 768;
+    }
   },
   async mounted() {
     this.post = await this.$axios.$get(
@@ -242,7 +249,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: CreatePost,
+        component: this.isMobile ? CreatePostMobile : CreatePost,
         props: {
           reactionsFormatted: this.reactionsFormatted,
         },
@@ -313,11 +320,8 @@ export default {
 
 <style scoped>
 .focusPage {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-image: url("https://source.unsplash.com/collection/151521");
   background-size: cover;
 }
@@ -372,7 +376,7 @@ export default {
 }
 .button.action {
   color: white;
-  font-size: 2em;
+  font-size: 1.75em;
   margin: 0 auto;
   border-radius: 6px;
   background-color: #39c9a0;
@@ -386,6 +390,9 @@ export default {
   background-color: rgba(0, 0, 0, 0.35);
   margin-top: 2.25em;
   padding: 0.25em;
+}
+.container.firstVisit {
+  padding-top: 12.5rem;
 }
 @media only screen and (max-width: 600px) {
   .columns {

@@ -72,6 +72,7 @@ import NavCard from "~/components/NavCards/NavCard";
 import EditProfileForm from "~/components/Forms/EditProfile";
 import IntegrationCard from "../../../../components/Forms/IntegrationCard";
 export default {
+  middleware: 'tabs',
   name: "Edit",
   components: {
     IntegrationCard,

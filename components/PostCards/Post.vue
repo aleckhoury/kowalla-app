@@ -263,7 +263,7 @@ export default {
       }
     },
     async toggleReactionFalse(emoji, index) {
-      await this.$axios.delete(
+      await this.$axios.$delete(
         `/api/v1/profiles/${this.$store.state.user._id}/reactions/${
           this.post._id
         }`,

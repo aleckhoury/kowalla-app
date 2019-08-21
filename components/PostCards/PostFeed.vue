@@ -176,7 +176,7 @@ export default {
       for (let i in this.postList) {
         if (this.postList[i]._id === postId) {
           this.postList.splice(i, 1);
-          await this.$axios.delete(
+          await this.$axios.$delete(
             `/api/v1/posts/${postId}`
           );
           break;
@@ -189,7 +189,7 @@ export default {
         for (let i in this.subscribedPostList) {
           if (this.subscribedPostList[i]._id === postId) {
             this.subscribedPostList.splice(i, 1);
-            await this.$axios.delete(
+            await this.$axios.$delete(
               `/api/v1/posts/${postId}`
             );
             break;

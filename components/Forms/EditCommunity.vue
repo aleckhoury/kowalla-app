@@ -89,8 +89,7 @@ export default {
   },
   methods: {
     async selectFile(type) {
-      if (type === "profile")
-        this.profilePicFile = this.$refs.profilePicFile.files[0];
+      if (type === "profile") { this.profilePicFile = this.$refs.profilePicFile.files[0]; }
       else this.bannerPicFile = this.$refs.bannerPicFile.files[0];
       let reader = new FileReader();
       const self = this;
@@ -123,8 +122,8 @@ export default {
           });
         }
       } else {
-        formData.append("file", this.bannerPicFile);
         try {
+          formData.append("file", this.bannerPicFile);
           const image = await this.$axios.$post(
             "/api/v1/bannerPicUpload",
             formData
@@ -164,7 +163,7 @@ export default {
         }
       }
       try {
-        let communityData = await this.$axios.put(
+        let communityData = await this.$axios.$put(
           `api/v1/communities/${this.communityId}`,
           {
             name: editForm.name, // will need to update local state

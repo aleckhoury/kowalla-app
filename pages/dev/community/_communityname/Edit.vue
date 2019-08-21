@@ -115,13 +115,13 @@ export default {
       if (!isOwner) this.$router.push({ path: `/dev/community/${this.name}` });
     }
     // get project details
-    this.infoRes = await this.$axios.get(
+    this.infoRes = await this.$axios.$get(
       `/api/v1/communities/community/${this.name}`
     );
-    this.bannerPictureUrl = this.infoRes.data.headerPicture;
-    this.profilePictureUrl = this.infoRes.data.profilePicture;
-    this.communityId = this.infoRes.data._id;
-    this.communityDescription = this.infoRes.data.description;
+    this.bannerPictureUrl = this.infoRes.headerPicture;
+    this.profilePictureUrl = this.infoRes.profilePicture;
+    this.communityId = this.infoRes._id;
+    this.communityDescription = this.infoRes.description;
 
     document.title = `Kowalla - @${this.name} Settings`;
   },

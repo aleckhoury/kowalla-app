@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     async toggleIntegration() {
-      await this.$axios.put(
+      await this.$axios.$put(
         `/api/v1/profile/${this.$store.state.user._id}/integrations`,
         { integration: this.name }
       );

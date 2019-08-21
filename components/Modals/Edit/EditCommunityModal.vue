@@ -92,16 +92,15 @@ export default {
   },
   methods: {
     async selectFile(type) {
-      if (type === "profile")
-        this.profilePicFile = this.$refs.profilePicFile.files[0];
+      if (type === "profile") { this.profilePicFile = this.$refs.profilePicFile.files[0]; }
       else this.bannerPicFile = this.$refs.bannerPicFile.files[0];
       let reader = new FileReader();
       const self = this;
       reader.onload = e => {
-        if (type === "profile") self.editForm.profilePicture = e.target.result;
+        if (type === "profile") { self.editForm.profilePicture = e.target.result; }
         else self.editForm.headerPicture = e.target.result;
       };
-      if (type === "profile") reader.readAsDataURL(this.profilePicFile);
+      if (type === "profile") { reader.readAsDataURL(this.profilePicFile); }
       else reader.readAsDataURL(this.bannerPicFile);
     },
     async uploadImage(type) {
@@ -167,7 +166,7 @@ export default {
         }
       }
       try {
-        let communityData = await this.$axios.put(
+        let communityData = await this.$axios.$put(
           `api/v1/communities/${this.communityId}`,
           {
             name: editForm.name, // will need to update local state

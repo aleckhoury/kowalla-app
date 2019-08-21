@@ -149,21 +149,21 @@ export default {
     this.communityName = this.$route.params.communityname;
   },
   async mounted() {
-    let infoRes = await this.$axios.get(
+    let infoRes = await this.$axios.$get(
       `/api/v1/communities/community/${this.communityName}`
     );
     this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
 
-    this.bannerPictureUrl = infoRes.data.headerPicture;
-    this.profilePictureUrl = infoRes.data.profilePicture;
-    this.communityId = infoRes.data._id;
-    this.numSubs = infoRes.data.subscribers;
-    this.communityDescription = infoRes.data.description;
-    this.adminId = infoRes.data.admins[0];
+    this.bannerPictureUrl = infoRes.headerPicture;
+    this.profilePictureUrl = infoRes.profilePicture;
+    this.communityId = infoRes._id;
+    this.numSubs = infoRes.subscribers;
+    this.communityDescription = infoRes.description;
+    this.adminId = infoRes.admins[0];
 
     // fill stats
-    this.communityStats.push({ name: "Subs", stat: infoRes.data.subscribers });
-    this.communityStats.push({ name: "Posts", stat: infoRes.data.postCount });
+    this.communityStats.push({ name: "Subs", stat: infoRes.subscribers });
+    this.communityStats.push({ name: "Posts", stat: infoRes.postCount });
 
     if ('scrollRestoration' in history) {
       // Back off, browser, I got this...
@@ -205,7 +205,7 @@ export default {
       });
     },
     async removePostFromPostList() {
-      await this.$axios.delete(
+      await this.$axios.$delete(
               `/api/v1/posts/${this.post._id}`
       );
     },

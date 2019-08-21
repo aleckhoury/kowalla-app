@@ -47,17 +47,17 @@ export default {
     async notifsSelected(bool) {
       if (bool) {
         let projectIds = this.$store.getters["user/getProjectIds"];
-        let notificationRes = await this.$axios.post(
+        let notificationRes = await this.$axios.$post(
           `/api/v1/profiles/${this.$store.state.user._id}/notifications`,
           { projectIdsArray: projectIds }
         );
 
-        if (notificationRes.data.notifications.length === 0) {
+        if (notificationRes.notifications.length === 0) {
           this.notifications = [
             { title: "No new notifications", message: "", notifIds: [""] },
           ];
         } else {
-          this.notifications = notificationRes.data.notifications;
+          this.notifications = notificationRes.notifications;
         }
         //
       } else {
@@ -71,7 +71,7 @@ export default {
               );
             }
           }
-          this.$axios.delete(
+          this.$axios.$delete(
             `/api/v1/profiles/${this.$store.state.user._id}/notifications`,
             { data: { notifIds: notifsToDeleteArray } }
           );

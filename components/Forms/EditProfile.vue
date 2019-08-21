@@ -30,8 +30,7 @@
             type="file"
             @change="selectFile()"
           >
-          <span v-if="editForm.profilePicture">Change Profile Picture</span>
-          <span v-else>Add Profile Picture</span> &nbsp;
+          <span>{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
           <font-awesome-icon icon="camera" />
         </a>
       </div>

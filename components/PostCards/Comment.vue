@@ -116,7 +116,7 @@ export default {
     },
     toggleUpvote() {
       if (this.upvote.userUpvoted) {
-        this.$axios.delete(
+        this.$axios.$delete(
           `/api/v1/comments/${this.comment.postId}/${
             this.$store.state.user._id
           }/upvote`

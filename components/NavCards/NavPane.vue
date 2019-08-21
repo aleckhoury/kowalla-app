@@ -14,9 +14,6 @@
 
     <Card
       header-string="Subscriptions"
-      subheader-string="More things you'll love"
-      subheader-url="/about"
-      subheader-on
       header-on
     >
       <NavCard type="user" selector="subscriptions" />

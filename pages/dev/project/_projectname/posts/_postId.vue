@@ -175,39 +175,39 @@ export default {
     // #############
 
     // get project details
-    let infoRes = await this.$axios.get(
+    let infoRes = await this.$axios.$get(
       `/api/v1/projects/project/${this.name}`
     );
     this.post = await this.$axios.$get(
       `/api/v1/posts/${this.$route.params.postId}`
     );
 
-    this.bannerPictureUrl = infoRes.data.headerPicture;
-    this.projectProfilePictureUrl = infoRes.data.profilePicture;
-    this.projectId = infoRes.data._id;
-    this.projectName = infoRes.data.projectName;
-    this.numSubs = infoRes.data.subscribers;
-    this.projectDescription = infoRes.data.description;
-    this.admins = infoRes.data.admins;
+    this.bannerPictureUrl = infoRes.headerPicture;
+    this.projectProfilePictureUrl = infoRes.profilePicture;
+    this.projectId = infoRes._id;
+    this.projectName = infoRes.projectName;
+    this.numSubs = infoRes.subscribers;
+    this.projectDescription = infoRes.description;
+    this.admins = infoRes.admins;
 
     // fill project stats
-    this.projectStats.push({ name: "Subs", stat: infoRes.data.subscribers });
-    this.projectStats.push({ name: "Rep", stat: infoRes.data.reputation });
-    this.projectStats.push({ name: "Posts", stat: infoRes.data.postCount });
+    this.projectStats.push({ name: "Subs", stat: infoRes.subscribers });
+    this.projectStats.push({ name: "Rep", stat: infoRes.reputation });
+    this.projectStats.push({ name: "Posts", stat: infoRes.postCount });
 
     // get admin details
-    let adminRes = await this.$axios.get(`/api/v1/profiles/${this.admins[0]}`);
-    this.adminFirstName = adminRes.data.firstName;
-    this.adminLastName = adminRes.data.lastName;
-    this.adminUsername = adminRes.data.username;
-    this.adminProfilePictureUrl = adminRes.data.profilePicture;
+    let adminRes = await this.$axios.$get(`/api/v1/profiles/${this.admins[0]}`);
+    this.adminFirstName = adminRes.firstName;
+    this.adminLastName = adminRes.lastName;
+    this.adminUsername = adminRes.username;
+    this.adminProfilePictureUrl = adminRes.profilePicture;
 
     // fill profil estats
-    this.profileStats.push({ name: "Rep", stat: adminRes.data.reputation });
-    this.profileStats.push({ name: "Posts", stat: adminRes.data.postCount });
+    this.profileStats.push({ name: "Rep", stat: adminRes.reputation });
+    this.profileStats.push({ name: "Posts", stat: adminRes.postCount });
     this.profileStats.push({
       name: "Replies",
-      stat: adminRes.data.commentCount,
+      stat: adminRes.commentCount,
     });
 
     document.title = `Kowalla - @${this.name}`;
@@ -237,7 +237,7 @@ export default {
       });
     },
     async removePostFromPostList() {
-      await this.$axios.delete(`/api/v1/posts/${this.post._id}`);
+      await this.$axios.$delete(`/api/v1/posts/${this.post._id}`);
     },
   },
 };

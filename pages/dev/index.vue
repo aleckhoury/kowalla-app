@@ -58,6 +58,7 @@ import PostFeed from "~/components/PostCards/PostFeed";
 import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
 
 export default {
+  middleware: 'tabs',
   layout: "default",
   name: "Home",
   components: {
@@ -82,7 +83,7 @@ export default {
   },
   methods: {
     sendEmail() {
-      this.$axios.post('/api/v1/email/signup', {
+      this.$axios.$post('/api/v1/email/signup', {
         firstName: 'Alec',
       });
     }
