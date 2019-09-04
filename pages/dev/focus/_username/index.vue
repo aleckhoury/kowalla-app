@@ -6,7 +6,7 @@
     >
       <div
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-vcentered is-centered is-marginless main-margin"
+        class="columns is-centered is-marginless main-margin"
       >
         <!-- post feed -->
         <div class="column">
@@ -138,10 +138,16 @@
               </div>
             </div>
           </div>
+          <div class="endContainer is-hidden-desktop">
+            <a class="button action end" @click="endCoworkingSession()"><b>End Coworking Session</b></a>
+          </div>
         </div>
         <div class="column">
           <div class="card liveTimer">
             <b><span class="countUp">{{ countUp }}</span></b>
+          </div>
+          <div class="endContainer is-hidden-touch">
+            <a class="button action end" @click="endCoworkingSession()"><b>End Coworking Session</b></a>
           </div>
         </div>
       </div>
@@ -245,7 +251,15 @@ export default {
       this.editor.destroy();
     }
   },
+  sockets: {
+    confirmManualDisconnect() {
+      this.$router.push('/dev');
+    },
+  },
   methods: {
+    endCoworkingSession() {
+      this.$socket.emit('manual-disconnect');
+    },
     cardModal() {
       this.$modal.open({
         parent: this,
@@ -381,6 +395,12 @@ export default {
   border-radius: 6px;
   background-color: #39c9a0;
   border-color: #39c9a0;
+}
+.end {
+  width: 100%;
+}
+.endContainer {
+  margin-top: 1em;
 }
 .startNew {
   color: white;

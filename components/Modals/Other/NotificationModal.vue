@@ -2,7 +2,7 @@
   <div v-clicked-outside="closeModal" class="modal-content">
     <div class="box">
       <!--{{modalText}}-->
-      <div v-for="item in notifications" :key="item.notifIds[0]">
+      <div v-for="(item, index) in notifications" :key="item.notifIds[0]">
         <!-- Notif object -->
         <div @click="getLink(item)">
           <div>
@@ -14,6 +14,7 @@
             {{ item.message }}
           </div>
         </div>
+        <hr v-if="index !== notifications.length - 1">
       </div>
     </div>
   </div>
@@ -99,7 +100,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .box {
-    margin: 25px;
+    margin: 0;
     max-width: 100%;
     text-align: center;
 }

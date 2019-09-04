@@ -1,7 +1,7 @@
 <template>
   <div class="modal-content">
     <div class="box">
-      Experiencing issues? Got a bug report? Let us know about it at
+      Experiencing issues? Want to report a bug? Let us know about it at
       <b>help@kowalla.co</b>
     </div>
   </div>

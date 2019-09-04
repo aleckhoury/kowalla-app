@@ -1,28 +1,33 @@
 <template>
   <div>
-    <div v-if="type === 'user'">
-      <NavCardLink
-        v-for="item in this.$store.state.user[selector]"
-        :key="item.name"
-        :name="item.name"
-        :num-subs="item.numSubs"
-        :picture-url="item.pictureUrl"
-        :project-id="getProjectId(item)"
-        :community-id="getCommunityId(item)"
-        @nav-card-link-clicked="emitClickedEventToParent()"
-      />
+    <div v-if="profileSubs[selector].length || this.$store.state.user[selector].length">
+      <div v-if="type === 'user'">
+        <NavCardLink
+          v-for="item in this.$store.state.user[selector]"
+          :key="item.name"
+          :name="item.name"
+          :num-subs="item.numSubs"
+          :picture-url="item.pictureUrl"
+          :project-id="getProjectId(item)"
+          :community-id="getCommunityId(item)"
+          @nav-card-link-clicked="emitClickedEventToParent()"
+        />
+      </div>
+      <div v-else-if="type === 'profile'">
+        <NavCardLink
+          v-for="item in profileSubs[selector]"
+          :key="item.name"
+          :name="item.name"
+          :num-subs="item.numSubs"
+          :picture-url="item.pictureUrl"
+          :project-id="getProjectId(item)"
+          :community-id="getCommunityId(item)"
+          @nav-card-link-clicked="emitClickedEventToParent()"
+        />
+      </div>
     </div>
-    <div v-else-if="type === 'profile'">
-      <NavCardLink
-        v-for="item in profileSubs[selector]"
-        :key="item.name"
-        :name="item.name"
-        :num-subs="item.numSubs"
-        :picture-url="item.pictureUrl"
-        :project-id="getProjectId(item)"
-        :community-id="getCommunityId(item)"
-        @nav-card-link-clicked="emitClickedEventToParent()"
-      />
+    <div v-else class="empty">
+      <strong>{{ emptyText }}</strong>
     </div>
   </div>
 </template>
@@ -41,6 +46,15 @@ export default {
       },
     }, // if profile, we'll populate this with an object with two arrays of subscriptions, mimicking the user state
   },
+  computed: {
+    emptyText() {
+      if (this.selector === 'owned') {
+        return 'Create a project or a space!';
+      } else {
+        return 'Find some cool projects and spaces to subscribe to!';
+      }
+    }
+  },
   methods: {
     getProjectId(item) {
       return item.hasOwnProperty("projectId") ? item.projectId : null;
@@ -54,4 +68,10 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+  .empty {
+    padding: 0.5em;
+    font-style: italic;
+    font-size: 14px;
+  }
+</style>

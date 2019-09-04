@@ -18,7 +18,7 @@
           </div>
 
           <div class="level-item">
-            <nuxt-link class="page-link" to="/about"><b>About</b></nuxt-link>
+            <nuxt-link class="page-link" to="/"><b>About</b></nuxt-link>
           </div>
 
           <div class="level-item" @click="callHelpModal">

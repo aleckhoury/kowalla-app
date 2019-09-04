@@ -204,10 +204,15 @@ export default {
         const user = await this.$axios.$get(
           `api/v1/users/${registerForm.username}`
         );
+        const subs = await this.$axios.$get(
+                `/api/v1/profiles/${user._id}/subs`
+        );
 
+        const { owned, subscriptions } = subs.profileSubscriptions;
         await Object.assign(user, {
           loggedIn: Boolean(Object.keys(user).length),
         });
+        await Object.assign(user, { subscriptions, owned });
 
         await this.$store.commit("user/setUser", user);
         await this.$emit('close');

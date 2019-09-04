@@ -1,9 +1,8 @@
 <template lang="html">
-  <div class="navigation-pane-container">
+  <div v-if="this.$store.state.user.loggedIn" class="navigation-pane-container">
     <Card
       header-string="Projects and Communities"
       subheader-string="Create a new space"
-      subheader-url="/about"
       subheader-on
       subheader-is-button
       header-on

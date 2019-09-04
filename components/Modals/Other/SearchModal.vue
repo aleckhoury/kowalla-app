@@ -10,7 +10,8 @@
 import Searchbar from "~/components/Header/NavHeader/Searchbar";
 
 export default {
-  name: "SearchModal",
+  name: "" +
+          "SearchModal",
   components: { Searchbar },
   props: {
     modalText: { type: String, default: "" },
@@ -25,7 +26,6 @@ export default {
 <style lang="css" scoped>
 .box {
     max-width: 100%;
-    height: 300px;
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -37,6 +37,6 @@ export default {
     margin: 0;
     color: #39C9A0;
     width: auto;
-
+    overflow: visible;
 }
 </style>

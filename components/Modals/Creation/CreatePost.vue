@@ -327,7 +327,7 @@ export default {
         // Custom Extensions
         new Iframe(),
       ],
-      content: "<p></p><p></p><p></p><p></p>",
+      content: "<p></p>",
       onUpdate: ({ getHTML }) => {
         this.html = getHTML();
       },
@@ -517,6 +517,7 @@ div.animation-content {
 }
 .editor__content {
   max-height: 50vh;
+  height: 150px;
   overflow-y: scroll;
   word-break: break-word;
 }

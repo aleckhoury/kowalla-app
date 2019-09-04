@@ -333,7 +333,7 @@ export default {
         // Custom Extensions
         new Iframe(),
       ],
-      content: "<p></p><p></p><p></p><p></p>",
+      content: "<p></p>",
       onUpdate: ({ getHTML }) => {
         this.html = getHTML();
       },

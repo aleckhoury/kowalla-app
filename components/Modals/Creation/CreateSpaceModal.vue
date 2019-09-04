@@ -1,7 +1,7 @@
 <template>
   <div class="modal-content">
     <div class="box">
-      <b-tabs>
+      <b-tabs :value="type">
         <!-- Project -->
         <b-tab-item label="Project">
           <section>
@@ -62,6 +62,9 @@
 <script>
 export default {
   name: "CreateSpaceModal",
+  props: {
+    type: { type: Number, default: 0 },
+  },
   data() {
     return {
       spaceForm: {

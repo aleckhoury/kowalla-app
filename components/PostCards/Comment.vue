@@ -1,20 +1,23 @@
 <template>
   <div>
     <article class="media">
-      <a @click="toggleUpvote()">
-        <font-awesome-icon
-          :class="{ 'user-upvoted': !!userUpvoted }"
-          icon="arrow-up"
-          class="media-left upvote icon"
-        />
-      </a>
+      <div class="media-left is-marginless">
+        <a @click="toggleUpvote()">
+          <font-awesome-icon
+            :class="{ 'user-upvoted': !!userUpvoted }"
+            icon="arrow-up"
+            class="upvote icon"
+          />
+        </a>
+        <strong>{{ upvoteCount }}</strong>
+      </div>
       <div class="media-content">
         <div class="content">
           <p id="reply">
             <small>@{{ profile.username }} · {{ createdAtFormatted }}</small>
-            <br >
+            <br />
             {{ comment.content }}
-            <br >
+            <br />
             <small v-if="nestLevel < 2" @click="toggleReply()">
               <a>Reply</a>
             </small>
@@ -65,14 +68,12 @@ export default {
       replyList: [],
       activeNestedCommentId: "",
       upvote: {},
+      upvoteCount: 0,
     };
   },
   computed: {
     userUpvoted() {
-      if (this.upvote.userUpvoted) {
-        return true;
-      }
-      return false;
+      return !!this.upvote.userUpvoted;
     },
     createdAtFormatted() {
       return format(this.comment.createdAt, "en_US");
@@ -89,14 +90,20 @@ export default {
       this.replyList = await this.$axios.$get(
         `/api/v1/comments/${this.comment.postId}/${this.comment._id}`
       );
+      console.log(this.comment._id);
+      const upvoteCountObj = await this.$axios.$get(
+        `/api/v1/upvotes/count/${this.comment._id}`
+      );
+      this.upvoteCount = upvoteCountObj.count;
+      console.log(this.upvoteCount);
       // this.replyList.map(async (nestComment, idx) => {
       //   this.replyList[idx].upvote =
       // });
       if (this.$store.state.user.loggedIn) {
         this.upvote = await this.$axios.$get(
-                `/api/v1/comments/${this.comment._id}/${
-                        this.$store.state.user._id
-                }/upvote`
+          `/api/v1/comments/${this.comment._id}/${
+            this.$store.state.user._id
+          }/upvote`
         );
       }
     } catch {
@@ -114,20 +121,18 @@ export default {
         this.toggle(this.comment._id);
       }
     },
-    toggleUpvote() {
-      if (this.upvote.userUpvoted) {
-        this.$axios.$delete(
-          `/api/v1/comments/${this.comment.postId}/${
-            this.$store.state.user._id
-          }/upvote`
-        );
+    async toggleUpvote() {
+      this.upvote.userUpvoted = !this.upvote.userUpvoted;
+      if (this.upvote.userUpvoted) this.upvoteCount++;
+      else this.upvoteCount--;
+      if (!this.upvote.userUpvoted) {
+        await this.$axios.$delete(`/api/v1/comments/${this.comment._id}/${this.$store.state.user._id}/upvote`);
       } else {
-        this.$axios.$post(`/api/v1/comments/upvote`, {
+        await this.$axios.$post(`/api/v1/comments/upvote`, {
           commentId: this.comment._id,
           profileId: this.$store.state.user._id,
         });
       }
-      this.upvote.userUpvoted = !this.upvote.userUpvoted;
     },
   },
 };
@@ -137,6 +142,11 @@ export default {
 .upvote {
   margin: 0.35em 0.5em 0 0.5em;
   color: black;
+}
+.media-left {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 p small {
   color: #999;

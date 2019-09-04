@@ -1,6 +1,11 @@
 <template>
   <div class="size">
-    <div class="create-button-2" @click="callMobileCreateModal">
+    <div v-if="activePost && !isFocusPage" class="create-button">
+      <nuxt-link :to="`/dev/focus/${this.$store.state.user.username}`">
+        <strong class="has-text-white is-size-5">LIVE</strong>
+      </nuxt-link>
+    </div>
+    <div v-else-if="!isFocusPage" class="create-button" @click="callMobileCreateModal">
       <font-awesome-icon
         icon="plus"
         class="dark-basic-theme"
@@ -12,12 +17,20 @@
 <script>
 import MobileCreateModal from "~/components/Modals/Creation/MobileCreateModal";
 import CreatePost from "~/components/Modals/Creation/CreatePostMobile";
-import LoginHandler from '~/components/Auth/LoginHandler';
+import CreateSpaceModal from "~/components/Modals/Creation/CreateSpaceModal";
+import LoginHandler from "~/components/Auth/LoginHandler";
+import { mapGetters } from "vuex";
 
 export default {
   name: "MobileFooter",
   components: {
     MobileCreateModal,
+  },
+  computed: {
+    ...mapGetters("coworkers", ["activePost"]),
+    isFocusPage() {
+      return this.$route.path.includes('focus');
+    }
   },
   methods: {
     callMobileCreateModal() {
@@ -37,26 +50,35 @@ export default {
           canCancel: true,
           events: {
             post: () => {
-              this.callCreatePost();
+              this.$modal.open({
+                parent: this,
+                component: CreatePost,
+                width: 400,
+                hasModalCard: true,
+                canCancel: true,
+              });
             },
             community: () => {
-              // call community modal
+              this.$modal.open({
+                parent: this,
+                component: CreateSpaceModal,
+                width: 900,
+                hasModalCard: true,
+                props: { type: 1 }
+              });
             },
             project: () => {
-              // call project modal
+              this.$modal.open({
+                parent: this,
+                component: CreateSpaceModal,
+                width: 900,
+                hasModalCard: true,
+                props: { type: 0 }
+              });
             },
           },
         });
       }
-    },
-    callCreatePost() {
-      this.$modal.open({
-        parent: this,
-        component: CreatePost,
-        width: 400,
-        hasModalCard: true,
-        canCancel: true,
-      });
     },
   },
 };
@@ -75,22 +97,6 @@ export default {
 }
 
 .create-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 0px 10px 10px 0px;
-  background-color: white;
-  border: 2px solid #2F8168;
-  border-radius: 35px;
-  height: 70px;
-  width: 70px;
-  box-shadow: 0 0 10px #333;
-}
-
-.create-button-2 {
   display: flex;
   align-items: center;
   justify-content: center;

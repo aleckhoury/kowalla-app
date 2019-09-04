@@ -53,7 +53,7 @@ export default {
   border-radius: 6px;
   padding: 0.25em 0.5em;
   width: fit-content;
-  background: red;
+  background: #db9dee;
   color: white;
   font-size: 1.5em;
 }

@@ -225,7 +225,7 @@ export default {
         parent: this,
         component: NotificationModal,
         props: { modalText: "Notif" },
-        width: 300,
+        width: 1000,
         hasModalCard: true,
       });
     },
