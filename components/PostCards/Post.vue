@@ -5,7 +5,7 @@
       :created-at="post.createdAt"
       :profile="profile"
       :project="project"
-      :community="community"
+      :space="space"
       :is-project="isProject"
       :is-mobile="isMobile"
       :post-id="post._id"
@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       project: {},
-      community: {},
+      space: {},
       profile: {},
       isProject: false,
       overflow: false,
@@ -96,9 +96,9 @@ export default {
                   `/api/v1/projects/${this.post.projectId}`
           );
         }
-        if (this.post.communityId) {
-          this.community = await this.$axios.$get(
-                  `/api/v1/communities/${this.post.communityId}`
+        if (this.post.spaceId) {
+          this.space = await this.$axios.$get(
+                  `/api/v1/spaces/${this.post.spaceId}`
           );
         }
       } catch {
@@ -112,9 +112,9 @@ export default {
                   `/api/v1/profiles/${this.post.profileId}`
           );
         }
-        if (this.post.communityId) {
-          this.community = await this.$axios.$get(
-                  `/api/v1/communities/${this.post.communityId}`
+        if (this.post.spaceId) {
+          this.space = await this.$axios.$get(
+                  `/api/v1/spaces/${this.post.spaceId}`
           );
         }
       } catch {
@@ -181,15 +181,15 @@ export default {
     openPost() {
       // figure out how to
       let infoObj = {
-        community: this.community,
+        space: this.space,
         project: this.isProject ? this.project : {},
         profile: this.isProject ? {} : this.profile,
       };
       if (this.isMobile) {
-        if (Object.keys(this.community).length) {
-          this.$router.push(`/dev/community/${this.community.name}/posts/${this.post._id}`);
+        if (Object.keys(this.space).length) {
+          this.$router.push(`/beta/space/${this.space.name}/posts/${this.post._id}`);
         } else {
-          this.$router.push(`/dev/project/${this.project.name}/posts/${this.post._id}`);
+          this.$router.push(`/beta/project/${this.project.name}/posts/${this.post._id}`);
         }
       } else {
         this.$modal.open({

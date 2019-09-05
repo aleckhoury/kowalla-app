@@ -193,7 +193,7 @@ export default {
 
         // if name returned isn't the same as we started with
         if (projectData.name !== this.name) {
-          this.$router.push({ path: `/dev/project/${projectData.name}` });
+          this.$router.push({ path: `/beta/project/${projectData.name}` });
         } else {
           // otherwise, refresh
           this.$router.go();

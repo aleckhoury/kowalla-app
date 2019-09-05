@@ -253,7 +253,7 @@ export default {
   },
   sockets: {
     confirmManualDisconnect() {
-      this.$router.push('/dev');
+      this.$router.push('/beta');
     },
   },
   methods: {
@@ -308,7 +308,7 @@ export default {
       this.clearPhoto = true;
       const formData = new FormData();
       formData.append("file", this.file);
-      const type = this.post.projectId ? "project" : "community";
+      const type = this.post.projectId ? "project" : "space";
       formData.append("type", type);
       try {
         const image = await this.$axios.$post(

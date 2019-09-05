@@ -1,13 +1,7 @@
 <template lang="html">
   <div class="screen background-tint">
     <div class="container is-fullhd is-hidden-touch">
-      <!--
-          we'll want to dial in the container fullhd breakpoint
-          right now it isn't contained to just ultra-wides, and effects
-          normal laptop resolution
-      -->
 
-      <!-- three columns, navpane, content, infopane -->
       <div
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
         class="columns is-marginless main-margin"
@@ -17,18 +11,16 @@
         </div>
 
         <div class="column is-three-quarters is-paddingless">
-          <Banner
-            :banner-url="bannerPictureUrl"
-            :banner-title="communityName"
-            :id="communityId"
-            :is-subscribed="isSubscribed"
-            :is-owner="isOwner"
-            banner-title-prefix="#"
-            @subscription-button-clicked="updateSubscriptions"
-          />
-          <div id="postFeed" class="columns is-marginless newsfeed-padding">
+          <div id="postFeed" class="columns is-marginless">
             <div class="column is-two-thirds is-paddingless">
-              <PostFeed v-if="communityId" :page-id="communityId" type="community" />
+              <Post
+                id="spacePost"
+                :key="post._id"
+                :post="post"
+                :is-mobile="false"
+                :truncate="false"
+                @delete-post="removePostFromPostList"
+              />
             </div>
             <div class="column is-one-third is-paddingless side-pane">
               <InfoPane>
@@ -37,11 +29,11 @@
                   class="fullWidth"
                 />
                 <ProfileCard
-                  :name="communityName"
-                  :username="communityName"
+                  :name="spaceName"
+                  :username="spaceName"
                   :profile-picture-url="profilePictureUrl"
-                  :subheader-string="`View ${communityName}'s stats`"
-                  :stats="communityStats"
+                  :subheader-string="`View ${spaceName}'s stats`"
+                  :stats="spaceStats"
                   type="project"
                 />
 
@@ -49,12 +41,12 @@
                   :subheader-on="false"
                   header-string="Description"
                 >
-                  {{ communityDescription }}
+                  {{ spaceDescription }}
                 </DescriptionCard>
 
                 <EditButton
                   v-if="this.$store.state.user._id === adminId"
-                  @edit-button-clicked="callEditCommunityModal"
+                  @edit-button-clicked="callEditSpaceModal"
                 >
                   <b>Edit Settings</b>
                 </EditButton>
@@ -70,34 +62,13 @@
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="is-marginless is-hidden-desktop mobile-main-margin"
     >
-      <Banner
-        :banner-url="bannerPictureUrl"
-        :banner-title="communityName"
-        :id="communityId"
-        :is-subscribed="isSubscribed"
-        :is-owner="isOwner"
-        banner-title-prefix="#"
-        is-mobile
-        @subscription-button-clicked="updateSubscriptions"
+      <Post
+        :key="post._id"
+        :post="post"
+        :is-mobile="true"
+        :truncate="false"
+        @delete-post="removePostFromPostList"
       />
-
-      <DescriptionCard
-        :subheader-on="false"
-        class="newsfeed-margin"
-        header-string="Description"
-      >
-        {{ communityDescription }}
-      </DescriptionCard>
-
-      <div class="side-pane">
-        <EditButton
-          v-if="this.$store.state.user._id === adminId"
-          @edit-button-clicked="callEditCommunityModal"
-        >
-          <b>Edit Settings</b>
-        </EditButton>
-      </div>
-      <PostFeed v-if="communityId" :page-id="communityId" :is-mobile="true" type="community" />
     </div>
   </div>
 </template>
@@ -108,20 +79,19 @@ import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import NavPane from "~/components/NavCards/NavPane";
-import Banner from "~/components/CommunitiesAndProjectsShared/Banner";
+import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
-import EditCommunityModal from "~/components/Modals/Edit/EditCommunityModal";
+import EditSpaceModal from "~/components/Modals/Edit/EditSpaceModal";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import SignupCard from "~/components/InfoCards/SignupCard";
-import PostFeed from "~/components/PostCards/PostFeed";
-
+import Post from "~/components/PostCards/Post";
 
 export default {
   name: "UserPageTest",
   components: {
-    PostFeed,
+    Post,
     SignupCard,
     Header,
     MobileHeader,
@@ -132,20 +102,21 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
-    EditCommunityModal,
+    EditSpaceModal,
   },
 
   data() {
     return {
       // backend content
-      communityName: "",
+      spaceName: "",
       bannerPictureUrl: "",
       profilePictureUrl: "",
-      communityDescription: "",
+      spaceDescription: "",
       adminId: "",
       numSubs: "",
-      communityId: "",
-      communityStats: [],
+      spaceId: "",
+      spaceStats: [],
+      post: {},
     };
   },
   computed: {
@@ -153,7 +124,7 @@ export default {
       let isOwner = false;
       if (typeof this.$store.state.user.owned !== "undefined") {
         for (let i = 0; i < this.$store.state.user.owned.length; i++) {
-          if (this.$store.state.user.owned[i].name === this.communityName) {
+          if (this.$store.state.user.owned[i].name === this.spaceName) {
             isOwner = true;
           }
         }
@@ -165,7 +136,7 @@ export default {
       if (typeof this.$store.state.user.subscriptions !== "undefined") {
         for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
           if (
-            this.$store.state.user.subscriptions[i].name === this.communityName
+            this.$store.state.user.subscriptions[i].name === this.spaceName
           ) {
             isSubscribed = true;
           }
@@ -175,55 +146,58 @@ export default {
     },
   },
   created() {
-    this.communityName = this.$route.params.communityname;
+    this.spaceName = this.$route.params.spacename;
   },
   async mounted() {
     let infoRes = await this.$axios.$get(
-      `/api/v1/communities/community/${this.communityName}`
+      `/api/v1/spaces/space/${this.spaceName}`
     );
+    this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+
     this.bannerPictureUrl = infoRes.headerPicture;
     this.profilePictureUrl = infoRes.profilePicture;
-    this.communityId = infoRes._id;
+    this.spaceId = infoRes._id;
     this.numSubs = infoRes.subscribers;
-    this.communityDescription = infoRes.description;
+    this.spaceDescription = infoRes.description;
     this.adminId = infoRes.admins[0];
 
     // fill stats
-    this.communityStats.push({ name: "Subs", stat: infoRes.subscribers });
-    this.communityStats.push({ name: "Posts", stat: infoRes.postCount });
-    document.title = `Kowalla - #${this.communityName}`;
+    this.spaceStats.push({ name: "Subs", stat: infoRes.subscribers });
+    this.spaceStats.push({ name: "Posts", stat: infoRes.postCount });
+
+    if ('scrollRestoration' in history) {
+      // Back off, browser, I got this...
+      history.scrollRestoration = 'manual';
+    }
+
+    document.title = `Kowalla - #${this.spaceName}`;
   },
   methods: {
     updateSubscriptions(subBool) {
       let subInfo = {
-        name: this.communityName,
+        name: this.spaceName,
         pictureUrl: this.profilePictureUrl,
         numSubs: subBool
-          ? this.communityStats[0].stat + 1
-          : this.communityStats[0].stat - 1,
-        communityId: this.communityId,
+          ? this.spaceStats[0].stat + 1
+          : this.spaceStats[0].stat - 1,
+        spaceId: this.spaceId,
       };
       let subObj = { subBool, ...subInfo };
-      this.communityStats[0].stat = subBool
-        ? this.communityStats[0].stat + 1
-        : this.communityStats[0].stat - 1;
+      this.spaceStats[0].stat = subBool
+        ? this.spaceStats[0].stat + 1
+        : this.spaceStats[0].stat - 1;
 
       this.$store.dispatch("user/updateSubscriptions", subObj);
     },
-    callEditCommunityModal() {
-      this.$modal.open({
-        parent: this,
-        component: EditCommunityModal,
-        props: {
-          name: this.communityName,
-          headerPicture: this.bannerPictureUrl,
-          profilePicture: this.profilePictureUrl,
-          description: this.communityDescription,
-          communityId: this.communityId,
-        },
-        width: 900,
-        hasModalCard: true,
+    callEditSpaceModal() {
+      this.$router.push({
+        path: `/beta/space/${this.spaceName}/edit`,
       });
+    },
+    async removePostFromPostList() {
+      await this.$axios.$delete(
+              `/api/v1/posts/${this.post._id}`
+      );
     },
   },
 };

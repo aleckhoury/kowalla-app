@@ -7,20 +7,19 @@
       >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane class="fixed" />
         </div>
         <!-- post feed -->
         <div class="column is-one-half is-paddingless">
           <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
-              <EditProjectForm
+              <EditSpaceForm
                 v-if="infoRes"
                 :name="name"
-                :project-name="projectName"
                 :header-picture="bannerPictureUrl"
-                :profile-picture="projectProfilePictureUrl"
-                :description="projectDescription"
-                :project-id="projectId"
+                :profile-picture="profilePictureUrl"
+                :description="spaceDescription"
+                :space-id="spaceId"
               />
             </b-tab-item>
             <b-tab-item>
@@ -35,18 +34,17 @@
     <!-- Mobile -->
     <div
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="columns is-marginless is-hidden-desktop mobile-main-margin"
+      class="is-marginless is-hidden-desktop mobile-main-margin"
     >
       <b-tabs id="columnTabs" v-model="activeTab">
         <b-tab-item>
-          <EditProjectForm
+          <EditSpaceForm
             v-if="infoRes"
             :name="name"
-            :project-name="projectName"
             :header-picture="bannerPictureUrl"
-            :profile-picture="projectProfilePictureUrl"
-            :description="projectDescription"
-            :project-id="projectId"
+            :profile-picture="profilePictureUrl"
+            :description="spaceDescription"
+            :space-id="spaceId"
           />
         </b-tab-item>
         <b-tab-item>
@@ -63,22 +61,20 @@ import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
 import NavPane from "~/components/NavCards/NavPane";
-import Banner from "~/components/CommunitiesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
-import EditProjectForm from "~/components/Forms/EditProject";
+import EditSpaceForm from "~/components/Forms/EditSpace";
 import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 export default {
-  name: "UserPageTest",
+  name: "Edit",
   components: {
-    EditProjectForm,
+    EditSpaceForm,
     Header,
     MobileHeader,
     MobileFooter,
     NavPane,
-    Banner,
     DescriptionCard,
     ProfileCard,
     InfoPane,
@@ -88,41 +84,22 @@ export default {
 
   data() {
     return {
+      // backend content
+      spaceName: "",
       bannerPictureUrl: "",
-      projectProfilePictureUrl: "",
-      projectDescription: "",
-      admins: null,
-      projectId: "",
-      projectName: "",
-      adminFirstName: "",
-      adminLastName: "",
-      adminUsername: "",
-      adminProfilePictureUrl: "",
-      projectStats: [],
-      profileStats: [],
-      // newsfeed content
-      postList: [],
+      profilePictureUrl: "",
+      spaceDescription: "",
+      spaceId: "",
       infoRes: false,
     };
   },
   computed: {
-    isOwner() {
-      let isOwner;
-      if (typeof this.$store.state.user.owned !== "undefined") {
-        for (let i = 0; i < this.$store.state.user.owned.length; i++) {
-          if (this.$store.state.user.owned[i].name === this.name) {
-            isOwner = true;
-          }
-        }
-      }
-      return isOwner;
-    },
     name() {
-      return this.$route.params.projectname;
+      return this.$route.params.spacename;
     },
     activeTab() {
       if (process.browser) {
-        return this.$store.state.activeTabs.ProjectSettingsActiveTab;
+        return this.$store.state.activeTabs.SettingsActiveTab;
       }
     },
   },
@@ -135,19 +112,18 @@ export default {
           break;
         }
       }
-      if (!isOwner) this.$router.push({ path: `/dev/user/${this.name}` });
+      if (!isOwner) this.$router.push({ path: `/beta/space/${this.name}` });
     }
     // get project details
     this.infoRes = await this.$axios.$get(
-      `/api/v1/projects/project/${this.name}`
+      `/api/v1/spaces/space/${this.name}`
     );
-    this.projectName = this.infoRes.projectName;
     this.bannerPictureUrl = this.infoRes.headerPicture;
-    this.projectProfilePictureUrl = this.infoRes.profilePicture;
-    this.projectId = this.infoRes._id;
-    this.projectDescription = this.infoRes.description;
+    this.profilePictureUrl = this.infoRes.profilePicture;
+    this.spaceId = this.infoRes._id;
+    this.spaceDescription = this.infoRes.description;
 
-    document.title = `Kowalla - @${this.name} Settings`;
+    document.title = `Kowalla - Edit @${this.name}`;
   },
 };
 </script>

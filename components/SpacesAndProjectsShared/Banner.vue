@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import SubscriptionButton from "~/components/CommunitiesAndProjectsShared/SubscriptionButton";
+import SubscriptionButton from "~/components/SpacesAndProjectsShared/SubscriptionButton";
 
 export default {
   name: "Banner",

@@ -26,7 +26,7 @@ export default {
   methods: {
     handleClick() {
       if (this.isSubscribed) {
-        const type = this.isProject ? "projects" : "communities";
+        const type = this.isProject ? "projects" : "spaces";
         this.$axios.$delete(
           `/api/v1/profiles/${this.$store.state.user._id}/subs/${type}/${
             this.id
@@ -37,7 +37,7 @@ export default {
           `/api/v1/profiles/${this.$store.state.user._id}/subs`,
           {
             projectId: this.isProject ? this.id : undefined,
-            communityId: this.isProject ? undefined : this.id,
+            spaceId: this.isProject ? undefined : this.id,
           }
         );
       }

@@ -1,7 +1,7 @@
 <template>
   <div class="size">
     <div v-if="activePost && !isFocusPage" class="create-button">
-      <nuxt-link :to="`/dev/focus/${this.$store.state.user.username}`">
+      <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`">
         <strong class="has-text-white is-size-5">LIVE</strong>
       </nuxt-link>
     </div>
@@ -58,7 +58,7 @@ export default {
                 canCancel: true,
               });
             },
-            community: () => {
+            space: () => {
               this.$modal.open({
                 parent: this,
                 component: CreateSpaceModal,

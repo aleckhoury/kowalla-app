@@ -90,12 +90,10 @@ export default {
       this.replyList = await this.$axios.$get(
         `/api/v1/comments/${this.comment.postId}/${this.comment._id}`
       );
-      console.log(this.comment._id);
       const upvoteCountObj = await this.$axios.$get(
         `/api/v1/upvotes/count/${this.comment._id}`
       );
       this.upvoteCount = upvoteCountObj.count;
-      console.log(this.upvoteCount);
       // this.replyList.map(async (nestComment, idx) => {
       //   this.replyList[idx].upvote =
       // });

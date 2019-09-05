@@ -13,7 +13,6 @@ export default ({ $axios, isDev }) => {
 
     // Get token from auth.js store
     const token = await Cookies.get('token');
-    // console.log(token);
 
     // Update token axios header
     if (token) {

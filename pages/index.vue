@@ -10,7 +10,7 @@
             </h1>
             <h2 class="subtitle">
               Kowalla empowers you to build projects anywhere. We give you the
-              community and accountability of a coworking space, without the
+              space and accountability of a coworking space, without the
               desk.
             </h2>
             <a id="topButton" class="button action" @click="cardModal">

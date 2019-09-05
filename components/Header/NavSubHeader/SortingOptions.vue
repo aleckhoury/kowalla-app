@@ -59,7 +59,7 @@ export default {
   computed: {},
   created() {
     try {
-      let re = new RegExp("/[user,project,community]/");
+      let re = new RegExp("/[user,project,space]/");
       this.type = this.$route.fullPath.match(re)[0];
     } catch {
       this.type = "/";

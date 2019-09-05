@@ -51,10 +51,10 @@
         </p>
       </nuxt-link>
 
-      <p v-if="community.name">
+      <p v-if="space.name">
         Posted in
-        <nuxt-link :to="getCommunityRoute" class="community underline">
-          <b>#{{ community.name }}</b>
+        <nuxt-link :to="getSpaceRoute" class="space underline">
+          <b>#{{ space.name }}</b>
         </nuxt-link>
       </p>
 
@@ -158,7 +158,7 @@ export default {
     postId: { type: String, default: "" },
     profile: { type: Object, default: () => {} },
     project: { type: Object, default: () => {} },
-    community: { type: Object, default: () => {} },
+    space: { type: Object, default: () => {} },
     isProject: { type: Boolean, default: false },
     isMobile: { type: Boolean, default: false },
   },
@@ -170,13 +170,13 @@ export default {
       return format(this.createdAt, "en_US");
     },
     getProfileRoute() {
-      return `/dev/user/${this.profile.username}`;
+      return `/beta/user/${this.profile.username}`;
     },
     getProjectRoute() {
-      return `/dev/project/${this.project.name}`;
+      return `/beta/project/${this.project.name}`;
     },
-    getCommunityRoute() {
-      return `/dev/community/${this.community.name}`;
+    getSpaceRoute() {
+      return `/beta/space/${this.space.name}`;
     },
   },
   methods: {
@@ -184,11 +184,11 @@ export default {
       let stringToCopy = "";
 
       if (this.isProject) {
-        stringToCopy = `www.kowalla.co/dev/project/${this.project.name}/posts/${
+        stringToCopy = `www.kowalla.co/beta/project/${this.project.name}/posts/${
           this.postId
         }`;
       } else {
-        stringToCopy = `www.kowalla.co/dev/community/${this.community.name}/posts/${
+        stringToCopy = `www.kowalla.co/beta/space/${this.space.name}/posts/${
           this.postId
         }`;
       }
@@ -256,7 +256,7 @@ span {
   font-size: 0.75em;
   padding-top: -0.5em;
 }
-.community {
+.space {
   color: #39c9a0;
 }
 

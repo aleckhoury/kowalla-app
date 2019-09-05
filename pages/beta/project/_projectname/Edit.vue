@@ -7,19 +7,20 @@
       >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane class="fixed" />
         </div>
         <!-- post feed -->
         <div class="column is-one-half is-paddingless">
           <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
-              <EditCommunityForm
+              <EditProjectForm
                 v-if="infoRes"
                 :name="name"
+                :project-name="projectName"
                 :header-picture="bannerPictureUrl"
-                :profile-picture="profilePictureUrl"
-                :description="communityDescription"
-                :community-id="communityId"
+                :profile-picture="projectProfilePictureUrl"
+                :description="projectDescription"
+                :project-id="projectId"
               />
             </b-tab-item>
             <b-tab-item>
@@ -34,17 +35,18 @@
     <!-- Mobile -->
     <div
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="is-marginless is-hidden-desktop mobile-main-margin"
+      class="columns is-marginless is-hidden-desktop mobile-main-margin"
     >
       <b-tabs id="columnTabs" v-model="activeTab">
         <b-tab-item>
-          <EditCommunityForm
+          <EditProjectForm
             v-if="infoRes"
             :name="name"
+            :project-name="projectName"
             :header-picture="bannerPictureUrl"
-            :profile-picture="profilePictureUrl"
-            :description="communityDescription"
-            :community-id="communityId"
+            :profile-picture="projectProfilePictureUrl"
+            :description="projectDescription"
+            :project-id="projectId"
           />
         </b-tab-item>
         <b-tab-item>
@@ -61,20 +63,22 @@ import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
 import NavPane from "~/components/NavCards/NavPane";
+import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
-import EditCommunityForm from "~/components/Forms/EditCommunity";
+import EditProjectForm from "~/components/Forms/EditProject";
 import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 export default {
-  name: "Edit",
+  name: "UserPageTest",
   components: {
-    EditCommunityForm,
+    EditProjectForm,
     Header,
     MobileHeader,
     MobileFooter,
     NavPane,
+    Banner,
     DescriptionCard,
     ProfileCard,
     InfoPane,
@@ -84,22 +88,41 @@ export default {
 
   data() {
     return {
-      // backend content
-      communityName: "",
       bannerPictureUrl: "",
-      profilePictureUrl: "",
-      communityDescription: "",
-      communityId: "",
+      projectProfilePictureUrl: "",
+      projectDescription: "",
+      admins: null,
+      projectId: "",
+      projectName: "",
+      adminFirstName: "",
+      adminLastName: "",
+      adminUsername: "",
+      adminProfilePictureUrl: "",
+      projectStats: [],
+      profileStats: [],
+      // newsfeed content
+      postList: [],
       infoRes: false,
     };
   },
   computed: {
+    isOwner() {
+      let isOwner;
+      if (typeof this.$store.state.user.owned !== "undefined") {
+        for (let i = 0; i < this.$store.state.user.owned.length; i++) {
+          if (this.$store.state.user.owned[i].name === this.name) {
+            isOwner = true;
+          }
+        }
+      }
+      return isOwner;
+    },
     name() {
-      return this.$route.params.communityname;
+      return this.$route.params.projectname;
     },
     activeTab() {
       if (process.browser) {
-        return this.$store.state.activeTabs.SettingsActiveTab;
+        return this.$store.state.activeTabs.ProjectSettingsActiveTab;
       }
     },
   },
@@ -112,18 +135,19 @@ export default {
           break;
         }
       }
-      if (!isOwner) this.$router.push({ path: `/dev/community/${this.name}` });
+      if (!isOwner) this.$router.push({ path: `/beta/user/${this.name}` });
     }
     // get project details
     this.infoRes = await this.$axios.$get(
-      `/api/v1/communities/community/${this.name}`
+      `/api/v1/projects/project/${this.name}`
     );
+    this.projectName = this.infoRes.projectName;
     this.bannerPictureUrl = this.infoRes.headerPicture;
-    this.profilePictureUrl = this.infoRes.profilePicture;
-    this.communityId = this.infoRes._id;
-    this.communityDescription = this.infoRes.description;
+    this.projectProfilePictureUrl = this.infoRes.profilePicture;
+    this.projectId = this.infoRes._id;
+    this.projectDescription = this.infoRes.description;
 
-    document.title = `Kowalla - @${this.name} Settings`;
+    document.title = `Kowalla - Edit @${this.name}`;
   },
 };
 </script>

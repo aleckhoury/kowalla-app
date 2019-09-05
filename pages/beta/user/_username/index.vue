@@ -38,7 +38,7 @@
             </DescriptionCard>
 
             <!--<EditButton v-if="this.$store.state.user.username === username">-->
-            <!--<nuxt-link :to="`/dev/user/${username}/edit`">-->
+            <!--<nuxt-link :to="`/beta/user/${username}/edit`">-->
             <!--<b>-->
             <!--Edit Settings-->
             <!--</b>-->
@@ -68,7 +68,7 @@
                   this.$store.state.user.username !== username
               "
               :header-string="`${firstName}'s Subscriptions`"
-              subheader-string="More communities you'll love"
+              subheader-string="More spaces you'll love"
             >
               <!-- need to make NavCard more flexible -->
               <NavCard
@@ -105,15 +105,6 @@
       >
         {{ profileDescription }}
       </DescriptionCard>
-
-      <div class="side-pane">
-        <EditButton
-          v-if="this.$store.state.user.username === username"
-          @edit-button-clicked="callEditProfileModal"
-        >
-          <b>Edit Settings</b>
-        </EditButton>
-      </div>
       <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" type="profile" />
     </div>
   </div>

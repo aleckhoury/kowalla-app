@@ -79,7 +79,7 @@ module.exports = {
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
+    // Doc: https://github.com/nuxt-space/axios-module#usage
     "@nuxtjs/axios",
     "nuxt-fontawesome",
     "@nuxtjs/pwa",

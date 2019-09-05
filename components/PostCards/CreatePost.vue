@@ -24,12 +24,12 @@ export default {
       let list = [];
       this.$store.state.user.subscriptions.forEach(function(sub) {
         if (!sub.isProject) {
-          list.push({ name: sub.name, id: sub.communityId });
+          list.push({ name: sub.name, id: sub.spaceId });
         }
       });
       this.$store.state.user.owned.forEach(function(own) {
         if (!own.isProject) {
-          list.push({ name: own.name, id: own.communityId });
+          list.push({ name: own.name, id: own.spaceId });
         }
       });
       if (list.length) {
@@ -42,7 +42,7 @@ export default {
       if (!this.postInList || !this.postInList.length) {
         return this.$toast.open({
           duration: 4000,
-          message: "You need to subscribe to a community to create a post in it!",
+          message: "You need to subscribe to a space to create a post in it!",
           position: "is-top",
           type: "is-danger",
         });

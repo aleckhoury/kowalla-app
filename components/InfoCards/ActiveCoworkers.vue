@@ -8,7 +8,7 @@
       position="is-top"
       animated
     >
-      <nuxt-link :to="`/dev/user/${user.username}`">
+      <nuxt-link :to="`/beta/user/${user.username}`">
         <span class="notify-badge" />
         <img
           :src="user.profilePicture"

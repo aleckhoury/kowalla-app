@@ -37,7 +37,7 @@ export default {
 
       await this.$store.commit("user/setUser", user);
       await this.$router.push({
-        path: `/dev/user/${user.username}`,
+        path: `/beta/user/${user.username}`,
       });
     } else if (this.$route.query.oauth_token) {
       const { oauth_token, oauth_verifier } = this.$route.query;
@@ -63,7 +63,7 @@ export default {
 
         await this.$store.commit("user/setUser", user);
         await this.$router.push({
-          path: `/dev/user/${user.username}`,
+          path: `/beta/user/${user.username}`,
         });
       }
     }

@@ -133,7 +133,7 @@ export default {
         };
 
         this.$store.commit("user/editProfile", editObj);
-        this.$router.push({ path: `/dev/user/${profileData.username}` });
+        this.$router.push({ path: `/beta/user/${profileData.username}` });
       } catch (e) {
         console.log(e);
       }

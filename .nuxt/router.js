@@ -2,18 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _55d34c61 = () => interopDefault(import('../pages/dev/index.vue' /* webpackChunkName: "pages/dev/index" */))
-const _4fb51a10 = () => interopDefault(import('../pages/dev/index/posts/_postId.vue' /* webpackChunkName: "pages/dev/index/posts/_postId" */))
-const _07a69623 = () => interopDefault(import('../pages/dev/signin.vue' /* webpackChunkName: "pages/dev/signin" */))
-const _ad2d83c2 = () => interopDefault(import('../pages/dev/community/_communityname/index.vue' /* webpackChunkName: "pages/dev/community/_communityname/index" */))
-const _dea35960 = () => interopDefault(import('../pages/dev/focus/_username/index.vue' /* webpackChunkName: "pages/dev/focus/_username/index" */))
-const _57098e5f = () => interopDefault(import('../pages/dev/project/_projectname/index.vue' /* webpackChunkName: "pages/dev/project/_projectname/index" */))
-const _26a45ff5 = () => interopDefault(import('../pages/dev/user/_username/index.vue' /* webpackChunkName: "pages/dev/user/_username/index" */))
-const _728d896d = () => interopDefault(import('../pages/dev/community/_communityname/Edit.vue' /* webpackChunkName: "pages/dev/community/_communityname/Edit" */))
-const _38fb9da6 = () => interopDefault(import('../pages/dev/project/_projectname/Edit.vue' /* webpackChunkName: "pages/dev/project/_projectname/Edit" */))
-const _f1c85652 = () => interopDefault(import('../pages/dev/user/_username/Edit.vue' /* webpackChunkName: "pages/dev/user/_username/Edit" */))
-const _761ce70b = () => interopDefault(import('../pages/dev/community/_communityname/posts/_postId.vue' /* webpackChunkName: "pages/dev/community/_communityname/posts/_postId" */))
-const _10ee116a = () => interopDefault(import('../pages/dev/project/_projectname/posts/_postId.vue' /* webpackChunkName: "pages/dev/project/_projectname/posts/_postId" */))
+const _259407ba = () => interopDefault(import('../pages/beta/index.vue' /* webpackChunkName: "pages/beta/index" */))
+const _135a85a9 = () => interopDefault(import('../pages/beta/index/posts/_postId.vue' /* webpackChunkName: "pages/beta/index/posts/_postId" */))
+const _2ffd45ea = () => interopDefault(import('../pages/beta/signin.vue' /* webpackChunkName: "pages/beta/signin" */))
+const _00a73ca9 = () => interopDefault(import('../pages/beta/focus/_username/index.vue' /* webpackChunkName: "pages/beta/focus/_username/index" */))
+const _531994a6 = () => interopDefault(import('../pages/beta/project/_projectname/index.vue' /* webpackChunkName: "pages/beta/project/_projectname/index" */))
+const _0910b1c6 = () => interopDefault(import('../pages/beta/space/_spacename/index.vue' /* webpackChunkName: "pages/beta/space/_spacename/index" */))
+const _50a73108 = () => interopDefault(import('../pages/beta/user/_username/index.vue' /* webpackChunkName: "pages/beta/user/_username/index" */))
+const _6fc4c606 = () => interopDefault(import('../pages/beta/project/_projectname/Edit.vue' /* webpackChunkName: "pages/beta/project/_projectname/Edit" */))
+const _7de584e6 = () => interopDefault(import('../pages/beta/space/_spacename/Edit.vue' /* webpackChunkName: "pages/beta/space/_spacename/Edit" */))
+const _4ac14070 = () => interopDefault(import('../pages/beta/user/_username/Edit.vue' /* webpackChunkName: "pages/beta/user/_username/Edit" */))
+const _c5a472dc = () => interopDefault(import('../pages/beta/project/_projectname/posts/_postId.vue' /* webpackChunkName: "pages/beta/project/_projectname/posts/_postId" */))
+const _9574789c = () => interopDefault(import('../pages/beta/space/_spacename/posts/_postId.vue' /* webpackChunkName: "pages/beta/space/_spacename/posts/_postId" */))
 const _3687ba5b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
@@ -91,54 +91,54 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
-      path: "/dev",
-      component: _55d34c61,
-      name: "dev",
+      path: "/beta",
+      component: _259407ba,
+      name: "beta",
       children: [{
         path: "posts/:postId?",
-        component: _4fb51a10,
-        name: "dev-index-posts-postId"
+        component: _135a85a9,
+        name: "beta-index-posts-postId"
       }]
     }, {
-      path: "/dev/signin",
-      component: _07a69623,
-      name: "dev-signin"
+      path: "/beta/signin",
+      component: _2ffd45ea,
+      name: "beta-signin"
     }, {
-      path: "/dev/community/:communityname?",
-      component: _ad2d83c2,
-      name: "dev-community-communityname"
+      path: "/beta/focus/:username?",
+      component: _00a73ca9,
+      name: "beta-focus-username"
     }, {
-      path: "/dev/focus/:username?",
-      component: _dea35960,
-      name: "dev-focus-username"
+      path: "/beta/project/:projectname?",
+      component: _531994a6,
+      name: "beta-project-projectname"
     }, {
-      path: "/dev/project/:projectname?",
-      component: _57098e5f,
-      name: "dev-project-projectname"
+      path: "/beta/space/:spacename?",
+      component: _0910b1c6,
+      name: "beta-space-spacename"
     }, {
-      path: "/dev/user/:username?",
-      component: _26a45ff5,
-      name: "dev-user-username"
+      path: "/beta/user/:username?",
+      component: _50a73108,
+      name: "beta-user-username"
     }, {
-      path: "/dev/community/:communityname?/Edit",
-      component: _728d896d,
-      name: "dev-community-communityname-Edit"
+      path: "/beta/project/:projectname?/Edit",
+      component: _6fc4c606,
+      name: "beta-project-projectname-Edit"
     }, {
-      path: "/dev/project/:projectname?/Edit",
-      component: _38fb9da6,
-      name: "dev-project-projectname-Edit"
+      path: "/beta/space/:spacename?/Edit",
+      component: _7de584e6,
+      name: "beta-space-spacename-Edit"
     }, {
-      path: "/dev/user/:username?/Edit",
-      component: _f1c85652,
-      name: "dev-user-username-Edit"
+      path: "/beta/user/:username?/Edit",
+      component: _4ac14070,
+      name: "beta-user-username-Edit"
     }, {
-      path: "/dev/community/:communityname?/posts/:postId?",
-      component: _761ce70b,
-      name: "dev-community-communityname-posts-postId"
+      path: "/beta/project/:projectname?/posts/:postId?",
+      component: _c5a472dc,
+      name: "beta-project-projectname-posts-postId"
     }, {
-      path: "/dev/project/:projectname?/posts/:postId?",
-      component: _10ee116a,
-      name: "dev-project-projectname-posts-postId"
+      path: "/beta/space/:spacename?/posts/:postId?",
+      component: _9574789c,
+      name: "beta-space-spacename-posts-postId"
     }, {
       path: "/",
       component: _3687ba5b,

@@ -4,17 +4,13 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <nuxt-link class="kowalla-logo" to="/dev">
+            <nuxt-link class="kowalla-logo" to="/beta">
               <img
                 src="https://i.imgur.com/04hoRgV.png"
                 class="kowalla-logo-picture"
               />
               kowalla
             </nuxt-link>
-          </div>
-
-          <div class="level-item">
-            <nuxt-link class="page-link" to="/dev"><b>Feed</b></nuxt-link>
           </div>
 
           <div class="level-item">
@@ -26,7 +22,7 @@
           </div>
 
           <div v-if="activePost" class="level-item">
-            <nuxt-link :to="`/dev/focus/${this.$store.state.user.username}`" class="page-link has-text-white"><b>Focus</b></nuxt-link>
+            <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`" class="page-link has-text-white"><b>Focus</b></nuxt-link>
           </div>
         </div>
 

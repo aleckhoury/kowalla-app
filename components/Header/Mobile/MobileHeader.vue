@@ -8,7 +8,7 @@
       <div
         class="level half-height is-mobile mobile-header-top-container is-marginless"
       >
-        <nuxt-link to="/dev">
+        <nuxt-link to="/beta">
           <div class="level-left kowalla-logo">
             <img
               src="https://i.imgur.com/04hoRgV.png"
@@ -97,7 +97,7 @@
           build your dreams. That means:
           <ul>
             <li>
-              Reddit-like communities
+              Reddit-like spaces
             </li>
             <li>
               Live Posts to easily cowork with others
@@ -182,7 +182,7 @@ export default {
     headerType() {
       if (this.$route.path.includes('edit')) return "SettingsActiveTab";
       else if (this.$route.path.includes('posts')) return "Post";
-      else if (this.$route.path === '/dev') return "NewsFeedActiveTab";
+      else if (this.$route.path === '/beta') return "NewsFeedActiveTab";
       return 'sortOnly';
     },
   },

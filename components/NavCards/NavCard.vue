@@ -9,7 +9,7 @@
           :num-subs="item.numSubs"
           :picture-url="item.pictureUrl"
           :project-id="getProjectId(item)"
-          :community-id="getCommunityId(item)"
+          :space-id="getSpaceId(item)"
           @nav-card-link-clicked="emitClickedEventToParent()"
         />
       </div>
@@ -21,7 +21,7 @@
           :num-subs="item.numSubs"
           :picture-url="item.pictureUrl"
           :project-id="getProjectId(item)"
-          :community-id="getCommunityId(item)"
+          :space-id="getSpaceId(item)"
           @nav-card-link-clicked="emitClickedEventToParent()"
         />
       </div>
@@ -59,8 +59,8 @@ export default {
     getProjectId(item) {
       return item.hasOwnProperty("projectId") ? item.projectId : null;
     },
-    getCommunityId(item) {
-      return item.hasOwnProperty("communityId") ? item.communityId : null;
+    getSpaceId(item) {
+      return item.hasOwnProperty("spaceId") ? item.spaceId : null;
     },
     emitClickedEventToParent() {
       this.$emit("nav-card-link-clicked");

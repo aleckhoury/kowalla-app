@@ -15,7 +15,7 @@
           build your dreams. That means:
           <ul>
             <li>
-              Reddit-like communities
+              Reddit-like spaces
             </li>
             <li>
               Live Posts to easily cowork with others

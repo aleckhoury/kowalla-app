@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="box is-narrow">
       <div class="center mobile-nav-link-picture">
-        <nuxt-link to="/dev" @click.native="closeModal()">
+        <nuxt-link to="/beta" @click.native="closeModal()">
           <div class="general-navigation">
             <font-awesome-icon icon="home" />
             <span><b>Home</b></span>
@@ -27,7 +27,7 @@
         -->
       </div>
 
-      <span class="header-content"><b>Your Projects and Communities</b></span>
+      <span class="header-content"><b>Your Projects and Spaces</b></span>
       <NavCard
         type="user"
         selector="owned"

@@ -7,7 +7,7 @@
           :created-at="post.createdAt"
           :profile="profile"
           :project="project"
-          :community="community"
+          :space="space"
           :is-project="isProject"
           :post-id="post._id"
           :is-modal="true"
@@ -70,28 +70,28 @@ export default {
       originalPath: "",
       profile: {},
       project: {},
-      community: {},
+      space: {},
       post: {},
     };
   },
   created() {
     this.post = this.postObj;
     this.profile = this.infoObj.profile;
-    this.community = this.infoObj.community;
+    this.space = this.infoObj.space;
     this.project = this.infoObj.project;
 
     this.originalPath = this.$route.path;
-    if (Object.keys(this.community).length) {
+    if (Object.keys(this.space).length) {
       window.history.pushState(
         {},
         null,
-        `/dev/community/${this.community.name}/posts/${this.post._id}`
+        `/beta/space/${this.space.name}/posts/${this.post._id}`
       );
     } else {
       window.history.pushState(
         {},
         null,
-        `/dev/project/${this.project.name}/posts/${this.post._id}`
+        `/beta/project/${this.project.name}/posts/${this.post._id}`
       );
     }
   },

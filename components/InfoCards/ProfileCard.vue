@@ -56,8 +56,8 @@ export default {
     },
     getRoute() {
       return this.type === "project"
-        ? `/dev/project/${this.username}`
-        : `/dev/user/${this.username}`;
+        ? `/beta/project/${this.username}`
+        : `/beta/user/${this.username}`;
     },
   },
 };

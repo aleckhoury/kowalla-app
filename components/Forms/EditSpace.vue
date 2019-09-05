@@ -3,7 +3,7 @@
     <section>
       <div class="title">Edit {{ name }}</div>
 
-      <b-field label="Community name">
+      <b-field label="Space name">
         <b-input v-model="editForm.name" maxlength="20" />
       </b-field>
 
@@ -58,7 +58,7 @@
           type="textarea"
         />
       </b-field>
-      <a class="button action" @click="editCommunity(editForm)">
+      <a class="button action" @click="editSpace(editForm)">
         Submit
       </a>
     </section>
@@ -72,7 +72,7 @@ export default {
     headerPicture: { type: String, default: "" },
     profilePicture: { type: String, default: "" },
     description: { type: String, default: "" },
-    communityId: { type: String, default: "" },
+    spaceId: { type: String, default: "" },
   },
   data() {
     return {
@@ -102,7 +102,7 @@ export default {
     },
     async uploadImage(type) {
       const formData = new FormData();
-      formData.append("picType", "community");
+      formData.append("picType", "space");
       if (type === "profile") {
         try {
           formData.append("file", this.profilePicFile);
@@ -141,13 +141,13 @@ export default {
         }
       }
     },
-    async editCommunity(editForm) {
+    async editSpace(editForm) {
       if (this.profilePicture !== editForm.profilePicture) {
-        await this.uploadImage();
+        await this.uploadImage('profile');
         if (this.profilePicture.includes("https://kowalla-dev")) {
           const fileName = this.profilePicture.split("profile-pics/")[1];
-          this.$axios.$post("/api/v1/imageDelete", {
-            bucket: `kowalla-dev/community/profile-pics`,
+          await this.$axios.$post("/api/v1/imageDelete", {
+            bucket: `kowalla-dev/space/profile-pics`,
             fileName,
           });
         }
@@ -156,15 +156,15 @@ export default {
         await this.uploadImage("banner");
         if (this.headerPicture.includes("https://kowalla-dev")) {
           const fileName = this.profilePicture.split("profile-pics/")[1];
-          this.$axios.$post("/api/v1/imageDelete", {
-            bucket: `kowalla-dev/community/banner-pics`,
+          await this.$axios.$post("/api/v1/imageDelete", {
+            bucket: `kowalla-dev/space/banner-pics`,
             fileName,
           });
         }
       }
       try {
-        let communityData = await this.$axios.$put(
-          `api/v1/communities/${this.communityId}`,
+        let spaceData = await this.$axios.$put(
+          `api/v1/spaces/${this.spaceId}`,
           {
             name: editForm.name, // will need to update local state
             description: editForm.description,
@@ -176,10 +176,10 @@ export default {
         let subObj = {
           name: editForm.name,
           pictureUrl: editForm.profilePicture,
-          communityId: communityData._id,
+          spaceId: spaceData._id,
         };
         this.$store.commit("user/editOwned", subObj);
-        this.$router.push({ path: `/dev/community/${editForm.name}` });
+        this.$router.push({ path: `/beta/space/${editForm.name}` });
       } catch (e) {
         console.log(e);
       }

@@ -61,7 +61,7 @@ export default {
     headerType() {
       if (this.$route.path.includes('edit')) return "SettingsActiveTab";
       else if (this.$route.path.includes('posts')) return "Post";
-      else if (this.$route.path === '/dev') return "NewsFeedActiveTab";
+      else if (this.$route.path === '/beta') return "NewsFeedActiveTab";
       return 'sortOnly';
     },
   },

@@ -7,7 +7,7 @@
       >
         <!-- nav pane -->
         <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane />
+          <NavPane class="fixed" />
         </div>
 
         <!-- post feed -->
@@ -112,7 +112,7 @@ export default {
   async mounted() {
     if (this.username !== this.$store.state.user.username) {
       this.$router.push({
-        path: `/dev/user/${this.username}`,
+        path: `/beta/user/${this.username}`,
       });
     }
 

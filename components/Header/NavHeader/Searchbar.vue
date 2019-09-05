@@ -27,8 +27,8 @@
             Project
           </small>
 
-          <small v-if="props.option.hasOwnProperty('communityId')">
-            Community
+          <small v-if="props.option.hasOwnProperty('spaceId')">
+            Space
           </small>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default {
           );
 
           this.$router.push({
-            path: `/dev/user/${responseData.username}`,
+            path: `/beta/user/${responseData.username}`,
           });
         }
 
@@ -86,17 +86,17 @@ export default {
           );
 
           this.$router.push({
-            path: `/dev/project/${responseData.name}`,
+            path: `/beta/project/${responseData.name}`,
           });
         }
 
-        if (option.hasOwnProperty("communityId")) {
+        if (option.hasOwnProperty("spaceId")) {
           let responseData = await this.$axios.$get(
-            `/api/v1/communities/${option.communityId}`
+            `/api/v1/spaces/${option.spaceId}`
           );
 
           this.$router.push({
-            path: `/dev/community/${responseData.name}`,
+            path: `/beta/space/${responseData.name}`,
           });
         }
       }

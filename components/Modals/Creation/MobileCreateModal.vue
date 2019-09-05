@@ -11,14 +11,14 @@
         Create a new Post
       </div>
 
-      <div class="level" @click="emitSelection('community')">
+      <div class="level" @click="emitSelection('space')">
         <font-awesome-icon
           class="dark-basic-theme icon"
           icon="user-friends"
           style="font-size: 16px"
         />
 
-        Create a new Community
+        Create a new Space
       </div>
 
       <div class="level" @click="emitSelection('project')">

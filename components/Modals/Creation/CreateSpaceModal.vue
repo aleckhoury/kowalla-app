@@ -29,12 +29,12 @@
           </section>
         </b-tab-item>
 
-        <!-- Community -->
-        <b-tab-item label="Community">
+        <!-- Space -->
+        <b-tab-item label="Space">
           <section>
-            <div class="title">Create a Community</div>
+            <div class="title">Create a Space</div>
 
-            <b-field label="Community name">
+            <b-field label="Space name">
               <b-input
                 v-model="spaceForm.name"
                 placeholder="KowallaFanClub"
@@ -50,7 +50,7 @@
               />
             </b-field>
 
-            <a class="button action" @click="createCommunity(spaceForm)">
+            <a class="button action" @click="createSpace(spaceForm)">
               Create
             </a>
           </section>
@@ -110,14 +110,14 @@ export default {
 
         // change page and close modal
         this.$parent.close();
-        this.$router.push(`/dev/project/${projectData.name}/edit`);
+        this.$router.push(`/beta/project/${projectData.name}/edit`);
       } catch (e) {
         console.log(e);
       }
     },
-    async createCommunity(spaceForm) {
+    async createSpace(spaceForm) {
       try {
-        let communityData = await this.$axios.$post("api/v1/communities", {
+        let spaceData = await this.$axios.$post("api/v1/spaces", {
           name: spaceForm.name,
           description: spaceForm.description,
           isProject: false,
@@ -125,11 +125,11 @@ export default {
         });
         // update local state
         let subInfo = {
-          name: communityData.name,
-          pictureUrl: communityData.profilePicture,
+          name: spaceData.name,
+          pictureUrl: spaceData.profilePicture,
           isProject: false,
           numSubs: 7,
-          communityId: communityData._id,
+          spaceId: spaceData._id,
         };
         let subObj = { subBool: true, ...subInfo };
 
@@ -138,12 +138,12 @@ export default {
         this.$axios.$post(
           `/api/v1/profiles/${this.$store.state.user._id}/subs`,
           {
-            communityId: communityData._id,
+            spaceId: spaceData._id,
           }
         );
 
         // change page and close modal
-        this.$router.push({ path: `/dev/community/${communityData.name}/edit` });
+        this.$router.push({ path: `/beta/space/${spaceData.name}/edit` });
         this.$parent.close();
       } catch (e) {
         console.log(e);

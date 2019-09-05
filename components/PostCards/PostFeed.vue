@@ -121,7 +121,6 @@ export default {
   },
   methods: {
     async scroll() {
-      console.log('scrolling...');
       if (this.postList.length || this.subscribedPostList.length) {
         let isActive = false;
           const feed = document.getElementById("postFeed");

@@ -188,7 +188,7 @@ export default {
         this.$store.commit("user/editOwned", subObj);
 
         // if name returned isn't the same as we started with
-        this.$router.push({ path: `/dev/project/${projectData.name}` });
+        this.$router.push({ path: `/beta/project/${projectData.name}` });
       } catch (e) {
         console.log(e);
       }

@@ -79,23 +79,23 @@ export default {
       }
     },
     getLink(item) {
-      if (item.hasOwnProperty("communityName")) {
+      if (item.hasOwnProperty("spaceName")) {
         // eventually, we'll want to direct right to the comment in question
         if (item.hasOwnProperty("commentId") && item.hasOwnProperty("postId")) {
           this.$router.push({
-            path: `/dev/community/${item.communityName}/posts/${item.postId}`,
+            path: `/beta/space/${item.spaceName}/posts/${item.postId}`,
           });
         } else if (
           !item.hasOwnProperty("commentId") &&
           item.hasOwnProperty("postId")
         ) {
           this.$router.push({
-            path: `/dev/community/${item.communityName}/posts/${item.postId}`,
+            path: `/beta/space/${item.spaceName}/posts/${item.postId}`,
           });
         }
       } else if (item.hasOwnProperty("projectName")) {
         this.$router.push({
-          path: `/dev/project/${item.projectName}`,
+          path: `/beta/project/${item.projectName}`,
         });
       }
     },

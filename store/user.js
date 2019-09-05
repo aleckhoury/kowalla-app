@@ -40,8 +40,8 @@ export const actions = ({
         type = projects;
         typeId = subObj.projectId;
       } else {
-        type = communities;
-        typeId = subObj.communityId;
+        type = spaces;
+        typeId = subObj.spaceId;
       }
 
       this.$axios.$delete(`/api/v1/profiles/${state._id}/subs/${type}/${typeId}`);
@@ -57,8 +57,8 @@ export const actions = ({
   },
   /*
   editOwned({ commit, state }, subObj) {
-    if (subObj.hasOwnProperty('communityId')) {
-      // search by communityId
+    if (subObj.hasOwnProperty('spaceId')) {
+      // search by spaceId
     }
 
     if (subObj.hasOwnProperty('projectId')) {
@@ -90,7 +90,6 @@ export const getters = ({
       }
     }
     */
-    console.log(isSubscribed);
     return isSubscribed;
   },
 
@@ -106,7 +105,7 @@ export const getters = ({
     return isOwner;
   },
   // isUserOwner({owned}) {
-  //   // get name of project or community
+  //   // get name of project or space
   //   let name = $nuxt._route.fullPath.split('/').pop();
   //
   //   let isOwner = false;
@@ -173,10 +172,10 @@ export const mutations = {
     }
   },
   editOwned(state, subObj) {
-    if (subObj.hasOwnProperty('communityId')) {
-      // search by communityId
+    if (subObj.hasOwnProperty('spaceId')) {
+      // search by spaceId
       for (let i=0; i<state.owned.length; i++) {
-        if (state.owned[i].communityId === subObj.communityId) {
+        if (state.owned[i].spaceId === subObj.spaceId) {
           state.owned[i].name = subObj.name;
           state.owned[i].pictureUrl = subObj.pictureUrl;
         }

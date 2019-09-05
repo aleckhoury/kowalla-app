@@ -145,7 +145,7 @@ export default {
 
         // if name returned isn't the same as we started with
         if (profileData.username !== this.username) {
-          this.$router.push({ path: `/dev/user/${profileData.username}` });
+          this.$router.push({ path: `/beta/user/${profileData.username}` });
         } else {
           // otherwise, refresh
           this.$router.go();

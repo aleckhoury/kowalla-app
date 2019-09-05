@@ -13,8 +13,8 @@ export const mutations = {
     state.project = string;
   },
 
-  updateCommunitySortingOption(state, string) {
-    state.community = string;
+  updateSpaceSortingOption(state, string) {
+    state.space = string;
   },
 
   updateNewsfeedSortingOption(state, string) {

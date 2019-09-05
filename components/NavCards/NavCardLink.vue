@@ -21,7 +21,7 @@ export default {
     numSubs: { type: Number, default: 0 },
     pictureUrl: { type: String, default: "" },
     projectId: { type: String, default: "" },
-    communityId: { type: String, default: "" },
+    spaceId: { type: String, default: "" },
   },
   computed: {
     getPrefix() {
@@ -30,8 +30,8 @@ export default {
 
     getRoute() {
       return this.projectId !== null
-        ? `/dev/project/${this.name}`
-        : `/dev/community/${this.name}`;
+        ? `/beta/project/${this.name}`
+        : `/beta/space/${this.name}`;
     },
   },
   methods: {

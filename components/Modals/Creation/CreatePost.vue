@@ -286,12 +286,12 @@ export default {
       }];
       this.$store.state.user.subscriptions.forEach(function(sub) {
         if (!sub.isProject) {
-          list.push({ name: sub.name, id: sub.communityId });
+          list.push({ name: sub.name, id: sub.spaceId });
         }
       });
       this.$store.state.user.owned.forEach(function(own) {
         if (!own.isProject) {
-          list.push({ name: own.name, id: own.communityId });
+          list.push({ name: own.name, id: own.spaceId });
         }
       });
       if (list.length) {
@@ -336,7 +336,7 @@ export default {
   async beforeDestroy() {
     if (this.clearPhoto === true) {
       const fileName = await this.photoUrl.split("post-pics/")[1];
-      const type = this.postingAs.id ? "project" : "community";
+      const type = this.postingAs.id ? "project" : "space";
       await this.$axios.$post("/api/v1/imageDelete", {
         bucket: `kowalla-dev/${type}/post-pics`,
         fileName,
@@ -388,11 +388,11 @@ export default {
         this.s3Loading = false;
         return null;
       }
-      // force the user to post it to a community
+      // force the user to post it to a space
       if (this.postingAs.type === 'user' && this.postingIn.id === undefined) {
         this.$toast.open({
           duration: 5000,
-          message: "You must select a community to post in",
+          message: "You must select a space to post in",
           position: "is-top",
           type: "is-danger",
         });
@@ -405,7 +405,7 @@ export default {
         {
           profileId: this.$store.state.user._id,
           projectId: this.postingAs.id || undefined,
-          communityId: this.postingIn.id || undefined,
+          spaceId: this.postingIn.id || undefined,
           content: this.html,
           duration: null,
           start: new Date(),
@@ -425,8 +425,8 @@ export default {
           username: this.$store.state.user.username,
           profilePicture: this.$store.state.user.profilePicture,
         });
-        this.$router.push({ path: `/dev/focus/${this.$store.state.user.username}` });
-        if (this.$router.history.current.fullPath === "/dev/focus") {
+        this.$router.push({ path: `/beta/focus/${this.$store.state.user.username}` });
+        if (this.$router.history.current.fullPath === "/beta/focus") {
           this.$router.go();
         }
       }
@@ -440,7 +440,7 @@ export default {
       this.clearPhoto = true;
       const formData = new FormData();
       formData.append("file", this.file);
-      const type = this.postingAs.id ? "project" : "community";
+      const type = this.postingAs.id ? "project" : "space";
       formData.append("type", type);
       try {
         const image = await this.$axios.$post(
@@ -517,7 +517,7 @@ div.animation-content {
 }
 .editor__content {
   max-height: 50vh;
-  height: 150px;
+  min-height: 150px;
   overflow-y: scroll;
   word-break: break-word;
 }
