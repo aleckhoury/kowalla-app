@@ -22,7 +22,6 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/onesignal": "^2.6.0",
     "@nuxtjs/pwa": "^2.6.0",
-    "bulma-badge": "^3.0.1",
     "cleave.js": "^1.4.9",
     "cross-env": "^5.2.0",
     "debounce": "^1.2.0",
@@ -36,7 +35,6 @@
     "tiptap": "^1.8.0",
     "tiptap-extensions": "^1.8.0",
     "vue": "^2.6.10",
-    "vue-burger-menu": "^2.0.2",
     "vue-socket.io-extended": "^3.2.2",
     "vuex-persistedstate": "^2.5.4"
   },
