@@ -115,4 +115,7 @@ export default {
 .margin {
   margin: 6px;
 }
+.dropdown {
+  margin-left: 0.5em;
+}
 </style>

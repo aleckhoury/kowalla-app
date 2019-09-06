@@ -42,7 +42,7 @@
                   :profile-picture-url="profilePictureUrl"
                   :subheader-string="`View ${spaceName}'s stats`"
                   :stats="spaceStats"
-                  type="project"
+                  type="space"
                 />
 
                 <DescriptionCard

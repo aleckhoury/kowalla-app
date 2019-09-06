@@ -134,8 +134,14 @@ export default {
 
         this.$store.commit("user/editProfile", editObj);
         this.$router.push({ path: `/beta/user/${profileData.username}` });
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.errors.username.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
   },

@@ -10,7 +10,7 @@
 
     <div class="username font-family">
       <nuxt-link :to="getRoute" class="username-link">
-        <b>@{{ username }}</b>
+        <b>{{ type === 'space' ? `#${name}` : `@${username}` }}</b>
       </nuxt-link>
     </div>
 
@@ -55,9 +55,7 @@ export default {
       return this.stats[i].name;
     },
     getRoute() {
-      return this.type === "project"
-        ? `/beta/project/${this.username}`
-        : `/beta/user/${this.username}`;
+      return `/beta/${this.type}/${this.username}`;
     },
   },
 };

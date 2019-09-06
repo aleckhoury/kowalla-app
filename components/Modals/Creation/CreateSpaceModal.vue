@@ -54,7 +54,7 @@
             <b-field label="Description">
               <b-input
                 v-model="spaceForm.description"
-                maxlength="200"
+                maxlength="500"
                 type="textarea"
                 placeholder="The place to be if you want to build your own streetwear company."
               />
@@ -121,8 +121,14 @@ export default {
         // change page and close modal
         this.$parent.close();
         this.$router.push(`/beta/project/${projectData.name}/edit`);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.errors.projectName.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
     async createSpace(spaceForm) {
@@ -155,8 +161,14 @@ export default {
         // change page and close modal
         this.$router.push({ path: `/beta/space/${spaceData.name}/edit` });
         this.$parent.close();
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log(err);
+        this.$toast.open({
+          duration: 4000,
+          message: err.response.data.errors.name.message,
+          position: "is-top",
+          type: "is-danger",
+        });
       }
     },
   },
