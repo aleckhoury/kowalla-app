@@ -45,6 +45,7 @@ export default {
   height: 42px;
   width: 42px;
   border-radius: 6px;
+  cursor: pointer;
 }
 .dropdown-item {
   color: #4a4a4a;

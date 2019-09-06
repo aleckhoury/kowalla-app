@@ -217,7 +217,7 @@ export default {
         await this.$store.commit("user/setUser", user);
         await this.$emit('close');
         this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
-        this.$router.push(`dev/user/${registerForm.username}/edit`);
+        this.$router.push(`beta/user/${registerForm.username}/edit`);
       } catch (err) {
         console.log(err);
         this.$toast.open({

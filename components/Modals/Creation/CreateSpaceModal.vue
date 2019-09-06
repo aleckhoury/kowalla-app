@@ -8,11 +8,19 @@
             <div class="title">Create a Project</div>
 
             <b-field label="Project Name">
-              <b-input v-model="spaceForm.projectName" maxlength="20" />
+              <b-input
+                v-model="spaceForm.projectName"
+                maxlength="20"
+                placeholder="Kowalla"
+              />
             </b-field>
 
             <b-field label="Project username">
-              <b-input v-model="spaceForm.name" maxlength="20" />
+              <b-input
+                v-model="spaceForm.name"
+                maxlength="20"
+                placeholder="@Kowalla"
+              />
             </b-field>
 
             <b-field label="Description">
@@ -20,6 +28,7 @@
                 v-model="spaceForm.description"
                 maxlength="500"
                 type="textarea"
+                placeholder="We're the world's online coworking space."
               />
             </b-field>
 
@@ -37,7 +46,7 @@
             <b-field label="Space name">
               <b-input
                 v-model="spaceForm.name"
-                placeholder="KowallaFanClub"
+                placeholder="StreetwearStartup"
                 maxlength="20"
               />
             </b-field>
@@ -47,6 +56,7 @@
                 v-model="spaceForm.description"
                 maxlength="200"
                 type="textarea"
+                placeholder="The place to be if you want to build your own streetwear company."
               />
             </b-field>
 

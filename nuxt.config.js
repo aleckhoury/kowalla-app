@@ -37,6 +37,10 @@ module.exports = {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Nunito:Black",
+      },
       { rel: 'apple-touch-icon', href: 'icon.png' },
       { rel: "apple-touch-startup-image", href: "iphone5_splash.png", media: "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" },
       { rel: "apple-touch-startup-image", href: "iphone6_splash.png", media: "(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" },
