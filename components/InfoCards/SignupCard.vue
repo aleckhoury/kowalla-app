@@ -24,7 +24,7 @@
           />
         </a>
       </div>
-      <a class="button action" @click="cardModal">Sign Up</a>
+      <a class="button action" @click="cardModal">Join Beta</a>
     </div>
   </div>
 </template>

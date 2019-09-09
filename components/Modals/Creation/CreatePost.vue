@@ -404,7 +404,7 @@ export default {
         '/api/v1/posts',
         {
           profileId: this.$store.state.user._id,
-          projectId: this.postingAs.id || undefined,
+          projectId: this.postingAs.id !== this.$store.state.user._id ? this.postingAs.id : undefined,
           spaceId: this.postingIn.id || undefined,
           content: this.html,
           duration: null,

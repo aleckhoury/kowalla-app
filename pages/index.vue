@@ -14,10 +14,10 @@
               desk.
             </h2>
             <a id="topButton" class="button action" @click="cardModal">
-              Join Waitlist &nbsp;
-              <!--<font-awesome-icon icon="envelope" />&nbsp;-->
-              <!--<font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;-->
-              <!--<font-awesome-icon :icon="['fab', 'github']" />-->
+              Join Beta &nbsp;
+              <font-awesome-icon icon="envelope" />&nbsp;
+              <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
+              <font-awesome-icon :icon="['fab', 'github']" />
             </a>
             <h2 class="subtitle">
               <!--<b>What does that <i>really</i> mean?</b>-->
@@ -1555,10 +1555,10 @@
               Join below for details about our 2019 launch. No spam.
             </h2>
             <a class="button action" @click="cardModal">
-              Join Waitlist &nbsp;
-              <!--<font-awesome-icon icon="envelope" />&nbsp;-->
-              <!--<font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;-->
-              <!--<font-awesome-icon :icon="['fab', 'github']" />-->
+              Join Beta &nbsp;
+              <font-awesome-icon icon="envelope" />&nbsp;
+              <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
+              <font-awesome-icon :icon="['fab', 'github']" />
             </a>
           </div>
         </div>
@@ -1570,12 +1570,12 @@
 <script>
 import InfoPane from "~/components/InfoCards/InfoPane";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
-import EmailSignup from "~/components/LandingPageComponents/emailSignup";
+import LoginHandler from "~/components/Auth/LoginHandler";
 import LandingNavHeader from "../components/Header/NavHeader/LandingNavHeader";
 import SignupCard from "../components/InfoCards/SignupCard";
 
 export default {
-  layout: 'none',
+  layout: "none",
   name: "Index",
   auth: false,
   components: {
@@ -1583,7 +1583,6 @@ export default {
     LandingNavHeader,
     DescriptionCard,
     InfoPane,
-    EmailSignup,
   },
   data() {
     return {};
@@ -1593,7 +1592,7 @@ export default {
     cardModal() {
       this.$modal.open({
         parent: this,
-        component: EmailSignup,
+        component: LoginHandler,
         width: 900,
         hasModalCard: true,
       });
