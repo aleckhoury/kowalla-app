@@ -4,7 +4,9 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <p class="kowalla-logo">kowalla</p>
+            <nuxt-link to="/beta">
+              <p class="kowalla-logo">kowalla</p>
+            </nuxt-link>
           </div>
         </div>
       </nav>
