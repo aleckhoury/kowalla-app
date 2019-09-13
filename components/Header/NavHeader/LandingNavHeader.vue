@@ -1,12 +1,24 @@
 <template lang="html">
   <div class="nav-header-container">
     <div class="container is-fullhd">
-      <nav class="level">
+      <nav class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
             <nuxt-link to="/beta">
               <p class="kowalla-logo">kowalla</p>
             </nuxt-link>
+          </div>
+        </div>
+        <div class="level-right">
+          <div v-if="this.$store.state.user.loggedIn" class="level-item">
+            <NavProfilePicture
+              :profile-picture="this.$store.state.user.profilePicture"
+              :username="this.$store.state.user.username"
+            />
+          </div>
+
+          <div v-else class="level-item">
+            <b class="page-link" @click="cardModal">Login</b>
           </div>
         </div>
       </nav>
@@ -27,17 +39,18 @@ import { mapGetters } from "vuex";
 export default {
   name: "LandingNavHeader",
   components: {
-    Button,
-    Searchbar,
     CreatePost,
     NavProfilePicture,
-    NavNotifications,
-    HelpModal,
   },
   data() {
     return {
       isMounted: false,
     };
+  },
+  computed: {
+    isMobile() {
+      return window.innerWidth < 768;
+    }
   },
   methods: {
     newPostModal() {
@@ -64,6 +77,9 @@ export default {
       this.$modal.open({
         parent: this,
         component: LoginHandler,
+        props: {
+          initialState: 1,
+        },
         width: 900,
         hasModalCard: true,
       });
@@ -76,6 +92,9 @@ export default {
 .nav-header-container {
     height: 55px;
     /*background-color: #39C9A0;*/
+}
+.level.is-mobile {
+  margin: 0 10px;
 }
 
 .kowalla-logo {

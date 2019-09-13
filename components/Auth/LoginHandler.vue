@@ -1,7 +1,7 @@
 <template>
   <div class="modal-content">
-    <LoginAndRegisterModalMobile v-if="isMobile" @close="closeModal" />
-    <LoginAndRegisterModal v-else :initial-state="false" @close="closeModal" />
+    <LoginAndRegisterModalMobile v-if="isMobile" :initial-state="initialState" @close="closeModal" />
+    <LoginAndRegisterModal v-else :initial-state="initialState" @close="closeModal" />
   </div>
 </template>
 
@@ -12,6 +12,9 @@
   export default {
     name: "LoginHandler",
     components: { LoginAndRegisterModal, LoginAndRegisterModalMobile },
+    props: {
+      initialState: { type: Number, default: 0 },
+    },
     computed: {
       isMobile() {
         return window.innerWidth < 768;

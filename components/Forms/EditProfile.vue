@@ -18,10 +18,7 @@
 
       <div class="profilePicSection">
         <p class="profilePic">
-          <img
-            :src="editForm.profilePicture"
-            onerror="this.src='https://gradientjoy.com/200'"
-          >
+          <img :src="editForm.profilePicture" >
         </p>
         <a class="button action">
           <input
@@ -30,7 +27,7 @@
             type="file"
             @change="selectFile()"
           >
-          <span>{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
+          <span class="profilePicAction">{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
           <font-awesome-icon icon="camera" />
         </a>
       </div>

@@ -1,47 +1,6 @@
 <template>
   <div class="box">
     <b-tabs v-model="activeTab">
-      <b-tab-item label="Login">
-        <section>
-          <span class="title">Welcome Back!</span>
-          <div class="row">
-            <a
-              class="image is-48x48 twitter"
-              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-            >
-              <img
-                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-              />
-            </a>
-            <a
-              class="image is-48x48 github"
-              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-            >
-              <img
-                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-              />
-            </a>
-          </div>
-          <b-field label="Username or Email">
-            <b-input
-              v-model="loginForm.usernameOrEmail"
-              @keyup.native.enter="login(loginForm)"
-            />
-          </b-field>
-
-          <b-field label="Password">
-            <b-input
-              v-model="loginForm.password"
-              type="password"
-              password-reveal
-              @keyup.native.enter="login(loginForm)"
-            />
-          </b-field>
-          <a class="button action" @click="login(loginForm)">
-            Submit
-          </a>
-        </section>
-      </b-tab-item>
       <b-tab-item label="Signup">
         <section>
           <span class="title">Create Account</span>
@@ -97,125 +56,64 @@
           </a>
         </section>
       </b-tab-item>
+      <b-tab-item label="Login">
+        <section>
+          <span class="title">Welcome Back!</span>
+          <div class="row">
+            <a
+              class="image is-48x48 twitter"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
+              />
+            </a>
+            <a
+              class="image is-48x48 github"
+              href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
+            >
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+              />
+            </a>
+          </div>
+          <b-field label="Username or Email">
+            <b-input
+              v-model="loginForm.usernameOrEmail"
+              @keyup.native.enter="login(loginForm)"
+            />
+          </b-field>
+
+          <b-field label="Password">
+            <b-input
+              v-model="loginForm.password"
+              type="password"
+              password-reveal
+              @keyup.native.enter="login(loginForm)"
+            />
+          </b-field>
+          <a class="button action" @click="login(loginForm)">
+            Submit
+          </a>
+        </section>
+      </b-tab-item>
     </b-tabs>
   </div>
 </template>
 
 <script>
-import Cookies from "js-cookie";
+import login from '~/mixins/login';
 
-export default {
+  export default {
   name: "LoginAndRegisterModal",
   components: {},
+  mixins: [login],
   data() {
     return {
-      activeTab: 0,
-      loginForm: {
-        usernameOrEmail: "",
-        password: "",
-      },
-      registerForm: {
-        name: "",
-        email: "",
-        username: "",
-        password: "",
-      },
+      activeTab: this.initialState,
     };
   },
-  methods: {
-    async register(registerForm) {
-      if (
-        this.registerForm.email === "" ||
-        this.registerForm.username === "" ||
-        this.registerForm.password === ""
-      ) {
-        this.$toast.open({
-          duration: 5000,
-          message: "Please fill out the full form",
-          position: "is-top",
-          type: "is-danger",
-        });
-
-        return null;
-      }
-
-      try {
-        await this.$axios.$post("api/v1/users", {
-          email: registerForm.email,
-          username: registerForm.username,
-          password: registerForm.password,
-        });
-        const token = await this.$axios.$post("/api/v1/users/login", {
-          usernameOrEmail: registerForm.username,
-          password: registerForm.password,
-        });
-        await Cookies.set("token", token);
-        await Cookies.set("firstVisit", true);
-        const user = await this.$axios.$get(
-          `api/v1/users/${registerForm.username}`
-        );
-
-        await Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length),
-        });
-
-        await this.$store.commit("user/setUser", user);
-        await this.$emit('close');
-        this.$router.go();
-      } catch (err) {
-        console.log(err);
-        this.$toast.open({
-          duration: 4000,
-          message: err.response.data.message,
-          position: "is-top",
-          type: "is-danger",
-        });
-      }
-    },
-    async login(loginForm) {
-      if (this.loginForm.usernameOrEmail === "" || this.loginForm.password === "") {
-        this.$toast.open({
-          duration: 5000,
-          message: "Please fill out the full form",
-          position: "is-top",
-          type: "is-danger",
-        });
-
-        return null;
-      }
-
-      try {
-        const res = await this.$axios.$post("/api/v1/users/login", {
-          usernameOrEmail: loginForm.usernameOrEmail,
-          password: loginForm.password,
-        });
-        Cookies.set("token", res.token);
-        const user = await this.$axios.$get(
-          `api/v1/users/${res.username}`
-        );
-        const subs = await this.$axios.$get(
-          `/api/v1/profiles/${user._id}/subs`
-        );
-
-        const { owned, subscriptions } = subs.profileSubscriptions;
-        await Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length),
-        });
-        await Object.assign(user, { subscriptions, owned });
-
-        await this.$store.commit("user/setUser", user);
-        await this.$emit('close');
-        this.$router.go();
-      } catch (err) {
-        this.$toast.open({
-          duration: 4000,
-          message: err.response.data.message,
-          position: "is-top",
-          type: "is-danger",
-        });
-      }
-    },
-  },
+  methods: {},
 };
 </script>
 

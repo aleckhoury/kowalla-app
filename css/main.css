@@ -128,14 +128,8 @@ li[data-type="todo_item"] {
 .todo-content {
     flex: 1;
 }
-li[data-done="true"] {
-    text-decoration: line-through;
-}
 li[data-done="true"] .todo-checkbox {
     background-color: black;
-}
-li[data-done="false"] {
-    text-decoration: none;
 }
 
 div.b-tabs section.tab-content {
@@ -164,4 +158,10 @@ a.dropdown-item.is-active {
 iframe {
     width: 100%;
     height: 20rem;
+}
+span.profilePicAction {
+    margin-right: 0.5em;
+}
+strong {
+    color: unset;
 }

@@ -46,7 +46,7 @@
 
                 <EditButton
                   v-if="this.$store.state.user._id === adminId"
-                  @edit-button-clicked="callEditSpaceModal"
+                  @edit-button-clicked="editSpace"
                 >
                   <b>Edit Settings</b>
                 </EditButton>
@@ -83,7 +83,6 @@ import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
-import EditSpaceModal from "~/components/Modals/Edit/EditSpaceModal";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import Post from "~/components/PostCards/Post";
@@ -102,7 +101,6 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
-    EditSpaceModal,
   },
 
   data() {
@@ -189,7 +187,7 @@ export default {
 
       this.$store.dispatch("user/updateSubscriptions", subObj);
     },
-    callEditSpaceModal() {
+    editSpace() {
       this.$router.push({
         path: `/beta/space/${this.spaceName}/edit`,
       });

@@ -44,7 +44,6 @@
             v-if="this.$store.state.user.loggedIn"
             :src="this.$store.state.user.profilePicture"
             class="nav-profile-picture level-item"
-            onerror="this.src='https://gradientjoy.com/50'"
             @click="openSidebar()"
           />
           <b v-else class="has-text-white" @click="cardModal">

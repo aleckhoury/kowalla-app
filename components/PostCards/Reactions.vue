@@ -46,7 +46,7 @@
       <div v-if="isFeed" class="comments level-item" @click="showPost()">
         <font-awesome-icon class="commentIcon" icon="comments" /> Comments
       </div>
-      <div v-else class="comments level-item" @click="$emit('toggle', '')">
+      <div v-else class="comments level-item" @click="toggleReply()">
         <font-awesome-icon class="commentIcon" icon="comments" /> Reply
       </div>
     </div>
@@ -88,6 +88,17 @@ export default {
   },
   async mounted() {},
   methods: {
+    toggleReply() {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+        });
+      }
+      this.$emit('toggle', '');
+    },
     cardModal() {
       if (!this.$store.state.user.loggedIn) {
         return this.$modal.open({

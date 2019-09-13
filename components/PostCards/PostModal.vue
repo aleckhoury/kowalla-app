@@ -19,7 +19,7 @@
         <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
       </div>
       <AddComment
-        v-if="!activeCommentId"
+        v-if="!activeCommentId && this.$store.state.user.loggedIn"
         :post-id="post._id"
         :update-comment="updateComment"
       />

@@ -6,7 +6,6 @@
           <figure class="image is-64x64">
             <img
               :src="this.$store.state.user.profilePicture"
-              onerror="this.src='https://gradientjoy.com/64'"
             />
           </figure>
         </div>

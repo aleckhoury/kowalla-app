@@ -70,9 +70,8 @@ export default {
     },
     postingAllowed() {
       const a = this.$store.state.user.loggedIn;
-      const b = this.type === "NewsFeedActiveTab";
-      const c = !this.isMobile;
-      return !!(a && b && c);
+      const b = !this.isMobile;
+      return !!(a && b);
     },
     getPostsUrl() {
       if (this.type === 'NewsFeedActiveTab') {

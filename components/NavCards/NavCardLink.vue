@@ -1,7 +1,7 @@
 <template>
   <div class="nav-card-link-container" @click="emitClickedEventToParent()">
     <nuxt-link :to="getRoute">
-      <img :src="pictureUrl" class="picture" onerror="this.src='https://gradientjoy.com/40'">
+      <img :src="pictureUrl" class="picture">
     </nuxt-link>
 
     <div class="nav-card-link-content">

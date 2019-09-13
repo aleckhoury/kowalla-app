@@ -13,7 +13,7 @@
     <template slot-scope="props">
       <div class="search-item-container">
         <div class="media-left">
-          <img :src="props.option.picture" width="40" onerror="this.src='https://gradientjoy.com/40'" >
+          <img :src="props.option.picture" width="40" >
         </div>
         <div>
           <span class="search-item-text">{{ props.option.name }}</span>

@@ -43,9 +43,6 @@ export default {
         component: LoginHandler,
         width: 900,
         hasModalCard: true,
-        props: {
-          initialState: false,
-        },
       });
     },
     async getTwitterCreds() {

@@ -3,13 +3,13 @@
     <figure class="media-left">
       <nuxt-link v-if="!isProject" :to="getProfileRoute">
         <p class="image is-48x48 profilePic">
-          <img :src="profile.profilePicture" onerror="this.src='https://gradientjoy.com/50'" >
+          <img :src="profile.profilePicture" >
         </p>
       </nuxt-link>
 
       <nuxt-link v-if="isProject" :to="getProjectRoute">
         <p class="image is-48x48 profilePicProject">
-          <img :src="project.profilePicture" onerror="this.src='https://gradientjoy.com/50'" >
+          <img :src="project.profilePicture" >
         </p>
       </nuxt-link>
     </figure>
@@ -81,7 +81,7 @@
           </b-dropdown-item>
 
           <b-dropdown-item
-            v-if="profile._id === this.$store.state.user._id"
+            v-if="deleteAllowed"
             key="1"
             aria-role="listitem"
             @click="deletePost"
@@ -178,6 +178,15 @@ export default {
     getSpaceRoute() {
       return `/beta/space/${this.space.name}`;
     },
+    deleteAllowed() {
+      if (this.$store.state.user.loggedIn ) {
+        if (this.isProject && this.project.admins) {
+          return this.project.admins.indexOf(this.$store.state.user._id) > -1;
+        }
+        return this.profile._id === this.$store.state.user._id;
+      }
+      return false;
+    }
   },
   methods: {
     copyPostUrl() {

@@ -104,6 +104,9 @@ export default {
       this.$modal.open({
         parent: this,
         component: LoginHandler,
+        props: {
+          initialState: 1,
+        },
         width: 900,
         hasModalCard: true,
       });

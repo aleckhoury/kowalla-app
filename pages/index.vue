@@ -13,7 +13,10 @@
               space and accountability of a coworking space, without the
               desk.
             </h2>
-            <a id="topButton" class="button action" @click="cardModal">
+            <nuxt-link v-if="this.$store.state.user.loggedIn" class="topButton button action" to="/beta">
+              Go to Home Feed &nbsp; <font-awesome-icon icon="arrow-right" />&nbsp;
+            </nuxt-link>
+            <a v-else class="topButton button action" @click="cardModal">
               Join Beta &nbsp;
               <font-awesome-icon icon="envelope" />&nbsp;
               <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
@@ -1554,7 +1557,10 @@
             <h2 class="subtitle has-text-black">
               Join below for details about our 2019 launch. No spam.
             </h2>
-            <a class="button action" @click="cardModal">
+            <nuxt-link v-if="this.$store.state.user.loggedIn" class="button action" to="/beta">
+              Go to Home Feed &nbsp; <font-awesome-icon icon="arrow-right" />&nbsp;
+            </nuxt-link>
+            <a v-else class="button action" @click="cardModal">
               Join Beta &nbsp;
               <font-awesome-icon icon="envelope" />&nbsp;
               <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
@@ -1777,7 +1783,7 @@ export default {
   animation: jelly 0.5s;
 }
 
-#topButton {
+.topButton.button.action {
   border: none;
 }
 

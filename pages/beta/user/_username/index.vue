@@ -122,7 +122,6 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import Card from "~/components/Card";
 import NavCard from "~/components/NavCards/NavCard";
 import EditButton from "~/components/InfoCards/EditButton";
-import EditProfileModal from "~/components/Modals/Edit/EditProfileModal";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import PostFeed from "~/components/PostCards/PostFeed";
 
@@ -138,7 +137,6 @@ export default {
     InfoPane,
     DescriptionCard,
     EditButton,
-    EditProfileModal,
     MobileHeader,
     MobileFooter,
     SignupCard,
@@ -192,24 +190,7 @@ export default {
       document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }
   },
-  methods: {
-    callEditProfileModal() {
-      this.$modal.open({
-        parent: this,
-        component: EditProfileModal,
-        props: {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          username: this.username,
-          profilePicture: this.profilePictureUrl,
-          description: this.profileDescription,
-          profileId: this.profileId,
-        },
-        width: 900,
-        hasModalCard: true,
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 

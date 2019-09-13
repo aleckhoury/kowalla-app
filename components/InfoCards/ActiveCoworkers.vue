@@ -10,11 +10,7 @@
     >
       <nuxt-link :to="`/beta/user/${user.username}`">
         <span class="notify-badge" />
-        <img
-          :src="user.profilePicture"
-          class="coworkerPic"
-          onerror="this.src='https://gradientjoy.com/1000x250'"
-        />
+        <img :src="user.profilePicture" class="coworkerPic" />
       </nuxt-link>
     </BTooltip>
   </div>

@@ -23,7 +23,7 @@
             </small>
           </p>
           <AddComment
-            v-if="activeComment === comment._id"
+            v-if="activeComment === comment._id && this.$store.state.user.loggedIn"
             :comment-id="comment._id"
             :update-comment="updateComment"
             :reset-reply="toggle"
@@ -49,6 +49,7 @@
 <script>
 import AddComment from "./AddComment";
 const { format } = require("timeago.js");
+import LoginHandler from "../Auth/LoginHandler";
 
 export default {
   name: "Comment",
@@ -113,6 +114,14 @@ export default {
       this.replyList.unshift(comment);
     },
     toggleReply() {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+        });
+      }
       if (this.activeComment === this.comment._id) {
         this.toggle("");
       } else {

@@ -60,7 +60,7 @@
                 />
                 <EditButton
                   v-if="this.$store.state.user.username === adminUsername"
-                  @edit-button-clicked="callEditProjectModal"
+                  @edit-button-clicked="editProject"
                 >
                   <b>Edit Settings</b>
                 </EditButton>
@@ -102,7 +102,6 @@ import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
-import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import Post from "~/components/PostCards/Post";
 
@@ -119,7 +118,6 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
-    EditProjectModal,
     Post,
   },
 
@@ -231,7 +229,7 @@ export default {
 
       this.$store.dispatch("user/updateSubscriptions", subObj);
     },
-    callEditProjectModal() {
+    editProject() {
       this.$router.push({
         path: `/beta/project/${this.name}/edit`,
       });

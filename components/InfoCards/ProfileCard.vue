@@ -1,7 +1,7 @@
 <template>
   <div class="card profile-card-container">
     <nuxt-link :to="getRoute">
-      <img :src="profilePictureUrl" :class="{ 'is-mobile': isMobile }" class="image" onerror="this.src='https://gradientjoy.com/40'">
+      <img :src="profilePictureUrl" :class="{ 'is-mobile': isMobile }" class="image">
     </nuxt-link>
 
     <nuxt-link :to="getRoute" class="name font-family">

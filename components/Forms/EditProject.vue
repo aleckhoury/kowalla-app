@@ -15,10 +15,7 @@
 
       <div class="picSection">
         <p class="profilePic">
-          <img
-            :src="editForm.profilePicture"
-            onerror="this.src='https://gradientjoy.com/40'"
-          >
+          <img :src="editForm.profilePicture">
         </p>
         <a class="button action">
           <input
@@ -27,8 +24,7 @@
             type="file"
             @change="selectFile('profile')"
           >
-          <span v-if="editForm.profilePicture">Change Profile Picture</span>
-          <span v-else>Add Profile Picture</span> &nbsp;
+          <span class="profilePicAction">{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
           <font-awesome-icon icon="camera" />
         </a>
       </div>

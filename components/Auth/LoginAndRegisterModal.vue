@@ -1,11 +1,11 @@
 <template>
-  <div :class="[loginBox ? 'right' : 'left']" class="card is-paddingless">
-    <div :class="[loginBox ? 'right' : 'left', 'coverBox']">
+  <div :class="[loginBox ? 'left' : 'right']" class="card is-paddingless">
+    <div :class="[loginBox ? 'left' : 'right', 'coverBox']">
       <p class="kowalla-logo is-size-1">kowalla</p>
       <p v-if="loginBox" class="has-text-white">
         <small>
-          You new here? Create an account to react, subscribe, and make your
-          own posts!
+          You new here? Create an account to react, subscribe, and make your own
+          posts!
         </small>
       </p>
       <p v-else class="has-text-white">
@@ -116,28 +116,16 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
+import login from "~/mixins/login";
 
 export default {
   name: "LoginAndRegisterModal",
   components: {},
-  props: {
-    initialState: { type: Boolean, default: true },
-  },
+  mixins: [login],
   data() {
     return {
       toggledLoginBox: this.initialState,
       count: 0,
-      loginForm: {
-        usernameOrEmail: "",
-        password: "",
-      },
-      registerForm: {
-        name: "",
-        email: "",
-        username: "",
-        password: "",
-      },
     };
   },
   computed: {
@@ -145,132 +133,13 @@ export default {
       if (this.count === 0) return this.initialState;
       return this.toggledLoginBox;
     },
-    validRegister() {
-      const validUsername = new RegExp("^([\\w,:\\s/-]*)$");
-      if (!this.registerForm.email.includes('@')) return false;
-      else if (!validUsername.test(this.registerForm.username)) return false;
-      else if (this.registerForm.password.length <= 8) return false;
-      return true;
-    },
   },
   methods: {
-    async getTwitterCreds() {
-      const twitterCreds = await this.$axios.$post("api/v1/twitter/signin");
-      Cookies.set("twitterToken", twitterCreds.oauth_token);
-      window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${
-        twitterCreds.oauth_token
-      }`;
-    },
     toggleFlow() {
       if (this.count === 0) {
         this.count++;
       }
       this.toggledLoginBox = !this.toggledLoginBox;
-    },
-    async register(registerForm) {
-      if (
-        this.registerForm.email === "" ||
-        this.registerForm.username === "" ||
-        this.registerForm.password === ""
-      ) {
-        this.$toast.open({
-          duration: 4000,
-          message: "Please fill out the full form",
-          position: "is-top",
-          type: "is-danger",
-        });
-
-        return null;
-      } else if (!this.validRegister) {
-        this.$toast.open({
-          duration: 4000,
-          message: "Invalid information",
-          position: "is-top",
-          type: "is-danger",
-        });
-      }
-
-      try {
-        await this.$axios.$post("api/v1/users", {
-          email: registerForm.email,
-          username: registerForm.username,
-          password: registerForm.password,
-        });
-        const token = await this.$axios.$post("/api/v1/users/login", {
-          usernameOrEmail: registerForm.username,
-          password: registerForm.password,
-        });
-        await Cookies.set("token", token);
-        const user = await this.$axios.$get(
-          `api/v1/users/${registerForm.username}`
-        );
-        const subs = await this.$axios.$get(
-                `/api/v1/profiles/${user._id}/subs`
-        );
-
-        const { owned, subscriptions } = subs.profileSubscriptions;
-        await Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length),
-        });
-        await Object.assign(user, { subscriptions, owned });
-
-        await this.$store.commit("user/setUser", user);
-        await this.$emit('close');
-        this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
-        this.$router.push(`beta/user/${registerForm.username}/edit`);
-      } catch (err) {
-        console.log(err);
-        this.$toast.open({
-          duration: 4000,
-          message: err.response.data.message,
-          position: "is-top",
-          type: "is-danger",
-        });
-      }
-    },
-    async login(loginForm) {
-      if (this.loginForm.usernameOrEmail === "" || this.loginForm.password === "") {
-        this.$toast.open({
-          duration: 5000,
-          message: "Please fill out the full form",
-          position: "is-top",
-          type: "is-danger",
-        });
-
-        return null;
-      }
-
-      try {
-        const res = await this.$axios.$post("/api/v1/users/login", {
-          usernameOrEmail: loginForm.usernameOrEmail,
-          password: loginForm.password,
-        });
-        Cookies.set("token", res.token);
-        const user = await this.$axios.$get(
-          `api/v1/users/${res.username}`
-        );
-        const subs = await this.$axios.$get(
-          `/api/v1/profiles/${user._id}/subs`
-        );
-
-        const { owned, subscriptions } = subs.profileSubscriptions;
-        await Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length),
-        });
-        await Object.assign(user, { subscriptions, owned });
-
-        await this.$store.commit("user/setUser", user);
-        await this.$emit('close');
-        this.$router.go();
-      } catch (err) {
-        console.log(err);
-        this.$toast.open({
-          duration: 4000,
-          message: err.response.data.message,
-          position: "is-top",
-          type: "is-danger",
-        });
-      }
     },
   },
 };
@@ -278,10 +147,10 @@ export default {
 
 <style scoped>
 .modal-content {
-border-radius: 6px;
-margin: 0;
-color: #39c9a0;
-width: auto;
+  border-radius: 6px;
+  margin: 0;
+  color: #39c9a0;
+  width: auto;
 }
 .card {
   width: 800px;

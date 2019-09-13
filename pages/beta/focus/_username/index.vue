@@ -376,7 +376,7 @@ export default {
   display: block;
 }
 .editor__content {
-  color: white;
+  color: white ;
   max-height: 50vh;
   overflow-y: scroll;
   overflow-wrap: break-word;

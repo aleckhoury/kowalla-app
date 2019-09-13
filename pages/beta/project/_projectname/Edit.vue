@@ -69,7 +69,7 @@ import ProfileCard from "~/components/InfoCards/ProfileCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import EditProjectForm from "~/components/Forms/EditProject";
-import EditProjectModal from "~/components/Modals/Edit/EditProjectModal";
+
 export default {
   name: "UserPageTest",
   components: {
@@ -83,7 +83,6 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
-    EditProjectModal,
   },
 
   data() {
