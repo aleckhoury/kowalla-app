@@ -74,6 +74,7 @@ export default {
   data() {
     return {
       isMounted: false,
+      canCancel: true,
     };
   },
   computed: {
@@ -109,6 +110,7 @@ export default {
         },
         width: 900,
         hasModalCard: true,
+        canCancel: this.canCancel,
       });
     },
   },

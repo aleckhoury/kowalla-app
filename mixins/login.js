@@ -84,9 +84,9 @@ const login = {
         await Object.assign(user, { subscriptions, owned });
 
         await this.$store.commit("user/setUser", user);
-        await this.$emit('close');
         this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
-        this.$router.push(`beta/user/${registerForm.username}/edit`);
+        this.$emit('register-user', user);
+        this.$emit('increment-active-step');
       } catch (err) {
         console.log(err);
         this.$toast.open({

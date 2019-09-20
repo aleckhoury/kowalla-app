@@ -161,6 +161,7 @@ export default {
   overflow-y: scroll;
   display: flex;
   justify-content: flex-end;
+  border-radius: 6px;
 }
 .card.right {
   justify-content: flex-start;

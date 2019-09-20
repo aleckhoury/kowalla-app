@@ -7,6 +7,7 @@
 
 <script>
 import Cookies from "js-cookie";
+import LoginHandler from "~/components/Auth/LoginHandler";
 
 export default {
   layout: 'none',
@@ -36,9 +37,20 @@ export default {
       await Object.assign(user, { subscriptions, owned });
 
       await this.$store.commit("user/setUser", user);
-      await this.$router.push({
-        path: `/beta/user/${user.username}/edit`,
-      });
+      if (isNew) {
+        this.isLoading = false;
+        await this.$modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+          canCancel: [false, false, false]
+        });
+      } else {
+        await this.$router.push({
+          path: `/beta`,
+        });
+      }
     } else if (this.$route.query.oauth_token) {
       const { oauth_token, oauth_verifier } = this.$route.query;
       const authToken = await Cookies.get("twitterToken");
@@ -62,9 +74,20 @@ export default {
         await Object.assign(user, { subscriptions, owned });
 
         await this.$store.commit("user/setUser", user);
-        await this.$router.push({
-          path: `/beta/user/${user.username}/edit`,
-        });
+        if (isNew) {
+          this.isLoading = false;
+          await this.$modal.open({
+            parent: this,
+            component: LoginHandler,
+            width: 900,
+            hasModalCard: true,
+            canCancel: [false, false, false]
+          });
+        } else {
+          await this.$router.push({
+            path: `/beta`,
+          });
+        }
       }
     }
   },

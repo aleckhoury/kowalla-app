@@ -165,3 +165,10 @@ span.profilePicAction {
 strong {
     color: unset;
 }
+div.b-steps.signup nav.steps {
+    display: none !important;
+    border-radius: 6px;
+}
+div.b-steps.signup section.step-content {
+    padding: 0;
+}

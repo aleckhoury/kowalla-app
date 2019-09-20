@@ -1,17 +1,17 @@
 <template>
   <div class="box">
     <section>
-      <div class="title">Edit Profile</div>
+      <div class="title">{{ title }}</div>
 
-      <b-field label="Your first name">
+      <b-field label="First name">
         <b-input v-model="editForm.firstName" maxlength="20" />
       </b-field>
 
-      <b-field label="Your last name">
+      <b-field label="Last name">
         <b-input v-model="editForm.lastName" maxlength="20" />
       </b-field>
 
-      <b-field label="Your username">
+      <b-field label="Username">
         <b-input v-model="editForm.username" maxlength="20" />
       </b-field>
       <b-field label="Profile Picture" />
@@ -55,6 +55,8 @@ export default {
     profilePicture: { type: String, default: "" },
     description: { type: String, default: "" },
     profileId: { type: String, default: "" },
+    title: { type: String, default: "Edit Profile" },
+    isOnboarding: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -130,7 +132,11 @@ export default {
         };
 
         this.$store.commit("user/editProfile", editObj);
-        this.$router.push({ path: `/beta/user/${profileData.username}` });
+        if (this.isOnboarding) {
+          this.$emit('increment-active-step');
+        } else {
+          this.$router.push({ path: `/beta/user/${profileData.username}` });
+        }
       } catch (err) {
         console.log(err);
         this.$toast.open({
