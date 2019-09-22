@@ -1,5 +1,8 @@
 /node_modules
 .idea
 
-# nuxt build
-.nuxt*
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
