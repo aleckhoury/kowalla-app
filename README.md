@@ -19,14 +19,14 @@
 ```
 This app is built using [Vue](https://vuejs.org/), [Nuxt.js](https://nuxtjs.org), and [Buefy](https://buefy.org/documentation)
 
-**Highlights:**
+Highlights:
 - Full sitemap in pages directory (Nuxt generates the vue router on build)
 - The app uses Vuex to track authentication
 - Requests are made using axios with a nuxt plugin appending the auth token to requests.
 - Local styles are contained within their components, while framework overrides and global styles
 are in css > main.css
 
-**Hazards:**
+Hazards:
 - Any magic happening that you can't trace is probably some Nuxt
 configuration happening behind the scenes. Check out nuxt.config.js, as well as the plugins,
 mixins, middleware, and layout directories if something doesn't make sense.
