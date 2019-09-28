@@ -26,6 +26,15 @@ const login = {
       else if (this.registerForm.password.length <= 8) return false;
       return true;
     },
+    formError() {
+      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      // const regexPass = RegExp('.{8,}');
+      return {
+        username: this.registerForm.username.length ? !regex.test(this.registerForm.username) : false,
+        usernameLength: this.registerForm.username.length > 20,
+        // password: this.registerForm.password.length ? !regexPass.test(this.registerForm.password) : false,
+      };
+    }
   },
   methods: {
     async getTwitterCreds() {
@@ -36,6 +45,7 @@ const login = {
       }`;
     },
     async register(registerForm) {
+      // if (Object.values(this.formError).some(v => v === false)) { return false; }
       if (
         this.registerForm.email === "" ||
         this.registerForm.username === "" ||
@@ -50,7 +60,7 @@ const login = {
 
         return null;
       } else if (!this.validRegister) {
-        this.$toast.open({
+        return this.$toast.open({
           duration: 4000,
           message: "Invalid information",
           position: "is-top",

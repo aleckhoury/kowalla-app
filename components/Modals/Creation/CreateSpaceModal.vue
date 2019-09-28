@@ -18,6 +18,8 @@
             <b-field label="Project username">
               <b-input
                 v-model="spaceForm.name"
+                pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+                validation-message="No special characters or spaces allowed"
                 maxlength="20"
                 placeholder="@Kowalla"
               />
@@ -47,6 +49,8 @@
               <b-input
                 v-model="spaceForm.name"
                 placeholder="StreetwearStartup"
+                pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+                validation-message="No special characters or spaces allowed"
                 maxlength="20"
               />
             </b-field>

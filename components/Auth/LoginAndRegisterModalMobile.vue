@@ -32,11 +32,13 @@
               @keyup.native.enter="register(registerForm)"
             />
           </b-field>
-          <b-field label="Username">
+          <b-field
+            :type="{ 'is-danger': formError.username || formError.usernameLength }"
+            :message="[{ 'No special characters or spaces allowed': formError.username },
+                       { 'Username is too long': formError.usernameLength }]"
+            label="Username">
             <b-input
               v-model="registerForm.username"
-              pattern="^([\w,:\s/-]*)$"
-              validation-message="No special characters or spaces allowed"
               maxlength="20"
               @keyup.native.enter="register(registerForm)"
             />

@@ -3,7 +3,7 @@
     <div v-if="profileSubs[selector].length || this.$store.state.user[selector].length">
       <div v-if="type === 'user'">
         <NavCardLink
-          v-for="item in this.$store.state.user[selector]"
+          v-for="item in profileSubs[selector]"
           :key="item.name"
           :name="item.name"
           :num-subs="item.numSubs"
@@ -54,6 +54,10 @@ export default {
         return 'Find some cool projects and spaces to subscribe to!';
       }
     }
+  },
+  mounted() {
+    console.log(this.profileSubs);
+    console.log(this.profileSubs[this.selector]);
   },
   methods: {
     getProjectId(item) {

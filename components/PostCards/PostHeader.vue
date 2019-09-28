@@ -193,11 +193,11 @@ export default {
       let stringToCopy = "";
 
       if (this.isProject) {
-        stringToCopy = `www.kowalla.co/beta/project/${this.project.name}/posts/${
+        stringToCopy = `https://www.kowalla.co/beta/project/${this.project.name}/posts/${
           this.postId
         }`;
       } else {
-        stringToCopy = `www.kowalla.co/beta/space/${this.space.name}/posts/${
+        stringToCopy = `https://www.kowalla.co/beta/space/${this.space.name}/posts/${
           this.postId
         }`;
       }

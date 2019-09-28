@@ -8,7 +8,7 @@
       header-on
       @subheader-clicked="callCreateSpaceModal"
     >
-      <NavCard type="user" selector="owned" />
+      <NavCard :profile-subs="this.$store.state.user.profileSubscriptions" type="user" selector="owned" />
     </Card>
 
     <Card

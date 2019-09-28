@@ -19,7 +19,7 @@
       </b-step-item>
 
       <b-step-item :clickable="false">
-        <EditProfileForm
+        <EditProfile
           v-if="activeStep === 1"
           :class="isMobile ? 'mobile' : ''"
           :is-onboarding="true"
@@ -44,7 +44,7 @@
 <script>
 import LoginAndRegisterModalMobile from "./LoginAndRegisterModalMobile";
 import LoginAndRegisterModal from "./LoginAndRegisterModal";
-import EditProfileForm from "~/components/Forms/EditProfile";
+import EditProfile from "~/components/Forms/EditProfile";
 import SpaceProjectList from "./SpaceProjectList";
 
 export default {
@@ -53,7 +53,7 @@ export default {
     SpaceProjectList,
     LoginAndRegisterModal,
     LoginAndRegisterModalMobile,
-    EditProfileForm,
+    EditProfile,
   },
   props: {
     initialState: { type: Number, default: 0 },
