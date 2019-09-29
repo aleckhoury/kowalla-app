@@ -18,8 +18,6 @@
         label="Username">
         <b-input
           v-model="editForm.username"
-          pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-          validation-message="No special characters or spaces allowed"
           maxlength="20" />
       </b-field>
       <b-field label="Profile Picture" />
@@ -85,7 +83,7 @@ export default {
         username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
         usernameLength: this.editForm.username.length > 20,
       };
-    }
+    },
   },
   methods: {
     async selectFile() {
@@ -119,6 +117,9 @@ export default {
       }
     },
     async editProfile(editForm) {
+      if (Object.values(this.formError).some(x => x === true)) {
+        return false;
+      }
       if (this.profilePicture !== editForm.profilePicture) {
         await this.uploadImage();
         if (this.profilePicture.includes("https://kowalla-dev")) {
@@ -150,7 +151,7 @@ export default {
 
         this.$store.commit("user/editProfile", editObj);
         if (this.isOnboarding) {
-          this.$emit('increment-active-step');
+          this.$store.commit('onboarding/incrementActiveStep');
         } else {
           this.$router.push({ path: `/beta/user/${profileData.username}` });
         }

@@ -55,10 +55,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.profileSubs);
-    console.log(this.profileSubs[this.selector]);
-  },
   methods: {
     getProjectId(item) {
       return item.hasOwnProperty("projectId") ? item.projectId : null;
