@@ -11,8 +11,14 @@
         <b-input v-model="editForm.lastName" maxlength="20" />
       </b-field>
 
-      <b-field label="Username">
-        <b-input v-model="editForm.username" maxlength="20" />
+      <b-field
+        :type="{ 'is-danger': formError.username || formError.usernameLength }"
+        :message="[{ 'No special characters or spaces allowed': formError.username },
+                   { 'Username is too long': formError.usernameLength }]"
+        label="Username">
+        <b-input
+          v-model="editForm.username"
+          maxlength="20" />
       </b-field>
       <b-field label="Profile Picture" />
 
@@ -47,7 +53,7 @@
 </template>
 <script>
 export default {
-  name: "EditProfileForm",
+  name: "EditProfile",
   props: {
     firstName: { type: String, default: "" },
     lastName: { type: String, default: "" },
@@ -69,6 +75,15 @@ export default {
         profilePicture: this.profilePicture, // need to add upload
       },
     };
+  },
+  computed: {
+    formError() {
+      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      return {
+        username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
+        usernameLength: this.editForm.username.length > 20,
+      };
+    },
   },
   methods: {
     async selectFile() {
@@ -102,6 +117,9 @@ export default {
       }
     },
     async editProfile(editForm) {
+      if (Object.values(this.formError).some(x => x === true)) {
+        return false;
+      }
       if (this.profilePicture !== editForm.profilePicture) {
         await this.uploadImage();
         if (this.profilePicture.includes("https://kowalla-dev")) {
@@ -133,7 +151,7 @@ export default {
 
         this.$store.commit("user/editProfile", editObj);
         if (this.isOnboarding) {
-          this.$emit('increment-active-step');
+          this.$store.commit('onboarding/incrementActiveStep');
         } else {
           this.$router.push({ path: `/beta/user/${profileData.username}` });
         }

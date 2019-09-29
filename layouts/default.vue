@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="state">
     <Header
       class="is-hidden-touch"
     />
@@ -25,6 +25,11 @@ export default {
     return {
       isOpen: false,
     };
+  },
+  computed: {
+    state() {
+      return this.$store.state;
+    }
   },
   mounted() {
     this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);

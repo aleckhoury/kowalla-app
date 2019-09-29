@@ -11,7 +11,6 @@ const login = {
         password: "",
       },
       registerForm: {
-        name: "",
         email: "",
         username: "",
         password: "",
@@ -19,13 +18,18 @@ const login = {
     };
   },
   computed: {
-    validRegister() {
-      const validUsername = new RegExp("^([\\w,:\\s/-]*)$");
-      if (!this.registerForm.email.includes('@')) return false;
-      else if (!validUsername.test(this.registerForm.username)) return false;
-      else if (this.registerForm.password.length <= 8) return false;
-      return true;
+    validPass() {
+      return this.registerForm.password.length > 8;
     },
+    formError() {
+      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      const emailRegex = RegExp('[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?');
+      return {
+        email: this.registerForm.email.length ? !emailRegex.test(this.registerForm.email) : false,
+        username: this.registerForm.username.length ? !regex.test(this.registerForm.username) : false,
+        usernameLength: this.registerForm.username.length > 20,
+      };
+    }
   },
   methods: {
     async getTwitterCreds() {
@@ -36,6 +40,7 @@ const login = {
       }`;
     },
     async register(registerForm) {
+      // if (Object.values(this.formError).some(v => v === false)) { return false; }
       if (
         this.registerForm.email === "" ||
         this.registerForm.username === "" ||
@@ -49,15 +54,14 @@ const login = {
         });
 
         return null;
-      } else if (!this.validRegister) {
-        this.$toast.open({
+      } else if (Object.values(this.formError).some(x => x === true) || !this.validPass) {
+        return this.$toast.open({
           duration: 4000,
           message: "Invalid information",
           position: "is-top",
           type: "is-danger",
         });
       }
-
       try {
         await this.$axios.$post("api/v1/users", {
           email: registerForm.email,
@@ -83,10 +87,9 @@ const login = {
         });
         await Object.assign(user, { subscriptions, owned });
 
-        await this.$store.commit("user/setUser", user);
+        this.$store.commit("user/setUser", user);
         this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
-        this.$emit('register-user', user);
-        this.$emit('increment-active-step');
+        this.$store.commit('onboarding/incrementActiveStep');
       } catch (err) {
         console.log(err);
         this.$toast.open({

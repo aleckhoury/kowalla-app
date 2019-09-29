@@ -3,8 +3,16 @@
     <section>
       <div class="title">Edit {{ name }}</div>
 
-      <b-field label="Space name">
-        <b-input v-model="editForm.name" maxlength="20" />
+      <b-field
+        :type="{ 'is-danger': formError.name || formError.nameLength }"
+        :message="[{ 'No special characters or spaces allowed': formError.name },
+                   { 'Space Name is too long': formError.nameLength }]"
+        label="Space name">
+        <b-input
+          v-model="editForm.name"
+          pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+          validation-message="No special characters or spaces allowed"
+          maxlength="20" />
       </b-field>
 
       <b-field label="Profile Picture" />
@@ -84,6 +92,15 @@ export default {
         admins: [], // just the current user for now
       },
     };
+  },
+  computed: {
+    formError() {
+      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      return {
+        name: this.editForm.name.length ? !regex.test(this.editForm.name) : false,
+        nameLength: this.editForm.name.length > 20,
+      };
+    }
   },
   methods: {
     async selectFile(type) {

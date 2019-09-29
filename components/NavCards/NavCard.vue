@@ -3,7 +3,7 @@
     <div v-if="profileSubs[selector].length || this.$store.state.user[selector].length">
       <div v-if="type === 'user'">
         <NavCardLink
-          v-for="item in this.$store.state.user[selector]"
+          v-for="item in profileSubs[selector]"
           :key="item.name"
           :name="item.name"
           :num-subs="item.numSubs"

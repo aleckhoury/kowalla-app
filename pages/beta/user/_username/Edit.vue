@@ -14,7 +14,7 @@
         <div class="column is-one-half is-paddingless">
           <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
-              <EditProfileForm
+              <EditProfile
                 v-if="infoRes"
                 :first-name="firstName"
                 :last-name="lastName"
@@ -40,7 +40,7 @@
     >
       <b-tabs id="columnTabs" v-model="activeTab">
         <b-tab-item>
-          <EditProfileForm
+          <EditProfile
             v-if="infoRes"
             :first-name="firstName"
             :last-name="lastName"
@@ -69,7 +69,7 @@ import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
 import Card from "~/components/Card";
 import NavCard from "~/components/NavCards/NavCard";
-import EditProfileForm from "~/components/Forms/EditProfile";
+import EditProfile from "~/components/Forms/EditProfile";
 import IntegrationCard from "../../../../components/Forms/IntegrationCard";
 export default {
   middleware: 'tabs',
@@ -79,7 +79,7 @@ export default {
     NavPane,
     NavCard,
     Card,
-    EditProfileForm,
+    EditProfile,
     Header,
     ProfileCard,
     InfoPane,
