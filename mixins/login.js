@@ -77,17 +77,18 @@ const login = {
         const user = await this.$axios.$get(
           `api/v1/users/${registerForm.username}`
         );
+        console.log(user);
         const subs = await this.$axios.$get(
           `/api/v1/profiles/${user._id}/subs`
         );
-
-        const { owned, subscriptions } = subs.profileSubscriptions;
+        const { owned, subscriptions } = subs.subscriptions;
         await Object.assign(user, {
           loggedIn: Boolean(Object.keys(user).length),
         });
         await Object.assign(user, { subscriptions, owned });
+        console.log(user);
 
-        this.$store.commit("user/setUser", user);
+        await this.$store.commit("user/setUser", user);
         this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
         this.$store.commit('onboarding/incrementActiveStep');
       } catch (err) {
@@ -113,23 +114,28 @@ const login = {
       }
 
       try {
+        console.log('test');
         const res = await this.$axios.$post("/api/v1/users/login", {
           usernameOrEmail: loginForm.usernameOrEmail,
           password: loginForm.password,
         });
+        console.log(res);
         Cookies.set("token", res.token);
         const user = await this.$axios.$get(
           `api/v1/users/${res.username}`
         );
+        console.log(user);
         const subs = await this.$axios.$get(
           `/api/v1/profiles/${user._id}/subs`
         );
 
-        const { owned, subscriptions } = subs.profileSubscriptions;
-        await Object.assign(user, {
+        const { owned, subscriptions } = subs.subscriptions;
+        console.log(subs);
+        Object.assign(user, {
           loggedIn: Boolean(Object.keys(user).length),
         });
-        await Object.assign(user, { subscriptions, owned });
+        Object.assign(user, { subscriptions, owned });
+        console.log(user);
 
         await this.$store.commit("user/setUser", user);
         await this.$emit('close');

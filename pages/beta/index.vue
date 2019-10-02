@@ -14,6 +14,7 @@
         <!-- nav pane -->
         <div class="column is-one-quarter side-pane">
           <NavPane class="fixed" />
+          <Subscriptions />
         </div>
 
         <div
@@ -56,12 +57,14 @@ import SignupCard from "~/components/InfoCards/SignupCard";
 import ActiveCoworkers from "../../components/InfoCards/ActiveCoworkers";
 import PostFeed from "~/components/PostCards/PostFeed";
 import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
+import Subscriptions from "../../components/SidePaneCards/Subscriptions";
 
 export default {
   middleware: 'tabs',
   layout: "default",
   name: "Home",
   components: {
+    Subscriptions,
     SortingOptions,
     ActiveCoworkers,
     SignupCard,

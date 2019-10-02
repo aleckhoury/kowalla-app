@@ -67,7 +67,7 @@ import Header from "~/components/Header/Header";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
-import Card from "~/components/Card";
+import CardContainer from "~/components/SidePaneCards/CardContainer";
 import NavCard from "~/components/NavCards/NavCard";
 import EditProfile from "~/components/Forms/EditProfile";
 import IntegrationCard from "../../../../components/Forms/IntegrationCard";
@@ -78,7 +78,7 @@ export default {
     IntegrationCard,
     NavPane,
     NavCard,
-    Card,
+    CardContainer,
     EditProfile,
     Header,
     ProfileCard,

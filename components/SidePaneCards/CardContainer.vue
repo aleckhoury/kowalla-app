@@ -6,11 +6,10 @@
       </div>
     </div>
 
-    <div v-if="$slots.default">
+    <div>
       <slot />
     </div>
 
-    <!-- TODO add v-if and update -->
     <div v-if="subheaderOn" class="subheader">
       <nuxt-link
         v-if="!subheaderIsButton"
@@ -33,7 +32,7 @@
 
 <script>
 export default {
-  name: "Card",
+  name: "CardContainer",
   props: {
     headerString: { type: String, default: "" },
     subheaderString: { type: String, default: "" },

@@ -104,19 +104,6 @@ export const getters = ({
     }
     return isOwner;
   },
-  // isUserOwner({owned}) {
-  //   // get name of project or space
-  //   let name = $nuxt._route.fullPath.split('/').pop();
-  //
-  //   let isOwner = false;
-  //   for (let i=0; i<owned.length; i++) {
-  //     if (owned[i].name === name) {
-  //       isOwner = true;
-  //     }
-  //   }
-  //   return isOwner;
-  // },
-
   getProjectIds({ owned }) {
     let projectIdsArray = [];
     for (let i in owned) {
@@ -139,6 +126,7 @@ export const mutations = {
     Object.assign(state, defaultState());
   },
   addSubscription(state, subObj) {
+    console.log(subObj);
     state.subscriptions.push(subObj);
   },
   removeSubscription(state, subObj) {

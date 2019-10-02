@@ -1,5 +1,5 @@
 <template>
-  <Card
+  <CardContainer
     :header-string="headerString"
     :subheader-string="subheaderString"
     :subheader-url="subheaderUrl"
@@ -9,16 +9,16 @@
     <div class="description-string">
       <slot />
     </div>
-  </Card>
+  </CardContainer>
 </template>
 
 <script>
-import Card from "~/components/Card";
+import CardContainer from "~/components/SidePaneCards/CardContainer";
 
 export default {
   name: "DescriptionCard",
   components: {
-    Card,
+    CardContainer,
   },
   props: {
     headerString: { type: String, default: "" },

@@ -17,9 +17,9 @@
           <div class="column is-two-thirds">
             <b>@{{ this.$store.state.user.username }}</b>
             <br>
-            <span><strong>Creations:</strong> {{ this.$store.state.user.profileSubscriptions.owned.length }}</span>
+            <span><strong>Creations:</strong> {{ this.$store.state.user.subscriptions.owned.length }}</span>
             <br>
-            <span><strong>Subscriptions:</strong> {{ this.$store.state.user.profileSubscriptions.subscriptions.length }}</span>
+            <span><strong>Subscriptions:</strong> {{ this.$store.state.user.subscriptions.subscriptions.length }}</span>
           </div>
         </div>
         <BMenuList label="Menu">

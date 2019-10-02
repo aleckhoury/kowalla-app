@@ -1,33 +1,25 @@
 <template lang="html">
   <div v-if="this.$store.state.user.loggedIn" class="navigation-pane-container">
-    <Card
+    <CardContainer
       header-string="Projects and Spaces"
       subheader-string="Create a new project or space"
       subheader-on
       subheader-is-button
       header-on
-      @subheader-clicked="callCreateSpaceModal"
-    >
-      <NavCard :profile-subs="this.$store.state.user.profileSubscriptions" type="user" selector="owned" />
-    </Card>
-
-    <Card
-      header-string="Subscriptions"
-      header-on
-    >
-      <NavCard type="user" selector="subscriptions" />
-    </Card>
+      @subheader-clicked="callCreateSpaceModal">
+      <NavCard type="user" selector="owned" />
+    </CardContainer>
   </div>
 </template>
 
 <script>
-import Card from "~/components/Card";
+import CardContainer from "~/components/SidePaneCards/CardContainer";
 import NavCard from "./NavCard";
 import CreateSpaceModal from "~/components/Modals/Creation/CreateSpaceModal";
 
 export default {
   name: "NavPane",
-  components: { Card, NavCard, CreateSpaceModal },
+  components: { CardContainer, NavCard, CreateSpaceModal },
   methods: {
     callCreateSpaceModal() {
       this.$modal.open({

@@ -10,8 +10,9 @@ export default ({ store, $axios }) => {
         `api/v1/users/${store.state.user.username}`
       );
       const subs = await $axios.$get(`/api/v1/profiles/${user._id}/subs`);
+      const { owned, subscriptions } = subs.subscriptions;
       await Object.assign(user, { loggedIn: Boolean(Object.keys(user).length) });
-      await Object.assign(user, subs);
+      await Object.assign(user, { subscriptions, owned });
 
       await store.commit("user/setUser", user);
     }

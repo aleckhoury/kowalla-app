@@ -45,7 +45,7 @@
             <!--</nuxt-link>-->
             <!--</EditButton>-->
 
-            <Card
+            <CardContainer
               v-if="
                 profileSubs.owned.length > 0 &&
                   this.$store.state.user.username !== username
@@ -60,9 +60,9 @@
                 type="profile"
                 selector="owned"
               />
-            </Card>
+            </CardContainer>
 
-            <Card
+            <CardContainer
               v-if="
                 profileSubs.subscriptions.length > 0 &&
                   this.$store.state.user.username !== username
@@ -76,7 +76,7 @@
                 type="profile"
                 selector="subscriptions"
               />
-            </Card>
+            </CardContainer>
           </InfoPane>
         </div>
       </div>
@@ -119,7 +119,7 @@ import Header from "~/components/Header/Header";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
-import Card from "~/components/Card";
+import CardContainer from "~/components/SidePaneCards/CardContainer";
 import NavCard from "~/components/NavCards/NavCard";
 import EditButton from "~/components/InfoCards/EditButton";
 import SignupCard from "~/components/InfoCards/SignupCard";
@@ -131,7 +131,7 @@ export default {
   components: {
     NavPane,
     NavCard,
-    Card,
+    CardContainer,
     Header,
     ProfileCard,
     InfoPane,
@@ -185,7 +185,7 @@ export default {
       let subRes = await this.$axios.$get(
         `/api/v1/profiles/${this.profileId}/subs`
       );
-      this.profileSubs = subRes.profileSubscriptions;
+      this.profileSubs = subRes.subscriptions;
 
       document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }

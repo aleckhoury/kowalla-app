@@ -159,17 +159,9 @@ export default {
       return isOwner;
     },
     isSubscribed() {
-      let isSubscribed = false;
-      if (typeof this.$store.state.user.subscriptions !== "undefined") {
-        for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
-          if (
-            this.$store.state.user.subscriptions[i].name === this.spaceName
-          ) {
-            isSubscribed = true;
-          }
-        }
+      if (this.$store.state.user.subscriptions) {
+        return this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId);
       }
-      return isSubscribed;
     },
   },
   created() {
