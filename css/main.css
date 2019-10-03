@@ -47,11 +47,11 @@ div.dropdown div.button {
   padding-bottom: 0px;
 }
 
-.side-pane {
-  display: flex;
-  justify-content: center;
-  padding: 0 2em 2em 2em;
-}
+/*.side-pane {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  padding: 0 2em 2em 2em;*/
+/*}*/
 
 .screen {
   position: absolute;
