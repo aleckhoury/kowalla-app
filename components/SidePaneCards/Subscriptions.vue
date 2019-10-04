@@ -1,37 +1,42 @@
 <template>
-  <CardContainer header-string="Subscriptions">
+  <CardContainer v-if="this.$store.state.user.loggedIn" header-string="Subscriptions">
     <div v-for="sub in subscriptions" :key="sub._id" class="subscription">
-      <nuxt-link :to="getRoute(sub.isProject)">
+      <nuxt-link :to="getRoute(sub.isProject, sub.name)">
         <img :src="sub.pictureUrl" />
       </nuxt-link>
 
       <div class="subscription-link">
-        <nuxt-link :to="getRoute(sub.isProject)" class="name">
-          <b>{{ getPrefix(sub.isProject) }}{{ sub.spaceName }}</b>
+        <nuxt-link :to="getRoute(sub.isProject, sub.name)" class="name">
+          <b>{{ getPrefix(sub.isProject) }}{{ sub.name }}</b>
         </nuxt-link>
 
-        <!--        <div v-if="" class="info">{{ numSubs }} users</div>-->
+        <div class="info">{{ sub.numSubs }} users</div>
       </div>
+    </div>
+    <div v-if="subscriptions && !subscriptions.length" class="noSubs">
+      <EmptySubs />
+      <span>There's nothing here. Subscribe to some spaces and projects!</span>
     </div>
   </CardContainer>
 </template>
 
 <script>
 import CardContainer from "./CardContainer";
+import EmptySubs from "../../svg/EmptySubs";
 
 export default {
   name: "Subscriptions",
-  components: { CardContainer },
+  components: { EmptySubs, CardContainer },
   computed: {
     subscriptions() {
       return this.$store.state.user.subscriptions;
     },
   },
   methods: {
-    getRoute(isProject) {
+    getRoute(isProject, name) {
       return isProject
-        ? `/beta/project/${this.name}`
-        : `/beta/space/${this.name}`;
+        ? `/beta/project/${name}`
+        : `/beta/space/${name}`;
     },
     getPrefix(isProject) {
       return isProject ? "@" : "#";
@@ -61,7 +66,6 @@ img {
 }
 .name {
   font-family: "Helvetica Neue";
-  font-size: 1em;
   height: 50%;
   color: black;
   text-decoration: none;
@@ -79,5 +83,11 @@ img {
   margin-top: 2px;
   height: 50%;
   color: #999;
+}
+.noSubs {
+  text-align: center;
+  padding: 1em;
+  height: auto;
+  font-weight: 500;
 }
 </style>

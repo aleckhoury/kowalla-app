@@ -12,21 +12,17 @@
         class="columns is-centered is-marginless main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
+          <Creations />
           <Subscriptions />
         </div>
 
-        <div
-          class="column is-one-half is-paddingless is-marginless"
-        >
-          <PostFeed
-            type="NewsFeedActiveTab"
-          />
+        <div class="column is-one-half is-marginless">
+          <PostFeed type="NewsFeedActiveTab" />
         </div>
         <!-- info pane -->
-        <div class="column is-one-quarter side-pane">
-          <SignupCard v-if="!this.$store.state.user.loggedIn" class="fixed" />
+        <div class="column is-one-quarter">
+          <SignupCard v-if="!this.$store.state.user.loggedIn" />
           <ActiveCoworkers />
         </div>
       </div>
@@ -38,10 +34,7 @@
     >
       <ActiveCoworkers />
       <SortingOptions :is-mobile="true" />
-      <PostFeed
-        :is-mobile="true"
-        type="NewsFeedActiveTab"
-      />
+      <PostFeed :is-mobile="true" type="NewsFeedActiveTab" />
     </div>
   </div>
 </template>
@@ -51,26 +44,27 @@ import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
-import NavPane from "~/components/NavCards/NavPane";
+
 import CreatePost from "~/components/PostCards/CreatePost";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import ActiveCoworkers from "../../components/InfoCards/ActiveCoworkers";
 import PostFeed from "~/components/PostCards/PostFeed";
 import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
 import Subscriptions from "../../components/SidePaneCards/Subscriptions";
+import Creations from "../../components/SidePaneCards/Creations";
 
 export default {
-  middleware: 'tabs',
+  middleware: "tabs",
   layout: "default",
   name: "Home",
   components: {
+    Creations,
     Subscriptions,
     SortingOptions,
     ActiveCoworkers,
     SignupCard,
     CreatePost,
     Header,
-    NavPane,
     MobileHeader,
     MobileFooter,
     PostFeed,
@@ -88,5 +82,4 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

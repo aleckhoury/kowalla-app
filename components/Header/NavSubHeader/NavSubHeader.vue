@@ -2,11 +2,11 @@
   <div class="nav-subheader-parent">
     <div class="container is-fullhd full-height">
       <div class="columns is-marginless full-height">
-        <div class="column is-one-quarter is-paddingless">
+        <div class="column is-one-quarter">
           <!-- placeholder for right alignment -->
         </div>
 
-        <div class="column is-one-half is-paddingless">
+        <div class="column is-one-half">
           <div class="level full-height">
             <div v-if="isFeed" class="level-left full-height">
               <SortingOptions />
@@ -17,7 +17,7 @@
           </div>
         </div>
 
-        <div class="column is-one-quarter is-paddingless">
+        <div class="column is-one-quarter">
           <div class="level full-height">
             <div class="level-left">
               <!-- placeholder for right alignment -->

@@ -12,11 +12,12 @@
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
         class="columns is-marginless main-margin"
       >
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
+          <Creations />
+          <Subscriptions />
         </div>
 
-        <div class="column is-three-quarters is-paddingless">
+        <div class="column is-three-quarters">
           <Banner
             :banner-url="bannerPictureUrl"
             :banner-title="spaceName"
@@ -27,10 +28,10 @@
             @subscription-button-clicked="updateSubscriptions"
           />
           <div id="postFeed" class="columns is-marginless newsfeed-padding">
-            <div class="column is-two-thirds is-paddingless">
+            <div class="column is-two-thirds">
               <PostFeed v-if="spaceId" :page-id="spaceId" type="space" />
             </div>
-            <div class="column is-one-third is-paddingless side-pane">
+            <div class="column is-one-third">
               <InfoPane>
                 <SignupCard
                   v-if="!this.$store.state.user.loggedIn"
@@ -89,7 +90,7 @@
         {{ spaceDescription }}
       </DescriptionCard>
 
-      <div class="side-pane">
+      <div>
         <EditButton
           v-if="this.$store.state.user._id === adminId"
           @edit-button-clicked="editSpace"
@@ -107,7 +108,7 @@ import Header from "~/components/Header/Header";
 import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
-import NavPane from "~/components/NavCards/NavPane";
+
 import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
@@ -115,17 +116,20 @@ import EditButton from "~/components/InfoCards/EditButton";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import PostFeed from "~/components/PostCards/PostFeed";
+import Subscriptions from "../../../../components/SidePaneCards/Subscriptions";
+import Creations from "../../../../components/SidePaneCards/Creations";
 
 
 export default {
   name: "UserPageTest",
   components: {
+    Creations,
+    Subscriptions,
     PostFeed,
     SignupCard,
     Header,
     MobileHeader,
     MobileFooter,
-    NavPane,
     Banner,
     DescriptionCard,
     ProfileCard,
@@ -210,9 +214,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.card-container {
-  margin-bottom: 0;
-}
 .fullWidth {
   width: 100% !important;
 }
