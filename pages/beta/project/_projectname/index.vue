@@ -13,11 +13,12 @@
         class="columns is-marginless  main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
+          <Creations />
+          <Subscriptions />
         </div>
 
-        <div class="column is-three-quarters is-paddingless">
+        <div class="column is-three-quarters" >
           <Banner
             :banner-url="bannerPictureUrl"
             :banner-title="name"
@@ -72,12 +73,12 @@
           <!-- new columns for content and info pane -->
           <div id="postFeed" class="columns is-marginless">
             <!-- post feed -->
-            <div class="column is-two-thirds is-paddingless">
+            <div class="column is-two-thirds">
               <PostFeed v-if="projectId" :page-id="projectId" type="project" />
             </div>
 
             <!-- info pane -->
-            <div class="column is-one-third side-pane is-paddingless">
+            <div class="column is-one-third">
               <InfoPane>
                 <SignupCard
                   v-if="!this.$store.state.user.loggedIn"
@@ -115,7 +116,7 @@
       </DescriptionCard>
 
       <div
-        class="columns is-marginless is-paddingless is-mobile is-centered is-centered is-multiline"
+        class="columns is-marginless is-mobile is-centered is-centered is-multiline"
       >
         <div class="column isMobile is-narrow">
           <ProfileCard
@@ -143,7 +144,7 @@
         </div>
       </div>
 
-      <div class="side-pane">
+      <div>
         <EditButton
           v-if="this.$store.state.user.username === adminUsername"
           @edit-button-clicked="editProject"
@@ -161,7 +162,7 @@ import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
-import NavPane from "~/components/NavCards/NavPane";
+
 import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
@@ -169,17 +170,20 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import PostFeed from "~/components/PostCards/PostFeed";
+import Subscriptions from "~/components/SidePaneCards/Subscriptions";
+import Creations from "../../../../components/SidePaneCards/Creations";
 
 
 export default {
   name: "ProjectPage",
   components: {
+    Creations,
+    Subscriptions,
     PostFeed,
     SignupCard,
     Header,
     MobileHeader,
     MobileFooter,
-    NavPane,
     Banner,
     DescriptionCard,
     ProfileCard,
@@ -301,13 +305,6 @@ export default {
 <style lang="css" scoped>
 .column.isMobile {
   width: 50%;
-}
-.column.is-half {
-  padding: 0;
-}
-.column.is-one-quarter {
-  padding-top: 0;
-  padding-right: 0;
 }
 div.level {
   top: 0;

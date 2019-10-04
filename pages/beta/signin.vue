@@ -30,11 +30,12 @@ export default {
       await Cookies.set("token", token);
       const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 
-      const { owned, subscriptions } = subs.profileSubscriptions;
+      const { owned, subscriptions } = subs.subscriptions;
       await Object.assign(user, {
         loggedIn: Boolean(Object.keys(user).length),
       });
       await Object.assign(user, { subscriptions, owned });
+      console.log(user);
 
       await this.$store.commit("user/setUser", user);
       if (isNew) {
@@ -67,11 +68,12 @@ export default {
           `/api/v1/profiles/${user._id}/subs`
         );
 
-        const { owned, subscriptions } = subs.profileSubscriptions;
+        const { owned, subscriptions } = subs.subscriptions;
         await Object.assign(user, {
           loggedIn: Boolean(Object.keys(user).length),
         });
         await Object.assign(user, { subscriptions, owned });
+        console.log(user);
 
         await this.$store.commit("user/setUser", user);
         if (isNew) {

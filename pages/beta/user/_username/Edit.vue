@@ -6,12 +6,10 @@
         class="columns is-marginless main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
-        </div>
+        <div class="column is-one-quarter"></div>
 
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless">
+        <div class="column is-one-half">
           <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
               <EditProfile
@@ -29,7 +27,7 @@
             </b-tab-item>
           </b-tabs>
         </div>
-        <div class="column is-one-quarter is-paddingless" />
+        <div class="column is-one-quarter" />
       </div>
     </div>
 
@@ -62,23 +60,22 @@
 import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
-import NavPane from "~/components/NavCards/NavPane";
+
 import Header from "~/components/Header/Header";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
-import Card from "~/components/Card";
+import CardContainer from "~/components/SidePaneCards/CardContainer";
 import NavCard from "~/components/NavCards/NavCard";
 import EditProfile from "~/components/Forms/EditProfile";
 import IntegrationCard from "../../../../components/Forms/IntegrationCard";
 export default {
-  middleware: 'tabs',
+  middleware: "tabs",
   name: "Edit",
   components: {
     IntegrationCard,
-    NavPane,
     NavCard,
-    Card,
+    CardContainer,
     EditProfile,
     Header,
     ProfileCard,
@@ -132,5 +129,4 @@ export default {
 };
 </script>
 
-<style lang="css">
-</style>
+<style lang="css"></style>

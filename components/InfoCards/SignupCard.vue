@@ -57,8 +57,7 @@ export default {
 
 <style lang="css" scoped>
 .profile-card-container {
-  width: 18%;
-  background-color: white;
+  width: 100%;
   border-radius: 6px;
 }
 .cardTitle {

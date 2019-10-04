@@ -11,15 +11,8 @@
 
       <b-step-item :clickable="false">
         <EditProfile
-          v-if="user"
           :class="isMobile ? 'mobile' : ''"
           :is-onboarding="true"
-          :first-name="user.firstName"
-          :last-name="user.lastName"
-          :username="user.username"
-          :profile-picture="user.profilePicture"
-          :description="user.profileDescription"
-          :profile-id="user._id"
           title="Complete Profile Details"
         />
       </b-step-item>
@@ -78,7 +71,7 @@ export default {
       const user = this.$store.state.user;
       const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 
-      const { subscriptions } = subs.profileSubscriptions;
+      const { subscriptions } = subs.subscriptions;
       await Object.assign(user, { subscriptions });
 
       await this.$store.commit("user/setUser", user);

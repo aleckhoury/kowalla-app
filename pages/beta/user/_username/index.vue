@@ -6,22 +6,20 @@
         class="columns is-marginless main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
+          <Creations />
+          <Subscriptions />
         </div>
 
         <!-- post feed -->
-        <div id="postFeed" class="column is-one-half is-paddingless">
+        <div id="postFeed" class="column is-one-half">
           <PostFeed v-if="profileId" :page-id="profileId" type="profile" />
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
+        <div class="column is-one-quarter">
           <InfoPane>
-            <SignupCard
-              v-if="!this.$store.state.user.loggedIn"
-              class="fullWidth"
-            />
+            <SignupCard v-if="!this.$store.state.user.loggedIn" />
             <ProfileCard
               :name="`${firstName} ${lastName}`"
               :profile-picture-url="profilePictureUrl"
@@ -36,47 +34,38 @@
             >
               {{ profileDescription }}
             </DescriptionCard>
+            <!--            <CardContainer-->
+            <!--              v-if="-->
+            <!--                profileSubs.owned.length > 0 &&-->
+            <!--                  this.$store.state.user.username !== username-->
+            <!--              "-->
+            <!--              :header-string="`Made by ${firstName}`"-->
+            <!--              :subheader-on="false"-->
+            <!--              header-on-->
+            <!--            >-->
+            <!--              &lt;!&ndash; need to make NavCard more flexible &ndash;&gt;-->
+            <!--              <NavCard-->
+            <!--                :profile-subs="profileSubs"-->
+            <!--                type="profile"-->
+            <!--                selector="owned"-->
+            <!--              />-->
+            <!--            </CardContainer>-->
 
-            <!--<EditButton v-if="this.$store.state.user.username === username">-->
-            <!--<nuxt-link :to="`/beta/user/${username}/edit`">-->
-            <!--<b>-->
-            <!--Edit Settings-->
-            <!--</b>-->
-            <!--</nuxt-link>-->
-            <!--</EditButton>-->
-
-            <Card
-              v-if="
-                profileSubs.owned.length > 0 &&
-                  this.$store.state.user.username !== username
-              "
-              :header-string="`Made by ${firstName}`"
-              :subheader-on="false"
-              header-on
-            >
-              <!-- need to make NavCard more flexible -->
-              <NavCard
-                :profile-subs="profileSubs"
-                type="profile"
-                selector="owned"
-              />
-            </Card>
-
-            <Card
-              v-if="
-                profileSubs.subscriptions.length > 0 &&
-                  this.$store.state.user.username !== username
-              "
-              :header-string="`${firstName}'s Subscriptions`"
-              subheader-string="More spaces you'll love"
-            >
-              <!-- need to make NavCard more flexible -->
-              <NavCard
-                :profile-subs="profileSubs"
-                type="profile"
-                selector="subscriptions"
-              />
-            </Card>
+            <!--            <CardContainer-->
+            <!--              v-if="-->
+            <!--                profileSubs.subscriptions.length > 0 &&-->
+            <!--                  this.$store.state.user.username !== username-->
+            <!--              "-->
+            <!--              :header-string="`${firstName}'s Subscriptions`"-->
+            <!--              subheader-string="More spaces you'll love"-->
+            <!--            >-->
+            <!--              &lt;!&ndash; need to make NavCard more flexible &ndash;&gt;-->
+            <!--              <NavCard-->
+            <!--                :profile-subs="profileSubs"-->
+            <!--                type="profile"-->
+            <!--                selector="subscriptions"-->
+            <!--              />-->
+            <!--            </CardContainer>-->
           </InfoPane>
         </div>
       </div>
@@ -87,7 +76,7 @@
       :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
       class="columns is-marginless is-hidden-desktop mobile-main-margin"
     >
-      <div class="side-pane">
+      <div>
         <ProfileCard
           :name="`${firstName} ${lastName}`"
           :profile-picture-url="profilePictureUrl"
@@ -105,7 +94,12 @@
       >
         {{ profileDescription }}
       </DescriptionCard>
-      <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" type="profile" />
+      <PostFeed
+        v-if="profileId"
+        :page-id="profileId"
+        :is-mobile="true"
+        type="profile"
+      />
     </div>
   </div>
 </template>
@@ -114,24 +108,25 @@
 import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
-import NavPane from "~/components/NavCards/NavPane";
 import Header from "~/components/Header/Header";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
-import Card from "~/components/Card";
+import CardContainer from "~/components/SidePaneCards/CardContainer";
 import NavCard from "~/components/NavCards/NavCard";
 import EditButton from "~/components/InfoCards/EditButton";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import PostFeed from "~/components/PostCards/PostFeed";
-
+import Subscriptions from "../../../../components/SidePaneCards/Subscriptions";
+import Creations from "../../../../components/SidePaneCards/Creations";
 
 export default {
   name: "UserPageTest",
   components: {
-    NavPane,
+    Creations,
+    Subscriptions,
     NavCard,
-    Card,
+    CardContainer,
     Header,
     ProfileCard,
     InfoPane,
@@ -185,7 +180,7 @@ export default {
       let subRes = await this.$axios.$get(
         `/api/v1/profiles/${this.profileId}/subs`
       );
-      this.profileSubs = subRes.profileSubscriptions;
+      this.profileSubs = subRes.subscriptions;
 
       document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }

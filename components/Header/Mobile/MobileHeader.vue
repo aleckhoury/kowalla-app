@@ -140,7 +140,6 @@
   </div>
 </template>
 <script>
-import ChangeLocationModal from "~/components/Modals/Other/ChangeLocationModal";
 import NotificationModal from "~/components/Modals/Other/NotificationModal";
 import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
 import SearchModal from "~/components/Modals/Other/SearchModal";
@@ -155,7 +154,6 @@ export default {
     SortingOptions,
     Tabs,
     SideMenu,
-    ChangeLocationModal,
     NavNotifications,
   },
   props: {
@@ -194,14 +192,6 @@ export default {
     window.removeEventListener("scroll", this.onScroll);
   },
   methods: {
-    callChangeLocationModal() {
-      this.$modal.open({
-        parent: this,
-        component: ChangeLocationModal,
-        width: 300,
-        hasModalCard: true,
-      });
-    },
     callSearchModal() {
       this.$modal.open({
         parent: this,

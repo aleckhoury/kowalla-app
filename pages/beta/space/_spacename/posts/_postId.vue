@@ -1,57 +1,55 @@
 <template lang="html">
   <div class="screen background-tint">
     <div class="container is-fullhd is-hidden-touch">
-
       <div
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
         class="columns is-marginless main-margin"
       >
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
+          <Creations />
+          <Subscriptions />
         </div>
 
-        <div class="column is-three-quarters is-paddingless">
-          <div id="postFeed" class="columns is-marginless">
-            <div class="column is-two-thirds is-paddingless">
-              <Post
-                id="spacePost"
-                :key="post._id"
-                :post="post"
-                :is-mobile="false"
-                :truncate="false"
-                @delete-post="removePostFromPostList"
+        <div id="postFeed" class="columns is-marginless">
+          <div class="column is-two-thirds">
+            <Post
+              id="spacePost"
+              :key="post._id"
+              :post="post"
+              :is-mobile="false"
+              :truncate="false"
+              @delete-post="removePostFromPostList"
+            />
+          </div>
+          <div class="column is-one-third">
+            <InfoPane>
+              <SignupCard
+                v-if="!this.$store.state.user.loggedIn"
+                class="fullWidth"
               />
-            </div>
-            <div class="column is-one-third is-paddingless side-pane">
-              <InfoPane>
-                <SignupCard
-                  v-if="!this.$store.state.user.loggedIn"
-                  class="fullWidth"
-                />
-                <ProfileCard
-                  :name="spaceName"
-                  :username="spaceName"
-                  :profile-picture-url="profilePictureUrl"
-                  :subheader-string="`View ${spaceName}'s stats`"
-                  :stats="spaceStats"
-                  type="project"
-                />
+              <ProfileCard
+                :name="spaceName"
+                :username="spaceName"
+                :profile-picture-url="profilePictureUrl"
+                :subheader-string="`View ${spaceName}'s stats`"
+                :stats="spaceStats"
+                type="project"
+              />
 
-                <DescriptionCard
-                  :subheader-on="false"
-                  header-string="Description"
-                >
-                  {{ spaceDescription }}
-                </DescriptionCard>
+              <DescriptionCard
+                :subheader-on="false"
+                header-string="Description"
+              >
+                {{ spaceDescription }}
+              </DescriptionCard>
 
-                <EditButton
-                  v-if="this.$store.state.user._id === adminId"
-                  @edit-button-clicked="editSpace"
-                >
-                  <b>Edit Settings</b>
-                </EditButton>
-              </InfoPane>
-            </div>
+              <EditButton
+                v-if="this.$store.state.user._id === adminId"
+                @edit-button-clicked="editSpace"
+              >
+                <b>Edit Settings</b>
+              </EditButton>
+            </InfoPane>
           </div>
         </div>
       </div>
@@ -78,7 +76,7 @@ import Header from "~/components/Header/Header";
 import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
-import NavPane from "~/components/NavCards/NavPane";
+
 import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
@@ -86,16 +84,19 @@ import EditButton from "~/components/InfoCards/EditButton";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import Post from "~/components/PostCards/Post";
+import Creations from "../../../../../components/SidePaneCards/Creations";
+import Subscriptions from "../../../../../components/SidePaneCards/Subscriptions";
 
 export default {
   name: "UserPageTest",
   components: {
+    Subscriptions,
+    Creations,
     Post,
     SignupCard,
     Header,
     MobileHeader,
     MobileFooter,
-    NavPane,
     Banner,
     DescriptionCard,
     ProfileCard,
@@ -133,9 +134,7 @@ export default {
       let isSubscribed = false;
       if (typeof this.$store.state.user.subscriptions !== "undefined") {
         for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
-          if (
-            this.$store.state.user.subscriptions[i].name === this.spaceName
-          ) {
+          if (this.$store.state.user.subscriptions[i].name === this.spaceName) {
             isSubscribed = true;
           }
         }
@@ -150,7 +149,9 @@ export default {
     let infoRes = await this.$axios.$get(
       `/api/v1/spaces/space/${this.spaceName}`
     );
-    this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
+    this.post = await this.$axios.$get(
+      `/api/v1/posts/${this.$route.params.postId}`
+    );
 
     this.bannerPictureUrl = infoRes.headerPicture;
     this.profilePictureUrl = infoRes.profilePicture;
@@ -163,9 +164,9 @@ export default {
     this.spaceStats.push({ name: "Subs", stat: infoRes.subscribers });
     this.spaceStats.push({ name: "Posts", stat: infoRes.postCount });
 
-    if ('scrollRestoration' in history) {
+    if ("scrollRestoration" in history) {
       // Back off, browser, I got this...
-      history.scrollRestoration = 'manual';
+      history.scrollRestoration = "manual";
     }
 
     document.title = `Kowalla - #${this.spaceName}`;
@@ -193,19 +194,10 @@ export default {
       });
     },
     async removePostFromPostList() {
-      await this.$axios.$delete(
-              `/api/v1/posts/${this.post._id}`
-      );
+      await this.$axios.$delete(`/api/v1/posts/${this.post._id}`);
     },
   },
 };
 </script>
 
-<style lang="css" scoped>
-.card-container {
-  margin-bottom: 0;
-}
-.fullWidth {
-  width: 100% !important;
-}
-</style>
+<style lang="css" scoped></style>

@@ -13,64 +13,57 @@
         class="columns is-marginless  main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
+          <Creations />
+          <Subscriptions />
         </div>
 
-        <div class="column is-three-quarters is-paddingless">
-          <!-- new columns for content and info pane -->
-          <div id="postFeed" class="columns is-marginless">
-            <!-- post feed -->
-            <div class="column is-two-thirds is-paddingless">
-              <Post
-                id="projectPost"
-                :key="post._id"
-                :post="post"
-                :is-mobile="false"
-                :truncate="false"
-                @delete-post="removePostFromPostList"
-              />
-            </div>
+        <!-- post feed -->
+        <div class="column is-one-half">
+          <Post
+            id="projectPost"
+            :key="post._id"
+            :post="post"
+            :is-mobile="false"
+            :truncate="false"
+            @delete-post="removePostFromPostList"
+          />
+        </div>
 
-            <!-- info pane -->
-            <div class="column is-one-third side-pane is-paddingless">
-              <InfoPane>
-                <DescriptionCard
-                  :subheader-on="false"
-                  header-string="Description"
-                >
-                  {{ projectDescription }}
-                </DescriptionCard>
-                <ProfileCard
-                  :name="projectName"
-                  :username="name"
-                  :profile-picture-url="projectProfilePictureUrl"
-                  :subheader-string="`View ${name}'s stats`"
-                  :stats="projectStats"
-                  type="project"
-                />
-                <ProfileCard
-                  :name="`${adminFirstName} ${adminLastName}`"
-                  :username="adminUsername"
-                  :profile-picture-url="adminProfilePictureUrl"
-                  :subheader-string="`View ${adminFirstName}'s profile`"
-                  :subheader-url="`/beta/user/${adminUsername}`"
-                  :stats="profileStats"
-                  type="user"
-                />
-                <EditButton
-                  v-if="this.$store.state.user.username === adminUsername"
-                  @edit-button-clicked="editProject"
-                >
-                  <b>Edit Settings</b>
-                </EditButton>
-                <SignupCard
-                  v-if="!this.$store.state.user.loggedIn"
-                  class="fullWidth"
-                />
-              </InfoPane>
-            </div>
-          </div>
+        <!-- info pane -->
+        <div class="column is-one-quarter">
+          <InfoPane>
+            <DescriptionCard :subheader-on="false" header-string="Description">
+              {{ projectDescription }}
+            </DescriptionCard>
+            <ProfileCard
+              :name="projectName"
+              :username="name"
+              :profile-picture-url="projectProfilePictureUrl"
+              :subheader-string="`View ${name}'s stats`"
+              :stats="projectStats"
+              type="project"
+            />
+            <ProfileCard
+              :name="`${adminFirstName} ${adminLastName}`"
+              :username="adminUsername"
+              :profile-picture-url="adminProfilePictureUrl"
+              :subheader-string="`View ${adminFirstName}'s profile`"
+              :subheader-url="`/beta/user/${adminUsername}`"
+              :stats="profileStats"
+              type="user"
+            />
+            <EditButton
+              v-if="this.$store.state.user.username === adminUsername"
+              @edit-button-clicked="editProject"
+            >
+              <b>Edit Settings</b>
+            </EditButton>
+            <SignupCard
+              v-if="!this.$store.state.user.loggedIn"
+              class="fullWidth"
+            />
+          </InfoPane>
         </div>
       </div>
     </div>
@@ -96,7 +89,7 @@ import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
-import NavPane from "~/components/NavCards/NavPane";
+
 import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
@@ -104,15 +97,18 @@ import InfoPane from "~/components/InfoCards/InfoPane";
 import EditButton from "~/components/InfoCards/EditButton";
 import SignupCard from "~/components/InfoCards/SignupCard";
 import Post from "~/components/PostCards/Post";
+import Creations from "../../../../../components/SidePaneCards/Creations";
+import Subscriptions from "../../../../../components/SidePaneCards/Subscriptions";
 
 export default {
   name: "ProjectPage",
   components: {
+    Subscriptions,
+    Creations,
     SignupCard,
     Header,
     MobileHeader,
     MobileFooter,
-    NavPane,
     Banner,
     DescriptionCard,
     ProfileCard,
@@ -244,13 +240,6 @@ export default {
 <style lang="css" scoped>
 .column.isMobile {
   width: 50%;
-}
-.column.is-half {
-  padding: 0;
-}
-.column.is-one-quarter {
-  padding-top: 0;
-  padding-right: 0;
 }
 div.level {
   top: 0;

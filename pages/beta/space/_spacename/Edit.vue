@@ -6,11 +6,10 @@
         class="columns is-marginless main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter is-paddingless side-pane">
-          <NavPane class="fixed" />
+        <div class="column is-one-quarter">
         </div>
         <!-- post feed -->
-        <div class="column is-one-half is-paddingless">
+        <div class="column is-one-half">
           <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
               <EditSpaceForm
@@ -27,7 +26,7 @@
             </b-tab-item>
           </b-tabs>
         </div>
-        <div class="column is-one-quarter is-paddingless" />
+        <div class="column is-one-quarter" />
       </div>
     </div>
 
@@ -60,7 +59,7 @@ import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
 
 import Header from "~/components/Header/Header";
-import NavPane from "~/components/NavCards/NavPane";
+
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
 import ProfileCard from "~/components/InfoCards/ProfileCard";
 import InfoPane from "~/components/InfoCards/InfoPane";
@@ -74,7 +73,6 @@ export default {
     Header,
     MobileHeader,
     MobileFooter,
-    NavPane,
     DescriptionCard,
     ProfileCard,
     InfoPane,

@@ -1,5 +1,5 @@
 <template>
-  <div class="info-pane-container">
+  <div>
     <div class="wrapper-margin wrapper-container">
       <slot />
     </div>
@@ -11,10 +11,6 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.info-pane-container {
-  width: 100%;
-  margin-left: 5%;
-}
 .wrapper-container {
   display: flex;
   flex-direction: column;
