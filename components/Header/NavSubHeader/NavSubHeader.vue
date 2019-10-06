@@ -86,4 +86,7 @@ export default {
 .full-height {
   height: 100%;
 }
+div.column.is-one-quarter {
+  height: auto;
+}
 </style>
