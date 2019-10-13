@@ -1,5 +1,9 @@
 <template>
-  <CardContainer header-string="Creations">
+  <CardContainer
+    :subheader-is-button="owned !== undefined && owned.length ? true : false"
+    :subheader-string="owned !== undefined && owned.length ? 'Create a new Project or Space' : ''"
+    header-string="Creations"
+    @subheader-clicked="callCreateSpaceModal">
     <div v-for="item in owned" :key="item._id" class="creation">
       <nuxt-link :to="getRoute(item.isProject, item.name)">
         <img :src="item.pictureUrl" />

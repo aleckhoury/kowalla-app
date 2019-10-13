@@ -73,7 +73,7 @@ export default {
 }
 
 .subheader-content {
-
+  cursor: pointer;
   font-size: 0.75em;
   color: #39C9A0;
 }

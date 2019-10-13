@@ -7,6 +7,9 @@
             <nuxt-link to="/beta">
               <p class="kowalla-logo">kowalla</p>
             </nuxt-link>
+            <nuxt-link v-if="!this.$store.state.user.loggedIn" to="/beta">
+              <b class="page-link">Go to Feed</b>
+            </nuxt-link>
           </div>
         </div>
         <div class="level-right">
