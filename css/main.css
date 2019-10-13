@@ -153,6 +153,7 @@ span.profilePicAction {
 strong {
     color: unset;
 }
+/*Onboarding step component adjustments*/
 div.b-steps.signup nav.steps {
     display: none !important;
     border-radius: 6px;
@@ -160,6 +161,7 @@ div.b-steps.signup nav.steps {
 div.b-steps.signup section.step-content {
     padding: 0;
 }
+/*Handle left and right column sidepane cards being sticky on scroll and moving padding for firstVisit display*/
 div.column.is-one-quarter {
     position: sticky !important;
     top: 110px;
@@ -167,4 +169,10 @@ div.column.is-one-quarter {
 }
 div.column.is-one-quarter.firstVisit {
     top: 18rem;
+}
+/* Mobile Sidenav icons*/
+a span.icon {
+    display: unset;
+    padding-right: .5em;
+    vertical-align: middle;
 }

@@ -4,7 +4,7 @@
     :data="filteredDataArray"
     class="searchbar-container"
     placeholder="Search"
-    icon="magnify"
+    icon="search"
     field="name"
     @input="fetchData"
     @select="optionSelected"

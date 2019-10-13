@@ -90,7 +90,7 @@ module.exports = {
     "@nuxtjs/pwa",
     "@nuxtjs/proxy",
     //'@nuxtjs/onesignal',
-    "nuxt-buefy",
+    ['nuxt-buefy', { css: true, materialDesignIcons: false, defaultIconPack: 'fas', defaultIconComponent: 'font-awesome-icon' }],
   ],
   /*
    ** Axios module configuration
@@ -167,6 +167,11 @@ module.exports = {
           "faCheck",
           "faSortAmountUp",
           "faSortAmountDown",
+          "faUserAlt",
+          "faCog",
+          "faSignOutAlt",
+          "faAt",
+          "faHashtag",
         ],
       },
       {

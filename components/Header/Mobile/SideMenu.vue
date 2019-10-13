@@ -17,19 +17,19 @@
           <div class="column is-two-thirds">
             <b>@{{ this.$store.state.user.username }}</b>
             <br>
-            <span><strong>Creations:</strong> {{ this.$store.state.user.subscriptions.owned.length }}</span>
+            <span><strong>Creations:</strong> {{ this.$store.state.user.owned.length }}</span>
             <br>
-            <span><strong>Subscriptions:</strong> {{ this.$store.state.user.subscriptions.subscriptions.length }}</span>
+            <span><strong>Subscriptions:</strong> {{ this.$store.state.user.subscriptions.length }}</span>
           </div>
         </div>
         <BMenuList label="Menu">
           <nuxt-link :to="`/beta/user/${this.$store.state.user.username}`" class="page-link is-paddingless" @click.native="closeActions">
-            <BMenuItem icon="account" label="Profile" />
+            <BMenuItem icon="user-alt" label="Profile" />
           </nuxt-link>
           <nuxt-link :to="`/beta/user/${this.$store.state.user.username}/edit`" class="page-link is-paddingless" @click.native="closeActions">
-            <BMenuItem icon="settings" label="Settings" />
+            <BMenuItem icon="cog" label="Settings" />
           </nuxt-link>
-          <BMenuItem icon="logout" label="Logout" @click="logout"></BMenuItem>
+          <BMenuItem icon="sign-out-alt" label="Logout" @click="logout"></BMenuItem>
         </BMenuList>
         <!--<BMenuList label="Subscriptions">-->
         <!--Test-->

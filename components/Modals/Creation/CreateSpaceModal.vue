@@ -20,8 +20,9 @@
                 v-model="spaceForm.name"
                 pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
                 validation-message="No special characters or spaces allowed"
+                icon="at"
                 maxlength="20"
-                placeholder="@Kowalla"
+                placeholder="Kowalla"
               />
             </b-field>
 
@@ -50,6 +51,7 @@
                 v-model="spaceForm.name"
                 placeholder="StreetwearStartup"
                 pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+                icon="hashtag"
                 validation-message="No special characters or spaces allowed"
                 maxlength="20"
               />
@@ -188,5 +190,10 @@ export default {
     margin: 0;
     color: #39C9A0;
     width: auto;
+}
+.button.action {
+  color: white;
+  background-color: #39c9a0;
+  border-color: #39c9a0;
 }
 </style>
