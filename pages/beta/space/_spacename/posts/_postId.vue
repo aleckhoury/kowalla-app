@@ -5,7 +5,7 @@
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
         class="columns is-marginless main-margin"
       >
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
           <Subscriptions />
         </div>
@@ -88,7 +88,7 @@ import Creations from "../../../../../components/SidePaneCards/Creations";
 import Subscriptions from "../../../../../components/SidePaneCards/Subscriptions";
 
 export default {
-  name: "UserPageTest",
+  name: "SpacePost",
   components: {
     Subscriptions,
     Creations,

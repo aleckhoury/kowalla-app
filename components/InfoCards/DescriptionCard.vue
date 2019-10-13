@@ -32,7 +32,7 @@ export default {
 
 <style lang="css" scoped>
 .description-string {
-  font-family: "Helvetica Neue";
+
   font-size: 0.75em;
   color: #999999;
   padding: 8px;

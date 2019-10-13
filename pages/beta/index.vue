@@ -12,7 +12,7 @@
         class="columns is-centered is-marginless main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
           <Subscriptions />
         </div>
@@ -21,9 +21,10 @@
           <PostFeed type="NewsFeedActiveTab" />
         </div>
         <!-- info pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <SignupCard v-if="!this.$store.state.user.loggedIn" />
           <ActiveCoworkers />
+          <ProfileProgress />
         </div>
       </div>
     </div>
@@ -52,6 +53,7 @@ import PostFeed from "~/components/PostCards/PostFeed";
 import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
 import Subscriptions from "../../components/SidePaneCards/Subscriptions";
 import Creations from "../../components/SidePaneCards/Creations";
+import ProfileProgress from "../../components/SidePaneCards/ProfileProgress";
 
 export default {
   middleware: "tabs",
@@ -68,6 +70,7 @@ export default {
     MobileHeader,
     MobileFooter,
     PostFeed,
+    ProfileProgress,
   },
 
   data() {

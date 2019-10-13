@@ -26,9 +26,15 @@ import Cookies from "js-cookie";
 export default {
   name: "NavProfilePicture",
   props: {
-    username: { type: String, default: "" },
-    profilePicture: { type: String, default: "" },
     dropdown: { type: Boolean, default: false },
+  },
+  computed: {
+    profilePicture() {
+      return this.$store.state.user.profilePicture;
+    },
+    username() {
+      return this.$store.state.user.username;
+    }
   },
   methods: {
     logout() {
@@ -56,7 +62,6 @@ export default {
   background-color: #39C9A0;
 }
 .page-link {
-  font-family: "Helvetica Neue";
   font-size: 1em;
   color: black;
   text-decoration: none;

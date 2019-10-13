@@ -88,7 +88,6 @@ export default {
 }
 
 .font-family {
-  font-family: "Helvetica Neue";
   text-decoration: none;
 }
 
@@ -137,7 +136,6 @@ export default {
 }
 
 .subheader-content {
-  font-family: "Helvetica Neue";
   font-size: 0.75em;
   color: #39C9A0;
 }
@@ -147,7 +145,6 @@ export default {
 }
 
 .username-link {
-  font-family: "Helvetica Neue";
   font-size: 1em;
   color: #999;
   text-decoration: none;

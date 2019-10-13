@@ -1,5 +1,6 @@
 html {
     background: #E9EBEE;
+    font-family: "Helvetica Neue", Arial, sans-serif
 }
 *:focus {
     outline: none;
@@ -163,4 +164,7 @@ div.column.is-one-quarter {
     position: sticky !important;
     top: 110px;
     height: 86vh;
+}
+div.column.is-one-quarter.firstVisit {
+    top: 18rem;
 }

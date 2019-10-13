@@ -13,7 +13,7 @@
         <div class="info">{{ item.numSubs }} users</div>
       </div>
     </div>
-    <div v-if="owned && !owned.length" class="noCreations" @click="callCreateSpaceModal">
+    <div v-if="owned === undefined || !owned.length" class="noCreations" @click="callCreateSpaceModal">
       <EmptyCreations />
       <span>You haven't created any spaces or projects. Start here!</span>
     </div>
@@ -24,6 +24,7 @@
 import CardContainer from "./CardContainer";
 import EmptyCreations from "../../svg/EmptyCreations";
 import CreateSpaceModal from "../Modals/Creation/CreateSpaceModal";
+import LoginHandler from "../Auth/LoginHandler";
 
 export default {
   name: "Creations",
@@ -41,6 +42,14 @@ export default {
       return isProject ? "@" : "#";
     },
     callCreateSpaceModal() {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+        });
+      }
       this.$modal.open({
         parent: this,
         component: CreateSpaceModal,
@@ -72,7 +81,7 @@ img {
   margin-left: 8px;
 }
 .name {
-  font-family: "Helvetica Neue";
+
   height: 50%;
   color: black;
   text-decoration: none;
@@ -85,7 +94,7 @@ img {
 }
 
 .info {
-  font-family: "Helvetica Neue";
+
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;

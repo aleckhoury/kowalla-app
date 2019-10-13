@@ -57,8 +57,8 @@ export default {
         this.$axios.$post(
                 `/api/v1/profiles/${this.$store.state.user._id}/subs`,
                 {
-                  projectId: this.projectSpaceList[index].isProject ? this.id : undefined,
-                  spaceId: this.projectSpaceList[index].isProject ? undefined : this.id,
+                  projectId: this.projectSpaceList[index].isProject ? this.projectSpaceList[index].id : undefined,
+                  spaceId: this.projectSpaceList[index].isProject ? undefined : this.projectSpaceList[index].id,
                 }
         );
       }

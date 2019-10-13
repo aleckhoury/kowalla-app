@@ -23,7 +23,7 @@
               />
             </b-tab-item>
             <b-tab-item>
-              <IntegrationCard v-for="(test, idx) in integrationList" :key="idx" :name="test.name" :description="test.description" />
+              <IntegrationCard v-for="(int, idx) in integrationList" :key="idx" :name="int.name" :description="int.description" />
             </b-tab-item>
           </b-tabs>
         </div>
@@ -49,7 +49,7 @@
           />
         </b-tab-item>
         <b-tab-item>
-          <IntegrationCard v-for="(test, idx) in integrationList" :key="idx" :name="test.name" :description="test.description" />
+          <IntegrationCard v-for="(int, idx) in integrationList" :key="idx" :name="int.name" :description="int.description" />
         </b-tab-item>
       </b-tabs>
     </div>

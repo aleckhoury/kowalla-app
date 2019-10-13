@@ -13,7 +13,7 @@
         class="columns is-marginless  main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
           <Subscriptions />
         </div>
@@ -47,7 +47,7 @@
               </EditButton>
             </div>
 
-            <div class="column is-one-quarter">
+            <div class="column is-one-quarter info">
               <ProfileCard
                 :name="projectName"
                 :username="name"
@@ -57,7 +57,7 @@
                 type="project"
               />
             </div>
-            <div class="column is-one-quarter">
+            <div class="column is-one-quarter info">
               <ProfileCard
                 :name="`${adminFirstName} ${adminLastName}`"
                 :username="adminUsername"
@@ -308,5 +308,8 @@ export default {
 }
 div.level {
   top: 0;
+}
+div.column.is-one-quarter.info {
+  height: auto;
 }
 </style>

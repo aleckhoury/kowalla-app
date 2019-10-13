@@ -67,6 +67,7 @@ const login = {
           email: registerForm.email,
           username: registerForm.username,
           password: registerForm.password,
+          inviteProfile: this.$route.query.invite || undefined,
         });
         const token = await this.$axios.$post("/api/v1/users/login", {
           usernameOrEmail: registerForm.username,
@@ -77,7 +78,6 @@ const login = {
         const user = await this.$axios.$get(
           `api/v1/users/${registerForm.username}`
         );
-        console.log(user);
         const subs = await this.$axios.$get(
           `/api/v1/profiles/${user._id}/subs`
         );
@@ -86,7 +86,6 @@ const login = {
           loggedIn: Boolean(Object.keys(user).length),
         });
         await Object.assign(user, { subscriptions, owned });
-        console.log(user);
 
         await this.$store.commit("user/setUser", user);
         this.$store.commit('activeTabs/updateSettingsActiveTab', 0);
@@ -114,28 +113,23 @@ const login = {
       }
 
       try {
-        console.log('test');
         const res = await this.$axios.$post("/api/v1/users/login", {
           usernameOrEmail: loginForm.usernameOrEmail,
           password: loginForm.password,
         });
-        console.log(res);
         Cookies.set("token", res.token);
         const user = await this.$axios.$get(
           `api/v1/users/${res.username}`
         );
-        console.log(user);
         const subs = await this.$axios.$get(
           `/api/v1/profiles/${user._id}/subs`
         );
 
         const { owned, subscriptions } = subs.subscriptions;
-        console.log(subs);
         Object.assign(user, {
           loggedIn: Boolean(Object.keys(user).length),
         });
         Object.assign(user, { subscriptions, owned });
-        console.log(user);
 
         await this.$store.commit("user/setUser", user);
         await this.$emit('close');

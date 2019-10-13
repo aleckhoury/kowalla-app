@@ -1,5 +1,6 @@
 export const defaultState = () => ({
   _id: '',
+  id: '',
   createdAt: '',
   commentCount: 0,
   description: '',
@@ -11,6 +12,8 @@ export const defaultState = () => ({
   profilePicture: '',
   reputation: 0,
   updatedAt: '',
+  userId: '',
+  username: '',
   loggedIn: false,
   hasNotifications: false,
   integrations: [],
@@ -126,7 +129,6 @@ export const mutations = {
     Object.assign(state, defaultState());
   },
   addSubscription(state, subObj) {
-    console.log(subObj);
     state.subscriptions.push(subObj);
   },
   removeSubscription(state, subObj) {
@@ -143,6 +145,7 @@ export const mutations = {
     state.firstName= editObj.firstName;
     state.lastName= editObj.lastName;
     state.username= editObj.username;
+    state.profilePicture= editObj.profilePicture;
     state.description= editObj.description;
   },
   removeOwned(state, subObj) {
@@ -179,5 +182,11 @@ export const mutations = {
         }
       }
     }
-  }
+  },
+  incrementCommentCount(state) {
+    state.commentCount += 1;
+  },
+  incrementPostCount(state) {
+    state.postCount += 1;
+  },
 };

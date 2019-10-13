@@ -13,7 +13,7 @@
         class="columns is-marginless  main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
           <Subscriptions />
         </div>
@@ -31,7 +31,7 @@
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <InfoPane>
             <DescriptionCard :subheader-on="false" header-string="Description">
               {{ projectDescription }}

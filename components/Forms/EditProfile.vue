@@ -4,11 +4,11 @@
       <div class="title">{{ title }}</div>
 
       <b-field label="First name">
-        <b-input v-model="user.firstName" maxlength="20" />
+        <b-input v-model="editForm.firstName" maxlength="20" />
       </b-field>
 
       <b-field label="Last name">
-        <b-input v-model="user.lastName" maxlength="20" />
+        <b-input v-model="editForm.lastName" maxlength="20" />
       </b-field>
 
       <b-field
@@ -17,14 +17,14 @@
                    { 'Username is too long': formError.usernameLength }]"
         label="Username">
         <b-input
-          v-model="user.username"
+          v-model="editForm.username"
           maxlength="20" />
       </b-field>
       <b-field label="Profile Picture" />
 
       <div class="profilePicSection">
         <p class="profilePic">
-          <img :src="user.profilePicture" >
+          <img :src="editForm.profilePicture" >
         </p>
         <a class="button action">
           <input
@@ -33,19 +33,19 @@
             type="file"
             @change="selectFile()"
           >
-          <span class="profilePicAction">{{ user.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
+          <span class="profilePicAction">{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
           <font-awesome-icon icon="camera" />
         </a>
       </div>
       <b-field label="Description">
         <b-input
-          v-model="user.description"
+          v-model="editForm.description"
           maxlength="500"
           type="textarea"
         />
       </b-field>
 
-      <a class="button action" @click="editProfile()">
+      <a class="button action" @click="editProfile(editForm)">
         Submit
       </a>
     </section>
@@ -55,30 +55,34 @@
 export default {
   name: "EditProfile",
   props: {
+    firstName: { type: String, default: "" },
+    lastName: { type: String, default: "" },
+    username: { type: String, default: "" },
+    profilePicture: { type: String, default: "" },
+    description: { type: String, default: "" },
+    profileId: { type: String, default: "" },
     title: { type: String, default: "Edit Profile" },
     isOnboarding: { type: Boolean, default: false },
   },
   data() {
     return {
       file: "",
-      profilePicChanged: false,
+      editForm: {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        username: this.username,
+        description: this.description,
+        profilePicture: this.profilePicture,
+      },
     };
   },
   computed: {
     formError() {
       const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
       return {
-        username: this.user.username.length ? !regex.test(this.user.username) : false,
-        usernameLength: this.user.username.length > 20,
+        username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
+        usernameLength: this.editForm.username.length > 20,
       };
-    },
-    user: {
-      get () {
-        return this.$store.state.user;
-      },
-      set (user) {
-        this.$store.commit('user/setUser', user);
-      }
     },
   },
   methods: {
@@ -87,7 +91,7 @@ export default {
       let reader = new FileReader();
       const self = this;
       reader.onload = e => {
-        self.user.profilePicture = e.target.result;
+        self.editForm.profilePicture = e.target.result;
       };
       reader.readAsDataURL(this.file);
     },
@@ -100,8 +104,7 @@ export default {
           "/api/v1/profilePicUpload",
           formData
         );
-        this.profilePicChanged = true;
-        this.user.profilePicture = image.file;
+        this.editForm.profilePicture = image.file;
       } catch (err) {
         console.log(err);
         this.$toast.open({
@@ -113,11 +116,11 @@ export default {
         });
       }
     },
-    async editProfile() {
+    async editProfile(editForm) {
       if (Object.values(this.formError).some(x => x === true)) {
         return false;
       }
-      if (this.profilePicChanged) {
+      if (this.profilePicture !== editForm.profilePicture) {
         await this.uploadImage();
         if (this.profilePicture.includes("https://kowalla-dev")) {
           const fileName = this.profilePicture.split("profile-pics/")[1];
@@ -128,7 +131,14 @@ export default {
         }
       }
       try {
-        let profileData = await this.$axios.$put(`api/v1/profiles/${this.user._id}`, this.user);
+        let profileData = await this.$axios.$put(`api/v1/profiles/${this.profileId}`,
+                {
+                  firstName: editForm.firstName, // will need to update local state
+                  lastName: editForm.lastName,
+                  username: editForm.username,
+                  description: editForm.description,
+                  profilePicture: editForm.profilePicture,
+                });
         let editObj = {
           firstName: profileData.firstName,
           lastName: profileData.lastName,
@@ -136,7 +146,6 @@ export default {
           description: profileData.description,
           username: profileData.username,
         };
-
         this.$store.commit("user/editProfile", editObj);
         if (this.isOnboarding) {
           this.$store.commit('onboarding/incrementActiveStep');

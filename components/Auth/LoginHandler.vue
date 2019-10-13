@@ -11,8 +11,15 @@
 
       <b-step-item :clickable="false">
         <EditProfile
+          v-if="user._id"
           :class="isMobile ? 'mobile' : ''"
           :is-onboarding="true"
+          :first-name="user.firstName"
+          :last-name="user.lastName"
+          :username="user.username"
+          :profile-picture="user.profilePicture"
+          :description="user.profileDescription"
+          :profile-id="user._id"
           title="Complete Profile Details"
         />
       </b-step-item>

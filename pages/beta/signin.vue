@@ -35,7 +35,6 @@ export default {
         loggedIn: Boolean(Object.keys(user).length),
       });
       await Object.assign(user, { subscriptions, owned });
-      console.log(user);
 
       await this.$store.commit("user/setUser", user);
       if (isNew) {
@@ -73,7 +72,6 @@ export default {
           loggedIn: Boolean(Object.keys(user).length),
         });
         await Object.assign(user, { subscriptions, owned });
-        console.log(user);
 
         await this.$store.commit("user/setUser", user);
         if (isNew) {

@@ -19,7 +19,6 @@ export const getters = {
 //     const post = await this.$axios.$get(
 //       `/api/v1/posts/active/${this.$store.state.user.username}`
 //     );
-//     console.log(post);
 //     if (post.isActive) {
 //       await this.$socket.emit("join", {
 //         username: this.$store.state.user.username,

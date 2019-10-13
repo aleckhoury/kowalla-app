@@ -69,7 +69,7 @@ import EditButton from "~/components/InfoCards/EditButton";
 import EditProjectForm from "~/components/Forms/EditProject";
 
 export default {
-  name: "UserPageTest",
+  name: "ProjectEdit",
   components: {
     EditProjectForm,
     Header,

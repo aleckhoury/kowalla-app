@@ -43,7 +43,7 @@ export default {
   border-radius: 6px;
   background-color: #fff;
   border: 1px solid #E0DDDD;
-  font-family: "Helvetica Neue";
+
   color: rgb(57,201,160);
   font-size: 0.875em;
   cursor: pointer;

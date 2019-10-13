@@ -64,7 +64,6 @@ export default {
 }
 
 .name {
-  font-family: "Helvetica Neue";
   font-size: 1em;
   height: 50%;
   color: black;
@@ -78,7 +77,6 @@ export default {
 }
 
 .info {
-  font-family: "Helvetica Neue";
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;

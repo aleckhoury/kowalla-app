@@ -36,10 +36,7 @@
               :has-notifications="this.$store.state.user.hasNotifications"
             />
 
-            <NavProfilePicture
-              :profile-picture="this.$store.state.user.profilePicture"
-              :username="this.$store.state.user.username"
-            />
+            <NavProfilePicture />
           </div>
 
           <div v-else class="level-item">
@@ -134,7 +131,6 @@ export default {
 }
 
 .page-link {
-  font-family: "Helvetica Neue";
   font-size: 1em;
   display: flex;
   color: white;

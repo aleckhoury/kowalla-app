@@ -115,7 +115,7 @@ export default {
 
 <style lang="css" scoped>
 .searchbar-container {
-  font-family: "Helvetica Neue";
+
   margin: 6px 0;
 }
 

@@ -76,6 +76,7 @@ module.exports = {
   plugins: [
     { src: "~/plugins/localStorage.js", ssr: false },
     { src: '~/plugins/socket.io.js', ssr: false },
+    { src: '~/plugins/asyncComputed.js', ssr: false },
     "~/plugins/axios",
   ],
 

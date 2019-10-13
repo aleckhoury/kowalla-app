@@ -6,7 +6,7 @@
         class="columns is-marginless main-margin"
       >
         <!-- nav pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
           <Subscriptions />
         </div>
@@ -17,7 +17,7 @@
         </div>
 
         <!-- info pane -->
-        <div class="column is-one-quarter">
+        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <InfoPane>
             <SignupCard v-if="!this.$store.state.user.loggedIn" />
             <ProfileCard
@@ -121,7 +121,7 @@ import Subscriptions from "../../../../components/SidePaneCards/Subscriptions";
 import Creations from "../../../../components/SidePaneCards/Creations";
 
 export default {
-  name: "UserPageTest",
+  name: "User",
   components: {
     Creations,
     Subscriptions,

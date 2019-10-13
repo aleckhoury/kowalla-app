@@ -1,5 +1,5 @@
 <template>
-  <CardContainer v-if="this.$store.state.user.loggedIn" header-string="Subscriptions">
+  <CardContainer :header-string="headerString">
     <div v-for="sub in subscriptions" :key="sub._id" class="subscription">
       <nuxt-link :to="getRoute(sub.isProject, sub.name)">
         <img :src="sub.pictureUrl" />
@@ -13,7 +13,7 @@
         <div class="info">{{ sub.numSubs }} users</div>
       </div>
     </div>
-    <div v-if="subscriptions && !subscriptions.length" class="noSubs">
+    <div v-if="subscriptions === undefined || !subscriptions.length" class="noSubs">
       <EmptySubs />
       <span>There's nothing here. Subscribe to some spaces and projects!</span>
     </div>
@@ -21,16 +21,27 @@
 </template>
 
 <script>
-import CardContainer from "./CardContainer";
-import EmptySubs from "../../svg/EmptySubs";
+  import CardContainer from "./CardContainer";
+  import EmptySubs from "../../svg/EmptySubs";
 
-export default {
+  export default {
   name: "Subscriptions",
   components: { EmptySubs, CardContainer },
-  computed: {
-    subscriptions() {
-      return this.$store.state.user.subscriptions;
+  asyncComputed: {
+    subscriptions: {
+      get() {
+        if (this.$store.state.user.loggedIn) {
+          return this.$store.state.user.subscriptions;
+        }
+        return this.$axios.$get('/api/v1/profiles/subs/default');
+      },
+      default: [],
     },
+  },
+  computed: {
+    headerString() {
+      return this.$store.state.user.loggedIn ? 'Subscriptions' : 'Discover';
+    }
   },
   methods: {
     getRoute(isProject, name) {
@@ -65,7 +76,7 @@ img {
   margin-left: 8px;
 }
 .name {
-  font-family: "Helvetica Neue";
+
   height: 50%;
   color: black;
   text-decoration: none;
@@ -78,7 +89,7 @@ img {
 }
 
 .info {
-  font-family: "Helvetica Neue";
+
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;

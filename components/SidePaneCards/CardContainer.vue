@@ -60,7 +60,7 @@ export default {
 }
 
 .header-content {
-  font-family: "Helvetica Neue";
+
   font-size: 1em;
   color: black;
 }
@@ -73,7 +73,7 @@ export default {
 }
 
 .subheader-content {
-  font-family: "Helvetica Neue";
+
   font-size: 0.75em;
   color: #39C9A0;
 }

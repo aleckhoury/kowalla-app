@@ -76,7 +76,6 @@ export default {
 }
 
 .message {
-  font-family: "Helvetica Neue";
   font-size: 1em;
   color: #39C9A0;
   background-color: white;

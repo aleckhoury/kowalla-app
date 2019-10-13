@@ -418,7 +418,7 @@ export default {
         isActive: this.livePost,
         username: this.$store.state.user.username,
       });
-
+      this.$store.commit('user/incrementPostCount');
       this.$emit("post-created", postObj);
 
       this.clearPhoto = false;

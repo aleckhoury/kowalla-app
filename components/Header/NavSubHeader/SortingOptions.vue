@@ -99,7 +99,7 @@ export default {
  }
 
  .font {
-   font-family: "Helvetica Neue";
+
  }
 
  .subject {

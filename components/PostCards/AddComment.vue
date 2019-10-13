@@ -48,6 +48,7 @@ export default {
           commentId: this.commentId ? this.commentId : "",
         };
         this.$axios.$post("/api/v1/comments", commentObj);
+        this.$store.commit('user/incrementCommentCount');
         this.updateComment(commentObj);
         this.comment = "";
         this.resetReply("");

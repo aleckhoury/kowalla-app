@@ -329,7 +329,6 @@ export default {
   font-weight: 900;
 }
 .page-link {
-  font-family: "Helvetica Neue";
   font-size: 1em;
   display: flex;
   color: #2F8168;

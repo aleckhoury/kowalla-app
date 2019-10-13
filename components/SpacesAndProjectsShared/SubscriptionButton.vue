@@ -53,7 +53,7 @@ export default {
   border-radius: 6px;
   border: 2px solid #2F8168;
   margin: 6px;
-  font-family: "Helvetica Neue";
+
   font-size: 0.875em;
   cursor: pointer;
 }
