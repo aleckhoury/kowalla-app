@@ -1,8 +1,10 @@
 <template>
   <div class="modal-content">
     <div class="box">
-      Experiencing issues? Want to report a bug? Let us know about it at
-      <b>help@kowalla.co</b>
+      <p>
+        Experiencing issues? Want to submit some feedback? Email me at
+        <b>alec@kowalla.co</b> and I'll get back to you asap!
+      </p>
     </div>
   </div>
 </template>
