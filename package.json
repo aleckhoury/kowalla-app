@@ -40,13 +40,13 @@
     "vuex-persistedstate": "2.5.4"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "10.0.3",
     "eslint": "5.16.0",
-    "eslint-config-prettier": "3.6.0",
-    "eslint-loader": "2.1.2",
-    "eslint-plugin-prettier": "2.7.0",
-    "eslint-plugin-vue": "4.7.1",
-    "nodemon": "1.11.0",
-    "prettier": "1.17.0"
+    "eslint-config-prettier": "5.1.0",
+    "eslint-loader": "3.0.2",
+    "eslint-plugin-prettier": "3.1.1",
+    "eslint-plugin-vue": "5.2.3",
+    "nodemon": "1.19.3",
+    "prettier": "1.18.2"
   }
 }
