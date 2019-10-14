@@ -5,6 +5,11 @@ module.exports = {
   /*
    ** Headers of the page
    */
+
+  env: {
+    API_URL: process.env.API_URL || 'http://localhost:8080',
+  },
+
   head: {
     script: [
       {
@@ -214,18 +219,4 @@ module.exports = {
       }
     },
   },
-  //   /*
-  //   ** You can extend webpack config here
-  //   */
-  // extend(config, ctx) {
-  //   // Run ESLint on save
-  //   if (ctx.isDev && ctx.isClient) {
-  //     config.module.rules.push({
-  //       enforce: 'pre',
-  //       test: /\.(js|vue)$/,
-  //       loader: 'eslint-loader',
-  //       exclude: /(node_modules)/,
-  //     });
-  //   }
-  // },
 };

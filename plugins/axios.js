@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
-export default ({ $axios, isDev }) => {
-  $axios.defaults.baseURL = isDev ? 'http://localhost:8080' : 'https://api.kowalla.co';
+export default ({ $axios }) => {
+  $axios.defaults.baseURL = process.env.API_URL;
 
 
   if (process.server) {
@@ -9,7 +9,7 @@ export default ({ $axios, isDev }) => {
   }
 
   $axios.interceptors.request.use(async request => {
-    request.baseURL = isDev ? 'http://localhost:8080' : 'https://api.kowalla.co';
+    request.baseURL = process.env.API_URL;
 
     // Get token from auth.js store
     const token = await Cookies.get('token');
