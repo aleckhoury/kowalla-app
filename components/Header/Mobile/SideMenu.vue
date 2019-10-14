@@ -36,6 +36,7 @@
         <!--</BMenuList>-->
         <!--<BMenuList label="Actions">-->
         <!--</BMenuList>-->
+        <ProfileProgress :is-mobile="true" />
       </BMenu>
     </div>
   </div>
@@ -44,9 +45,13 @@
 
 <script>
 import Cookies from 'js-cookie';
+import ProfileProgress from "../../SidePaneCards/ProfileProgress";
 
 export default {
   name: "SideMenu",
+  components: {
+    ProfileProgress
+  },
   props: {
     isOpen: { type: Boolean, default: false },
     closeSidebar: { type: Function, default: () => {} },
@@ -79,7 +84,7 @@ export default {
 <style scoped>
 .wrapper {
   position: fixed;
-  z-index: 99;
+  z-index: 39;
   height: 100%;
   width: 100%;
   display: flex;

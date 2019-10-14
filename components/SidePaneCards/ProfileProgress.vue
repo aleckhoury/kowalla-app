@@ -35,7 +35,7 @@
           />
           <text x="50%" y="50%" text-anchor="middle" dy=".3em">{{ count }}%</text>
         </svg>
-        <div class="items">
+        <div :class="{ isMobile: isMobile }" class="items">
           <ul class="fa-ul">
             <li v-for="item in profileProgress" :key="item.key">
               <span class="fa-li">
@@ -50,9 +50,9 @@
         </div>
       </div>
       <div v-else>
-        <h2 class="congrats">Congrats! You're a Kowalla All-Star!</h2>
+        <h2 :class="{ isMobile: isMobile }" class="congrats">Congrats! You're a Kowalla All-Star!</h2>
         <CompletedProfile class="completed bounce-7" />
-        <p class="invite">Share your invite code to showcase your communities and projects to others!</p>
+        <p :class="{ isMobile: isMobile }" class="invite">Share your invite code to showcase your communities and projects to others!</p>
         <a class="button action" @click="openInviteModal">Get Code</a>
       </div>
     </transition>
@@ -66,6 +66,9 @@ import InviteCode from "../Modals/Other/InviteCode";
 export default {
   name: "Progress",
   components: { CompletedProfile, CardContainer },
+  props: {
+    isMobile: { type: Boolean, default: false }
+  },
   data() {
     return {
       radius: 100,
@@ -189,13 +192,15 @@ text {
 .items {
   padding: 0 1em 1em 1em;
 }
+.isMobile.items {
+  padding: 0;
+  font-size: 0.9em;
+}
 .completed {
   padding: 0 1em;
   margin: 0 auto;
   max-width: 100%;
   height: auto;
-}
-.completed {
   align-self: flex-end;
   animation-duration: 2s;
   animation-iteration-count: 1;
@@ -229,7 +234,6 @@ text {
   }
 }
 .congrats {
-
   text-align: center;
   margin: 0 auto;
   font-size: 1.25em;
@@ -238,14 +242,20 @@ text {
   padding-bottom: 0;
   margin-bottom: -30px;
 }
+.isMobile.congrats {
+  font-size: 1.1em;
+  margin-bottom: -10px;
+}
 .invite {
-
   text-align: center;
   margin: 0 auto;
   font-size: 1.1em;
   font-weight: 700;
   padding: 1em;
   padding-top: 0;
+}
+.isMobile.invite {
+  font-size: 1em;
 }
 .button.action {
   width: 70%;

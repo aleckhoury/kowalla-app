@@ -5,52 +5,53 @@
         :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
         class="columns is-marginless main-margin"
       >
-        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
+        <div
+          :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+          class="column is-one-quarter"
+        >
           <Creations />
           <Subscriptions />
         </div>
 
-        <div id="postFeed" class="columns is-marginless">
-          <div class="column is-two-thirds">
-            <Post
-              id="spacePost"
-              :key="post._id"
-              :post="post"
-              :is-mobile="false"
-              :truncate="false"
-              @delete-post="removePostFromPostList"
+        <div class="column is-one-half">
+          <Post
+            id="spacePost"
+            :key="post._id"
+            :post="post"
+            :is-mobile="false"
+            :truncate="false"
+            @delete-post="removePostFromPostList"
+          />
+        </div>
+        <div
+          :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
+          class="column is-one-quarter"
+        >
+          <InfoPane>
+            <SignupCard
+              v-if="!this.$store.state.user.loggedIn"
+              class="fullWidth"
             />
-          </div>
-          <div class="column is-one-third">
-            <InfoPane>
-              <SignupCard
-                v-if="!this.$store.state.user.loggedIn"
-                class="fullWidth"
-              />
-              <ProfileCard
-                :name="spaceName"
-                :username="spaceName"
-                :profile-picture-url="profilePictureUrl"
-                :subheader-string="`View ${spaceName}'s stats`"
-                :stats="spaceStats"
-                type="project"
-              />
+            <ProfileCard
+              :name="spaceName"
+              :username="spaceName"
+              :profile-picture-url="profilePictureUrl"
+              :subheader-string="`View ${spaceName}'s stats`"
+              :stats="spaceStats"
+              type="project"
+            />
 
-              <DescriptionCard
-                :subheader-on="false"
-                header-string="Description"
-              >
-                {{ spaceDescription }}
-              </DescriptionCard>
+            <DescriptionCard :subheader-on="false" header-string="Description">
+              {{ spaceDescription }}
+            </DescriptionCard>
 
-              <EditButton
-                v-if="this.$store.state.user._id === adminId"
-                @edit-button-clicked="editSpace"
-              >
-                <b>Edit Settings</b>
-              </EditButton>
-            </InfoPane>
-          </div>
+            <EditButton
+              v-if="this.$store.state.user._id === adminId"
+              @edit-button-clicked="editSpace"
+            >
+              <b>Edit Settings</b>
+            </EditButton>
+          </InfoPane>
         </div>
       </div>
     </div>
@@ -75,7 +76,6 @@
 import Header from "~/components/Header/Header";
 import MobileHeader from "~/components/Header/Mobile/MobileHeader";
 import MobileFooter from "~/components/Header/Mobile/MobileFooter";
-
 
 import Banner from "~/components/SpacesAndProjectsShared/Banner";
 import DescriptionCard from "~/components/InfoCards/DescriptionCard";
