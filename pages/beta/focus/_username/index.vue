@@ -83,9 +83,11 @@
         </div>
         <div class="column">
           <div class="card liveTimer">
-            <b
-              ><span class="countUp">{{ countUp }}</span></b
-            >
+            <span class="countUp">
+              <strong>
+                {{ countUp }}
+              </strong>
+            </span>
           </div>
           <div class="endContainer is-hidden-touch">
             <a class="button action end" @click="endCoworkingSession()"><b>End Coworking Session</b></a>
