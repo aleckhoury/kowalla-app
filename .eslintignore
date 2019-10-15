@@ -1,7 +1,6 @@
-/dist
-/.nuxt
-/node_modules
-/.git
-/assets
-/server
-/static
+/.git/
+/.nuxt/
+/assets/
+/css/
+/node_modules/
+/static/

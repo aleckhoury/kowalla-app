@@ -1,19 +1,15 @@
 {
-  "plugins": ["prettier"],
-  "extends": ["plugin:vue/recommended", "plugin:prettier/recommended"],
-  "env": {
-    "browser": true,
-    "node": true
-  },
+  "extends": [
+    "plugin:vue/recommended",
+    "plugin:prettier/recommended",
+    "prettier/vue"
+  ],
   "parserOptions": {
     "parser": "babel-eslint",
     "sourceType": "module"
   },
-  "rules": {
-    "semi": [2, "always"],
-    "no-console": "off",
-    "vue/max-attributes-per-line": "off",
-    "no-unused-vars": "off",
-    "vue/html-self-closing": "any"
+  "env": {
+    "es6": true,
+    "node": true
   }
 }
