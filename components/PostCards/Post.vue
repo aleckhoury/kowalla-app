@@ -14,10 +14,7 @@
 
     <PostTimer v-if="post.isActive" :start-time="post.start" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
-      <div class="content is-marginless">
-        {{ post.content }}
-      </div>
-
+      <div v-html="post.content" class="content is-marginless" />
       <p v-if="overflow" class="read-more" @click="overflow = !overflow">
         <a>Read More</a>
       </p>

@@ -14,9 +14,7 @@
           @delete-post="echoDeletePost"
         />
         <PostTimer v-if="post.isActive" :time="post.expiration" />
-        <div class="content is-marginless">
-          {{ post.content }}
-        </div>
+        <div v-html="post.content" class="content is-marginless" />
         <br />
         <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
       </div>
