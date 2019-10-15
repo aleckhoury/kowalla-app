@@ -1,17 +1,17 @@
 export const state = () => ({
-  list: [],
+  list: []
 });
 
 export const mutations = {
   SOCKET_JOIN(state, list) {
     state.list = [...list];
-  },
+  }
 };
 
 export const getters = {
-  activePost( state, getters, rootState) {
+  activePost(state, getters, rootState) {
     return state.list.some(x => x.username === rootState.user.username);
-  },
+  }
 };
 //
 // export const actions = {

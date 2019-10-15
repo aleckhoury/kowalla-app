@@ -1,14 +1,14 @@
 export const state = () => ({
-  activeModal: 'posts',
+  activeModal: 'posts'
 });
 
 export const mutations = {
   updateActiveModalToNotifs(state) {
-    state.activeModal = "notifs";
+    state.activeModal = 'notifs';
   },
 
   updateActiveModalToMenu(state) {
-    state.activeModal = "menu";
+    state.activeModal = 'menu';
   },
 
   updateActiveModal(state, string) {

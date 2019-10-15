@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 export default ({ $axios }) => {
   $axios.defaults.baseURL = process.env.API_URL;
 
-
   if (process.server) {
     return;
   }
@@ -16,7 +15,7 @@ export default ({ $axios }) => {
 
     // Update token axios header
     if (token) {
-      request.headers.common['Authorization'] = await `Bearer ${ token }`;
+      request.headers.common['Authorization'] = await `Bearer ${token}`;
     }
     return request;
   });

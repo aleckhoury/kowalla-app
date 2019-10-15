@@ -1,7 +1,7 @@
 export const state = () => ({
   topBox: true,
   levelOne: false,
-  levelTwo: false,
+  levelTwo: false
 });
 
 export const mutations = {
@@ -19,5 +19,5 @@ export const mutations = {
 
   updateNewsfeedSortingOption(state, string) {
     state.newsfeed = string;
-  },
+  }
 };

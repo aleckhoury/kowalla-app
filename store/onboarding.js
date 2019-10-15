@@ -1,5 +1,5 @@
 export const state = () => ({
-  ActiveStep: 0,
+  ActiveStep: 0
 });
 
 export const mutations = {
@@ -7,6 +7,6 @@ export const mutations = {
     state.ActiveStep += 1;
   },
   resetActiveStep(state) {
-    state.ActiveStep  = 0;
-  },
+    state.ActiveStep = 0;
+  }
 };

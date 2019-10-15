@@ -1,6 +1,6 @@
 export const state = () => ({
   SettingsActiveTab: 0,
-  NewsFeedActiveTab: 0,
+  NewsFeedActiveTab: 0
 });
 
 export const mutations = {
@@ -9,5 +9,5 @@ export const mutations = {
   },
   updateNewsFeedActiveTab(state, tab) {
     state.NewsFeedActiveTab = tab;
-  },
+  }
 };

@@ -190,14 +190,14 @@
 
 <script>
 export default {
-  name: "EmptyCreations",
+  name: 'EmptyCreations'
 };
 </script>
 
 <style scoped>
 #emptyCreations {
-    max-width: 90%;
-    height: auto;
-    background-color: white;
+  max-width: 90%;
+  height: auto;
+  background-color: white;
 }
 </style>
