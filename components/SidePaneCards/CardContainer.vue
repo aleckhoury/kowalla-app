@@ -11,19 +11,11 @@
     </div>
 
     <div v-if="subheaderOn" class="subheader">
-      <nuxt-link
-        v-if="!subheaderIsButton"
-        :to="subheaderUrl"
-        class="subheader-content"
-      >
+      <nuxt-link v-if="!subheaderIsButton" :to="subheaderUrl" class="subheader-content">
         <b>{{ subheaderString }}</b>
       </nuxt-link>
 
-      <span
-        v-if="subheaderIsButton"
-        class="subheader-content"
-        @click="$emit('subheader-clicked')"
-      >
+      <span v-if="subheaderIsButton" class="subheader-content" @click="$emit('subheader-clicked')">
         <b>{{ subheaderString }}</b>
       </span>
     </div>
@@ -32,15 +24,15 @@
 
 <script>
 export default {
-  name: "CardContainer",
+  name: 'CardContainer',
   props: {
-    headerString: { type: String, default: "" },
-    subheaderString: { type: String, default: "" },
-    subheaderUrl: { type: String, default: "" },
+    headerString: { type: String, default: '' },
+    subheaderString: { type: String, default: '' },
+    subheaderUrl: { type: String, default: '' },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
-    subheaderIsButton: { type: Boolean, default: false },
-  },
+    subheaderIsButton: { type: Boolean, default: false }
+  }
 };
 </script>
 

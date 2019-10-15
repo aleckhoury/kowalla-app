@@ -2,31 +2,19 @@
   <div class="modal-content">
     <div class="box">
       <div class="level" @click="emitSelection('post')">
-        <font-awesome-icon
-          class="dark-basic-theme icon"
-          icon="pencil-ruler"
-          style="font-size: 16px"
-        />
+        <font-awesome-icon class="dark-basic-theme icon" icon="pencil-ruler" style="font-size: 16px" />
 
         Create a new Post
       </div>
 
       <div class="level" @click="emitSelection('space')">
-        <font-awesome-icon
-          class="dark-basic-theme icon"
-          icon="user-friends"
-          style="font-size: 16px"
-        />
+        <font-awesome-icon class="dark-basic-theme icon" icon="user-friends" style="font-size: 16px" />
 
         Create a new Space
       </div>
 
       <div class="level" @click="emitSelection('project')">
-        <font-awesome-icon
-          class="dark-basic-theme icon"
-          icon="project-diagram"
-          style="font-size: 16px"
-        />
+        <font-awesome-icon class="dark-basic-theme icon" icon="project-diagram" style="font-size: 16px" />
         Create a new Project
       </div>
     </div>
@@ -34,13 +22,13 @@
 </template>
 <script>
 export default {
-  name: "MobileCreateModal",
+  name: 'MobileCreateModal',
   methods: {
     emitSelection(selection) {
       this.$emit(selection);
       this.$parent.close();
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="css" scoped>

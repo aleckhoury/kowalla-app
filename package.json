@@ -32,11 +32,12 @@
     "nuxt-fontawesome": "0.4.0",
     "socket.io-client": "2.2.0",
     "timeago.js": "4.0.0-beta.2",
-    "tiptap": "1.8.0",
-    "tiptap-extensions": "1.8.0",
+    "tiptap": "1.26.3",
+    "tiptap-extensions": "1.28.3",
     "vue": "2.6.10",
     "vue-async-computed": "3.7.0",
     "vue-socket.io-extended": "3.2.2",
+    "vuex": "3.1.1",
     "vuex-persistedstate": "2.5.4"
   },
   "devDependencies": {

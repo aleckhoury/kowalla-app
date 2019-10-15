@@ -2,11 +2,7 @@
   <div class="modal-content">
     <b-steps v-model="activeStep" :has-navigation="false" class="signup">
       <b-step-item :clickable="false">
-        <LoginAndRegister
-          :initial-state="initialState"
-          :is-mobile="isMobile"
-          @close="closeModal"
-        />
+        <LoginAndRegister :initial-state="initialState" :is-mobile="isMobile" @close="closeModal" />
       </b-step-item>
 
       <b-step-item :clickable="false">
@@ -32,19 +28,19 @@
 </template>
 
 <script>
-import LoginAndRegister from "./LoginAndRegister";
-import EditProfile from "~/components/Forms/EditProfile";
-import SpaceProjectList from "./SpaceProjectList";
+import LoginAndRegister from './LoginAndRegister';
+import EditProfile from '~/components/Forms/EditProfile';
+import SpaceProjectList from './SpaceProjectList';
 
 export default {
-  name: "LoginHandler",
+  name: 'LoginHandler',
   components: {
     SpaceProjectList,
     LoginAndRegister,
-    EditProfile,
+    EditProfile
   },
   props: {
-    initialState: { type: Number, default: 0 },
+    initialState: { type: Number, default: 0 }
   },
   computed: {
     isMobile() {
@@ -62,7 +58,7 @@ export default {
       if (this.activeStep === 1) {
         return (this.$parent.canCancel = [false, false, false]);
       }
-    },
+    }
   },
   created() {
     if (this.$route.query.code || this.$route.query.oauth_token) {
@@ -81,10 +77,10 @@ export default {
       const { subscriptions } = subs.subscriptions;
       await Object.assign(user, { subscriptions });
 
-      await this.$store.commit("user/setUser", user);
+      await this.$store.commit('user/setUser', user);
       this.$router.push({ path: `/beta/space/all` });
-    },
-  },
+    }
+  }
 };
 </script>
 

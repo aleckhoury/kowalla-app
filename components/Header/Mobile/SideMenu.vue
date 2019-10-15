@@ -1,24 +1,16 @@
 <template>
   <div class="wrapper" @touchmove.prevent @click="closeActions">
-    <div
-      :class="{ isOpen: delayOpen }"
-      class="sidebar"
-      @click.stop
-      @touchmove.stop
-    >
+    <div :class="{ isOpen: delayOpen }" class="sidebar" @click.stop @touchmove.stop>
       <BMenu>
         <div class="columns is-mobile">
           <div class="column is-one-third">
-            <img
-              :src="this.$store.state.user.profilePicture"
-              class="nav-profile-picture"
-            />
+            <img :src="this.$store.state.user.profilePicture" class="nav-profile-picture" />
           </div>
           <div class="column is-two-thirds">
             <b>@{{ this.$store.state.user.username }}</b>
-            <br>
+            <br />
             <span><strong>Creations:</strong> {{ this.$store.state.user.owned.length }}</span>
-            <br>
+            <br />
             <span><strong>Subscriptions:</strong> {{ this.$store.state.user.subscriptions.length }}</span>
           </div>
         </div>
@@ -45,21 +37,21 @@
 
 <script>
 import Cookies from 'js-cookie';
-import ProfileProgress from "../../SidePaneCards/ProfileProgress";
+import ProfileProgress from '../../SidePaneCards/ProfileProgress';
 
 export default {
-  name: "SideMenu",
+  name: 'SideMenu',
   components: {
     ProfileProgress
   },
   props: {
     isOpen: { type: Boolean, default: false },
-    closeSidebar: { type: Function, default: () => {} },
+    closeSidebar: { type: Function, default: () => {} }
   },
   data() {
     return {
       delayOpen: false,
-      targetElement: null,
+      targetElement: null
     };
   },
   mounted() {
@@ -67,8 +59,8 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit("user/clearUser");
-      Cookies.remove("token");
+      this.$store.commit('user/clearUser');
+      Cookies.remove('token');
       this.$store.commit('activeTabs/updateNewsFeedActiveTab', 0);
       this.$store.commit('onboarding/resetActiveStep');
       this.$router.go();
@@ -76,8 +68,8 @@ export default {
     closeActions() {
       this.delayOpen = false;
       setTimeout(() => this.closeSidebar(), 250);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -123,6 +115,6 @@ export default {
   padding: 0.25em;
 }
 .columns {
-  border-bottom: 2px solid #39C9A0;
+  border-bottom: 2px solid #39c9a0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template lang="html">
   <b-dropdown :mobile-modal="false" position="is-bottom-left" aria-role="list">
-    <img slot="trigger" :src="profilePicture" class="nav-profile-picture level-item" >
+    <img slot="trigger" :src="profilePicture" class="nav-profile-picture level-item" />
 
     <b-dropdown-item aria-role="listitem" has-link>
       <nuxt-link :to="`/beta/user/${username}`" class="page-link">
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 export default {
-  name: "NavProfilePicture",
+  name: 'NavProfilePicture',
   props: {
-    dropdown: { type: Boolean, default: false },
+    dropdown: { type: Boolean, default: false }
   },
   computed: {
     profilePicture() {
@@ -38,13 +38,13 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit("user/clearUser");
-      Cookies.remove("token");
+      this.$store.commit('user/clearUser');
+      Cookies.remove('token');
       this.$store.commit('activeTabs/updateNewsFeedActiveTab', 0);
       this.$store.commit('onboarding/resetActiveStep');
       this.$router.go();
-    },
-  },
+    }
+  }
 };
 </script>
 

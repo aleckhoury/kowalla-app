@@ -14,13 +14,15 @@
 
     <PostTimer v-if="post.isActive" :start-time="post.start" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
-      <div class="content is-marginless" v-html="post.content" />
+      <div class="content is-marginless">
+        {{ post.content }}
+      </div>
 
       <p v-if="overflow" class="read-more" @click="overflow = !overflow">
         <a>Read More</a>
       </p>
     </div>
-    <br >
+    <br />
     <Reactions
       :post-id="post._id"
       :create-picker="createPicker"
@@ -30,49 +32,38 @@
       @open-post="openPost"
       @toggle="toggleComment"
     />
-    <AddComment
-      v-if="!activeCommentId && !isFeed"
-      :post-id="post._id"
-      :update-comment="updateComment"
-    />
-    <Comment
-      v-for="comment in commentList"
-      :active-comment="activeCommentId"
-      :key="comment._id"
-      :comment="comment"
-      :nest-level="0"
-      :toggle="toggleComment"
-    />
+    <AddComment v-if="!activeCommentId && !isFeed" :post-id="post._id" :update-comment="updateComment" />
+    <Comment v-for="comment in commentList" :key="comment._id" :active-comment="activeCommentId" :comment="comment" :nest-level="0" :toggle="toggleComment" />
   </div>
 </template>
 
 <script>
-import Reactions from "~/components/PostCards/Reactions";
-import PostHeader from "~/components/PostCards/PostHeader";
-import PostTimer from "~/components/PostCards/PostTimer";
-import PostModal from "~/components/PostCards/PostModal.vue";
-import Comment from "~/components/PostCards/Comment.vue";
-import AddComment from "~/components/PostCards/AddComment";
-import Utils from "~/utils/helpers";
-import DropdownPicker from "./DropdownPicker";
-import LoginHandler from "~/components/Auth/LoginHandler";
-import Vue from "vue";
+import Reactions from '~/components/PostCards/Reactions';
+import PostHeader from '~/components/PostCards/PostHeader';
+import PostTimer from '~/components/PostCards/PostTimer';
+import PostModal from '~/components/PostCards/PostModal.vue';
+import Comment from '~/components/PostCards/Comment.vue';
+import AddComment from '~/components/PostCards/AddComment';
+import Utils from '~/utils/helpers';
+import DropdownPicker from './DropdownPicker';
+import LoginHandler from '~/components/Auth/LoginHandler';
+import Vue from 'vue';
 
 export default {
-  name: "Post",
+  name: 'Post',
   components: { PostTimer, PostHeader, Reactions, Comment, AddComment },
   props: {
     post: { type: Object, default: () => {} },
     isFeed: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isMobile: {
       type: Boolean,
-      default: false,
+      default: false
     },
     methodProp: { type: Function, default: () => {} },
-    truncate: { type: Boolean, default: true },
+    truncate: { type: Boolean, default: true }
   },
   data() {
     return {
@@ -84,82 +75,64 @@ export default {
       reactionList: [],
       reactionsFormatted: [],
       commentList: [],
-      activeCommentId: "",
+      activeCommentId: ''
     };
   },
   async mounted() {
-    if (this.post.hasOwnProperty("projectId")) {
+    if (this.post.hasOwnProperty('projectId')) {
       this.isProject = true;
       try {
         if (this.post.projectId) {
-          this.project = await this.$axios.$get(
-                  `/api/v1/projects/${this.post.projectId}`
-          );
+          this.project = await this.$axios.$get(`/api/v1/projects/${this.post.projectId}`);
         }
         if (this.post.spaceId) {
-          this.space = await this.$axios.$get(
-                  `/api/v1/spaces/${this.post.spaceId}`
-          );
+          this.space = await this.$axios.$get(`/api/v1/spaces/${this.post.spaceId}`);
         }
       } catch {
-        console.log("error grabbing some values");
+        console.log('error grabbing some values');
       }
     } else {
       this.isProject = false;
       try {
         if (this.post.profileId) {
-          this.profile = await this.$axios.$get(
-                  `/api/v1/profiles/${this.post.profileId}`
-          );
+          this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
         }
         if (this.post.spaceId) {
-          this.space = await this.$axios.$get(
-                  `/api/v1/spaces/${this.post.spaceId}`
-          );
+          this.space = await this.$axios.$get(`/api/v1/spaces/${this.post.spaceId}`);
         }
       } catch {
-        console.log("error grabbing some values");
+        console.log('error grabbing some values');
       }
     }
     if (this.truncate) {
-      if (this.$refs["content"]) {
-        if (this.$refs["content"].getBoundingClientRect().height >= 480) {
+      if (this.$refs['content']) {
+        if (this.$refs['content'].getBoundingClientRect().height >= 480) {
           this.overflow = true;
         }
       }
     }
     if (!this.isFeed) {
-      this.commentList = await this.$axios.$get(
-              `/api/v1/comments/${this.post._id}`
-      );
+      this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
       if (this.$store.state.user.loggedIn) {
         this.commentList.map(async (comment, idx) => {
-          this.commentList[idx].upvote = await this.$axios.$get(
-                  `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
-          );
+          this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`);
         });
       }
     }
     try {
-      this.reactionList = await this.$axios.$get(
-        `/api/v1/posts/${this.post._id}/reactions`
-      );
+      this.reactionList = await this.$axios.$get(`/api/v1/posts/${this.post._id}/reactions`);
       if (this.reactionList.length) {
         this.reactionList.forEach(x => {
           const userReacted = x.profileId === this.$store.state.user._id;
-          let index = this.reactionsFormatted
-            .map(y => y.emoji)
-            .indexOf(x.emoji);
+          let index = this.reactionsFormatted.map(y => y.emoji).indexOf(x.emoji);
           if (index === -1) {
             this.reactionsFormatted.push({
               emoji: x.emoji,
               count: 1,
-              userReacted: false,
+              userReacted: false
             });
             if (userReacted) {
-              index = this.reactionsFormatted
-                .map(y => y.emoji)
-                .indexOf(x.emoji);
+              index = this.reactionsFormatted.map(y => y.emoji).indexOf(x.emoji);
               this.reactionsFormatted[index].userReacted = true;
             }
           } else {
@@ -171,19 +144,19 @@ export default {
         });
       }
     } catch {
-      console.log("some kind of error idk");
+      console.log('some kind of error idk');
     }
   },
   methods: {
     echoDeletePost(postId) {
-      this.$emit("delete-post", postId);
+      this.$emit('delete-post', postId);
     },
     openPost() {
       // figure out how to
       let infoObj = {
         space: this.space,
         project: this.isProject ? this.project : {},
-        profile: this.isProject ? {} : this.profile,
+        profile: this.isProject ? {} : this.profile
       };
       if (this.isMobile) {
         if (Object.keys(this.space).length) {
@@ -198,15 +171,15 @@ export default {
           props: {
             infoObj: infoObj,
             postObj: this.post,
-            isProject: this.isProject,
+            isProject: this.isProject
           },
           events: {
-            "delete-post": postId => {
+            'delete-post': postId => {
               this.echoDeletePost(postId);
-            },
+            }
           },
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       }
     },
@@ -216,43 +189,30 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       }
-      const savedEmoji = typeof emoji === "string" ? emoji : emoji.native;
-      let emojiIndex = await this.reactionsFormatted
-        .map(x => x.emoji)
-        .indexOf(savedEmoji);
-      const isEmojiObject = typeof emoji === "object";
-      if (
-        emojiIndex === -1 ||
-        this.reactionsFormatted[emojiIndex].userReacted === false
-      ) {
+      const savedEmoji = typeof emoji === 'string' ? emoji : emoji.native;
+      let emojiIndex = await this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
+      const isEmojiObject = typeof emoji === 'object';
+      if (emojiIndex === -1 || this.reactionsFormatted[emojiIndex].userReacted === false) {
         return this.toggleReactionTrue(savedEmoji, emojiIndex, isEmojiObject);
-      } else if (
-        emojiIndex !== -1 &&
-        this.reactionsFormatted[emojiIndex].userReacted === true
-      ) {
+      } else if (emojiIndex !== -1 && this.reactionsFormatted[emojiIndex].userReacted === true) {
         return this.toggleReactionFalse(savedEmoji, emojiIndex);
       }
     },
     async toggleReactionTrue(emoji, index, isEmojiObject) {
-      await this.$axios.$post(
-        `/api/v1/profiles/${this.$store.state.user._id}/reactions`,
-        {
-          emoji: emoji,
-          postId: this.post._id,
-        }
-      );
+      await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
+        emoji: emoji,
+        postId: this.post._id
+      });
       if (index === -1) {
         this.reactionsFormatted.push({
           emoji: emoji,
           count: 1,
-          userReacted: false,
+          userReacted: false
         });
-        const newIndex = this.reactionsFormatted
-          .map(x => x.emoji)
-          .indexOf(emoji);
+        const newIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(emoji);
         this.reactionsFormatted[newIndex].userReacted = true;
       } else {
         this.reactionsFormatted[index].userReacted = true;
@@ -263,16 +223,11 @@ export default {
       }
     },
     async toggleReactionFalse(emoji, index) {
-      await this.$axios.$delete(
-        `/api/v1/profiles/${this.$store.state.user._id}/reactions/${
-          this.post._id
-        }`,
-        {
-          data: {
-            emoji: emoji,
-          },
+      await this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
+        data: {
+          emoji: emoji
         }
-      );
+      });
       this.reactionsFormatted[index].count--;
       this.reactionsFormatted[index].userReacted = false;
       if (this.reactionsFormatted[index].count === 0) {
@@ -280,15 +235,12 @@ export default {
       }
     },
     createPicker() {
-      if (
-        this.$children[1].$refs.picker.attributes[0].ownerElement.children
-          .length
-      ) {
+      if (this.$children[1].$refs.picker.attributes[0].ownerElement.children.length) {
         return null;
       }
       let ComponentClass = Vue.extend(DropdownPicker);
       let instance = new ComponentClass({
-        propsData: { toggleReaction: this.toggleReaction },
+        propsData: { toggleReaction: this.toggleReaction }
       });
       instance.$mount(); // pass nothing
       this.$children[1].$refs.picker.appendChild(instance.$el);
@@ -298,8 +250,8 @@ export default {
     },
     toggleComment(activeCommentId) {
       this.activeCommentId = activeCommentId;
-    },
-  },
+    }
+  }
 };
 </script>
 

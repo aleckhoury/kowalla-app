@@ -4,47 +4,33 @@
     <b-tabs id="columnTabs" v-model="activeTab">
       <b-tab-item>
         <EmptyPostList v-if="!postList.length" />
-        <Post
-          v-for="post in postList"
-          :key="post._id"
-          :post="post"
-          :is-mobile="isMobile"
-          :is-feed="true"
-          @delete-post="removePostFromPostList"
-        />
+        <Post v-for="post in postList" :key="post._id" :post="post" :is-mobile="isMobile" :is-feed="true" @delete-post="removePostFromPostList" />
       </b-tab-item>
       <b-tab-item>
         <EmptyPostList v-if="!subscribedPostList.length" />
-        <Post
-          v-for="post in subscribedPostList"
-          :key="post._id"
-          :post="post"
-          :is-mobile="isMobile"
-          :is-feed="true"
-          @delete-post="removePostFromPostList"
-        />
+        <Post v-for="post in subscribedPostList" :key="post._id" :post="post" :is-mobile="isMobile" :is-feed="true" @delete-post="removePostFromPostList" />
       </b-tab-item>
     </b-tabs>
   </div>
 </template>
 
 <script>
-import Post from "./Post";
-import EmptyPostList from "./EmptyPostList";
-import CreatePost from "./CreatePost";
+import Post from './Post';
+import EmptyPostList from './EmptyPostList';
+import CreatePost from './CreatePost';
 import { debounce } from 'debounce';
 
 export default {
-  name: "PostFeed",
+  name: 'PostFeed',
   components: {
     Post,
     EmptyPostList,
-    CreatePost,
+    CreatePost
   },
   props: {
-    type: { type: String, default: "NewsFeedActiveTab" },
+    type: { type: String, default: 'NewsFeedActiveTab' },
     isMobile: { type: Boolean, default: false },
-    pageId: { type: String, default: "" },
+    pageId: { type: String, default: '' }
   },
   data() {
     return {
@@ -53,20 +39,19 @@ export default {
       isMounted: false,
       func: null,
       endAll: false,
-      endSubscribed: false,
+      endSubscribed: false
     };
   },
   computed: {
     sort() {
-      if (process.browser) {
-        return this.$store.state.sorting.feed;
-      }
+      return process.browser ? this.$store.state.sorting.feed : undefined;
     },
     activeTab() {
       if (process.browser) {
         if (this.type === 'NewsFeedActiveTab') return this.$store.state.activeTabs.NewsFeedActiveTab;
         return 0;
       }
+      return undefined;
     },
     postingAllowed() {
       const a = this.$store.state.user.loggedIn;
@@ -91,25 +76,16 @@ export default {
   watch: {
     async sort() {
       this.postList = await this.$axios.$get(this.getSortPostsUrl);
-      if (
-        this.$store.state.user.loggedIn &&
-        this.type === "NewsFeedActiveTab"
-      ) {
-        this.subscribedPostList = await this.$axios.$get(
-          `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/0`
-        );
+      if (this.$store.state.user.loggedIn && this.type === 'NewsFeedActiveTab') {
+        this.subscribedPostList = await this.$axios.$get(`/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/0`);
       }
       // await this.scroll();
-    },
+    }
   },
   async mounted() {
     this.postList = await this.$axios.$get(this.getPostsUrl);
-    if (this.$store.state.user.loggedIn && this.type === "NewsFeedActiveTab") {
-      this.subscribedPostList = await this.$axios.$get(
-        `/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${
-          this.subscribedPostList.length
-        }`
-      );
+    if (this.$store.state.user.loggedIn && this.type === 'NewsFeedActiveTab') {
+      this.subscribedPostList = await this.$axios.$get(`/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${this.subscribedPostList.length}`);
     }
     // await this.scroll();
     this.func = debounce(this.scroll, 150);
@@ -122,51 +98,40 @@ export default {
     async scroll() {
       if (this.postList.length || this.subscribedPostList.length) {
         let isActive = false;
-          const feed = document.getElementById("postFeed");
-          const bottomOfWindow =
-            window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
-          if (!isActive && bottomOfWindow) {
-            isActive = true;
-            let posts;
-            let newList;
-            if (this.activeTab === 0) {
-              posts = await this.$axios.$get(this.getPostsUrl);
-              newList = await this.postList.concat(posts);
-              if (posts.length) {
-                this.postList = await newList;
-                isActive = false;
-              } else {
-                this.endAll = true;
-              }
-            } else if (
-              this.activeTab === 1 &&
-              this.$store.state.user.loggedIn
-            ) {
-              posts = await this.$axios.$get(
-                `/api/v1/feed/posts/${this.$store.state.user._id}/${
-                  this.sort
-                }/${this.subscribedPostList.length}`
-              );
-              newList = await this.subscribedPostList.concat(posts);
-              if (posts.length) {
-                this.subscribedPostList = await newList;
-                isActive = false;
-              } else {
-                this.endSubscribed = true;
-              }
+        const feed = document.getElementById('postFeed');
+        const bottomOfWindow = window.innerHeight + window.scrollY >= feed.offsetHeight - 500;
+        if (!isActive && bottomOfWindow) {
+          isActive = true;
+          let posts;
+          let newList;
+          if (this.activeTab === 0) {
+            posts = await this.$axios.$get(this.getPostsUrl);
+            newList = await this.postList.concat(posts);
+            if (posts.length) {
+              this.postList = await newList;
+              isActive = false;
+            } else {
+              this.endAll = true;
+            }
+          } else if (this.activeTab === 1 && this.$store.state.user.loggedIn) {
+            posts = await this.$axios.$get(`/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/${this.subscribedPostList.length}`);
+            newList = await this.subscribedPostList.concat(posts);
+            if (posts.length) {
+              this.subscribedPostList = await newList;
+              isActive = false;
+            } else {
+              this.endSubscribed = true;
             }
           }
-          if (this.endAll && this.endSubscribed) {
-            window.removeEventListener('scroll', this.func);
-          }
+        }
+        if (this.endAll && this.endSubscribed) {
+          window.removeEventListener('scroll', this.func);
+        }
       }
     },
     addPostToPostList(postObj) {
       this.postList.unshift(postObj);
-      if (
-        this.$store.state.user.loggedIn &&
-        this.type === "NewsFeedActiveTab"
-      ) {
+      if (this.$store.state.user.loggedIn && this.type === 'NewsFeedActiveTab') {
         this.subscribedPostList.unshift(postObj);
       }
     },
@@ -174,28 +139,21 @@ export default {
       for (let i in this.postList) {
         if (this.postList[i]._id === postId) {
           this.postList.splice(i, 1);
-          await this.$axios.$delete(
-            `/api/v1/posts/${postId}`
-          );
+          await this.$axios.$delete(`/api/v1/posts/${postId}`);
           break;
         }
       }
-      if (
-        this.$store.state.user.loggedIn &&
-        this.type === "NewsFeedActiveTab"
-      ) {
+      if (this.$store.state.user.loggedIn && this.type === 'NewsFeedActiveTab') {
         for (let i in this.subscribedPostList) {
           if (this.subscribedPostList[i]._id === postId) {
             this.subscribedPostList.splice(i, 1);
-            await this.$axios.$delete(
-              `/api/v1/posts/${postId}`
-            );
+            await this.$axios.$delete(`/api/v1/posts/${postId}`);
             break;
           }
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

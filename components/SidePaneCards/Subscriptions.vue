@@ -10,7 +10,9 @@
           <b>{{ getPrefix(sub.isProject) }}{{ sub.name }}</b>
         </nuxt-link>
 
-        <div class="info">{{ sub.numSubs }} users</div>
+        <div class="info">
+          {{ sub.numSubs }} users
+        </div>
       </div>
     </div>
     <div v-if="subscriptions === undefined || !subscriptions.length" class="noSubs">
@@ -21,11 +23,11 @@
 </template>
 
 <script>
-  import CardContainer from "./CardContainer";
-  import EmptySubs from "../../svg/EmptySubs";
+import CardContainer from './CardContainer';
+import EmptySubs from '../../svg/EmptySubs';
 
-  export default {
-  name: "Subscriptions",
+export default {
+  name: 'Subscriptions',
   components: { EmptySubs, CardContainer },
   asyncComputed: {
     subscriptions: {
@@ -35,8 +37,8 @@
         }
         return this.$axios.$get('/api/v1/profiles/subs/default');
       },
-      default: [],
-    },
+      default: []
+    }
   },
   computed: {
     headerString() {
@@ -45,14 +47,12 @@
   },
   methods: {
     getRoute(isProject, name) {
-      return isProject
-        ? `/beta/project/${name}`
-        : `/beta/space/${name}`;
+      return isProject ? `/beta/project/${name}` : `/beta/space/${name}`;
     },
     getPrefix(isProject) {
-      return isProject ? "@" : "#";
-    },
-  },
+      return isProject ? '@' : '#';
+    }
+  }
 };
 </script>
 
@@ -76,7 +76,6 @@ img {
   margin-left: 8px;
 }
 .name {
-
   height: 50%;
   color: black;
   text-decoration: none;
@@ -89,7 +88,6 @@ img {
 }
 
 .info {
-
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;

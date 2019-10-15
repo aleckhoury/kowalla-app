@@ -6,28 +6,21 @@
       </nuxt-link>
     </div>
     <div v-else-if="!isFocusPage" class="create-button" @click="callMobileCreateModal">
-      <font-awesome-icon
-        icon="plus"
-        class="dark-basic-theme"
-        style="font-size: 24px"
-      />
+      <font-awesome-icon icon="plus" class="dark-basic-theme" style="font-size: 24px" />
     </div>
   </div>
 </template>
 <script>
-import MobileCreateModal from "~/components/Modals/Creation/MobileCreateModal";
-import CreatePost from "~/components/Modals/Creation/CreatePostMobile";
-import CreateSpaceModal from "~/components/Modals/Creation/CreateSpaceModal";
-import LoginHandler from "~/components/Auth/LoginHandler";
-import { mapGetters } from "vuex";
+import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
+import CreatePost from '~/components/Modals/Creation/CreatePostMobile';
+import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
+import LoginHandler from '~/components/Auth/LoginHandler';
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "MobileFooter",
-  components: {
-    MobileCreateModal,
-  },
+  name: 'MobileFooter',
   computed: {
-    ...mapGetters("coworkers", ["activePost"]),
+    ...mapGetters('coworkers', ['activePost']),
     isFocusPage() {
       return this.$route.path.includes('focus');
     }
@@ -39,7 +32,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       } else {
         this.$modal.open({
@@ -55,7 +48,7 @@ export default {
                 component: CreatePost,
                 width: 400,
                 hasModalCard: true,
-                canCancel: true,
+                canCancel: true
               });
             },
             space: () => {
@@ -75,12 +68,12 @@ export default {
                 hasModalCard: true,
                 props: { type: 0 }
               });
-            },
-          },
+            }
+          }
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="css" scoped>

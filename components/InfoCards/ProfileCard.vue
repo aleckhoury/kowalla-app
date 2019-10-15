@@ -1,7 +1,7 @@
 <template>
   <div class="card profile-card-container">
     <nuxt-link :to="getRoute">
-      <img :src="profilePictureUrl" :class="{ 'is-mobile': isMobile }" class="image">
+      <img :src="profilePictureUrl" :class="{ 'is-mobile': isMobile }" class="image" />
     </nuxt-link>
 
     <nuxt-link :to="getRoute" class="name font-family">
@@ -16,11 +16,7 @@
 
     <div :class="{ 'is-mobile': isMobile }" class="level is-marginless">
       <!-- need to convert to mobile columns -->
-      <div
-        v-for="item in stats"
-        :key="item.name"
-        class="level-item stat-container is-paddingless"
-      >
+      <div v-for="item in stats" :key="item.name" class="level-item stat-container is-paddingless">
         <div class="stat-title">
           <b>{{ item.name }}</b>
         </div>
@@ -39,16 +35,16 @@
 </template>
 <script>
 export default {
-  name: "ProfileCard",
+  name: 'ProfileCard',
   props: {
-    name: { type: String, default: "" },
-    username: { type: String, default: "" },
-    profilePictureUrl: { type: String, default: "" },
-    subheaderString: { type: String, default: "test" },
-    subheaderUrl: { type: String, default: "/about" },
+    name: { type: String, default: '' },
+    username: { type: String, default: '' },
+    profilePictureUrl: { type: String, default: '' },
+    subheaderString: { type: String, default: 'test' },
+    subheaderUrl: { type: String, default: '/about' },
     stats: { type: Array, default: () => [] },
-    type: { type: String, default: "" },
-    isMobile: { type: Boolean, default: false },
+    type: { type: String, default: '' },
+    isMobile: { type: Boolean, default: false }
   },
   computed: {
     getStatInfoByIndex(i) {
@@ -56,8 +52,8 @@ export default {
     },
     getRoute() {
       return `/beta/${this.type}/${this.username}`;
-    },
-  },
+    }
+  }
 };
 </script>
 

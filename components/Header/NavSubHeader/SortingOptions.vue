@@ -1,31 +1,15 @@
 <template lang="html">
   <div class="sorting">
-    <div
-      v-if="isMobile"
-      class="is-hidden-desktop sortIcons"
-    >
-      <font-awesome-icon
-        v-if="this.$store.state.sorting.feed === 'Newest'"
-        icon="sort-amount-down"
-        @click="handleCommand('Oldest')"
-      />
+    <div v-if="isMobile" class="is-hidden-desktop sortIcons">
+      <font-awesome-icon v-if="this.$store.state.sorting.feed === 'Newest'" icon="sort-amount-down" @click="handleCommand('Oldest')" />
       <font-awesome-icon v-else icon="sort-amount-up" @click="handleCommand('Newest')" />
     </div>
     <b-dropdown v-else class="dropdown-container is-hidden-touch" aria-role="list" hoverable>
       <div slot="trigger" class="dropdown-selector">
         <b class="font theme-color">{{ this.$store.state.sorting.feed }}</b>
-        <font-awesome-icon
-          icon="angle-down"
-          class="theme-color selector-child"
-        />
+        <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
       </div>
-      <b-dropdown-item
-        v-for="item in options"
-        :value="item.value"
-        :key="item.value"
-        aria-role="listitem"
-        @click="handleCommand(item.value)"
-      >
+      <b-dropdown-item v-for="item in options" :key="item.value" :value="item.value" aria-role="listitem" @click="handleCommand(item.value)">
         {{ item.value }}
       </b-dropdown-item>
     </b-dropdown>
@@ -34,12 +18,12 @@
 
 <script>
 export default {
-  name: "SortingOptions",
+  name: 'SortingOptions',
   props: {
     isMobile: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -48,28 +32,28 @@ export default {
       target: null,
       options: [
         {
-          value: "Newest",
+          value: 'Newest'
         },
         {
-          value: "Oldest",
-        },
-      ],
+          value: 'Oldest'
+        }
+      ]
     };
   },
   computed: {},
   created() {
     try {
-      let re = new RegExp("/[user,project,space]/");
+      let re = new RegExp('/[user,project,space]/');
       this.type = this.$route.fullPath.match(re)[0];
     } catch {
-      this.type = "/";
+      this.type = '/';
     }
   },
   methods: {
     handleCommand(value) {
-      this.$store.commit("sorting/updateFeedSort", value);
-    },
-  },
+      this.$store.commit('sorting/updateFeedSort', value);
+    }
+  }
 };
 </script>
 

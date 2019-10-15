@@ -1,33 +1,28 @@
 <template>
-  <b-tabs
-    :value="activeTab"
-    :destroy-on-hide="false"
-    position="is-right"
-    @change="changeTab"
-  >
-    <b-tab-item v-for="(tab, idx) in tabs" :label="tab" :key="idx"></b-tab-item>
+  <b-tabs :value="activeTab" :destroy-on-hide="false" position="is-right" @change="changeTab">
+    <b-tab-item v-for="(tab, idx) in tabs" :key="idx" :label="tab"></b-tab-item>
   </b-tabs>
 </template>
 
 <script>
-import LoginHandler from "~/components/Auth/LoginHandler";
+import LoginHandler from '~/components/Auth/LoginHandler';
 
 export default {
-  name: "Tabs",
+  name: 'Tabs',
   props: {
-    type: { type: String, default: "NewsFeedActiveTab" },
+    type: { type: String, default: 'NewsFeedActiveTab' }
   },
   data() {
     return {
-      feedOptions: ["All", "Subscribed"],
-      settingsOptions: ["General", "Integrations"],
+      feedOptions: ['All', 'Subscribed'],
+      settingsOptions: ['General', 'Integrations']
     };
   },
   computed: {
     tabs() {
-      if (this.type === "NewsFeedActiveTab") {
+      if (this.type === 'NewsFeedActiveTab') {
         return this.feedOptions;
-      } else if (this.type === "SettingsActiveTab") {
+      } else if (this.type === 'SettingsActiveTab') {
         return this.settingsOptions;
       } else {
         return [];
@@ -35,7 +30,7 @@ export default {
     },
     activeTab() {
       return this.$store.state.activeTabs[this.type] || 0;
-    },
+    }
   },
   methods: {
     changeTab(idx) {
@@ -44,12 +39,14 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       }
-      if (this.type !== 'sortOnly') { this.$store.commit(`activeTabs/update${this.type}`, idx); }
-    },
-  },
+      if (this.type !== 'sortOnly') {
+        this.$store.commit(`activeTabs/update${this.type}`, idx);
+      }
+    }
+  }
 };
 </script>
 

@@ -10,33 +10,16 @@
       >
         <b>{{ react.emoji }}{{ react.count }}</b>
       </a>
-      <a
-        v-if="reactionCount"
-        class="button is-outlined level-item is-hidden-mobile"
-        @click="cardModal()"
-      >
+      <a v-if="reactionCount" class="button is-outlined level-item is-hidden-mobile" @click="cardModal()">
         <b>··· {{ reactionCount }}</b>
       </a>
-      <a
-        v-if="reactionsFormatted.length"
-        class="button is-outlined iterator level-item is-hidden-tablet"
-        @click="cardModal()"
-      >
+      <a v-if="reactionsFormatted.length" class="button is-outlined iterator level-item is-hidden-tablet" @click="cardModal()">
         <b>
-          <span
-            v-for="(react, index) in reactionsFormatted.slice(0, 3)"
-            :key="index"
-            class="is-marginless is-paddingless"
-          >{{ react.emoji }} </span
-          >{{ reactionCountMobile }}
+          <span v-for="(react, index) in reactionsFormatted.slice(0, 3)" :key="index" class="is-marginless is-paddingless">{{ react.emoji }} </span>{{ reactionCountMobile }}
         </b>
       </a>
       <b-dropdown v-if="this.$store.state.user.loggedIn" ref="dropdown" mobile-modal>
-        <a
-          slot="trigger"
-          class="button is-outlined level-item"
-          @click="createPicker"
-        >
+        <a slot="trigger" class="button is-outlined level-item" @click="createPicker">
           <font-awesome-icon icon="smile" />
         </a>
         <b-dropdown-item custom>
@@ -54,20 +37,21 @@
 </template>
 
 <script>
-import ReactionModal from "./ReactionModal";
-import LoginHandler from "~/components/Auth/LoginHandler";
+import ReactionModal from './ReactionModal';
+import LoginHandler from '~/components/Auth/LoginHandler';
 
 export default {
-  name: "Reactions",
-  components: { ReactionModal },
+  name: 'Reactions',
   props: {
-    postId: { type: String, default: "" },
+    postId: { type: String, default: '' },
     createPicker: { type: Function, default: () => {} },
     reactionsFormatted: { type: Array, default: () => [] },
     toggleReaction: { type: Function, default: () => {} },
-    isFeed: { type: Boolean, default: true },
+    isFeed: { type: Boolean, default: true }
   },
-  data() { return {}; },
+  data() {
+    return {};
+  },
   computed: {
     reactionCount() {
       let count = 0;
@@ -84,7 +68,7 @@ export default {
         count = x.count + count;
       });
       return count;
-    },
+    }
   },
   async mounted() {},
   methods: {
@@ -94,7 +78,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       }
       this.$emit('toggle', '');
@@ -105,7 +89,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       }
       this.$modal.open({
@@ -113,16 +97,16 @@ export default {
         component: ReactionModal,
         props: {
           reactionsFormatted: this.reactionsFormatted,
-          toggleReaction: this.toggleReaction,
+          toggleReaction: this.toggleReaction
         },
-        hasModalCard: true,
+        hasModalCard: true
       });
     },
     showPost() {
-      window.history.pushState({}, "");
-      this.$emit("open-post");
-    },
-  },
+      window.history.pushState({}, '');
+      this.$emit('open-post');
+    }
+  }
 };
 </script>
 

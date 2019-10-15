@@ -8,10 +8,7 @@
       -->
 
       <!-- two columns, navpane and banner -->
-      <div
-        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-marginless  main-margin"
-      >
+      <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless  main-margin">
         <!-- nav pane -->
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
@@ -20,14 +17,7 @@
 
         <!-- post feed -->
         <div class="column is-one-half">
-          <Post
-            id="projectPost"
-            :key="post._id"
-            :post="post"
-            :is-mobile="false"
-            :truncate="false"
-            @delete-post="removePostFromPostList"
-          />
+          <Post id="projectPost" :key="post._id" :post="post" :is-mobile="false" :truncate="false" @delete-post="removePostFromPostList" />
         </div>
 
         <!-- info pane -->
@@ -36,14 +26,7 @@
             <DescriptionCard :subheader-on="false" header-string="Description">
               {{ projectDescription }}
             </DescriptionCard>
-            <ProfileCard
-              :name="projectName"
-              :username="name"
-              :profile-picture-url="projectProfilePictureUrl"
-              :subheader-string="`View ${name}'s stats`"
-              :stats="projectStats"
-              type="project"
-            />
+            <ProfileCard :name="projectName" :username="name" :profile-picture-url="projectProfilePictureUrl" :subheader-string="`View ${name}'s stats`" :stats="projectStats" type="project" />
             <ProfileCard
               :name="`${adminFirstName} ${adminLastName}`"
               :username="adminUsername"
@@ -53,93 +36,68 @@
               :stats="profileStats"
               type="user"
             />
-            <EditButton
-              v-if="this.$store.state.user.username === adminUsername"
-              @edit-button-clicked="editProject"
-            >
+            <EditButton v-if="this.$store.state.user.username === adminUsername" @edit-button-clicked="editProject">
               <b>Edit Settings</b>
             </EditButton>
-            <SignupCard
-              v-if="!this.$store.state.user.loggedIn"
-              class="fullWidth"
-            />
+            <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
           </InfoPane>
         </div>
       </div>
     </div>
 
     <!-- Mobile -->
-    <div
-      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="is-marginless is-hidden-desktop mobile-main-margin"
-    >
-      <Post
-        :key="post._id"
-        :post="post"
-        :is-mobile="true"
-        :truncate="false"
-        @delete-post="removePostFromPostList"
-      />
+    <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="is-marginless is-hidden-desktop mobile-main-margin">
+      <Post :key="post._id" :post="post" :is-mobile="true" :truncate="false" @delete-post="removePostFromPostList" />
     </div>
   </div>
 </template>
 
 <script>
-import MobileHeader from "~/components/Header/Mobile/MobileHeader";
-import MobileFooter from "~/components/Header/Mobile/MobileFooter";
-
-import Header from "~/components/Header/Header";
-
-import Banner from "~/components/SpacesAndProjectsShared/Banner";
-import DescriptionCard from "~/components/InfoCards/DescriptionCard";
-import ProfileCard from "~/components/InfoCards/ProfileCard";
-import InfoPane from "~/components/InfoCards/InfoPane";
-import EditButton from "~/components/InfoCards/EditButton";
-import SignupCard from "~/components/InfoCards/SignupCard";
-import Post from "~/components/PostCards/Post";
-import Creations from "../../../../../components/SidePaneCards/Creations";
-import Subscriptions from "../../../../../components/SidePaneCards/Subscriptions";
+import DescriptionCard from '~/components/InfoCards/DescriptionCard';
+import ProfileCard from '~/components/InfoCards/ProfileCard';
+import InfoPane from '~/components/InfoCards/InfoPane';
+import EditButton from '~/components/InfoCards/EditButton';
+import SignupCard from '~/components/InfoCards/SignupCard';
+import Post from '~/components/PostCards/Post';
+import Creations from '../../../../../components/SidePaneCards/Creations';
+import Subscriptions from '../../../../../components/SidePaneCards/Subscriptions';
 
 export default {
-  name: "ProjectPage",
+  name: 'ProjectPage',
   components: {
     Subscriptions,
     Creations,
     SignupCard,
-    Header,
-    MobileHeader,
-    MobileFooter,
-    Banner,
     DescriptionCard,
     ProfileCard,
     InfoPane,
     EditButton,
-    Post,
+    Post
   },
 
   data() {
     return {
       name: null,
-      bannerPictureUrl: "",
-      projectProfilePictureUrl: "",
-      projectDescription: "",
+      bannerPictureUrl: '',
+      projectProfilePictureUrl: '',
+      projectDescription: '',
       admins: null,
       numSubs: 0,
-      projectId: "",
-      adminFirstName: "",
-      adminLastName: "",
-      adminUsername: "",
-      projectName: "",
-      adminProfilePictureUrl: "",
+      projectId: '',
+      adminFirstName: '',
+      adminLastName: '',
+      adminUsername: '',
+      projectName: '',
+      adminProfilePictureUrl: '',
       projectStats: [],
       profileStats: [],
-      post: {},
+      post: {}
     };
   },
   computed: {
     isOwner() {
       let isOwner = false;
-      if (typeof this.$store.state.user.owned !== "undefined") {
+      if (typeof this.$store.state.user.owned !== 'undefined') {
         for (let i = 0; i < this.$store.state.user.owned.length; i++) {
           if (this.$store.state.user.owned[i].name === this.name) {
             isOwner = true;
@@ -150,7 +108,7 @@ export default {
     },
     isSubscribed() {
       let isSubscribed = false;
-      if (typeof this.$store.state.user.subscriptions !== "undefined") {
+      if (typeof this.$store.state.user.subscriptions !== 'undefined') {
         for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
           if (this.$store.state.user.subscriptions[i].name === this.name) {
             isSubscribed = true;
@@ -158,7 +116,7 @@ export default {
         }
       }
       return isSubscribed;
-    },
+    }
   },
   created() {
     this.name = this.$route.params.projectname;
@@ -169,12 +127,8 @@ export default {
     // #############
 
     // get project details
-    let infoRes = await this.$axios.$get(
-      `/api/v1/projects/project/${this.name}`
-    );
-    this.post = await this.$axios.$get(
-      `/api/v1/posts/${this.$route.params.postId}`
-    );
+    let infoRes = await this.$axios.$get(`/api/v1/projects/project/${this.name}`);
+    this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
 
     this.bannerPictureUrl = infoRes.headerPicture;
     this.projectProfilePictureUrl = infoRes.profilePicture;
@@ -185,9 +139,9 @@ export default {
     this.admins = infoRes.admins;
 
     // fill project stats
-    this.projectStats.push({ name: "Subs", stat: infoRes.subscribers });
-    this.projectStats.push({ name: "Rep", stat: infoRes.reputation });
-    this.projectStats.push({ name: "Posts", stat: infoRes.postCount });
+    this.projectStats.push({ name: 'Subs', stat: infoRes.subscribers });
+    this.projectStats.push({ name: 'Rep', stat: infoRes.reputation });
+    this.projectStats.push({ name: 'Posts', stat: infoRes.postCount });
 
     // get admin details
     let adminRes = await this.$axios.$get(`/api/v1/profiles/${this.admins[0]}`);
@@ -197,11 +151,11 @@ export default {
     this.adminProfilePictureUrl = adminRes.profilePicture;
 
     // fill profil estats
-    this.profileStats.push({ name: "Rep", stat: adminRes.reputation });
-    this.profileStats.push({ name: "Posts", stat: adminRes.postCount });
+    this.profileStats.push({ name: 'Rep', stat: adminRes.reputation });
+    this.profileStats.push({ name: 'Posts', stat: adminRes.postCount });
     this.profileStats.push({
-      name: "Replies",
-      stat: adminRes.commentCount,
+      name: 'Replies',
+      stat: adminRes.commentCount
     });
 
     document.title = `Kowalla - @${this.name}`;
@@ -211,29 +165,25 @@ export default {
       let subInfo = {
         name: this.name,
         pictureUrl: this.projectProfilePictureUrl,
-        numSubs: subBool
-          ? this.projectStats[0].stat + 1
-          : this.projectStats[0].stat - 1,
-        projectId: this.projectId,
+        numSubs: subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1,
+        projectId: this.projectId
       };
 
-      this.projectStats[0].stat = subBool
-        ? this.projectStats[0].stat + 1
-        : this.projectStats[0].stat - 1;
+      this.projectStats[0].stat = subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1;
 
       let subObj = { subBool, ...subInfo };
 
-      this.$store.dispatch("user/updateSubscriptions", subObj);
+      this.$store.dispatch('user/updateSubscriptions', subObj);
     },
     editProject() {
       this.$router.push({
-        path: `/beta/project/${this.name}/edit`,
+        path: `/beta/project/${this.name}/edit`
       });
     },
     async removePostFromPostList() {
       await this.$axios.$delete(`/api/v1/posts/${this.post._id}`);
-    },
-  },
+    }
+  }
 };
 </script>
 

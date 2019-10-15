@@ -7,10 +7,7 @@
           normal laptop resolution
       -->
 
-      <div
-        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-centered is-marginless main-margin"
-      >
+      <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-centered is-marginless main-margin">
         <!-- nav pane -->
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
@@ -29,10 +26,7 @@
       </div>
     </div>
 
-    <div
-      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="columns is-marginless is-hidden-desktop mobile-main-margin"
-    >
+    <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <ActiveCoworkers />
       <SortingOptions :is-mobile="true" />
       <PostFeed :is-mobile="true" type="NewsFeedActiveTab" />
@@ -41,47 +35,37 @@
 </template>
 
 <script>
-import MobileHeader from "~/components/Header/Mobile/MobileHeader";
-import MobileFooter from "~/components/Header/Mobile/MobileFooter";
-
-import Header from "~/components/Header/Header";
-
-import CreatePost from "~/components/PostCards/CreatePost";
-import SignupCard from "~/components/InfoCards/SignupCard";
-import ActiveCoworkers from "../../components/InfoCards/ActiveCoworkers";
-import PostFeed from "~/components/PostCards/PostFeed";
-import SortingOptions from "~/components/Header/NavSubHeader/SortingOptions";
-import Subscriptions from "../../components/SidePaneCards/Subscriptions";
-import Creations from "../../components/SidePaneCards/Creations";
-import ProfileProgress from "../../components/SidePaneCards/ProfileProgress";
+import SignupCard from '~/components/InfoCards/SignupCard';
+import ActiveCoworkers from '../../components/InfoCards/ActiveCoworkers';
+import PostFeed from '~/components/PostCards/PostFeed';
+import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
+import Subscriptions from '../../components/SidePaneCards/Subscriptions';
+import Creations from '../../components/SidePaneCards/Creations';
+import ProfileProgress from '../../components/SidePaneCards/ProfileProgress';
 
 export default {
-  middleware: "tabs",
-  layout: "default",
-  name: "Home",
+  middleware: 'tabs',
+  layout: 'default',
+  name: 'Home',
   components: {
     Creations,
     Subscriptions,
     SortingOptions,
     ActiveCoworkers,
     SignupCard,
-    CreatePost,
-    Header,
-    MobileHeader,
-    MobileFooter,
     PostFeed,
-    ProfileProgress,
+    ProfileProgress
   },
 
   data() {
     return {
-      isMounted: false,
+      isMounted: false
     };
   },
   mounted() {
     this.isMounted = true;
   },
-  methods: {},
+  methods: {}
 };
 </script>
 

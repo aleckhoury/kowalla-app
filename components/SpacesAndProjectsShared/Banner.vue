@@ -1,15 +1,9 @@
 <template>
-  <div :class="{'isMobile': isMobile}" class="banner-container">
-    <img :src="bannerUrl" onerror="this.src='https://gradientjoy.com/1000x300'" >
+  <div :class="{ isMobile: isMobile }" class="banner-container">
+    <img :src="bannerUrl" onerror="this.src='https://gradientjoy.com/1000x300'" />
 
     <div class="banner-subscription-button-container">
-      <SubscriptionButton
-        v-if="!isOwner"
-        :is-subscribed="isSubscribed"
-        :is-project="bannerTitlePrefix === '@'"
-        :id="id"
-        @subscription-button-clicked="handleClick"
-      />
+      <SubscriptionButton v-if="!isOwner" :id="id" :is-subscribed="isSubscribed" :is-project="bannerTitlePrefix === '@'" @subscription-button-clicked="handleClick" />
     </div>
 
     <div
@@ -26,25 +20,25 @@
   </div>
 </template>
 <script>
-import SubscriptionButton from "~/components/SpacesAndProjectsShared/SubscriptionButton";
+import SubscriptionButton from '~/components/SpacesAndProjectsShared/SubscriptionButton';
 
 export default {
-  name: "Banner",
+  name: 'Banner',
   components: { SubscriptionButton },
   props: {
-    id: { type: String, default: "" },
-    bannerUrl: { type: String, default: "" },
-    bannerTitle: { type: String, default: "" },
-    bannerTitlePrefix: { type: String, default: "" },
+    id: { type: String, default: '' },
+    bannerUrl: { type: String, default: '' },
+    bannerTitle: { type: String, default: '' },
+    bannerTitlePrefix: { type: String, default: '' },
     isSubscribed: { type: Boolean, default: false },
     isOwner: { type: Boolean, default: false },
-    isMobile: { type: Boolean, default: false },
+    isMobile: { type: Boolean, default: false }
   },
   methods: {
     handleClick(subBool) {
-      this.$emit("subscription-button-clicked", subBool);
-    },
-  },
+      this.$emit('subscription-button-clicked', subBool);
+    }
+  }
 };
 </script>
 <style lang="css" scoped>

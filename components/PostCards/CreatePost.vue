@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import CreatePost from "~/components/Modals/Creation/CreatePost";
+import CreatePost from '~/components/Modals/Creation/CreatePost';
 
 export default {
-  name: "CreatePost",
+  name: 'CreatePost',
   data() {
     return {
       userDropdown: false,
       commDropdown: false,
-      editor: null,
+      editor: null
     };
   },
   computed: {
@@ -35,30 +35,32 @@ export default {
       if (list.length) {
         return list;
       }
-    },
+
+      return [];
+    }
   },
   methods: {
     cardModal() {
       if (!this.postInList || !this.postInList.length) {
         return this.$toast.open({
           duration: 4000,
-          message: "You need to subscribe to a space to create a post in it!",
-          position: "is-top",
-          type: "is-danger",
+          message: 'You need to subscribe to a space to create a post in it!',
+          position: 'is-top',
+          type: 'is-danger'
         });
       }
       this.$modal.open({
         parent: this,
         component: CreatePost,
         events: {
-          "post-created": postObj => {
-            this.$emit("post-created", postObj);
-          },
+          'post-created': postObj => {
+            this.$emit('post-created', postObj);
+          }
         },
-        hasModalCard: true,
+        hasModalCard: true
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -5,19 +5,9 @@
         <div class="message-header">
           Reactions
         </div>
-        <ul
-          v-for="(react, index) in reactionsFormatted"
-          :key="index"
-          class="menu-list"
-        >
-          <li
-            :class="{ 'user-reacted': react.userReacted }"
-            class="is-size-4"
-            @click="toggleReaction(react.emoji, index)"
-          >
-            <a
-            >{{ react.emoji }} <span>{{ react.count }}</span></a
-            >
+        <ul v-for="(react, index) in reactionsFormatted" :key="index" class="menu-list">
+          <li :class="{ 'user-reacted': react.userReacted }" class="is-size-4" @click="toggleReaction(react.emoji, index)">
+            <a>{{ react.emoji }} <span>{{ react.count }}</span></a>
           </li>
         </ul>
       </aside>
@@ -27,14 +17,14 @@
 
 <script>
 export default {
-  name: "ReactionModal",
+  name: 'ReactionModal',
   props: {
     toggleReaction: {
       type: Function,
-      default: () => {},
+      default: () => {}
     },
-    reactionsFormatted: { type: Array, default: () => [] },
-  },
+    reactionsFormatted: { type: Array, default: () => [] }
+  }
 };
 </script>
 

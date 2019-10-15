@@ -1,11 +1,5 @@
 <template lang="html">
-  <button
-    :disabled="buttonDisabled"
-    :autofocus="autofocus"
-    :type="nativeType"
-    class="kow-button"
-    @click="handleClick"
-  >
+  <button :disabled="buttonDisabled" :autofocus="autofocus" :type="nativeType" class="kow-button" @click="handleClick">
     <span v-if="$slots.default">
       <slot />
     </span>
@@ -14,26 +8,26 @@
 
 <script>
 export default {
-  name: "KowButton",
+  name: 'KowButton',
   props: {
     nativeType: {
       type: String,
-      default: "button",
+      default: 'button'
     },
     loading: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    autofocus: { type: Boolean, default: false },
+    autofocus: { type: Boolean, default: false }
   },
   computed: {
     buttonDisabled() {
       return this.disabled;
-    },
+    }
   },
   methods: {
     handleClick(event) {
-      this.$emit("edit-button-clicked", event);
-    },
-  },
+      this.$emit('edit-button-clicked', event);
+    }
+  }
 };
 </script>
 

@@ -10,9 +10,7 @@
           <div class="delete is-large is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
         </h1>
         <h2 class="subtitle">
-          Kowalla is the coworking space that goes where you go, so you're
-          never more than a click away from the community and support you need to
-          build your dreams. That means:
+          Kowalla is the coworking space that goes where you go, so you're never more than a click away from the community and support you need to build your dreams. That means:
           <ul>
             <li>
               Reddit-like spaces
@@ -26,26 +24,11 @@
           </ul>
         </h2>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        width="100%"
-        height="11.4rem"
-        fill="#bd56e1"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="11.4rem" fill="#bd56e1">
         <defs>
           <filter id="goo">
-            <feGaussianBlur
-              in="SourceGraphic"
-              stdDeviation="10"
-              result="blur"
-            />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -12"
-              result="goo"
-            />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -12" result="goo" />
             <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
         </defs>
@@ -64,14 +47,14 @@
 </template>
 
 <script>
-import NavHeader from "~/components/Header/NavHeader/NavHeader";
-import NavSubHeader from "~/components/Header/NavSubHeader/NavSubHeader";
+import NavHeader from '~/components/Header/NavHeader/NavHeader';
+import NavSubHeader from '~/components/Header/NavSubHeader/NavSubHeader';
 export default {
-  name: "Header",
+  name: 'Header',
   components: { NavHeader, NavSubHeader },
   props: {
-    homeFeed: { type: Boolean, default: true },
-  },
+    homeFeed: { type: Boolean, default: true }
+  }
 };
 </script>
 

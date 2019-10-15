@@ -3,7 +3,8 @@
     :subheader-is-button="owned !== undefined && owned.length ? true : false"
     :subheader-string="owned !== undefined && owned.length ? 'Create a new Project or Space' : ''"
     header-string="Creations"
-    @subheader-clicked="callCreateSpaceModal">
+    @subheader-clicked="callCreateSpaceModal"
+  >
     <div v-for="item in owned" :key="item._id" class="creation">
       <nuxt-link :to="getRoute(item.isProject, item.name)">
         <img :src="item.pictureUrl" />
@@ -14,7 +15,9 @@
           <b>{{ getPrefix(item.isProject) }}{{ item.name }}</b>
         </nuxt-link>
 
-        <div class="info">{{ item.numSubs }} users</div>
+        <div class="info">
+          {{ item.numSubs }} users
+        </div>
       </div>
     </div>
     <div v-if="owned === undefined || !owned.length" class="noCreations" @click="callCreateSpaceModal">
@@ -25,25 +28,25 @@
 </template>
 
 <script>
-import CardContainer from "./CardContainer";
-import EmptyCreations from "../../svg/EmptyCreations";
-import CreateSpaceModal from "../Modals/Creation/CreateSpaceModal";
-import LoginHandler from "../Auth/LoginHandler";
+import CardContainer from './CardContainer';
+import EmptyCreations from '../../svg/EmptyCreations';
+import CreateSpaceModal from '../Modals/Creation/CreateSpaceModal';
+import LoginHandler from '../Auth/LoginHandler';
 
 export default {
-  name: "Creations",
+  name: 'Creations',
   components: { EmptyCreations, CardContainer },
   computed: {
     owned() {
       return this.$store.state.user.owned;
-    },
+    }
   },
   methods: {
     getRoute(isProject, name) {
       return isProject ? `/beta/project/${name}` : `/beta/space/${name}`;
     },
     getPrefix(isProject) {
-      return isProject ? "@" : "#";
+      return isProject ? '@' : '#';
     },
     callCreateSpaceModal() {
       if (!this.$store.state.user.loggedIn) {
@@ -51,17 +54,17 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true,
+          hasModalCard: true
         });
       }
       this.$modal.open({
         parent: this,
         component: CreateSpaceModal,
         width: 900,
-        hasModalCard: true,
+        hasModalCard: true
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -85,7 +88,6 @@ img {
   margin-left: 8px;
 }
 .name {
-
   height: 50%;
   color: black;
   text-decoration: none;
@@ -98,7 +100,6 @@ img {
 }
 
 .info {
-
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;
@@ -114,6 +115,6 @@ img {
 
 .noCreations:hover {
   text-decoration: underline;
-  color: #39C9A0;
+  color: #39c9a0;
 }
 </style>

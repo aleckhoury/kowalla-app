@@ -8,13 +8,13 @@
 
 <script>
 export default {
-  name: "PostTimer",
+  name: 'PostTimer',
   props: {
-    startTime: { type: String, default: "" },
+    startTime: { type: String, default: '' }
   },
   data() {
     return {
-      countUp: "",
+      countUp: ''
     };
   },
   mounted() {
@@ -29,20 +29,18 @@ export default {
 
         let distance = now - start;
 
-        let hours = Math.floor(
-                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
 
         self.countUp = `${hours}:${minutes}:${seconds}`;
       }, 1000);
-    },
-  },
+    }
+  }
 };
 </script>
 
