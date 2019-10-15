@@ -39,7 +39,7 @@ import EditSpaceForm from '~/components/Forms/EditSpace';
 export default {
   name: 'Edit',
   components: {
-    EditSpaceForm,
+    EditSpaceForm
   },
 
   data() {

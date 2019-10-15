@@ -125,8 +125,7 @@ export default {
       return isOwner;
     },
     isSubscribed() {
-      return this.$store.state.user.subscriptions ?
-        this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
+      return this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
     }
   },
   created() {

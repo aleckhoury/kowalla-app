@@ -10,9 +10,7 @@
           <b>{{ getPrefix(sub.isProject) }}{{ sub.name }}</b>
         </nuxt-link>
 
-        <div class="info">
-          {{ sub.numSubs }} users
-        </div>
+        <div class="info">{{ sub.numSubs }} users</div>
       </div>
     </div>
     <div v-if="subscriptions === undefined || !subscriptions.length" class="noSubs">

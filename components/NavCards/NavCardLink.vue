@@ -9,9 +9,7 @@
         <b>{{ getPrefix }}{{ name }}</b>
       </nuxt-link>
 
-      <div class="info">
-        {{ numSubs }} users
-      </div>
+      <div class="info">{{ numSubs }} users</div>
     </div>
   </div>
 </template>

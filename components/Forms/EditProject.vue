@@ -1,9 +1,7 @@
 <template>
   <div class="box">
     <section>
-      <div class="title">
-        Edit @{{ name }}
-      </div>
+      <div class="title">Edit @{{ name }}</div>
 
       <b-field label="Project Name">
         <b-input v-model="editForm.projectName" maxlength="20" />

@@ -93,9 +93,7 @@
                   <b class="font theme-color">@{{ postingAs.name }}</b>
                   <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
                 </div>
-                <b-dropdown-item v-for="item in postAsList" :key="item._id" aria-role="listitem" @click="postingAs = item">
-                  @{{ item.name }}
-                </b-dropdown-item>
+                <b-dropdown-item v-for="item in postAsList" :key="item._id" aria-role="listitem" @click="postingAs = item"> @{{ item.name }} </b-dropdown-item>
               </b-dropdown>
               <b v-if="postInList.length" class="has-text-grey">in</b>
               <b-dropdown v-if="postInList.length" class="dropdown-container" position="is-bottom-left" aria-role="list">

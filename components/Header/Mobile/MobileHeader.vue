@@ -95,7 +95,7 @@ export default {
   name: 'MobileHeader',
   components: {
     SortingOptions,
-    Tabs,
+    Tabs
   },
   props: {
     openSidebar: { type: Function, default: () => {} },

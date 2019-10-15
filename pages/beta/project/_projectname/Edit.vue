@@ -55,7 +55,7 @@ import EditProjectForm from '~/components/Forms/EditProject';
 export default {
   name: 'ProjectEdit',
   components: {
-    EditProjectForm,
+    EditProjectForm
   },
 
   data() {

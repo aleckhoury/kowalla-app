@@ -67,7 +67,7 @@ export default {
     Button,
     Searchbar,
     NavProfilePicture,
-    NavNotifications,
+    NavNotifications
   },
   data() {
     return {

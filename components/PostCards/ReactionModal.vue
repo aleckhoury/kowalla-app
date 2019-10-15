@@ -7,7 +7,9 @@
         </div>
         <ul v-for="(react, index) in reactionsFormatted" :key="index" class="menu-list">
           <li :class="{ 'user-reacted': react.userReacted }" class="is-size-4" @click="toggleReaction(react.emoji, index)">
-            <a>{{ react.emoji }} <span>{{ react.count }}</span></a>
+            <a
+              >{{ react.emoji }} <span>{{ react.count }}</span></a
+            >
           </li>
         </ul>
       </aside>

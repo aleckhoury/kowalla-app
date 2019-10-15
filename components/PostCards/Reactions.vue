@@ -26,12 +26,8 @@
           <div ref="picker" />
         </b-dropdown-item>
       </b-dropdown>
-      <div v-if="isFeed" class="comments level-item" @click="showPost()">
-        <font-awesome-icon class="commentIcon" icon="comments" /> Comments
-      </div>
-      <div v-else class="comments level-item" @click="toggleReply()">
-        <font-awesome-icon class="commentIcon" icon="comments" /> Reply
-      </div>
+      <div v-if="isFeed" class="comments level-item" @click="showPost()"><font-awesome-icon class="commentIcon" icon="comments" /> Comments</div>
+      <div v-else class="comments level-item" @click="toggleReply()"><font-awesome-icon class="commentIcon" icon="comments" /> Reply</div>
     </div>
   </div>
 </template>

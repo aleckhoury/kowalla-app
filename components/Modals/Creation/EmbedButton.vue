@@ -47,7 +47,8 @@
     <b-dropdown-item aria-role="menu-item" custom class="videoLink">
       <h3>Paste your video link here:</h3>
       <b-field label="">
-        <b-input v-model="videoLink"></b-input><b-button @click="sendLink">
+        <b-input v-model="videoLink"></b-input
+        ><b-button @click="sendLink">
           Enter
         </b-button>
       </b-field>
