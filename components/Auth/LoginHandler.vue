@@ -60,6 +60,7 @@ export default {
         // However for other login flows, after skipping first screen we want to prevent cancellation
         // LoginHandler default modal state is ['escape', 'x', 'outside']
         // @see https://buefy.org/documentation/modal/
+        // TODO: change into an on-cancel event so we aren't mutating parent props
         return (this.$parent.canCancel = [false, false, false]);
       }
     },
