@@ -21,19 +21,19 @@ export default {
   name: 'IntegrationCard',
   props: {
     name: { type: String, default: '' },
-    description: { type: String, default: '' }
+    description: { type: String, default: '' },
   },
   data() {
     return {
       userDropdown: false,
       commDropdown: false,
-      editor: null
+      editor: null,
     };
   },
   computed: {
     isActive() {
       return this.$store.state.user.integrations.indexOf(this.name) !== -1;
-    }
+    },
   },
   methods: {
     async toggleIntegration() {
@@ -41,8 +41,8 @@ export default {
       const index = this.$store.state.user.integrations.indexOf(this.name);
 
       this.$store.commit('user/toggleIntegration', { name: this.name, index });
-    }
-  }
+    },
+  },
 };
 </script>
 

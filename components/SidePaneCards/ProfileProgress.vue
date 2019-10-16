@@ -68,13 +68,13 @@ export default {
   name: 'Progress',
   components: { CompletedProfile, CardContainer },
   props: {
-    isMobile: { type: Boolean, default: false }
+    isMobile: { type: Boolean, default: false },
   },
   data() {
     return {
       radius: 100,
       count: 0,
-      stroke: 15
+      stroke: 15,
     };
   },
   computed: {
@@ -96,33 +96,33 @@ export default {
           {
             step: this.user.description.length > 3,
             key: 'description',
-            content: 'Filled out a description'
+            content: 'Filled out a description',
           },
           {
             step: this.user.subscriptions.length > 2,
             key: 'subscriptions',
-            content: 'Subscribe to your first space or project'
+            content: 'Subscribe to your first space or project',
           },
           {
             step: Boolean(this.user.owned.length),
             key: 'owned',
-            content: 'Create your first project'
+            content: 'Create your first project',
           },
           {
             step: Boolean(this.user.postCount),
             key: 'posts',
-            content: 'Write your first post'
+            content: 'Write your first post',
           },
           {
             step: this.user.profilePicture.includes('kowalla-dev'),
             key: 'profilePicture',
-            content: 'Upload your profile picture'
+            content: 'Upload your profile picture',
           },
           {
             step: Boolean(this.user.commentCount),
             key: 'comments',
-            content: 'Write your first comment'
-          }
+            content: 'Write your first comment',
+          },
         ];
         return progress.sort((a, b) => b.step - a.step);
       }
@@ -130,14 +130,14 @@ export default {
     },
     completionPercent() {
       return Math.round((this.profileProgress.filter(x => x.step === true).length / this.profileProgress.length) * 100);
-    }
+    },
   },
   watch: {
     completionPercent(newPercent, oldPercent) {
       if (newPercent > oldPercent) {
         this.log();
       }
-    }
+    },
   },
   mounted() {
     const self = this;
@@ -158,10 +158,10 @@ export default {
         parent: this,
         component: InviteCode,
         hasModalCard: true,
-        width: 400
+        width: 400,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

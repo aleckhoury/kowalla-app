@@ -37,7 +37,7 @@ export default {
   computed: {
     owned() {
       return this.$store.state.user.owned;
-    }
+    },
   },
   methods: {
     getRoute(isProject, name) {
@@ -52,17 +52,17 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
       this.$modal.open({
         parent: this,
         component: CreateSpaceModal,
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

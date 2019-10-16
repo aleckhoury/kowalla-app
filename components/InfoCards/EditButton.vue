@@ -12,22 +12,22 @@ export default {
   props: {
     nativeType: {
       type: String,
-      default: 'button'
+      default: 'button',
     },
     loading: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    autofocus: { type: Boolean, default: false }
+    autofocus: { type: Boolean, default: false },
   },
   computed: {
     buttonDisabled() {
       return this.disabled;
-    }
+    },
   },
   methods: {
     handleClick(event) {
       this.$emit('edit-button-clicked', event);
-    }
-  }
+    },
+  },
 };
 </script>
 

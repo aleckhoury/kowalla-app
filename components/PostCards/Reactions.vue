@@ -15,7 +15,8 @@
       </a>
       <a v-if="reactionsFormatted.length" class="button is-outlined iterator level-item is-hidden-tablet" @click="cardModal()">
         <b>
-          <span v-for="(react, index) in reactionsFormatted.slice(0, 3)" :key="index" class="is-marginless is-paddingless">{{ react.emoji }} </span>{{ reactionCountMobile }}
+          <span v-for="(react, index) in reactionsFormatted.slice(0, 3)" :key="index" class="is-marginless is-paddingless">{{ react.emoji }} </span
+          >{{ reactionCountMobile }}
         </b>
       </a>
       <b-dropdown v-if="this.$store.state.user.loggedIn" ref="dropdown" mobile-modal>
@@ -43,7 +44,7 @@ export default {
     createPicker: { type: Function, default: () => {} },
     reactionsFormatted: { type: Array, default: () => [] },
     toggleReaction: { type: Function, default: () => {} },
-    isFeed: { type: Boolean, default: true }
+    isFeed: { type: Boolean, default: true },
   },
   data() {
     return {};
@@ -64,7 +65,7 @@ export default {
         count = x.count + count;
       });
       return count;
-    }
+    },
   },
   async mounted() {},
   methods: {
@@ -74,7 +75,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
       this.$emit('toggle', '');
@@ -85,7 +86,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
       this.$modal.open({
@@ -93,16 +94,16 @@ export default {
         component: ReactionModal,
         props: {
           reactionsFormatted: this.reactionsFormatted,
-          toggleReaction: this.toggleReaction
+          toggleReaction: this.toggleReaction,
         },
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     showPost() {
       window.history.pushState({}, '');
       this.$emit('open-post');
-    }
-  }
+    },
+  },
 };
 </script>
 

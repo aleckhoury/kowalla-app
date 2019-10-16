@@ -8,7 +8,12 @@
         :message="[{ 'No special characters or spaces allowed': formError.name }, { 'Space Name is too long': formError.nameLength }]"
         label="Space name"
       >
-        <b-input v-model="editForm.name" pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$" validation-message="No special characters or spaces allowed" maxlength="20" />
+        <b-input
+          v-model="editForm.name"
+          pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+          validation-message="No special characters or spaces allowed"
+          maxlength="20"
+        />
       </b-field>
 
       <b-field label="Profile Picture" />
@@ -55,7 +60,7 @@ export default {
     headerPicture: { type: String, default: '' },
     profilePicture: { type: String, default: '' },
     description: { type: String, default: '' },
-    spaceId: { type: String, default: '' }
+    spaceId: { type: String, default: '' },
   },
   data() {
     return {
@@ -66,8 +71,8 @@ export default {
         description: this.description, // text area
         profilePicture: this.profilePicture, // need to add upload
         headerPicture: this.headerPicture, // need to add upload
-        admins: [] // just the current user for now
-      }
+        admins: [], // just the current user for now
+      },
     };
   },
   computed: {
@@ -75,9 +80,9 @@ export default {
       const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
       return {
         name: this.editForm.name.length ? !regex.test(this.editForm.name) : false,
-        nameLength: this.editForm.name.length > 20
+        nameLength: this.editForm.name.length > 20,
       };
-    }
+    },
   },
   methods: {
     async selectFile(type) {
@@ -107,7 +112,7 @@ export default {
             duration: 5000,
             message: 'There was an error uploading your profile picture. Please try again.',
             position: 'is-top',
-            type: 'is-danger'
+            type: 'is-danger',
           });
         }
       } else {
@@ -121,7 +126,7 @@ export default {
             duration: 5000,
             message: 'There was an error uploading your banner picture. Please try again.',
             position: 'is-top',
-            type: 'is-danger'
+            type: 'is-danger',
           });
         }
       }
@@ -133,7 +138,7 @@ export default {
           const fileName = this.profilePicture.split('profile-pics/')[1];
           await this.$axios.$post('/api/v1/imageDelete', {
             bucket: `kowalla-dev/space/profile-pics`,
-            fileName
+            fileName,
           });
         }
       }
@@ -143,7 +148,7 @@ export default {
           const fileName = this.profilePicture.split('profile-pics/')[1];
           await this.$axios.$post('/api/v1/imageDelete', {
             bucket: `kowalla-dev/space/banner-pics`,
-            fileName
+            fileName,
           });
         }
       }
@@ -152,13 +157,13 @@ export default {
           name: editForm.name, // will need to update local state
           description: editForm.description,
           profilePicture: editForm.profilePicture,
-          headerPicture: editForm.headerPicture
+          headerPicture: editForm.headerPicture,
         });
         // update state with changes -> should probably check for changes
         let subObj = {
           name: editForm.name,
           pictureUrl: editForm.profilePicture,
-          spaceId: spaceData._id
+          spaceId: spaceData._id,
         };
         this.$store.commit('user/editOwned', subObj);
         this.$router.push({ path: `/beta/space/${editForm.name}` });
@@ -168,11 +173,11 @@ export default {
           duration: 4000,
           message: err.response.data.errors.username.message,
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

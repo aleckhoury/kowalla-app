@@ -42,8 +42,8 @@ export default {
   name: 'RegisterForm',
   mixins: [login],
   props: {
-    isMobile: { type: Boolean, default: false }
-  }
+    isMobile: { type: Boolean, default: false },
+  },
 };
 </script>
 

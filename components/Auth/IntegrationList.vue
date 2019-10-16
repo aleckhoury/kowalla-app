@@ -2,12 +2,7 @@
   <div class="card is-paddingless">
     <div class="box">
       <div class="title">Select Integrations<sub>(4/4)</sub></div>
-      <integration-card
-        v-for="(test, idx) in integrationList"
-        :key="idx"
-        :name="test.name"
-        :description="test.description"
-      />
+      <integration-card v-for="(test, idx) in integrationList" :key="idx" :name="test.name" :description="test.description" />
     </div>
   </div>
 </template>
@@ -16,7 +11,7 @@
 import IntegrationCard from '../Forms/IntegrationCard';
 export default {
   name: 'IntegrationList',
-  components: { IntegrationCard }
+  components: { IntegrationCard },
 };
 </script>
 

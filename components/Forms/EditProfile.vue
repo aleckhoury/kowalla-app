@@ -53,7 +53,7 @@ export default {
     description: { type: String, default: '' },
     profileId: { type: String, default: '' },
     title: { type: String, default: 'Edit Profile' },
-    isOnboarding: { type: Boolean, default: false }
+    isOnboarding: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -63,8 +63,8 @@ export default {
         lastName: this.lastName,
         username: this.username,
         description: this.description,
-        profilePicture: this.profilePicture
-      }
+        profilePicture: this.profilePicture,
+      },
     };
   },
   computed: {
@@ -72,9 +72,9 @@ export default {
       const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
       return {
         username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
-        usernameLength: this.editForm.username.length > 20
+        usernameLength: this.editForm.username.length > 20,
       };
-    }
+    },
   },
   methods: {
     async selectFile() {
@@ -99,7 +99,7 @@ export default {
           duration: 5000,
           message: 'There was an error uploading your profile picture. Please try again.',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
     },
@@ -113,7 +113,7 @@ export default {
           const fileName = this.profilePicture.split('profile-pics/')[1];
           this.$axios.$post('/api/v1/imageDelete', {
             bucket: `kowalla-dev/user/profile-pics`,
-            fileName
+            fileName,
           });
         }
       }
@@ -123,14 +123,14 @@ export default {
           lastName: editForm.lastName,
           username: editForm.username,
           description: editForm.description,
-          profilePicture: editForm.profilePicture
+          profilePicture: editForm.profilePicture,
         });
         let editObj = {
           firstName: profileData.firstName,
           lastName: profileData.lastName,
           profilePicture: profileData.profilePicture,
           description: profileData.description,
-          username: profileData.username
+          username: profileData.username,
         };
         this.$store.commit('user/editProfile', editObj);
         if (this.isOnboarding) {
@@ -144,11 +144,11 @@ export default {
           duration: 4000,
           message: err.response.data.errors.username.message,
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

@@ -10,7 +10,8 @@
           <div class="delete is-large is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
         </h1>
         <h2 class="subtitle">
-          Kowalla is the coworking space that goes where you go, so you're never more than a click away from the community and support you need to build your dreams. That means:
+          Kowalla is the coworking space that goes where you go, so you're never more than a click away from the community and support you need to build your
+          dreams. That means:
           <ul>
             <li>
               Reddit-like spaces
@@ -53,8 +54,8 @@ export default {
   name: 'Header',
   components: { NavHeader, NavSubHeader },
   props: {
-    homeFeed: { type: Boolean, default: true }
-  }
+    homeFeed: { type: Boolean, default: true },
+  },
 };
 </script>
 

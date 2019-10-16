@@ -31,8 +31,8 @@ export default {
     subheaderUrl: { type: String, default: '' },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
-    subheaderIsButton: { type: Boolean, default: false }
-  }
+    subheaderIsButton: { type: Boolean, default: false },
+  },
 };
 </script>
 

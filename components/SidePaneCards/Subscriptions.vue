@@ -35,13 +35,13 @@ export default {
         }
         return this.$axios.$get('/api/v1/profiles/subs/default');
       },
-      default: []
-    }
+      default: [],
+    },
   },
   computed: {
     headerString() {
       return this.$store.state.user.loggedIn ? 'Subscriptions' : 'Discover';
-    }
+    },
   },
   methods: {
     getRoute(isProject, name) {
@@ -49,8 +49,8 @@ export default {
     },
     getPrefix(isProject) {
       return isProject ? '@' : '#';
-    }
-  }
+    },
+  },
 };
 </script>
 

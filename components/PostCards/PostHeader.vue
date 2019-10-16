@@ -128,7 +128,7 @@ export default {
     project: { type: Object, default: () => {} },
     space: { type: Object, default: () => {} },
     isProject: { type: Boolean, default: false },
-    isMobile: { type: Boolean, default: false }
+    isMobile: { type: Boolean, default: false },
   },
   data() {
     return {};
@@ -154,7 +154,7 @@ export default {
         return this.profile._id === this.$store.state.user._id;
       }
       return false;
-    }
+    },
   },
   methods: {
     copyPostUrl() {
@@ -179,14 +179,14 @@ export default {
           duration: 4000,
           message: 'Link copied! :)',
           position: 'is-top',
-          type: 'is-success'
+          type: 'is-success',
         });
       } catch (err) {
         this.$toast.open({
           duration: 4000,
           message: 'Link copy failed, try opening the post and copying the URL directly',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
       document.body.removeChild(x);
@@ -194,8 +194,8 @@ export default {
 
     deletePost() {
       this.$emit('delete-post', this.postId);
-    }
-  }
+    },
+  },
 };
 </script>
 

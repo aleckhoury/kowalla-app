@@ -10,18 +10,18 @@ export default {
   props: {
     isSubscribed: { type: Boolean, default: false },
     isProject: { type: Boolean, default: false },
-    id: { type: String, default: '' }
+    id: { type: String, default: '' },
   },
   computed: {
     getClasses() {
       return {
         'is-subscribed': this.isSubscribed,
-        'is-not-subscribed': !this.isSubscribed
+        'is-not-subscribed': !this.isSubscribed,
       };
     },
     getText() {
       return this.isSubscribed ? 'Subscribed' : 'Subscribe';
-    }
+    },
   },
   methods: {
     handleClick() {
@@ -31,12 +31,12 @@ export default {
       } else {
         this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
           projectId: this.isProject ? this.id : undefined,
-          spaceId: this.isProject ? undefined : this.id
+          spaceId: this.isProject ? undefined : this.id,
         });
       }
       this.$emit('subscription-button-clicked', !this.isSubscribed);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

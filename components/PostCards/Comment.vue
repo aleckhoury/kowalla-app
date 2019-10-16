@@ -55,9 +55,9 @@ export default {
     nestLevel: { type: Number, default: 0 },
     toggle: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
-    activeComment: { type: String, default: '' }
+    activeComment: { type: String, default: '' },
   },
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
       replyList: [],
       activeNestedCommentId: '',
       upvote: {},
-      upvoteCount: 0
+      upvoteCount: 0,
     };
   },
   computed: {
@@ -77,7 +77,7 @@ export default {
     },
     nextNestLevel() {
       return Number(this.nestLevel + 1);
-    }
+    },
   },
   async mounted() {
     try {
@@ -105,7 +105,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
       if (this.activeComment === this.comment._id) {
@@ -123,11 +123,11 @@ export default {
       } else {
         await this.$axios.$post(`/api/v1/comments/upvote`, {
           commentId: this.comment._id,
-          profileId: this.$store.state.user._id
+          profileId: this.$store.state.user._id,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

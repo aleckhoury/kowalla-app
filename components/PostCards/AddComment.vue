@@ -19,18 +19,18 @@ export default {
   props: {
     updateComment: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
     postId: { type: String, default: '' },
     commentId: { type: String, default: '' },
     resetReply: {
       type: Function,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
-      comment: ''
+      comment: '',
     };
   },
   methods: {
@@ -40,7 +40,7 @@ export default {
           profileId: this.$store.state.user._id,
           postId: this.postId,
           content: this.comment,
-          commentId: this.commentId ? this.commentId : ''
+          commentId: this.commentId ? this.commentId : '',
         };
         this.$axios.$post('/api/v1/comments', commentObj);
         this.$store.commit('user/incrementCommentCount');
@@ -52,11 +52,11 @@ export default {
           duration: 4000,
           message: 'You cannot post a blank comment.',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

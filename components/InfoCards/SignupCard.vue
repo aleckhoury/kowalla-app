@@ -30,7 +30,7 @@ export default {
         parent: this,
         component: LoginHandler,
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     async getTwitterCreds() {
@@ -38,8 +38,8 @@ export default {
       Cookies.set('firstVisit', true);
       Cookies.set('twitterToken', twitterCreds.oauth_token);
       window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${twitterCreds.oauth_token}`;
-    }
-  }
+    },
+  },
 };
 </script>
 

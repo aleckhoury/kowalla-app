@@ -15,13 +15,13 @@ export default {
   data() {
     return {
       isLoading: true,
-      isFullPage: true
+      isFullPage: true,
     };
   },
   async mounted() {
     if (this.$route.query.code) {
       const { isNew, token, user } = await this.$axios.$post('api/v1/github/signin', {
-        code: this.$route.query.code
+        code: this.$route.query.code,
       });
       await Cookies.set('firstVisit', true);
       await Cookies.set('token', token);
@@ -29,7 +29,7 @@ export default {
 
       const { owned, subscriptions } = subs.subscriptions;
       await Object.assign(user, {
-        loggedIn: Boolean(Object.keys(user).length)
+        loggedIn: Boolean(Object.keys(user).length),
       });
       await Object.assign(user, { subscriptions, owned });
 
@@ -41,11 +41,11 @@ export default {
           component: LoginHandler,
           width: 900,
           hasModalCard: true,
-          canCancel: [false, false, false]
+          canCancel: [false, false, false],
         });
       } else {
         await this.$router.push({
-          path: `/beta`
+          path: `/beta`,
         });
       }
     } else if (this.$route.query.oauth_token) {
@@ -54,14 +54,14 @@ export default {
       if (oauth_token === authToken) {
         const { isNew, token, user } = await this.$axios.$post('api/v1/twitter/verify', {
           oauthToken: oauth_token,
-          verifier: oauth_verifier
+          verifier: oauth_verifier,
         });
         await Cookies.set('token', token);
         const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 
         const { owned, subscriptions } = subs.subscriptions;
         await Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length)
+          loggedIn: Boolean(Object.keys(user).length),
         });
         await Object.assign(user, { subscriptions, owned });
 
@@ -73,17 +73,17 @@ export default {
             component: LoginHandler,
             width: 900,
             hasModalCard: true,
-            canCancel: [false, false, false]
+            canCancel: [false, false, false],
           });
         } else {
           await this.$router.push({
-            path: `/beta`
+            path: `/beta`,
           });
         }
       }
     }
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

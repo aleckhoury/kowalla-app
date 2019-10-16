@@ -23,10 +23,10 @@ export default {
   props: {
     toggleReaction: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
-    reactionsFormatted: { type: Array, default: () => [] }
-  }
+    reactionsFormatted: { type: Array, default: () => [] },
+  },
 };
 </script>
 

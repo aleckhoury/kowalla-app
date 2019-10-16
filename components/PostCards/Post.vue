@@ -14,7 +14,7 @@
 
     <PostTimer v-if="post.isActive" :start-time="post.start" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
-      <div v-html="post.content" class="content is-marginless" />
+      <div class="content is-marginless" v-html="post.content" />
       <p v-if="overflow" class="read-more" @click="overflow = !overflow">
         <a>Read More</a>
       </p>
@@ -53,14 +53,14 @@ export default {
     post: { type: Object, default: () => {} },
     isFeed: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isMobile: {
       type: Boolean,
-      default: false
+      default: false,
     },
     methodProp: { type: Function, default: () => {} },
-    truncate: { type: Boolean, default: true }
+    truncate: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -72,7 +72,7 @@ export default {
       reactionList: [],
       reactionsFormatted: [],
       commentList: [],
-      activeCommentId: ''
+      activeCommentId: '',
     };
   },
   async mounted() {
@@ -126,7 +126,7 @@ export default {
             this.reactionsFormatted.push({
               emoji: x.emoji,
               count: 1,
-              userReacted: false
+              userReacted: false,
             });
             if (userReacted) {
               index = this.reactionsFormatted.map(y => y.emoji).indexOf(x.emoji);
@@ -153,7 +153,7 @@ export default {
       let infoObj = {
         space: this.space,
         project: this.isProject ? this.project : {},
-        profile: this.isProject ? {} : this.profile
+        profile: this.isProject ? {} : this.profile,
       };
       if (this.isMobile) {
         if (Object.keys(this.space).length) {
@@ -168,15 +168,15 @@ export default {
           props: {
             infoObj: infoObj,
             postObj: this.post,
-            isProject: this.isProject
+            isProject: this.isProject,
           },
           events: {
             'delete-post': postId => {
               this.echoDeletePost(postId);
-            }
+            },
           },
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
     },
@@ -186,7 +186,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
       const savedEmoji = typeof emoji === 'string' ? emoji : emoji.native;
@@ -201,13 +201,13 @@ export default {
     async toggleReactionTrue(emoji, index, isEmojiObject) {
       await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
         emoji: emoji,
-        postId: this.post._id
+        postId: this.post._id,
       });
       if (index === -1) {
         this.reactionsFormatted.push({
           emoji: emoji,
           count: 1,
-          userReacted: false
+          userReacted: false,
         });
         const newIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(emoji);
         this.reactionsFormatted[newIndex].userReacted = true;
@@ -222,8 +222,8 @@ export default {
     async toggleReactionFalse(emoji, index) {
       await this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
         data: {
-          emoji: emoji
-        }
+          emoji: emoji,
+        },
       });
       this.reactionsFormatted[index].count--;
       this.reactionsFormatted[index].userReacted = false;
@@ -237,7 +237,7 @@ export default {
       }
       let ComponentClass = Vue.extend(DropdownPicker);
       let instance = new ComponentClass({
-        propsData: { toggleReaction: this.toggleReaction }
+        propsData: { toggleReaction: this.toggleReaction },
       });
       instance.$mount(); // pass nothing
       this.$children[1].$refs.picker.appendChild(instance.$el);
@@ -247,8 +247,8 @@ export default {
     },
     toggleComment(activeCommentId) {
       this.activeCommentId = activeCommentId;
-    }
-  }
+    },
+  },
 };
 </script>
 

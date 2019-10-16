@@ -14,8 +14,8 @@ export default {
   name: 'DropdownPicker',
   components: { Picker },
   props: {
-    toggleReaction: { type: Function, default: () => {} }
-  }
+    toggleReaction: { type: Function, default: () => {} },
+  },
 };
 </script>
 

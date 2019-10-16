@@ -30,7 +30,7 @@ export default {
   name: 'SpaceProjectList',
   data() {
     return {
-      projectSpaceList: []
+      projectSpaceList: [],
     };
   },
   async mounted() {
@@ -51,13 +51,13 @@ export default {
       } else {
         this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
           projectId: this.projectSpaceList[index].isProject ? this.projectSpaceList[index].id : undefined,
-          spaceId: this.projectSpaceList[index].isProject ? undefined : this.projectSpaceList[index].id
+          spaceId: this.projectSpaceList[index].isProject ? undefined : this.projectSpaceList[index].id,
         });
       }
       this.projectSpaceList[index].isSubscribed = !this.projectSpaceList[index].isSubscribed;
       this.$forceUpdate();
-    }
-  }
+    },
+  },
 };
 </script>
 

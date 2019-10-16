@@ -54,18 +54,18 @@ export default {
     ActiveCoworkers,
     SignupCard,
     PostFeed,
-    ProfileProgress
+    ProfileProgress,
   },
 
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     };
   },
   mounted() {
     this.isMounted = true;
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

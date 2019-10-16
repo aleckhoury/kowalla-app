@@ -43,8 +43,8 @@ export default {
       type: Object,
       default: () => {
         return { owned: [], subscriptions: [] };
-      }
-    } // if profile, we'll populate this with an object with two arrays of subscriptions, mimicking the user state
+      },
+    }, // if profile, we'll populate this with an object with two arrays of subscriptions, mimicking the user state
   },
   computed: {
     emptyText() {
@@ -53,7 +53,7 @@ export default {
       } else {
         return 'Find some cool projects and spaces to subscribe to!';
       }
-    }
+    },
   },
   methods: {
     getProjectId(item) {
@@ -64,8 +64,8 @@ export default {
     },
     emitClickedEventToParent() {
       this.$emit('nav-card-link-clicked');
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

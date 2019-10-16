@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       email: '',
-      errors: []
+      errors: [],
     };
   },
   methods: {
@@ -61,8 +61,8 @@ export default {
         e.preventDefault();
         this.errors.push("You can't sign up without an email");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style type="css" scoped>

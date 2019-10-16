@@ -25,12 +25,12 @@ export default {
   components: {
     Post,
     EmptyPostList,
-    CreatePost
+    CreatePost,
   },
   props: {
     type: { type: String, default: 'NewsFeedActiveTab' },
     isMobile: { type: Boolean, default: false },
-    pageId: { type: String, default: '' }
+    pageId: { type: String, default: '' },
   },
   data() {
     return {
@@ -39,7 +39,7 @@ export default {
       isMounted: false,
       func: null,
       endAll: false,
-      endSubscribed: false
+      endSubscribed: false,
     };
   },
   computed: {
@@ -71,7 +71,7 @@ export default {
       } else {
         return `/api/v1/${this.type}/posts/${this.pageId}/${this.sort}/0`;
       }
-    }
+    },
   },
   watch: {
     async sort() {
@@ -80,7 +80,7 @@ export default {
         this.subscribedPostList = await this.$axios.$get(`/api/v1/feed/posts/${this.$store.state.user._id}/${this.sort}/0`);
       }
       // await this.scroll();
-    }
+    },
   },
   async mounted() {
     this.postList = await this.$axios.$get(this.getPostsUrl);
@@ -152,8 +152,8 @@ export default {
           }
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

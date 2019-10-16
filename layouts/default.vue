@@ -18,13 +18,13 @@ export default {
   components: { SideMenu, MobileHeader, MobileFooter, Header },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
     };
   },
   computed: {
     state() {
       return this.$store.state;
-    }
+    },
   },
   mounted() {
     this.$socket.emit('checkUsers', this.$store.state.coworkers.list.length);
@@ -37,18 +37,18 @@ export default {
       if (data === this.$store.state.user.username) {
         this.$socket.emit('join', {
           username: this.$store.state.user.username,
-          profilePicture: this.$store.state.user.profilePicture
+          profilePicture: this.$store.state.user.profilePicture,
         });
       } else {
         this.$socket.emit('checkUsers', this.$store.state.coworkers.list.length);
       }
-    }
+    },
   },
   methods: {
     openSidebar() {
       this.isOpen = !this.isOpen;
-    }
-  }
+    },
+  },
 };
 </script>
 <style>

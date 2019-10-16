@@ -44,20 +44,20 @@ export default {
   components: { RegisterForm, LoginForm },
   mixins: [login],
   props: {
-    isMobile: { type: Boolean, default: false }
+    isMobile: { type: Boolean, default: false },
   },
   data() {
     return {
       count: 0,
       activeTab: this.initialState,
-      user: {}
+      user: {},
     };
   },
   computed: {
     loginBox() {
       if (this.count === 0) return this.initialState;
       return this.activeTab;
-    }
+    },
   },
   methods: {
     toggleFlow() {
@@ -65,8 +65,8 @@ export default {
         this.count++;
       }
       this.activeTab = !this.activeTab;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -16,7 +16,7 @@ export default {
     return {
       userDropdown: false,
       commDropdown: false,
-      editor: null
+      editor: null,
     };
   },
   computed: {
@@ -37,7 +37,7 @@ export default {
       }
 
       return [];
-    }
+    },
   },
   methods: {
     cardModal() {
@@ -46,7 +46,7 @@ export default {
           duration: 4000,
           message: 'You need to subscribe to a space to create a post in it!',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
       this.$modal.open({
@@ -55,12 +55,12 @@ export default {
         events: {
           'post-created': postObj => {
             this.$emit('post-created', postObj);
-          }
+          },
         },
-        hasModalCard: true
+        hasModalCard: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -3,7 +3,13 @@
     <img :src="bannerUrl" onerror="this.src='https://gradientjoy.com/1000x300'" />
 
     <div class="banner-subscription-button-container">
-      <SubscriptionButton v-if="!isOwner" :id="id" :is-subscribed="isSubscribed" :is-project="bannerTitlePrefix === '@'" @subscription-button-clicked="handleClick" />
+      <SubscriptionButton
+        v-if="!isOwner"
+        :id="id"
+        :is-subscribed="isSubscribed"
+        :is-project="bannerTitlePrefix === '@'"
+        @subscription-button-clicked="handleClick"
+      />
     </div>
 
     <div
@@ -11,7 +17,7 @@
         'banner-font-desktop': !isMobile,
         'banner-font-mobile': isMobile,
         'banner-title-desktop': !isMobile,
-        'banner-title-mobile': isMobile
+        'banner-title-mobile': isMobile,
       }"
       class="banner-title"
     >
@@ -32,13 +38,13 @@ export default {
     bannerTitlePrefix: { type: String, default: '' },
     isSubscribed: { type: Boolean, default: false },
     isOwner: { type: Boolean, default: false },
-    isMobile: { type: Boolean, default: false }
+    isMobile: { type: Boolean, default: false },
   },
   methods: {
     handleClick(subBool) {
       this.$emit('subscription-button-clicked', subBool);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

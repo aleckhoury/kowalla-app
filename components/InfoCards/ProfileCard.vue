@@ -44,7 +44,7 @@ export default {
     subheaderUrl: { type: String, default: '/about' },
     stats: { type: Array, default: () => [] },
     type: { type: String, default: '' },
-    isMobile: { type: Boolean, default: false }
+    isMobile: { type: Boolean, default: false },
   },
   computed: {
     getStatInfoByIndex(i) {
@@ -52,8 +52,8 @@ export default {
     },
     getRoute() {
       return `/beta/${this.type}/${this.username}`;
-    }
-  }
+    },
+  },
 };
 </script>
 

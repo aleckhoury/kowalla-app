@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  name: 'InfoPane'
+  name: 'InfoPane',
 };
 </script>
 <style lang="css" scoped>

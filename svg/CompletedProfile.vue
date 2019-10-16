@@ -190,7 +190,7 @@
 
 <script>
 export default {
-  name: 'CompletedProfile'
+  name: 'CompletedProfile',
 };
 </script>
 

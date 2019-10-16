@@ -21,7 +21,7 @@ export default {
     numSubs: { type: Number, default: 0 },
     pictureUrl: { type: String, default: '' },
     projectId: { type: String, default: '' },
-    spaceId: { type: String, default: '' }
+    spaceId: { type: String, default: '' },
   },
   computed: {
     getPrefix() {
@@ -30,13 +30,13 @@ export default {
 
     getRoute() {
       return this.projectId !== null ? `/beta/project/${this.name}` : `/beta/space/${this.name}`;
-    }
+    },
   },
   methods: {
     emitClickedEventToParent() {
       this.$emit('nav-card-link-clicked');
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

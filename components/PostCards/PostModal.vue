@@ -14,7 +14,7 @@
           @delete-post="echoDeletePost"
         />
         <PostTimer v-if="post.isActive" :time="post.expiration" />
-        <div v-html="post.content" class="content is-marginless" />
+        <div class="content is-marginless" v-html="post.content" />
         <br />
         <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
       </div>
@@ -43,14 +43,14 @@ export default {
       type: Object,
       default: function() {
         return {};
-      }
+      },
     },
     postObj: {
       type: Object,
       default: function() {
         return {};
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -60,7 +60,7 @@ export default {
       profile: {},
       project: {},
       space: {},
-      post: {}
+      post: {},
     };
   },
   created() {
@@ -96,8 +96,8 @@ export default {
     },
     echoDeletePost(postId) {
       this.$emit('delete-post', postId);
-    }
-  }
+    },
+  },
 };
 </script>
 

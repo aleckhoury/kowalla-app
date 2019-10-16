@@ -37,10 +37,10 @@ export default {
   components: {
     SpaceProjectList,
     LoginAndRegister,
-    EditProfile
+    EditProfile,
   },
   props: {
-    initialState: { type: Number, default: 0 }
+    initialState: { type: Number, default: 0 },
   },
   computed: {
     isMobile() {
@@ -51,14 +51,14 @@ export default {
     },
     user() {
       return this.$store.state.user;
-    }
+    },
   },
   watch: {
     activeStep() {
       if (this.activeStep === 1) {
         return (this.$parent.canCancel = [false, false, false]);
       }
-    }
+    },
   },
   created() {
     if (this.$route.query.code || this.$route.query.oauth_token) {
@@ -79,8 +79,8 @@ export default {
 
       await this.$store.commit('user/setUser', user);
       this.$router.push({ path: `/beta/space/all` });
-    }
-  }
+    },
+  },
 };
 </script>
 

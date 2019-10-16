@@ -10,11 +10,11 @@
 export default {
   name: 'PostTimer',
   props: {
-    startTime: { type: String, default: '' }
+    startTime: { type: String, default: '' },
   },
   data() {
     return {
-      countUp: ''
+      countUp: '',
     };
   },
   mounted() {
@@ -39,8 +39,8 @@ export default {
 
         self.countUp = `${hours}:${minutes}:${seconds}`;
       }, 1000);
-    }
-  }
+    },
+  },
 };
 </script>
 

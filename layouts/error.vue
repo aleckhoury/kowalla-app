@@ -7,10 +7,7 @@
       location-picture-to-display="https://s3.us-east-2.amazonaws.com/kowalla-dev/user/post-pics/ahUecQ6S_400x400.png"
     />
     <div v-if="error.statusCode === 404" class="container is-fullhd">
-      <div
-        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-centered is-marginless main-margin"
-      >
+      <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-centered is-marginless main-margin">
         <div class="column is-half is-paddingless card">
           <p>Uh oh! Looks like you're lost!</p>
           <nuxt-link to="/beta">
@@ -30,8 +27,8 @@ export default {
   components: { Header, MobileHeader },
 
   props: {
-    error: { type: Object, default: () => {} }
-  }
+    error: { type: Object, default: () => {} },
+  },
 };
 </script>
 <style scoped>
