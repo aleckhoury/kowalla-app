@@ -142,7 +142,7 @@ import {
   Link,
   Strike,
   Underline,
-  History
+  History,
 } from 'tiptap-extensions';
 import { mapGetters } from 'vuex';
 import Iframe from './Iframe';
@@ -153,7 +153,7 @@ export default {
   components: {
     EmbedButton,
     EditorContent,
-    EditorMenuBar
+    EditorMenuBar,
   },
   data() {
     return {
@@ -164,7 +164,7 @@ export default {
       s3Loading: false,
       clearPhoto: false,
       photoUrl: '',
-      livePost: false
+      livePost: false,
     };
   },
   computed: {
@@ -176,8 +176,8 @@ export default {
           {
             name: this.$store.state.user.username,
             id: this.$store.state.user._id,
-            type: 'user'
-          }
+            type: 'user',
+          },
         ];
       } else {
         list = [];
@@ -192,8 +192,8 @@ export default {
     postInList() {
       let list = [
         {
-          name: 'Select'
-        }
+          name: 'Select',
+        },
       ];
       this.$store.state.user.subscriptions.forEach(function(sub) {
         if (!sub.isProject) {
@@ -212,7 +212,7 @@ export default {
     },
     embedIsActive() {
       return this.$store.state.user.integrations.indexOf('Embed Video') !== -1;
-    }
+    },
   },
   mounted() {
     this.editor = new Editor({
@@ -237,12 +237,12 @@ export default {
         new Underline(),
         new History(),
         // Custom Extensions
-        new Iframe()
+        new Iframe(),
       ],
       content: '<p></p>',
       onUpdate: ({ getHTML }) => {
         this.html = getHTML();
-      }
+      },
     });
   },
   async beforeDestroy() {
@@ -251,7 +251,7 @@ export default {
       const type = this.postingAs.id ? 'project' : 'space';
       await this.$axios.$post('/api/v1/imageDelete', {
         bucket: `kowalla-dev/${type}/post-pics`,
-        fileName
+        fileName,
       });
     }
     await this.editor.destroy();
@@ -271,7 +271,7 @@ export default {
           duration: 6000,
           message: 'Working on something? You must create a project in order to make a live post!',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
     },
@@ -285,7 +285,7 @@ export default {
             duration: 5000,
             message: "You can't make a blank post!",
             position: 'is-top',
-            type: 'is-danger'
+            type: 'is-danger',
           });
           this.s3Loading = false;
           return null;
@@ -295,7 +295,7 @@ export default {
           duration: 5000,
           message: "You can't make a blank post!",
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
         this.s3Loading = false;
         return null;
@@ -306,7 +306,7 @@ export default {
           duration: 5000,
           message: 'You must select a space to post in',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
         this.s3Loading = false;
         return null;
@@ -321,7 +321,7 @@ export default {
         start: new Date(),
         end: null,
         isActive: this.livePost,
-        username: this.$store.state.user.username
+        username: this.$store.state.user.username,
       });
       this.$store.commit('user/incrementPostCount');
       this.$emit('post-created', postObj);
@@ -332,7 +332,7 @@ export default {
       if (this.livePost) {
         this.$socket.emit('join', {
           username: this.$store.state.user.username,
-          profilePicture: this.$store.state.user.profilePicture
+          profilePicture: this.$store.state.user.profilePicture,
         });
         this.$router.push({ path: `/beta/focus/${this.$store.state.user.username}` });
         if (this.$router.history.current.fullPath === '/beta/focus') {
@@ -361,11 +361,11 @@ export default {
           duration: 5000,
           message: "There was an error with your file. Please confirm it's less than 10MB and a png, jpeg, or gif.",
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

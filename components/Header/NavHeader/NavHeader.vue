@@ -67,16 +67,16 @@ export default {
     Button,
     Searchbar,
     NavProfilePicture,
-    NavNotifications
+    NavNotifications,
   },
   data() {
     return {
       isMounted: false,
-      canCancel: true
+      canCancel: true,
     };
   },
   computed: {
-    ...mapGetters('coworkers', ['activePost'])
+    ...mapGetters('coworkers', ['activePost']),
   },
   methods: {
     newPostModal() {
@@ -86,9 +86,9 @@ export default {
         events: {
           'post-created': postObj => {
             this.$emit('post-created', postObj);
-          }
+          },
         },
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     callHelpModal() {
@@ -96,7 +96,7 @@ export default {
         parent: this,
         component: HelpModal,
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     cardModal() {
@@ -104,14 +104,14 @@ export default {
         parent: this,
         component: LoginHandler,
         props: {
-          initialState: 1
+          initialState: 1,
         },
         width: 900,
         hasModalCard: true,
-        canCancel: this.canCancel
+        canCancel: this.canCancel,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

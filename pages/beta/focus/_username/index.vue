@@ -126,7 +126,7 @@ import {
   Link,
   Strike,
   Underline,
-  History
+  History,
 } from 'tiptap-extensions';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
@@ -135,20 +135,20 @@ export default {
   name: 'Focus',
   components: {
     EditorContent,
-    EditorMenuBar
+    EditorMenuBar,
   },
 
   data() {
     return {
       editor: null,
       post: {},
-      countUp: ''
+      countUp: '',
     };
   },
   computed: {
     isMobile() {
       return window.innerWidth < 768;
-    }
+    },
   },
   async mounted() {
     this.post = await this.$axios.$get(`/api/v1/posts/active/${this.$route.params.username}`);
@@ -174,12 +174,12 @@ export default {
           new Link(),
           new Strike(),
           new Underline(),
-          new History()
+          new History(),
         ],
         content: this.post.content,
         onUpdate: ({ getHTML }) => {
           this.html = getHTML();
-        }
+        },
       });
     }
   },
@@ -191,7 +191,7 @@ export default {
   sockets: {
     confirmManualDisconnect() {
       this.$router.push('/beta');
-    }
+    },
   },
   methods: {
     endCoworkingSession() {
@@ -202,9 +202,9 @@ export default {
         parent: this,
         component: this.isMobile ? CreatePostMobile : CreatePost,
         props: {
-          reactionsFormatted: this.reactionsFormatted
+          reactionsFormatted: this.reactionsFormatted,
         },
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     countUpTimer() {
@@ -231,7 +231,7 @@ export default {
     },
     updatePost() {
       this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
-        content: this.html
+        content: this.html,
       });
     },
     async selectFile(command) {
@@ -255,11 +255,11 @@ export default {
           duration: 5000,
           message: "There was an error with your file. Please confirm it's less than 10MB and a png, jpeg, or gif.",
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

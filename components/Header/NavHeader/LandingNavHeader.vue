@@ -37,17 +37,17 @@ import CreatePost from '~/components/Modals/Creation/CreatePost';
 export default {
   name: 'LandingNavHeader',
   components: {
-    NavProfilePicture
+    NavProfilePicture,
   },
   data() {
     return {
-      isMounted: false
+      isMounted: false,
     };
   },
   computed: {
     isMobile() {
       return window.innerWidth < 768;
-    }
+    },
   },
   methods: {
     newPostModal() {
@@ -57,9 +57,9 @@ export default {
         events: {
           'post-created': postObj => {
             this.$emit('post-created', postObj);
-          }
+          },
         },
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     callHelpModal() {
@@ -67,7 +67,7 @@ export default {
         parent: this,
         component: HelpModal,
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     cardModal() {
@@ -75,13 +75,13 @@ export default {
         parent: this,
         component: LoginHandler,
         props: {
-          initialState: 1
+          initialState: 1,
         },
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

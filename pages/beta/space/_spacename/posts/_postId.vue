@@ -13,7 +13,14 @@
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <InfoPane>
             <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
-            <ProfileCard :name="spaceName" :username="spaceName" :profile-picture-url="profilePictureUrl" :subheader-string="`View ${spaceName}'s stats`" :stats="spaceStats" type="project" />
+            <ProfileCard
+              :name="spaceName"
+              :username="spaceName"
+              :profile-picture-url="profilePictureUrl"
+              :subheader-string="`View ${spaceName}'s stats`"
+              :stats="spaceStats"
+              type="project"
+            />
 
             <DescriptionCard :subheader-on="false" header-string="Description">
               {{ spaceDescription }}
@@ -54,7 +61,7 @@ export default {
     DescriptionCard,
     ProfileCard,
     InfoPane,
-    EditButton
+    EditButton,
   },
 
   data() {
@@ -68,7 +75,7 @@ export default {
       numSubs: '',
       spaceId: '',
       spaceStats: [],
-      post: {}
+      post: {},
     };
   },
   computed: {
@@ -93,7 +100,7 @@ export default {
         }
       }
       return isSubscribed;
-    }
+    },
   },
   created() {
     this.spaceName = this.$route.params.spacename;
@@ -126,7 +133,7 @@ export default {
         name: this.spaceName,
         pictureUrl: this.profilePictureUrl,
         numSubs: subBool ? this.spaceStats[0].stat + 1 : this.spaceStats[0].stat - 1,
-        spaceId: this.spaceId
+        spaceId: this.spaceId,
       };
       let subObj = { subBool, ...subInfo };
       this.spaceStats[0].stat = subBool ? this.spaceStats[0].stat + 1 : this.spaceStats[0].stat - 1;
@@ -135,13 +142,13 @@ export default {
     },
     editSpace() {
       this.$router.push({
-        path: `/beta/space/${this.spaceName}/edit`
+        path: `/beta/space/${this.spaceName}/edit`,
       });
     },
     async removePostFromPostList() {
       await this.$axios.$delete(`/api/v1/posts/${this.post._id}`);
-    }
-  }
+    },
+  },
 };
 </script>
 

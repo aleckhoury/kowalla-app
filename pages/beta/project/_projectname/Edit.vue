@@ -55,7 +55,7 @@ import EditProjectForm from '~/components/Forms/EditProject';
 export default {
   name: 'ProjectEdit',
   components: {
-    EditProjectForm
+    EditProjectForm,
   },
 
   data() {
@@ -74,7 +74,7 @@ export default {
       profileStats: [],
       // newsfeed content
       postList: [],
-      infoRes: false
+      infoRes: false,
     };
   },
   computed: {
@@ -94,7 +94,7 @@ export default {
     },
     activeTab() {
       return process.browser ? this.$store.state.activeTabs.ProjectSettingsActiveTab : undefined;
-    }
+    },
   },
   async mounted() {
     if (typeof this.$store.state.user.owned !== 'undefined') {
@@ -116,7 +116,7 @@ export default {
     this.projectDescription = this.infoRes.description;
 
     document.title = `Kowalla - Edit @${this.name}`;
-  }
+  },
 };
 </script>
 

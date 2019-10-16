@@ -4,5 +4,5 @@ export const getters = {
   },
   loggedInUser(state) {
     return state.user.user;
-  }
+  },
 };

@@ -31,7 +31,14 @@
             <div class="column is-one-third">
               <InfoPane>
                 <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
-                <ProfileCard :name="spaceName" :username="spaceName" :profile-picture-url="profilePictureUrl" :subheader-string="`View ${spaceName}'s stats`" :stats="spaceStats" type="space" />
+                <ProfileCard
+                  :name="spaceName"
+                  :username="spaceName"
+                  :profile-picture-url="profilePictureUrl"
+                  :subheader-string="`View ${spaceName}'s stats`"
+                  :stats="spaceStats"
+                  type="space"
+                />
 
                 <DescriptionCard :subheader-on="false" header-string="Description">
                   {{ spaceDescription }}
@@ -96,7 +103,7 @@ export default {
     DescriptionCard,
     ProfileCard,
     InfoPane,
-    EditButton
+    EditButton,
   },
 
   data() {
@@ -109,7 +116,7 @@ export default {
       adminId: '',
       numSubs: '',
       spaceId: '',
-      spaceStats: []
+      spaceStats: [],
     };
   },
   computed: {
@@ -126,7 +133,7 @@ export default {
     },
     isSubscribed() {
       return this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
-    }
+    },
   },
   created() {
     this.spaceName = this.$route.params.spacename;
@@ -151,7 +158,7 @@ export default {
         name: this.spaceName,
         pictureUrl: this.profilePictureUrl,
         numSubs: subBool ? this.spaceStats[0].stat + 1 : this.spaceStats[0].stat - 1,
-        spaceId: this.spaceId
+        spaceId: this.spaceId,
       };
       let subObj = { subBool, ...subInfo };
       this.spaceStats[0].stat = subBool ? this.spaceStats[0].stat + 1 : this.spaceStats[0].stat - 1;
@@ -160,10 +167,10 @@ export default {
     },
     editSpace() {
       this.$router.push({
-        path: `/beta/space/${this.spaceName}/edit`
+        path: `/beta/space/${this.spaceName}/edit`,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

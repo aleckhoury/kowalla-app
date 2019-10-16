@@ -14,7 +14,8 @@
           @delete-post="echoDeletePost"
         />
         <PostTimer v-if="post.isActive" :time="post.expiration" />
-        <div class="content is-marginless" v-html="post.content" />
+        <!-- eslint-disable-next-line -->
+        <div class="content is-marginless" v-html="post.content"></div>
         <br />
         <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
       </div>

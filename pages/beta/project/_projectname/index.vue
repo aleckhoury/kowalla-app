@@ -39,7 +39,14 @@
             </div>
 
             <div class="column is-one-quarter info">
-              <ProfileCard :name="projectName" :username="name" :profile-picture-url="projectProfilePictureUrl" :subheader-string="`View ${name}'s stats`" :stats="projectStats" type="project" />
+              <ProfileCard
+                :name="projectName"
+                :username="name"
+                :profile-picture-url="projectProfilePictureUrl"
+                :subheader-string="`View ${name}'s stats`"
+                :stats="projectStats"
+                type="project"
+              />
             </div>
             <div class="column is-one-quarter info">
               <ProfileCard
@@ -91,7 +98,15 @@
 
       <div class="columns is-marginless is-mobile is-centered is-centered is-multiline">
         <div class="column isMobile is-narrow">
-          <ProfileCard :name="projectName" :username="name" :profile-picture-url="projectProfilePictureUrl" :subheader-string="`View ${name}'s stats`" :stats="projectStats" type="project" is-mobile />
+          <ProfileCard
+            :name="projectName"
+            :username="name"
+            :profile-picture-url="projectProfilePictureUrl"
+            :subheader-string="`View ${name}'s stats`"
+            :stats="projectStats"
+            type="project"
+            is-mobile
+          />
         </div>
 
         <div class="column isMobile is-narrow">
@@ -140,7 +155,7 @@ export default {
     DescriptionCard,
     ProfileCard,
     InfoPane,
-    EditButton
+    EditButton,
   },
 
   data() {
@@ -158,7 +173,7 @@ export default {
       projectName: '',
       adminProfilePictureUrl: '',
       projectStats: [],
-      profileStats: []
+      profileStats: [],
     };
   },
   computed: {
@@ -183,7 +198,7 @@ export default {
         }
       }
       return isSubscribed;
-    }
+    },
   },
   created() {
     this.name = this.$route.params.projectname;
@@ -220,7 +235,7 @@ export default {
     this.profileStats.push({ name: 'Posts', stat: adminRes.postCount });
     this.profileStats.push({
       name: 'Replies',
-      stat: adminRes.commentCount
+      stat: adminRes.commentCount,
     });
     document.title = `Kowalla - @${this.name}`;
   },
@@ -230,7 +245,7 @@ export default {
         name: this.name,
         pictureUrl: this.projectProfilePictureUrl,
         numSubs: subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1,
-        projectId: this.projectId
+        projectId: this.projectId,
       };
 
       this.projectStats[0].stat = subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1;
@@ -241,10 +256,10 @@ export default {
     },
     editProject() {
       this.$router.push({
-        path: `/beta/project/${this.name}/edit`
+        path: `/beta/project/${this.name}/edit`,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

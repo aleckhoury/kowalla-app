@@ -27,8 +27,8 @@ export default {
     emitSelection(selection) {
       this.$emit(selection);
       this.$parent.close();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

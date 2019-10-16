@@ -22,8 +22,8 @@ export default {
   props: {
     isMobile: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -32,12 +32,12 @@ export default {
       target: null,
       options: [
         {
-          value: 'Newest'
+          value: 'Newest',
         },
         {
-          value: 'Oldest'
-        }
-      ]
+          value: 'Oldest',
+        },
+      ],
     };
   },
   computed: {},
@@ -52,8 +52,8 @@ export default {
   methods: {
     handleCommand(value) {
       this.$store.commit('sorting/updateFeedSort', value);
-    }
-  }
+    },
+  },
 };
 </script>
 

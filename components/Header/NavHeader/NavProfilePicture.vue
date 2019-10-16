@@ -26,7 +26,7 @@ import Cookies from 'js-cookie';
 export default {
   name: 'NavProfilePicture',
   props: {
-    dropdown: { type: Boolean, default: false }
+    dropdown: { type: Boolean, default: false },
   },
   computed: {
     profilePicture() {
@@ -34,7 +34,7 @@ export default {
     },
     username() {
       return this.$store.state.user.username;
-    }
+    },
   },
   methods: {
     logout() {
@@ -43,8 +43,8 @@ export default {
       this.$store.commit('activeTabs/updateNewsFeedActiveTab', 0);
       this.$store.commit('onboarding/resetActiveStep');
       this.$router.go();
-    }
-  }
+    },
+  },
 };
 </script>
 

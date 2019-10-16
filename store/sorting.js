@@ -1,9 +1,9 @@
 export const state = () => ({
-  feed: 'Newest'
+  feed: 'Newest',
 });
 
 export const mutations = {
   updateFeedSort(state, string) {
     state.feed = string;
-  }
+  },
 };

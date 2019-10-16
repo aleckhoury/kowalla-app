@@ -8,7 +8,14 @@
         <div class="column is-one-half">
           <b-tabs id="columnTabs" v-model="activeTab">
             <b-tab-item>
-              <EditSpaceForm v-if="infoRes" :name="name" :header-picture="bannerPictureUrl" :profile-picture="profilePictureUrl" :description="spaceDescription" :space-id="spaceId" />
+              <EditSpaceForm
+                v-if="infoRes"
+                :name="name"
+                :header-picture="bannerPictureUrl"
+                :profile-picture="profilePictureUrl"
+                :description="spaceDescription"
+                :space-id="spaceId"
+              />
             </b-tab-item>
             <b-tab-item>
               Test!
@@ -23,7 +30,14 @@
     <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="is-marginless is-hidden-desktop mobile-main-margin">
       <b-tabs id="columnTabs" v-model="activeTab">
         <b-tab-item>
-          <EditSpaceForm v-if="infoRes" :name="name" :header-picture="bannerPictureUrl" :profile-picture="profilePictureUrl" :description="spaceDescription" :space-id="spaceId" />
+          <EditSpaceForm
+            v-if="infoRes"
+            :name="name"
+            :header-picture="bannerPictureUrl"
+            :profile-picture="profilePictureUrl"
+            :description="spaceDescription"
+            :space-id="spaceId"
+          />
         </b-tab-item>
         <b-tab-item>
           Test!
@@ -39,7 +53,7 @@ import EditSpaceForm from '~/components/Forms/EditSpace';
 export default {
   name: 'Edit',
   components: {
-    EditSpaceForm
+    EditSpaceForm,
   },
 
   data() {
@@ -50,7 +64,7 @@ export default {
       profilePictureUrl: '',
       spaceDescription: '',
       spaceId: '',
-      infoRes: false
+      infoRes: false,
     };
   },
   computed: {
@@ -59,7 +73,7 @@ export default {
     },
     activeTab() {
       return process.browser ? this.$store.state.activeTabs.SettingsActiveTab : undefined;
-    }
+    },
   },
   async mounted() {
     if (typeof this.$store.state.user.owned !== 'undefined') {
@@ -80,7 +94,7 @@ export default {
     this.spaceDescription = this.infoRes.description;
 
     document.title = `Kowalla - Edit @${this.name}`;
-  }
+  },
 };
 </script>
 

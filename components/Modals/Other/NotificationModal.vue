@@ -53,12 +53,12 @@ export default {
         // Remove Event Listeners
         document.removeEventListener('click', el.__vueClickOutside__);
         el.__vueClickOutside__ = null;
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      notifications: []
+      notifications: [],
     };
   },
   async mounted() {
@@ -82,8 +82,8 @@ export default {
         this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: notifsToDeleteArray } });
       }
       this.$parent.close();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

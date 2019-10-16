@@ -26,7 +26,14 @@
             <DescriptionCard :subheader-on="false" header-string="Description">
               {{ projectDescription }}
             </DescriptionCard>
-            <ProfileCard :name="projectName" :username="name" :profile-picture-url="projectProfilePictureUrl" :subheader-string="`View ${name}'s stats`" :stats="projectStats" type="project" />
+            <ProfileCard
+              :name="projectName"
+              :username="name"
+              :profile-picture-url="projectProfilePictureUrl"
+              :subheader-string="`View ${name}'s stats`"
+              :stats="projectStats"
+              type="project"
+            />
             <ProfileCard
               :name="`${adminFirstName} ${adminLastName}`"
               :username="adminUsername"
@@ -72,7 +79,7 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
-    Post
+    Post,
   },
 
   data() {
@@ -91,7 +98,7 @@ export default {
       adminProfilePictureUrl: '',
       projectStats: [],
       profileStats: [],
-      post: {}
+      post: {},
     };
   },
   computed: {
@@ -116,7 +123,7 @@ export default {
         }
       }
       return isSubscribed;
-    }
+    },
   },
   created() {
     this.name = this.$route.params.projectname;
@@ -155,7 +162,7 @@ export default {
     this.profileStats.push({ name: 'Posts', stat: adminRes.postCount });
     this.profileStats.push({
       name: 'Replies',
-      stat: adminRes.commentCount
+      stat: adminRes.commentCount,
     });
 
     document.title = `Kowalla - @${this.name}`;
@@ -166,7 +173,7 @@ export default {
         name: this.name,
         pictureUrl: this.projectProfilePictureUrl,
         numSubs: subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1,
-        projectId: this.projectId
+        projectId: this.projectId,
       };
 
       this.projectStats[0].stat = subBool ? this.projectStats[0].stat + 1 : this.projectStats[0].stat - 1;
@@ -177,13 +184,13 @@ export default {
     },
     editProject() {
       this.$router.push({
-        path: `/beta/project/${this.name}/edit`
+        path: `/beta/project/${this.name}/edit`,
       });
     },
     async removePostFromPostList() {
       await this.$axios.$delete(`/api/v1/posts/${this.post._id}`);
-    }
-  }
+    },
+  },
 };
 </script>
 

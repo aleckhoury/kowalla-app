@@ -14,7 +14,8 @@
 
     <PostTimer v-if="post.isActive" :start-time="post.start" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
-      <div class="content is-marginless" v-html="post.content" />
+      <!-- eslint-disable-next-line -->
+      <div class="content is-marginless" v-html="post.content"></div>
       <p v-if="overflow" class="read-more" @click="overflow = !overflow">
         <a>Read More</a>
       </p>

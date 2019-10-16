@@ -9,8 +9,8 @@ export default class Iframe extends Node {
     return {
       attrs: {
         src: {
-          default: null
-        }
+          default: null,
+        },
       },
       group: 'block',
       selectable: false,
@@ -18,9 +18,9 @@ export default class Iframe extends Node {
         {
           tag: 'iframe',
           getAttrs: dom => ({
-            src: dom.getAttribute('src')
-          })
-        }
+            src: dom.getAttribute('src'),
+          }),
+        },
       ],
       toDOM: node => [
         'iframe',
@@ -28,10 +28,10 @@ export default class Iframe extends Node {
           src: `${node.attrs.src}`,
           frameborder: 0,
           allowfullscreen: 'true',
-          allow: 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+          allow: 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture',
           // You can set the width and height here also
-        }
-      ]
+        },
+      ],
     };
   }
 

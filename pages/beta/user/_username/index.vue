@@ -62,7 +62,14 @@
     <!-- Mobile -->
     <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <div>
-        <ProfileCard :name="`${firstName} ${lastName}`" :profile-picture-url="profilePictureUrl" :username="username" :stats="profileStats" is-mobile type="user" />
+        <ProfileCard
+          :name="`${firstName} ${lastName}`"
+          :profile-picture-url="profilePictureUrl"
+          :username="username"
+          :stats="profileStats"
+          is-mobile
+          type="user"
+        />
       </div>
 
       <DescriptionCard :header-string="`About ${firstName}`" :subheader-on="false" class="newsfeed-margin">
@@ -91,7 +98,7 @@ export default {
     InfoPane,
     DescriptionCard,
     SignupCard,
-    PostFeed
+    PostFeed,
   },
 
   data() {
@@ -103,13 +110,13 @@ export default {
       profilePictureUrl: '',
       profileDescription: '',
       profileStats: [],
-      profileSubs: { subscriptions: [], owned: [] }
+      profileSubs: { subscriptions: [], owned: [] },
     };
   },
   computed: {
     getUsername() {
       return this.username;
-    }
+    },
   },
   created() {
     this.username = this.$route.params.username;
@@ -137,7 +144,7 @@ export default {
       document.title = `Kowalla - ${this.firstName} ${this.lastName}`;
     }
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

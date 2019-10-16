@@ -23,7 +23,7 @@ export default {
     ...mapGetters('coworkers', ['activePost']),
     isFocusPage() {
       return this.$route.path.includes('focus');
-    }
+    },
   },
   methods: {
     callMobileCreateModal() {
@@ -32,7 +32,7 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       } else {
         this.$modal.open({
@@ -48,7 +48,7 @@ export default {
                 component: CreatePost,
                 width: 400,
                 hasModalCard: true,
-                canCancel: true
+                canCancel: true,
               });
             },
             space: () => {
@@ -57,7 +57,7 @@ export default {
                 component: CreateSpaceModal,
                 width: 900,
                 hasModalCard: true,
-                props: { type: 1 }
+                props: { type: 1 },
               });
             },
             project: () => {
@@ -66,14 +66,14 @@ export default {
                 component: CreateSpaceModal,
                 width: 900,
                 hasModalCard: true,
-                props: { type: 0 }
+                props: { type: 0 },
               });
-            }
-          }
+            },
+          },
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

@@ -2,19 +2,19 @@ import Cookies from 'js-cookie';
 
 const login = {
   props: {
-    initialState: { type: Number, default: 0 }
+    initialState: { type: Number, default: 0 },
   },
   data() {
     return {
       loginForm: {
         usernameOrEmail: '',
-        password: ''
+        password: '',
       },
       registerForm: {
         email: '',
         username: '',
-        password: ''
-      }
+        password: '',
+      },
     };
   },
   computed: {
@@ -24,14 +24,14 @@ const login = {
     formError() {
       const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
       const emailRegex = RegExp(
-        "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
       );
       return {
         email: this.registerForm.email.length ? !emailRegex.test(this.registerForm.email) : false,
         username: this.registerForm.username.length ? !regex.test(this.registerForm.username) : false,
-        usernameLength: this.registerForm.username.length > 20
+        usernameLength: this.registerForm.username.length > 20,
       };
-    }
+    },
   },
   methods: {
     async getTwitterCreds() {
@@ -46,7 +46,7 @@ const login = {
           duration: 4000,
           message: 'Please fill out the full form',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
 
         return null;
@@ -55,7 +55,7 @@ const login = {
           duration: 4000,
           message: 'Invalid information',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
       try {
@@ -63,11 +63,11 @@ const login = {
           email: registerForm.email,
           username: registerForm.username,
           password: registerForm.password,
-          inviteProfile: this.$route.query.invite || undefined
+          inviteProfile: this.$route.query.invite || undefined,
         });
         const token = await this.$axios.$post('/api/v1/users/login', {
           usernameOrEmail: registerForm.username,
-          password: registerForm.password
+          password: registerForm.password,
         });
         await Cookies.set('token', token);
         await Cookies.set('firstVisit', true);
@@ -75,7 +75,7 @@ const login = {
         const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
         const { owned, subscriptions } = subs.subscriptions;
         await Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length)
+          loggedIn: Boolean(Object.keys(user).length),
         });
         await Object.assign(user, { subscriptions, owned });
 
@@ -88,7 +88,7 @@ const login = {
           duration: 4000,
           message: err.response.data.message,
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
     },
@@ -98,7 +98,7 @@ const login = {
           duration: 4000,
           message: 'Please fill out the full form',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
 
         return null;
@@ -107,7 +107,7 @@ const login = {
       try {
         const res = await this.$axios.$post('/api/v1/users/login', {
           usernameOrEmail: loginForm.usernameOrEmail,
-          password: loginForm.password
+          password: loginForm.password,
         });
         Cookies.set('token', res.token);
         const user = await this.$axios.$get(`api/v1/users/${res.username}`);
@@ -115,7 +115,7 @@ const login = {
 
         const { owned, subscriptions } = subs.subscriptions;
         Object.assign(user, {
-          loggedIn: Boolean(Object.keys(user).length)
+          loggedIn: Boolean(Object.keys(user).length),
         });
         Object.assign(user, { subscriptions, owned });
 
@@ -132,10 +132,10 @@ const login = {
           duration: 4000,
           message: err.response.data.message,
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 export default login;

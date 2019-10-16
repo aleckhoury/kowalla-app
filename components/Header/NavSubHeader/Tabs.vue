@@ -10,12 +10,12 @@ import LoginHandler from '~/components/Auth/LoginHandler';
 export default {
   name: 'Tabs',
   props: {
-    type: { type: String, default: 'NewsFeedActiveTab' }
+    type: { type: String, default: 'NewsFeedActiveTab' },
   },
   data() {
     return {
       feedOptions: ['All', 'Subscribed'],
-      settingsOptions: ['General', 'Integrations']
+      settingsOptions: ['General', 'Integrations'],
     };
   },
   computed: {
@@ -30,7 +30,7 @@ export default {
     },
     activeTab() {
       return this.$store.state.activeTabs[this.type] || 0;
-    }
+    },
   },
   methods: {
     changeTab(idx) {
@@ -39,14 +39,14 @@ export default {
           parent: this,
           component: LoginHandler,
           width: 900,
-          hasModalCard: true
+          hasModalCard: true,
         });
       }
       if (this.type !== 'sortOnly') {
         this.$store.commit(`activeTabs/update${this.type}`, idx);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

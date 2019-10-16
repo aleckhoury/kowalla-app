@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 export const state = () => ({
-  firstVisit: false
+  firstVisit: false,
 });
 
 export const mutations = {
@@ -11,5 +11,5 @@ export const mutations = {
   },
   setFirstVisit(state) {
     state.firstVisit = !Cookies.get('firstVisit');
-  }
+  },
 };

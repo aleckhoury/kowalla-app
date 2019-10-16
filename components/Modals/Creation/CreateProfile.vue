@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'CreateProfile'
+  name: 'CreateProfile',
 };
 </script>
 <style lang="css" scoped>

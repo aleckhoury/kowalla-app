@@ -16,7 +16,7 @@ export const defaultState = () => ({
   username: '',
   loggedIn: false,
   hasNotifications: false,
-  integrations: []
+  integrations: [],
 });
 
 const initialState = defaultState();
@@ -56,7 +56,7 @@ export const actions = {
     } else {
       commit('removeOwned', subObj);
     }
-  }
+  },
   /*
   editOwned({ commit, state }, subObj) {
     if (subObj.hasOwnProperty('spaceId')) {
@@ -114,7 +114,7 @@ export const getters = {
       }
     }
     return projectIdsArray;
-  }
+  },
 };
 
 export const mutations = {
@@ -187,5 +187,5 @@ export const mutations = {
   },
   incrementPostCount(state) {
     state.postCount += 1;
-  }
+  },
 };

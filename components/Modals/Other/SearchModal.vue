@@ -13,13 +13,13 @@ export default {
   name: '' + 'SearchModal',
   components: { Searchbar },
   props: {
-    modalText: { type: String, default: '' }
+    modalText: { type: String, default: '' },
   },
   methods: {
     closeModal() {
       this.$parent.close();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

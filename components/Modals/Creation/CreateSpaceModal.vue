@@ -53,7 +53,12 @@
             </b-field>
 
             <b-field label="Description">
-              <b-input v-model="spaceForm.description" maxlength="500" type="textarea" placeholder="The place to be if you want to build your own streetwear company." />
+              <b-input
+                v-model="spaceForm.description"
+                maxlength="500"
+                type="textarea"
+                placeholder="The place to be if you want to build your own streetwear company."
+              />
             </b-field>
 
             <a class="button action" @click="createSpace(spaceForm)">
@@ -69,7 +74,7 @@
 export default {
   name: 'CreateSpaceModal',
   props: {
-    type: { type: Number, default: 0 }
+    type: { type: Number, default: 0 },
   },
   data() {
     return {
@@ -79,8 +84,8 @@ export default {
         description: '', // text area
         profilePicture: '', // need to add upload
         headerPicture: '', // need to add upload
-        admins: [] // just the current user for now
-      }
+        admins: [], // just the current user for now
+      },
     };
   },
   methods: {
@@ -93,7 +98,7 @@ export default {
           description: spaceForm.description,
           profilePicture: spaceForm.profilePicture,
           headerPicture: spaceForm.headerPicture,
-          admins: [this.$store.state.user.username]
+          admins: [this.$store.state.user.username],
         });
         // update local state
         let subInfo = {
@@ -101,14 +106,14 @@ export default {
           pictureUrl: projectData.profilePicture,
           isProject: true,
           numSubs: 1,
-          projectId: projectData._id
+          projectId: projectData._id,
         };
         let subObj = { subBool: true, ...subInfo };
 
         // this will also update server-side subscriptions
         this.$store.dispatch('user/updateOwned', subObj);
         this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
-          projectId: projectData._id
+          projectId: projectData._id,
         });
 
         // change page and close modal
@@ -120,7 +125,7 @@ export default {
           duration: 4000,
           message: err.response.data.errors.projectName.message,
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
     },
@@ -130,7 +135,7 @@ export default {
           name: spaceForm.name,
           description: spaceForm.description,
           isProject: false,
-          admins: [this.$store.state.user.username]
+          admins: [this.$store.state.user.username],
         });
         // update local state
         let subInfo = {
@@ -138,14 +143,14 @@ export default {
           pictureUrl: spaceData.profilePicture,
           isProject: false,
           numSubs: 7,
-          spaceId: spaceData._id
+          spaceId: spaceData._id,
         };
         let subObj = { subBool: true, ...subInfo };
 
         // this will also update server-side subscriptions
         this.$store.dispatch('user/updateOwned', subObj);
         this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
-          spaceId: spaceData._id
+          spaceId: spaceData._id,
         });
 
         // change page and close modal
@@ -157,11 +162,11 @@ export default {
           duration: 4000,
           message: err.response.data.errors.name.message,
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

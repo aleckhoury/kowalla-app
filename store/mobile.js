@@ -1,5 +1,5 @@
 export const state = () => ({
-  activeModal: 'posts'
+  activeModal: 'posts',
 });
 
 export const mutations = {
@@ -13,5 +13,5 @@ export const mutations = {
 
   updateActiveModal(state, string) {
     state.activeModal = string;
-  }
+  },
 };

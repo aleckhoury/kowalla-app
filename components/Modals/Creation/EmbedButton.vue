@@ -60,11 +60,11 @@
 export default {
   name: 'EmbedButton',
   props: {
-    command: { type: Function, default: () => {} }
+    command: { type: Function, default: () => {} },
   },
   data() {
     return {
-      videoLink: ''
+      videoLink: '',
     };
   },
   computed: {},
@@ -86,18 +86,18 @@ export default {
           duration: 3000,
           message: 'Invalid Link',
           position: 'is-top',
-          type: 'is-danger'
+          type: 'is-danger',
         });
       }
       const data = {
         command: this.command,
         data: {
-          src
-        }
+          src,
+        },
       };
       this.$emit('enterUrl', data);
-    }
-  }
+    },
+  },
 };
 </script>
 

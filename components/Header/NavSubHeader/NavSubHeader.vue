@@ -57,8 +57,8 @@ export default {
       else if (this.$route.path.includes('posts')) return 'Post';
       else if (this.$route.path === '/beta') return 'NewsFeedActiveTab';
       return 'sortOnly';
-    }
-  }
+    },
+  },
 };
 </script>
 

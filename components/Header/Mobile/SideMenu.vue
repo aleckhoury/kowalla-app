@@ -42,16 +42,16 @@ import ProfileProgress from '../../SidePaneCards/ProfileProgress';
 export default {
   name: 'SideMenu',
   components: {
-    ProfileProgress
+    ProfileProgress,
   },
   props: {
     isOpen: { type: Boolean, default: false },
-    closeSidebar: { type: Function, default: () => {} }
+    closeSidebar: { type: Function, default: () => {} },
   },
   data() {
     return {
       delayOpen: false,
-      targetElement: null
+      targetElement: null,
     };
   },
   mounted() {
@@ -68,8 +68,8 @@ export default {
     closeActions() {
       this.delayOpen = false;
       setTimeout(() => this.closeSidebar(), 250);
-    }
-  }
+    },
+  },
 };
 </script>
 

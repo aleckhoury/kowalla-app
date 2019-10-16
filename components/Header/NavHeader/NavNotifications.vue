@@ -4,7 +4,7 @@
       slot="trigger"
       :class="{
         'has-notifs': hasNotifications,
-        'theme-color': !hasNotifications
+        'theme-color': !hasNotifications,
       }"
       icon="bell"
       class="margin"
@@ -31,7 +31,7 @@ export default {
   props: { hasNotifications: { type: Boolean, default: false } },
   data() {
     return {
-      notifications: []
+      notifications: [],
     };
   },
   methods: {
@@ -64,20 +64,20 @@ export default {
         // eventually, we'll want to direct right to the comment in question
         if (item.hasOwnProperty('commentId') && item.hasOwnProperty('postId')) {
           this.$router.push({
-            path: `/beta/space/${item.spaceName}/posts/${item.postId}`
+            path: `/beta/space/${item.spaceName}/posts/${item.postId}`,
           });
         } else if (!item.hasOwnProperty('commentId') && item.hasOwnProperty('postId')) {
           this.$router.push({
-            path: `/beta/space/${item.spaceName}/posts/${item.postId}`
+            path: `/beta/space/${item.spaceName}/posts/${item.postId}`,
           });
         }
       } else if (item.hasOwnProperty('projectName')) {
         this.$router.push({
-          path: `/beta/project/${item.projectName}`
+          path: `/beta/project/${item.projectName}`,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -17,12 +17,12 @@ import InviteCodeSvg from '../../../svg/InviteCode';
 export default {
   name: 'InviteCode',
   components: {
-    InviteCodeSvg
+    InviteCodeSvg,
   },
   computed: {
     code() {
       return `https://kowalla.co/?invite=${this.$store.state.user.username}`;
-    }
+    },
   },
   mounted() {
     let code = document.getElementById('inviteCode');
@@ -34,8 +34,8 @@ export default {
       let code = document.getElementById('inviteCode');
       code.select();
       document.execCommand('copy');
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -20,7 +20,12 @@
           </div>
 
           <!--<div class="level-item">-->
-          <img v-if="this.$store.state.user.loggedIn" :src="this.$store.state.user.profilePicture" class="nav-profile-picture level-item" @click="openSidebar()" />
+          <img
+            v-if="this.$store.state.user.loggedIn"
+            :src="this.$store.state.user.profilePicture"
+            class="nav-profile-picture level-item"
+            @click="openSidebar()"
+          />
           <b v-else class="has-text-white" @click="cardModal">
             Login/Sign Up
           </b>
@@ -53,7 +58,8 @@
           <div class="delete is-medium is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
         </h1>
         <h2 class="subtitle is-6">
-          Kowalla is the coworking space that lives in your pocket, so you're never more than a tap away from the community and support you need to build your dreams. That means:
+          Kowalla is the coworking space that lives in your pocket, so you're never more than a tap away from the community and support you need to build your
+          dreams. That means:
           <ul>
             <li>
               Reddit-like spaces
@@ -95,20 +101,20 @@ export default {
   name: 'MobileHeader',
   components: {
     SortingOptions,
-    Tabs
+    Tabs,
   },
   props: {
     openSidebar: { type: Function, default: () => {} },
     locationToDisplay: { type: String, default: '' },
     locationPictureToDisplay: { type: String, default: '' },
-    isHome: { type: Boolean, default: false }
+    isHome: { type: Boolean, default: false },
   },
   data() {
     return {
       showNavbar: true,
       lastScrollPosition: 0,
       scrollValue: 0,
-      toggleSidebar: false
+      toggleSidebar: false,
     };
   },
   computed: {
@@ -123,7 +129,7 @@ export default {
       else if (this.$route.path.includes('posts')) return 'Post';
       else if (this.$route.path === '/beta') return 'NewsFeedActiveTab';
       return 'sortOnly';
-    }
+    },
   },
   mounted() {
     this.lastScrollPosition = window.pageYOffset;
@@ -140,7 +146,7 @@ export default {
         component: SearchModal,
         props: { modalText: 'Search' },
         width: 300,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     cardModal() {
@@ -148,7 +154,7 @@ export default {
         parent: this,
         component: LoginHandler,
         width: 900,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     callNotifModal() {
@@ -157,7 +163,7 @@ export default {
         component: NotificationModal,
         props: { modalText: 'Notif' },
         width: 1000,
-        hasModalCard: true
+        hasModalCard: true,
       });
     },
     onScroll() {
@@ -176,8 +182,8 @@ export default {
         this.showNavbar = window.pageYOffset < this.lastScrollPosition;
         this.lastScrollPosition = window.pageYOffset;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

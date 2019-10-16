@@ -1,5 +1,14 @@
 <template lang="html">
-  <b-autocomplete v-model="name" :data="filteredDataArray" class="searchbar-container" placeholder="Search" icon="search" field="name" @input="fetchData" @select="optionSelected">
+  <b-autocomplete
+    v-model="name"
+    :data="filteredDataArray"
+    class="searchbar-container"
+    placeholder="Search"
+    icon="search"
+    field="name"
+    @input="fetchData"
+    @select="optionSelected"
+  >
     <!--<template slot="empty">No results found</template>-->
     <template slot-scope="props">
       <div class="search-item-container">
@@ -38,7 +47,7 @@ export default {
       searchResults: [],
       selected: '',
       name: '',
-      isFetchingData: false
+      isFetchingData: false,
     };
   },
   computed: {
@@ -52,7 +61,7 @@ export default {
             .indexOf(this.name.toLowerCase()) >= 0
         );
       });
-    }
+    },
   },
   methods: {
     optionSelected: async function(option) {
@@ -65,7 +74,7 @@ export default {
           let responseData = await this.$axios.$get(`/api/v1/profiles/${option.profileId}`);
 
           this.$router.push({
-            path: `/beta/user/${responseData.username}`
+            path: `/beta/user/${responseData.username}`,
           });
         }
 
@@ -73,7 +82,7 @@ export default {
           let responseData = await this.$axios.$get(`/api/v1/projects/${option.projectId}`);
 
           this.$router.push({
-            path: `/beta/project/${responseData.name}`
+            path: `/beta/project/${responseData.name}`,
           });
         }
 
@@ -81,7 +90,7 @@ export default {
           let responseData = await this.$axios.$get(`/api/v1/spaces/${option.spaceId}`);
 
           this.$router.push({
-            path: `/beta/space/${responseData.name}`
+            path: `/beta/space/${responseData.name}`,
           });
         }
       }
@@ -93,8 +102,8 @@ export default {
       this.searchResults = await this.$axios.$get('/api/v1/search/');
 
       this.isFetchingData = false;
-    }, 500)
-  }
+    }, 500),
+  },
 };
 </script>
 

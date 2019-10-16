@@ -58,7 +58,7 @@ export default {
   name: 'Edit',
   components: {
     IntegrationCard,
-    EditProfile
+    EditProfile,
   },
 
   data() {
@@ -69,7 +69,7 @@ export default {
       profilePictureUrl: '',
       profileDescription: '',
       infoRes: false,
-      integrationList: []
+      integrationList: [],
     };
   },
   computed: {
@@ -78,12 +78,12 @@ export default {
     },
     activeTab() {
       return process.browser ? this.$store.state.activeTabs.SettingsActiveTab : undefined;
-    }
+    },
   },
   async mounted() {
     if (this.username !== this.$store.state.user.username) {
       this.$router.push({
-        path: `/beta/user/${this.username}`
+        path: `/beta/user/${this.username}`,
       });
     }
 
@@ -97,7 +97,7 @@ export default {
     this.integrationList = await this.$axios.$get(`/api/v1/integrations`);
     document.title = `Kowalla - Edit Profile`;
   },
-  methods: {}
+  methods: {},
 };
 </script>
 
