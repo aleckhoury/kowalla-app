@@ -56,6 +56,10 @@ export default {
   watch: {
     activeStep() {
       if (this.activeStep === 1) {
+        // For non-signin flows, the default behavior is to never allow cancel
+        // However for other login flows, after skipping first screen we want to prevent cancellation
+        // LoginHandler default modal state is ['escape', 'x', 'outside']
+        // @see https://buefy.org/documentation/modal/
         return (this.$parent.canCancel = [false, false, false]);
       }
     },

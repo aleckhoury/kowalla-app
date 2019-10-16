@@ -7,14 +7,14 @@ module.exports = {
    */
 
   env: {
-    API_URL: process.env.API_URL || 'http://localhost:8080'
+    API_URL: process.env.API_URL || 'http://localhost:8080',
   },
 
   head: {
     script: [
       {
         async: true,
-        src: 'https://www.googletagmanager.com/gtag/js?id=UA-140796518-1'
+        src: 'https://www.googletagmanager.com/gtag/js?id=UA-140796518-1',
       },
       {
         innerHTML: `
@@ -23,13 +23,13 @@ module.exports = {
         gtag('js', new Date());
 
         gtag('config', 'UA-140796518-1');
-        `
+        `,
       },
       {
         src: '//instant.page/2.0.0',
         type: 'module',
-        integrity: 'sha384-D7B5eODAUd397+f4zNFAVlnDNDtO1ppV8rPnfygILQXhqu3cUndgHvlcJR2Bhig8'
-      }
+        integrity: 'sha384-D7B5eODAUd397+f4zNFAVlnDNDtO1ppV8rPnfygILQXhqu3cUndgHvlcJR2Bhig8',
+      },
     ],
     __dangerouslyDisableSanitizers: ['script'],
     title: pkg.name,
@@ -38,66 +38,66 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Nunito:Black'
+        href: 'https://fonts.googleapis.com/css?family=Nunito:Black',
       },
       { rel: 'apple-touch-icon', href: 'icon.png' },
       {
         rel: 'apple-touch-startup-image',
         href: 'iphone5_splash.png',
-        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'iphone6_splash.png',
-        media: '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)'
+        media: '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'iphoneplus_splash.png',
-        media: '(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)'
+        media: '(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'iphonex_splash.png',
-        media: '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)'
+        media: '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'iphonexr_splash.png',
-        media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)'
+        media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'iphonexsmax_splash.png',
-        media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)'
+        media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'ipad_splash.png',
-        media: '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)'
+        media: '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'ipadpro1_splash.png',
-        media: '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)'
+        media: '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'ipadpro3_splash.png',
-        media: '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)'
+        media: '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)',
       },
       {
         rel: 'apple-touch-startup-image',
         href: 'ipadpro2_splash.png',
-        media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)'
-      }
-    ]
+        media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)',
+      },
+    ],
   },
 
   /*
@@ -111,7 +111,7 @@ module.exports = {
 
   css: [
     // 'bulma/css/bulma.css',
-    '~/css/main.css'
+    '~/css/main.css',
   ],
 
   /*
@@ -122,7 +122,7 @@ module.exports = {
     { src: '~/plugins/localStorage.js', ssr: false },
     { src: '~/plugins/socket.io.js', ssr: false },
     { src: '~/plugins/asyncComputed.js', ssr: false },
-    '~/plugins/axios'
+    '~/plugins/axios',
   ],
 
   /*
@@ -135,10 +135,7 @@ module.exports = {
     '@nuxtjs/pwa',
     '@nuxtjs/proxy',
     //'@nuxtjs/onesignal',
-    [
-      'nuxt-buefy',
-      { css: true, materialDesignIcons: false, defaultIconPack: 'fas', defaultIconComponent: 'font-awesome-icon' }
-    ]
+    ['nuxt-buefy', { css: true, materialDesignIcons: false, defaultIconPack: 'fas', defaultIconComponent: 'font-awesome-icon' }],
   ],
   /*
    ** Axios module configuration
@@ -164,9 +161,9 @@ module.exports = {
       {
         src: 'static/icon.png',
         sizes: '512x512',
-        type: 'image/png'
-      }
-    ]
+        type: 'image/png',
+      },
+    ],
   },
   router: {
     // Run the middleware/user-agent.js on every page
@@ -221,14 +218,14 @@ module.exports = {
           'faCog',
           'faSignOutAlt',
           'faAt',
-          'faHashtag'
-        ]
+          'faHashtag',
+        ],
       },
       {
         set: '@fortawesome/free-brands-svg-icons',
-        icons: ['faTwitter', 'faGithub']
-      }
-    ]
+        icons: ['faTwitter', 'faGithub'],
+      },
+    ],
   },
 
   icon: {
@@ -249,6 +246,10 @@ module.exports = {
    */
   build: {
     extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map';
+      }
+
       config.resolve.alias['vue'] = 'vue/dist/vue.common';
 
       if (ctx.isDev && ctx.isClient) {
@@ -256,9 +257,9 @@ module.exports = {
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /(node_modules)/
+          exclude: /(node_modules)/,
         });
       }
-    }
-  }
+    },
+  },
 };
