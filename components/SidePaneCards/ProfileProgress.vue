@@ -39,10 +39,7 @@
           <ul class="fa-ul">
             <li v-for="item in profileProgress" :key="item.key">
               <span class="fa-li">
-                <font-awesome-icon
-                  :icon="item.step ? 'check' : 'times'"
-                  :color="item.step ? '#23d160' : '#ff3860'"
-                />
+                <font-awesome-icon :icon="item.step ? 'check' : 'times'" :color="item.step ? '#23d160' : '#ff3860'" />
               </span>
               <strong>{{ item.content }}</strong>
             </li>
@@ -50,9 +47,13 @@
         </div>
       </div>
       <div v-else>
-        <h2 :class="{ isMobile: isMobile }" class="congrats">Congrats! You're a Kowalla All-Star!</h2>
+        <h2 :class="{ isMobile: isMobile }" class="congrats">
+          Congrats! You're a Kowalla All-Star!
+        </h2>
         <CompletedProfile class="completed bounce-7" />
-        <p :class="{ isMobile: isMobile }" class="invite">Share your invite code to showcase your communities and projects to others!</p>
+        <p :class="{ isMobile: isMobile }" class="invite">
+          Share your invite code to showcase your communities and projects to others!
+        </p>
         <a class="button action" @click="openInviteModal">Get Code</a>
       </div>
     </transition>
@@ -60,14 +61,14 @@
 </template>
 
 <script>
-import CardContainer from "./CardContainer";
-import CompletedProfile from "../../svg/CompletedProfile";
-import InviteCode from "../Modals/Other/InviteCode";
+import CardContainer from './CardContainer';
+import CompletedProfile from '../../svg/CompletedProfile';
+import InviteCode from '../Modals/Other/InviteCode';
 export default {
-  name: "Progress",
+  name: 'Progress',
   components: { CompletedProfile, CardContainer },
   props: {
-    isMobile: { type: Boolean, default: false }
+    isMobile: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -94,33 +95,33 @@ export default {
         const progress = [
           {
             step: this.user.description.length > 3,
-            key: "description",
-            content: "Filled out a description",
+            key: 'description',
+            content: 'Filled out a description',
           },
           {
             step: this.user.subscriptions.length > 2,
-            key: "subscriptions",
-            content: "Subscribe to your first space or project",
+            key: 'subscriptions',
+            content: 'Subscribe to your first space or project',
           },
           {
             step: Boolean(this.user.owned.length),
-            key: "owned",
-            content: "Create your first project",
+            key: 'owned',
+            content: 'Create your first project',
           },
           {
             step: Boolean(this.user.postCount),
-            key: "posts",
-            content: "Write your first post",
+            key: 'posts',
+            content: 'Write your first post',
           },
           {
-            step: this.user.profilePicture.includes("kowalla-dev"),
-            key: "profilePicture",
-            content: "Upload your profile picture",
+            step: this.user.profilePicture.includes('kowalla-dev'),
+            key: 'profilePicture',
+            content: 'Upload your profile picture',
           },
           {
             step: Boolean(this.user.commentCount),
-            key: "comments",
-            content: "Write your first comment",
+            key: 'comments',
+            content: 'Write your first comment',
           },
         ];
         return progress.sort((a, b) => b.step - a.step);
@@ -128,11 +129,7 @@ export default {
       return [];
     },
     completionPercent() {
-      return Math.round(
-        (this.profileProgress.filter(x => x.step === true).length /
-          this.profileProgress.length) *
-          100
-      );
+      return Math.round((this.profileProgress.filter(x => x.step === true).length / this.profileProgress.length) * 100);
     },
   },
   watch: {
@@ -180,7 +177,7 @@ circle.progress {
 }
 circle.outline {
   shape-rendering: crispEdges;
-  stroke: #E9EBEE;
+  stroke: #e9ebee;
 }
 text {
   font-size: 1.5em;
@@ -208,20 +205,20 @@ text {
 }
 .bounce-7 {
   animation-name: bounce-7;
-  animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+  animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
 }
 @keyframes bounce-7 {
   0% {
     transform: scale(1, 1) translateY(0);
   }
   10% {
-    transform: scale(1.1, .9) translateY(0);
+    transform: scale(1.1, 0.9) translateY(0);
   }
   30% {
-    transform: scale(.9, 1.1) translateY(-50px);
+    transform: scale(0.9, 1.1) translateY(-50px);
   }
   50% {
-    transform: scale(1.05, .95) translateY(0);
+    transform: scale(1.05, 0.95) translateY(0);
   }
   57% {
     transform: scale(1, 1) translateY(-7px);

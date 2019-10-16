@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import CardContainer from "~/components/SidePaneCards/CardContainer";
+import CardContainer from '~/components/SidePaneCards/CardContainer';
 
 export default {
-  name: "DescriptionCard",
+  name: 'DescriptionCard',
   components: {
     CardContainer,
   },
   props: {
-    headerString: { type: String, default: "" },
-    subheaderString: { type: String, default: "" },
-    subheaderUrl: { type: String, default: "" },
+    headerString: { type: String, default: '' },
+    subheaderString: { type: String, default: '' },
+    subheaderUrl: { type: String, default: '' },
     headerOn: { type: Boolean, default: true },
     subheaderOn: { type: Boolean, default: true },
   },

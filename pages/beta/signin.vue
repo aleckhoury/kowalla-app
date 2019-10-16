@@ -1,17 +1,17 @@
 <template>
   <div class="fullPage">
     <img class="image" src="https://i.imgur.com/04hoRgV.png" />
-    <b-loading :active.sync="isLoading" :is-full-page="isFullPage"> </b-loading>
+    <b-loading :active.sync="isLoading" :is-full-page="isFullPage" />
   </div>
 </template>
 
 <script>
-import Cookies from "js-cookie";
-import LoginHandler from "~/components/Auth/LoginHandler";
+import Cookies from 'js-cookie';
+import LoginHandler from '~/components/Auth/LoginHandler';
 
 export default {
   layout: 'none',
-  name: "SignIn",
+  name: 'SignIn',
   data() {
     return {
       isLoading: true,
@@ -20,14 +20,11 @@ export default {
   },
   async mounted() {
     if (this.$route.query.code) {
-      const { isNew, token, user } = await this.$axios.$post(
-        "api/v1/github/signin",
-        {
-          code: this.$route.query.code,
-        }
-      );
+      const { isNew, token, user } = await this.$axios.$post('api/v1/github/signin', {
+        code: this.$route.query.code,
+      });
       await Cookies.set('firstVisit', true);
-      await Cookies.set("token", token);
+      await Cookies.set('token', token);
       const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 
       const { owned, subscriptions } = subs.subscriptions;
@@ -36,7 +33,7 @@ export default {
       });
       await Object.assign(user, { subscriptions, owned });
 
-      await this.$store.commit("user/setUser", user);
+      await this.$store.commit('user/setUser', user);
       if (isNew) {
         this.isLoading = false;
         await this.$modal.open({
@@ -44,7 +41,7 @@ export default {
           component: LoginHandler,
           width: 900,
           hasModalCard: true,
-          canCancel: [false, false, false]
+          canCancel: [false, false, false],
         });
       } else {
         await this.$router.push({
@@ -53,19 +50,14 @@ export default {
       }
     } else if (this.$route.query.oauth_token) {
       const { oauth_token, oauth_verifier } = this.$route.query;
-      const authToken = await Cookies.get("twitterToken");
+      const authToken = await Cookies.get('twitterToken');
       if (oauth_token === authToken) {
-        const { isNew, token, user } = await this.$axios.$post(
-          "api/v1/twitter/verify",
-          {
-            oauthToken: oauth_token,
-            verifier: oauth_verifier,
-          }
-        );
-        await Cookies.set("token", token);
-        const subs = await this.$axios.$get(
-          `/api/v1/profiles/${user._id}/subs`
-        );
+        const { isNew, token, user } = await this.$axios.$post('api/v1/twitter/verify', {
+          oauthToken: oauth_token,
+          verifier: oauth_verifier,
+        });
+        await Cookies.set('token', token);
+        const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 
         const { owned, subscriptions } = subs.subscriptions;
         await Object.assign(user, {
@@ -73,7 +65,7 @@ export default {
         });
         await Object.assign(user, { subscriptions, owned });
 
-        await this.$store.commit("user/setUser", user);
+        await this.$store.commit('user/setUser', user);
         if (isNew) {
           this.isLoading = false;
           await this.$modal.open({
@@ -81,7 +73,7 @@ export default {
             component: LoginHandler,
             width: 900,
             hasModalCard: true,
-            canCancel: [false, false, false]
+            canCancel: [false, false, false],
           });
         } else {
           await this.$router.push({

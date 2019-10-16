@@ -7,14 +7,13 @@
   </div>
 </template>
 <script>
-import Searchbar from "~/components/Header/NavHeader/Searchbar";
+import Searchbar from '~/components/Header/NavHeader/Searchbar';
 
 export default {
-  name: "" +
-          "SearchModal",
+  name: '' + 'SearchModal',
   components: { Searchbar },
   props: {
-    modalText: { type: String, default: "" },
+    modalText: { type: String, default: '' },
   },
   methods: {
     closeModal() {

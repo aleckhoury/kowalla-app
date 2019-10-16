@@ -1,10 +1,7 @@
 <template lang="html">
   <div class="screen background-tint">
     <div class="container is-fullhd is-hidden-touch">
-      <div
-        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-marginless main-margin"
-      >
+      <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <!-- nav pane -->
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
@@ -20,18 +17,9 @@
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <InfoPane>
             <SignupCard v-if="!this.$store.state.user.loggedIn" />
-            <ProfileCard
-              :name="`${firstName} ${lastName}`"
-              :profile-picture-url="profilePictureUrl"
-              :username="username"
-              :stats="profileStats"
-              type="user"
-            />
+            <ProfileCard :name="`${firstName} ${lastName}`" :profile-picture-url="profilePictureUrl" :username="username" :stats="profileStats" type="user" />
 
-            <DescriptionCard
-              :header-string="`About ${firstName}`"
-              :subheader-on="false"
-            >
+            <DescriptionCard :header-string="`About ${firstName}`" :subheader-on="false">
               {{ profileDescription }}
             </DescriptionCard>
             <!--            <CardContainer-->
@@ -72,10 +60,7 @@
     </div>
 
     <!-- Mobile -->
-    <div
-      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="columns is-marginless is-hidden-desktop mobile-main-margin"
-    >
+    <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <div>
         <ProfileCard
           :name="`${firstName} ${lastName}`"
@@ -87,53 +72,31 @@
         />
       </div>
 
-      <DescriptionCard
-        :header-string="`About ${firstName}`"
-        :subheader-on="false"
-        class="newsfeed-margin"
-      >
+      <DescriptionCard :header-string="`About ${firstName}`" :subheader-on="false" class="newsfeed-margin">
         {{ profileDescription }}
       </DescriptionCard>
-      <PostFeed
-        v-if="profileId"
-        :page-id="profileId"
-        :is-mobile="true"
-        type="profile"
-      />
+      <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" type="profile" />
     </div>
   </div>
 </template>
 
 <script>
-import MobileHeader from "~/components/Header/Mobile/MobileHeader";
-import MobileFooter from "~/components/Header/Mobile/MobileFooter";
-
-import Header from "~/components/Header/Header";
-import ProfileCard from "~/components/InfoCards/ProfileCard";
-import DescriptionCard from "~/components/InfoCards/DescriptionCard";
-import InfoPane from "~/components/InfoCards/InfoPane";
-import CardContainer from "~/components/SidePaneCards/CardContainer";
-import NavCard from "~/components/NavCards/NavCard";
-import EditButton from "~/components/InfoCards/EditButton";
-import SignupCard from "~/components/InfoCards/SignupCard";
-import PostFeed from "~/components/PostCards/PostFeed";
-import Subscriptions from "../../../../components/SidePaneCards/Subscriptions";
-import Creations from "../../../../components/SidePaneCards/Creations";
+import ProfileCard from '~/components/InfoCards/ProfileCard';
+import DescriptionCard from '~/components/InfoCards/DescriptionCard';
+import InfoPane from '~/components/InfoCards/InfoPane';
+import SignupCard from '~/components/InfoCards/SignupCard';
+import PostFeed from '~/components/PostCards/PostFeed';
+import Subscriptions from '../../../../components/SidePaneCards/Subscriptions';
+import Creations from '../../../../components/SidePaneCards/Creations';
 
 export default {
-  name: "User",
+  name: 'User',
   components: {
     Creations,
     Subscriptions,
-    NavCard,
-    CardContainer,
-    Header,
     ProfileCard,
     InfoPane,
     DescriptionCard,
-    EditButton,
-    MobileHeader,
-    MobileFooter,
     SignupCard,
     PostFeed,
   },
@@ -141,11 +104,11 @@ export default {
   data() {
     return {
       username: null,
-      profileId: "",
-      firstName: "",
-      lastName: "",
-      profilePictureUrl: "",
-      profileDescription: "",
+      profileId: '',
+      firstName: '',
+      lastName: '',
+      profilePictureUrl: '',
+      profileDescription: '',
       profileStats: [],
       profileSubs: { subscriptions: [], owned: [] },
     };
@@ -159,27 +122,23 @@ export default {
     this.username = this.$route.params.username;
   },
   async mounted() {
-    let infoRes = await this.$axios.$get(
-      `/api/v1/profiles/user/${this.username}`
-    );
+    let infoRes = await this.$axios.$get(`/api/v1/profiles/user/${this.username}`);
     //------------------
     // remove if statements, but keep assignments in production.
     // they're only for quicker validation to ignore an unhelpful nuxt error throw
     //------------------
     // get name
-    if (infoRes.hasOwnProperty("firstName")) {
+    if (infoRes.hasOwnProperty('firstName')) {
       this.firstName = infoRes.firstName;
       this.lastName = infoRes.lastName;
       this.profileDescription = infoRes.description;
       this.profilePictureUrl = infoRes.profilePicture;
       this.profileId = infoRes._id;
-      this.profileStats.push({ name: "Rep", stat: infoRes.reputation });
-      this.profileStats.push({ name: "Posts", stat: infoRes.postCount });
-      this.profileStats.push({ name: "Replies", stat: infoRes.commentCount });
+      this.profileStats.push({ name: 'Rep', stat: infoRes.reputation });
+      this.profileStats.push({ name: 'Posts', stat: infoRes.postCount });
+      this.profileStats.push({ name: 'Replies', stat: infoRes.commentCount });
 
-      let subRes = await this.$axios.$get(
-        `/api/v1/profiles/${this.profileId}/subs`
-      );
+      let subRes = await this.$axios.$get(`/api/v1/profiles/${this.profileId}/subs`);
       this.profileSubs = subRes.subscriptions;
 
       document.title = `Kowalla - ${this.firstName} ${this.lastName}`;

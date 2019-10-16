@@ -1,7 +1,7 @@
 <template>
   <div class="nav-card-link-container" @click="emitClickedEventToParent()">
     <nuxt-link :to="getRoute">
-      <img :src="pictureUrl" class="picture">
+      <img :src="pictureUrl" class="picture" />
     </nuxt-link>
 
     <div class="nav-card-link-content">
@@ -15,28 +15,26 @@
 </template>
 <script>
 export default {
-  name: "NavCardLink",
+  name: 'NavCardLink',
   props: {
-    name: { type: String, default: "" },
+    name: { type: String, default: '' },
     numSubs: { type: Number, default: 0 },
-    pictureUrl: { type: String, default: "" },
-    projectId: { type: String, default: "" },
-    spaceId: { type: String, default: "" },
+    pictureUrl: { type: String, default: '' },
+    projectId: { type: String, default: '' },
+    spaceId: { type: String, default: '' },
   },
   computed: {
     getPrefix() {
-      return this.projectId !== null ? "@" : "#";
+      return this.projectId !== null ? '@' : '#';
     },
 
     getRoute() {
-      return this.projectId !== null
-        ? `/beta/project/${this.name}`
-        : `/beta/space/${this.name}`;
+      return this.projectId !== null ? `/beta/project/${this.name}` : `/beta/space/${this.name}`;
     },
   },
   methods: {
     emitClickedEventToParent() {
-      this.$emit("nav-card-link-clicked");
+      this.$emit('nav-card-link-clicked');
     },
   },
 };

@@ -1,10 +1,7 @@
 <template lang="html">
   <div class="screen background-tint">
     <div class="container is-fullhd is-hidden-touch">
-      <div
-        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-marginless main-margin"
-      >
+      <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <!-- nav pane -->
         <div class="column is-one-quarter"></div>
         <!-- post feed -->
@@ -31,10 +28,7 @@
     </div>
 
     <!-- Mobile -->
-    <div
-      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="columns is-marginless is-hidden-desktop mobile-main-margin"
-    >
+    <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <b-tabs id="columnTabs" v-model="activeTab">
         <b-tab-item>
           <EditProjectForm
@@ -56,44 +50,26 @@
 </template>
 
 <script>
-import MobileHeader from "~/components/Header/Mobile/MobileHeader";
-import MobileFooter from "~/components/Header/Mobile/MobileFooter";
-
-import Header from "~/components/Header/Header";
-
-import Banner from "~/components/SpacesAndProjectsShared/Banner";
-import DescriptionCard from "~/components/InfoCards/DescriptionCard";
-import ProfileCard from "~/components/InfoCards/ProfileCard";
-import InfoPane from "~/components/InfoCards/InfoPane";
-import EditButton from "~/components/InfoCards/EditButton";
-import EditProjectForm from "~/components/Forms/EditProject";
+import EditProjectForm from '~/components/Forms/EditProject';
 
 export default {
-  name: "ProjectEdit",
+  name: 'ProjectEdit',
   components: {
     EditProjectForm,
-    Header,
-    MobileHeader,
-    MobileFooter,
-    Banner,
-    DescriptionCard,
-    ProfileCard,
-    InfoPane,
-    EditButton,
   },
 
   data() {
     return {
-      bannerPictureUrl: "",
-      projectProfilePictureUrl: "",
-      projectDescription: "",
+      bannerPictureUrl: '',
+      projectProfilePictureUrl: '',
+      projectDescription: '',
       admins: null,
-      projectId: "",
-      projectName: "",
-      adminFirstName: "",
-      adminLastName: "",
-      adminUsername: "",
-      adminProfilePictureUrl: "",
+      projectId: '',
+      projectName: '',
+      adminFirstName: '',
+      adminLastName: '',
+      adminUsername: '',
+      adminProfilePictureUrl: '',
       projectStats: [],
       profileStats: [],
       // newsfeed content
@@ -104,7 +80,7 @@ export default {
   computed: {
     isOwner() {
       let isOwner;
-      if (typeof this.$store.state.user.owned !== "undefined") {
+      if (typeof this.$store.state.user.owned !== 'undefined') {
         for (let i = 0; i < this.$store.state.user.owned.length; i++) {
           if (this.$store.state.user.owned[i].name === this.name) {
             isOwner = true;
@@ -117,13 +93,11 @@ export default {
       return this.$route.params.projectname;
     },
     activeTab() {
-      if (process.browser) {
-        return this.$store.state.activeTabs.ProjectSettingsActiveTab;
-      }
+      return process.browser ? this.$store.state.activeTabs.ProjectSettingsActiveTab : undefined;
     },
   },
   async mounted() {
-    if (typeof this.$store.state.user.owned !== "undefined") {
+    if (typeof this.$store.state.user.owned !== 'undefined') {
       let isOwner;
       for (let i = 0; i < this.$store.state.user.owned.length; i++) {
         if (this.$store.state.user.owned[i].name === this.name) {
@@ -134,9 +108,7 @@ export default {
       if (!isOwner) this.$router.push({ path: `/beta/user/${this.name}` });
     }
     // get project details
-    this.infoRes = await this.$axios.$get(
-      `/api/v1/projects/project/${this.name}`
-    );
+    this.infoRes = await this.$axios.$get(`/api/v1/projects/project/${this.name}`);
     this.projectName = this.infoRes.projectName;
     this.bannerPictureUrl = this.infoRes.headerPicture;
     this.projectProfilePictureUrl = this.infoRes.profilePicture;

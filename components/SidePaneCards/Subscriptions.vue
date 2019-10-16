@@ -21,11 +21,11 @@
 </template>
 
 <script>
-  import CardContainer from "./CardContainer";
-  import EmptySubs from "../../svg/EmptySubs";
+import CardContainer from './CardContainer';
+import EmptySubs from '../../svg/EmptySubs';
 
-  export default {
-  name: "Subscriptions",
+export default {
+  name: 'Subscriptions',
   components: { EmptySubs, CardContainer },
   asyncComputed: {
     subscriptions: {
@@ -41,16 +41,14 @@
   computed: {
     headerString() {
       return this.$store.state.user.loggedIn ? 'Subscriptions' : 'Discover';
-    }
+    },
   },
   methods: {
     getRoute(isProject, name) {
-      return isProject
-        ? `/beta/project/${name}`
-        : `/beta/space/${name}`;
+      return isProject ? `/beta/project/${name}` : `/beta/space/${name}`;
     },
     getPrefix(isProject) {
-      return isProject ? "@" : "#";
+      return isProject ? '@' : '#';
     },
   },
 };
@@ -76,7 +74,6 @@ img {
   margin-left: 8px;
 }
 .name {
-
   height: 50%;
   color: black;
   text-decoration: none;
@@ -89,7 +86,6 @@ img {
 }
 
 .info {
-
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;

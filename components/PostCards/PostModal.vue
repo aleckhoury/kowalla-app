@@ -14,41 +14,31 @@
           @delete-post="echoDeletePost"
         />
         <PostTimer v-if="post.isActive" :time="post.expiration" />
-        <div class="content is-marginless" v-html="post.content" />
-        <br >
+        <!-- eslint-disable-next-line -->
+        <div class="content is-marginless" v-html="post.content"></div>
+        <br />
         <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
       </div>
-      <AddComment
-        v-if="!activeCommentId && this.$store.state.user.loggedIn"
-        :post-id="post._id"
-        :update-comment="updateComment"
-      />
-      <Comment
-        v-for="comment in commentList"
-        :active-comment="activeCommentId"
-        :key="comment._id"
-        :comment="comment"
-        :nest-level="0"
-        :toggle="toggleComment"
-      />
+      <AddComment v-if="!activeCommentId && this.$store.state.user.loggedIn" :post-id="post._id" :update-comment="updateComment" />
+      <Comment v-for="comment in commentList" :key="comment._id" :active-comment="activeCommentId" :comment="comment" :nest-level="0" :toggle="toggleComment" />
     </div>
   </div>
 </template>
 
 <script>
-import Comment from "~/components/PostCards/Comment.vue";
-import AddComment from "~/components/PostCards/AddComment";
-import Reactions from "~/components/PostCards/Reactions";
-import PostHeader from "~/components/PostCards/PostHeader";
-import PostTimer from "~/components/PostCards/PostTimer";
-import Utils from "~/utils/helpers";
+import Comment from '~/components/PostCards/Comment.vue';
+import AddComment from '~/components/PostCards/AddComment';
+import Reactions from '~/components/PostCards/Reactions';
+import PostHeader from '~/components/PostCards/PostHeader';
+import PostTimer from '~/components/PostCards/PostTimer';
+import Utils from '~/utils/helpers';
 
 export default {
-  name: "PostModal",
+  name: 'PostModal',
   components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
   props: {
     isFromNewsfeed: { type: Boolean, default: false },
-    fallbackUrl: { type: String, default: "" },
+    fallbackUrl: { type: String, default: '' },
     isProject: { type: Boolean, default: false },
     infoObj: {
       type: Object,
@@ -66,8 +56,8 @@ export default {
   data() {
     return {
       commentList: [],
-      activeCommentId: "",
-      originalPath: "",
+      activeCommentId: '',
+      originalPath: '',
       profile: {},
       project: {},
       space: {},
@@ -82,31 +72,19 @@ export default {
 
     this.originalPath = this.$route.path;
     if (Object.keys(this.space).length) {
-      window.history.pushState(
-        {},
-        null,
-        `/beta/space/${this.space.name}/posts/${this.post._id}`
-      );
+      window.history.pushState({}, null, `/beta/space/${this.space.name}/posts/${this.post._id}`);
     } else {
-      window.history.pushState(
-        {},
-        null,
-        `/beta/project/${this.project.name}/posts/${this.post._id}`
-      );
+      window.history.pushState({}, null, `/beta/project/${this.project.name}/posts/${this.post._id}`);
     }
   },
   beforeDestroy() {
     window.history.pushState({}, null, `${this.$route.path}`);
   },
   async mounted() {
-    this.commentList = await this.$axios.$get(
-      `/api/v1/comments/${this.post._id}`
-    );
+    this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
     if (this.$store.state.user.loggedIn) {
       this.commentList.map(async (comment, idx) => {
-        this.commentList[idx].upvote = await this.$axios.$get(
-                `/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`
-        );
+        this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`);
       });
     }
   },
@@ -118,7 +96,7 @@ export default {
       this.activeCommentId = activeCommentId;
     },
     echoDeletePost(postId) {
-      this.$emit("delete-post", postId);
+      this.$emit('delete-post', postId);
     },
   },
 };

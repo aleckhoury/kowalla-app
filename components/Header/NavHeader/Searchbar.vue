@@ -13,12 +13,12 @@
     <template slot-scope="props">
       <div class="search-item-container">
         <div class="media-left">
-          <img :src="props.option.picture" width="40" >
+          <img :src="props.option.picture" width="40" />
         </div>
         <div>
           <span class="search-item-text">{{ props.option.name }}</span>
 
-          <br >
+          <br />
           <small v-if="props.option.hasOwnProperty('profileId')">
             Profile
           </small>
@@ -37,16 +37,16 @@
 </template>
 
 <script>
-import { debounce } from "debounce";
+import { debounce } from 'debounce';
 
 export default {
-  name: "Searchbar",
+  name: 'Searchbar',
   data() {
     return {
       data: [],
       searchResults: [],
-      selected: "",
-      name: "",
+      selected: '',
+      name: '',
       isFetchingData: false,
     };
   },
@@ -66,34 +66,28 @@ export default {
   methods: {
     optionSelected: async function(option) {
       // emit event for search modal to close
-      this.$emit("option-selected");
+      this.$emit('option-selected');
 
       if (option !== null) {
         // for some reason this sometimes gets pushed through as "null"
-        if (option.hasOwnProperty("profileId")) {
-          let responseData = await this.$axios.$get(
-            `/api/v1/profiles/${option.profileId}`
-          );
+        if (option.hasOwnProperty('profileId')) {
+          let responseData = await this.$axios.$get(`/api/v1/profiles/${option.profileId}`);
 
           this.$router.push({
             path: `/beta/user/${responseData.username}`,
           });
         }
 
-        if (option.hasOwnProperty("projectId")) {
-          let responseData = await this.$axios.$get(
-            `/api/v1/projects/${option.projectId}`
-          );
+        if (option.hasOwnProperty('projectId')) {
+          let responseData = await this.$axios.$get(`/api/v1/projects/${option.projectId}`);
 
           this.$router.push({
             path: `/beta/project/${responseData.name}`,
           });
         }
 
-        if (option.hasOwnProperty("spaceId")) {
-          let responseData = await this.$axios.$get(
-            `/api/v1/spaces/${option.spaceId}`
-          );
+        if (option.hasOwnProperty('spaceId')) {
+          let responseData = await this.$axios.$get(`/api/v1/spaces/${option.spaceId}`);
 
           this.$router.push({
             path: `/beta/space/${responseData.name}`,
@@ -105,7 +99,7 @@ export default {
     fetchData: debounce(async function() {
       this.isFetchingData = true; // for loading animation eventually
 
-      this.searchResults = await this.$axios.$get("/api/v1/search/");
+      this.searchResults = await this.$axios.$get('/api/v1/search/');
 
       this.isFetchingData = false;
     }, 500),

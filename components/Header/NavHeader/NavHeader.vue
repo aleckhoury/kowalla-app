@@ -5,36 +5,39 @@
         <div class="level-left">
           <div class="level-item">
             <nuxt-link class="kowalla-logo" to="/beta">
-              <img
-                src="https://i.imgur.com/04hoRgV.png"
-                class="kowalla-logo-picture"
-              />
+              <img src="https://i.imgur.com/04hoRgV.png" class="kowalla-logo-picture" />
               kowalla
             </nuxt-link>
           </div>
 
           <div class="level-item">
-            <nuxt-link class="page-link" to="/"><b>About</b></nuxt-link>
+            <nuxt-link class="page-link" to="/">
+              <b>About</b>
+            </nuxt-link>
           </div>
 
           <div class="level-item" @click="callHelpModal">
-            <div class="page-link"><b>Help</b></div>
+            <div class="page-link">
+              <b>Help</b>
+            </div>
           </div>
 
           <div v-if="activePost" class="level-item">
-            <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`" class="page-link has-text-white"><b>Focus</b></nuxt-link>
+            <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`" class="page-link has-text-white">
+              <b>Focus</b>
+            </nuxt-link>
           </div>
         </div>
 
         <div class="level-right">
           <div v-if="this.$store.state.user.loggedIn" class="level-item">
-            <Button @kow-button-click="newPostModal"><b>New</b></Button>
+            <Button @kow-button-click="newPostModal">
+              <b>New</b>
+            </Button>
 
             <Searchbar />
 
-            <NavNotifications
-              :has-notifications="this.$store.state.user.hasNotifications"
-            />
+            <NavNotifications :has-notifications="this.$store.state.user.hasNotifications" />
 
             <NavProfilePicture />
           </div>
@@ -49,24 +52,22 @@
 </template>
 
 <script>
-import Button from "./Button";
-import Searchbar from "./Searchbar";
-import NavProfilePicture from "./NavProfilePicture";
-import NavNotifications from "./NavNotifications";
-import HelpModal from "~/components/Modals/Other/HelpModal";
-import LoginHandler from "~/components/Auth/LoginHandler";
-import CreatePost from "~/components/Modals/Creation/CreatePost";
-import { mapGetters } from "vuex";
+import Button from './Button';
+import Searchbar from './Searchbar';
+import NavProfilePicture from './NavProfilePicture';
+import NavNotifications from './NavNotifications';
+import HelpModal from '~/components/Modals/Other/HelpModal';
+import LoginHandler from '~/components/Auth/LoginHandler';
+import CreatePost from '~/components/Modals/Creation/CreatePost';
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "NavHeader",
+  name: 'NavHeader',
   components: {
     Button,
     Searchbar,
-    CreatePost,
     NavProfilePicture,
     NavNotifications,
-    HelpModal,
   },
   data() {
     return {
@@ -75,7 +76,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("coworkers", ["activePost"]),
+    ...mapGetters('coworkers', ['activePost']),
   },
   methods: {
     newPostModal() {
@@ -83,8 +84,8 @@ export default {
         parent: this,
         component: CreatePost,
         events: {
-          "post-created": postObj => {
-            this.$emit("post-created", postObj);
+          'post-created': postObj => {
+            this.$emit('post-created', postObj);
           },
         },
         hasModalCard: true,

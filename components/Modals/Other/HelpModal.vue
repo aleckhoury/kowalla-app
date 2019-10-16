@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: "HelpModal",
+  name: 'HelpModal',
 };
 </script>
 <style lang="css" scoped>

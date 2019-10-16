@@ -47,7 +47,10 @@
     <b-dropdown-item aria-role="menu-item" custom class="videoLink">
       <h3>Paste your video link here:</h3>
       <b-field label="">
-        <b-input v-model="videoLink"></b-input><b-button @click="sendLink">Enter</b-button>
+        <b-input v-model="videoLink"></b-input
+        ><b-button @click="sendLink">
+          Enter
+        </b-button>
       </b-field>
     </b-dropdown-item>
   </b-dropdown>
@@ -55,7 +58,7 @@
 
 <script>
 export default {
-  name: "EmbedButton",
+  name: 'EmbedButton',
   props: {
     command: { type: Function, default: () => {} },
   },
@@ -64,8 +67,7 @@ export default {
       videoLink: '',
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     sendLink() {
       let src = '';
@@ -73,7 +75,7 @@ export default {
       if (this.videoLink.includes('youtube' || 'youtu.be')) {
         let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
         let match = this.videoLink.match(regExp);
-        id = (match&&match[7].length==11) ? match[7] : false;
+        id = match && match[7].length == 11 ? match[7] : false;
         src = `https://www.youtube.com/embed/${id}`;
       } else if (this.videoLink.includes('twitch.tv/')) {
         const split = this.videoLink.split('h.tv/');
@@ -82,38 +84,37 @@ export default {
       } else {
         return this.$toast.open({
           duration: 3000,
-          message: "Invalid Link",
-          position: "is-top",
-          type: "is-danger",
+          message: 'Invalid Link',
+          position: 'is-top',
+          type: 'is-danger',
         });
       }
-        const data = {
-          command: this.command,
-          data: {
-            src,
-          }
-        };
-        this.$emit("enterUrl", data);
-    }
-  }
-
+      const data = {
+        command: this.command,
+        data: {
+          src,
+        },
+      };
+      this.$emit('enterUrl', data);
+    },
+  },
 };
 </script>
 
 <style scoped>
-    button.streamButton {
-        margin-left: 10px;
-    }
-    .streamIcon {
-        height: auto;
-        width: 20px;
-        vertical-align: bottom;
-        margin-right: 3px;
-    }
-    .streamIcon.youtube {
-        vertical-align: middle;
-    }
-    .videoLink {
-        width: 20rem;
-    }
+button.streamButton {
+  margin-left: 10px;
+}
+.streamIcon {
+  height: auto;
+  width: 20px;
+  vertical-align: bottom;
+  margin-right: 3px;
+}
+.streamIcon.youtube {
+  vertical-align: middle;
+}
+.videoLink {
+  width: 20rem;
+}
 </style>

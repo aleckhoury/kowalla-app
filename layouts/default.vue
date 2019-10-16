@@ -1,22 +1,17 @@
 <template>
   <div v-if="state">
-    <Header
-      class="is-hidden-touch"
-    />
-    <MobileHeader
-      :open-sidebar="openSidebar"
-      class="is-hidden-desktop"
-    />
+    <Header class="is-hidden-touch" />
+    <MobileHeader :open-sidebar="openSidebar" class="is-hidden-desktop" />
     <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" class="is-hidden-desktop" />
     <nuxt />
     <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 <script>
-import Header from "../components/Header/Header";
-import MobileHeader from "../components/Header/Mobile/MobileHeader";
-import MobileFooter from "../components/Header/Mobile/MobileFooter";
-import SideMenu from "../components/Header/Mobile/SideMenu";
+import Header from '../components/Header/Header';
+import MobileHeader from '../components/Header/Mobile/MobileHeader';
+import MobileFooter from '../components/Header/Mobile/MobileFooter';
+import SideMenu from '../components/Header/Mobile/SideMenu';
 import Utils from '~/utils/helpers';
 
 export default {
@@ -29,25 +24,25 @@ export default {
   computed: {
     state() {
       return this.$store.state;
-    }
+    },
   },
   mounted() {
-    this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);
+    this.$socket.emit('checkUsers', this.$store.state.coworkers.list.length);
   },
   sockets: {
     updateUsers(data) {
-      this.$store.commit("coworkers/SOCKET_JOIN", data);
+      this.$store.commit('coworkers/SOCKET_JOIN', data);
     },
     checkForUser(data) {
       if (data === this.$store.state.user.username) {
-        this.$socket.emit("join", {
+        this.$socket.emit('join', {
           username: this.$store.state.user.username,
           profilePicture: this.$store.state.user.profilePicture,
         });
       } else {
-        this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);
+        this.$socket.emit('checkUsers', this.$store.state.coworkers.list.length);
       }
-    }
+    },
   },
   methods: {
     openSidebar() {

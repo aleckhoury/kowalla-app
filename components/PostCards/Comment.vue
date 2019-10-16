@@ -3,11 +3,7 @@
     <article class="media">
       <div class="media-left is-marginless">
         <a @click="toggleUpvote()">
-          <font-awesome-icon
-            :class="{ 'user-upvoted': !!userUpvoted }"
-            icon="arrow-up"
-            class="upvote icon"
-          />
+          <font-awesome-icon :class="{ 'user-upvoted': !!userUpvoted }" icon="arrow-up" class="upvote icon" />
         </a>
         <strong>{{ upvoteCount }}</strong>
       </div>
@@ -33,8 +29,8 @@
         <div v-if="nestLevel < 2">
           <Comment
             v-for="nestComment in replyList"
-            :active-comment="activeComment"
             :key="nestComment._id"
+            :active-comment="activeComment"
             :comment="nestComment"
             :comment-upvote="nestComment.upvote"
             :nest-level="nextNestLevel"
@@ -47,12 +43,12 @@
 </template>
 
 <script>
-import AddComment from "./AddComment";
-const { format } = require("timeago.js");
-import LoginHandler from "../Auth/LoginHandler";
+import AddComment from './AddComment';
+const { format } = require('timeago.js');
+import LoginHandler from '../Auth/LoginHandler';
 
 export default {
-  name: "Comment",
+  name: 'Comment',
   components: { AddComment },
   props: {
     comment: { type: Object, default: () => {} },
@@ -61,13 +57,13 @@ export default {
       type: Function,
       default: () => {},
     },
-    activeComment: { type: String, default: "" },
+    activeComment: { type: String, default: '' },
   },
   data() {
     return {
       profile: {},
       replyList: [],
-      activeNestedCommentId: "",
+      activeNestedCommentId: '',
       upvote: {},
       upvoteCount: 0,
     };
@@ -77,7 +73,7 @@ export default {
       return !!this.upvote.userUpvoted;
     },
     createdAtFormatted() {
-      return format(this.comment.createdAt, "en_US");
+      return format(this.comment.createdAt, 'en_US');
     },
     nextNestLevel() {
       return Number(this.nestLevel + 1);
@@ -85,28 +81,18 @@ export default {
   },
   async mounted() {
     try {
-      this.profile = await this.$axios.$get(
-        `/api/v1/profiles/${this.comment.profileId}`
-      );
-      this.replyList = await this.$axios.$get(
-        `/api/v1/comments/${this.comment.postId}/${this.comment._id}`
-      );
-      const upvoteCountObj = await this.$axios.$get(
-        `/api/v1/upvotes/count/${this.comment._id}`
-      );
+      this.profile = await this.$axios.$get(`/api/v1/profiles/${this.comment.profileId}`);
+      this.replyList = await this.$axios.$get(`/api/v1/comments/${this.comment.postId}/${this.comment._id}`);
+      const upvoteCountObj = await this.$axios.$get(`/api/v1/upvotes/count/${this.comment._id}`);
       this.upvoteCount = upvoteCountObj.count;
       // this.replyList.map(async (nestComment, idx) => {
       //   this.replyList[idx].upvote =
       // });
       if (this.$store.state.user.loggedIn) {
-        this.upvote = await this.$axios.$get(
-          `/api/v1/comments/${this.comment._id}/${
-            this.$store.state.user._id
-          }/upvote`
-        );
+        this.upvote = await this.$axios.$get(`/api/v1/comments/${this.comment._id}/${this.$store.state.user._id}/upvote`);
       }
     } catch {
-      console.log("error grabbing some values");
+      console.log('error grabbing some values');
     }
   },
   methods: {
@@ -123,7 +109,7 @@ export default {
         });
       }
       if (this.activeComment === this.comment._id) {
-        this.toggle("");
+        this.toggle('');
       } else {
         this.toggle(this.comment._id);
       }

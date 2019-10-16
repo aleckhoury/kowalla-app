@@ -1,7 +1,9 @@
 <template>
   <div class="box">
     <section>
-      <div class="title">{{ title }}</div>
+      <div class="title">
+        {{ title }}
+      </div>
 
       <b-field label="First name">
         <b-input v-model="editForm.firstName" maxlength="20" />
@@ -13,36 +15,25 @@
 
       <b-field
         :type="{ 'is-danger': formError.username || formError.usernameLength }"
-        :message="[{ 'No special characters or spaces allowed': formError.username },
-                   { 'Username is too long': formError.usernameLength }]"
-        label="Username">
-        <b-input
-          v-model="editForm.username"
-          maxlength="20" />
+        :message="[{ 'No special characters or spaces allowed': formError.username }, { 'Username is too long': formError.usernameLength }]"
+        label="Username"
+      >
+        <b-input v-model="editForm.username" maxlength="20" />
       </b-field>
       <b-field label="Profile Picture" />
 
       <div class="profilePicSection">
         <p class="profilePic">
-          <img :src="editForm.profilePicture" >
+          <img :src="editForm.profilePicture" />
         </p>
         <a class="button action">
-          <input
-            ref="file"
-            class="file-input"
-            type="file"
-            @change="selectFile()"
-          >
+          <input ref="file" class="file-input" type="file" @change="selectFile()" />
           <span class="profilePicAction">{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
           <font-awesome-icon icon="camera" />
         </a>
       </div>
       <b-field label="Description">
-        <b-input
-          v-model="editForm.description"
-          maxlength="500"
-          type="textarea"
-        />
+        <b-input v-model="editForm.description" maxlength="500" type="textarea" />
       </b-field>
 
       <a class="button action" @click="editProfile(editForm)">
@@ -53,20 +44,20 @@
 </template>
 <script>
 export default {
-  name: "EditProfile",
+  name: 'EditProfile',
   props: {
-    firstName: { type: String, default: "" },
-    lastName: { type: String, default: "" },
-    username: { type: String, default: "" },
-    profilePicture: { type: String, default: "" },
-    description: { type: String, default: "" },
-    profileId: { type: String, default: "" },
-    title: { type: String, default: "Edit Profile" },
+    firstName: { type: String, default: '' },
+    lastName: { type: String, default: '' },
+    username: { type: String, default: '' },
+    profilePicture: { type: String, default: '' },
+    description: { type: String, default: '' },
+    profileId: { type: String, default: '' },
+    title: { type: String, default: 'Edit Profile' },
     isOnboarding: { type: Boolean, default: false },
   },
   data() {
     return {
-      file: "",
+      file: '',
       editForm: {
         firstName: this.firstName,
         lastName: this.lastName,
@@ -97,22 +88,18 @@ export default {
     },
     async uploadImage() {
       const formData = new FormData();
-      formData.append("file", this.file);
-      formData.append("picType", "user");
+      formData.append('file', this.file);
+      formData.append('picType', 'user');
       try {
-        const image = await this.$axios.$post(
-          "/api/v1/profilePicUpload",
-          formData
-        );
+        const image = await this.$axios.$post('/api/v1/profilePicUpload', formData);
         this.editForm.profilePicture = image.file;
       } catch (err) {
         console.log(err);
         this.$toast.open({
           duration: 5000,
-          message:
-            "There was an error uploading your profile picture. Please try again.",
-          position: "is-top",
-          type: "is-danger",
+          message: 'There was an error uploading your profile picture. Please try again.',
+          position: 'is-top',
+          type: 'is-danger',
         });
       }
     },
@@ -122,23 +109,22 @@ export default {
       }
       if (this.profilePicture !== editForm.profilePicture) {
         await this.uploadImage();
-        if (this.profilePicture.includes("https://kowalla-dev")) {
-          const fileName = this.profilePicture.split("profile-pics/")[1];
-          this.$axios.$post("/api/v1/imageDelete", {
+        if (this.profilePicture.includes('https://kowalla-dev')) {
+          const fileName = this.profilePicture.split('profile-pics/')[1];
+          this.$axios.$post('/api/v1/imageDelete', {
             bucket: `kowalla-dev/user/profile-pics`,
             fileName,
           });
         }
       }
       try {
-        let profileData = await this.$axios.$put(`api/v1/profiles/${this.profileId}`,
-                {
-                  firstName: editForm.firstName, // will need to update local state
-                  lastName: editForm.lastName,
-                  username: editForm.username,
-                  description: editForm.description,
-                  profilePicture: editForm.profilePicture,
-                });
+        let profileData = await this.$axios.$put(`api/v1/profiles/${this.profileId}`, {
+          firstName: editForm.firstName, // will need to update local state
+          lastName: editForm.lastName,
+          username: editForm.username,
+          description: editForm.description,
+          profilePicture: editForm.profilePicture,
+        });
         let editObj = {
           firstName: profileData.firstName,
           lastName: profileData.lastName,
@@ -146,7 +132,7 @@ export default {
           description: profileData.description,
           username: profileData.username,
         };
-        this.$store.commit("user/editProfile", editObj);
+        this.$store.commit('user/editProfile', editObj);
         if (this.isOnboarding) {
           this.$store.commit('onboarding/incrementActiveStep');
         } else {
@@ -157,8 +143,8 @@ export default {
         this.$toast.open({
           duration: 4000,
           message: err.response.data.errors.username.message,
-          position: "is-top",
-          type: "is-danger",
+          position: 'is-top',
+          type: 'is-danger',
         });
       }
     },

@@ -1,10 +1,7 @@
 <template lang="html">
   <div class="screen background-tint">
     <div class="container is-fullhd is-hidden-touch">
-      <div
-        :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-        class="columns is-marginless main-margin"
-      >
+      <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <!-- nav pane -->
         <div class="column is-one-quarter"></div>
 
@@ -32,10 +29,7 @@
     </div>
 
     <!-- Mobile -->
-    <div
-      :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }"
-      class="columns is-marginless is-hidden-desktop mobile-main-margin"
-    >
+    <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <b-tabs id="columnTabs" v-model="activeTab">
         <b-tab-item>
           <EditProfile
@@ -57,41 +51,23 @@
 </template>
 
 <script>
-import MobileHeader from "~/components/Header/Mobile/MobileHeader";
-import MobileFooter from "~/components/Header/Mobile/MobileFooter";
-
-
-import Header from "~/components/Header/Header";
-import ProfileCard from "~/components/InfoCards/ProfileCard";
-import DescriptionCard from "~/components/InfoCards/DescriptionCard";
-import InfoPane from "~/components/InfoCards/InfoPane";
-import CardContainer from "~/components/SidePaneCards/CardContainer";
-import NavCard from "~/components/NavCards/NavCard";
-import EditProfile from "~/components/Forms/EditProfile";
-import IntegrationCard from "../../../../components/Forms/IntegrationCard";
+import EditProfile from '~/components/Forms/EditProfile';
+import IntegrationCard from '../../../../components/Forms/IntegrationCard';
 export default {
-  middleware: "tabs",
-  name: "Edit",
+  middleware: 'tabs',
+  name: 'Edit',
   components: {
     IntegrationCard,
-    NavCard,
-    CardContainer,
     EditProfile,
-    Header,
-    ProfileCard,
-    InfoPane,
-    DescriptionCard,
-    MobileHeader,
-    MobileFooter,
   },
 
   data() {
     return {
-      profileId: "",
-      firstName: "",
-      lastName: "",
-      profilePictureUrl: "",
-      profileDescription: "",
+      profileId: '',
+      firstName: '',
+      lastName: '',
+      profilePictureUrl: '',
+      profileDescription: '',
       infoRes: false,
       integrationList: [],
     };
@@ -101,9 +77,7 @@ export default {
       return this.$route.params.username;
     },
     activeTab() {
-      if (process.browser) {
-        return this.$store.state.activeTabs.SettingsActiveTab;
-      }
+      return process.browser ? this.$store.state.activeTabs.SettingsActiveTab : undefined;
     },
   },
   async mounted() {
@@ -113,9 +87,7 @@ export default {
       });
     }
 
-    this.infoRes = await this.$axios.$get(
-      `/api/v1/profiles/user/${this.username}`
-    );
+    this.infoRes = await this.$axios.$get(`/api/v1/profiles/user/${this.username}`);
     this.firstName = this.infoRes.firstName;
     this.lastName = this.infoRes.lastName;
     this.profileDescription = this.infoRes.description;

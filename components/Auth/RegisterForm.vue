@@ -1,43 +1,23 @@
 <template>
-  <div :class="{ register: true, isMobile}">
+  <div :class="{ register: true, isMobile }">
     <span class="title">Create Account</span>
     <div class="row">
       <a class="image is-48x48 twitter" @click="getTwitterCreds">
-        <img
-          src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-        />
+        <img src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png" />
       </a>
-      <a
-        class="image is-48x48 github"
-        href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-      >
-        <img
-          src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-        />
+      <a class="image is-48x48 github" href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
       </a>
     </div>
     <b-field label="Email">
-      <b-input
-        v-model="registerForm.email"
-        :has-counter="false"
-        type="email"
-        maxlength="320"
-        @keyup.native.enter="register(registerForm)"
-      />
+      <b-input v-model="registerForm.email" :has-counter="false" type="email" maxlength="320" @keyup.native.enter="register(registerForm)" />
     </b-field>
     <b-field
       :type="{ 'is-danger': formError.username || formError.usernameLength }"
-      :message="[
-        { 'No special characters or spaces allowed': formError.username },
-        { 'Username is too long': formError.usernameLength },
-      ]"
+      :message="[{ 'No special characters or spaces allowed': formError.username }, { 'Username is too long': formError.usernameLength }]"
       label="Username"
     >
-      <b-input
-        v-model="registerForm.username"
-        maxlength="20"
-        @keyup.native.enter="register(registerForm)"
-      />
+      <b-input v-model="registerForm.username" maxlength="20" @keyup.native.enter="register(registerForm)" />
     </b-field>
     <b-field label="Password">
       <b-input
@@ -56,10 +36,10 @@
 </template>
 
 <script>
-import login from "~/mixins/login";
+import login from '~/mixins/login';
 
 export default {
-  name: "RegisterForm",
+  name: 'RegisterForm',
   mixins: [login],
   props: {
     isMobile: { type: Boolean, default: false },

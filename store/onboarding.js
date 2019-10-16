@@ -7,6 +7,6 @@ export const mutations = {
     state.ActiveStep += 1;
   },
   resetActiveStep(state) {
-    state.ActiveStep  = 0;
+    state.ActiveStep = 0;
   },
 };

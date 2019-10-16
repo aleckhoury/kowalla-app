@@ -5,7 +5,9 @@
         <div class="level-left">
           <div class="level-item">
             <nuxt-link to="/beta">
-              <p class="kowalla-logo">kowalla</p>
+              <p class="kowalla-logo">
+                kowalla
+              </p>
             </nuxt-link>
             <nuxt-link v-if="!this.$store.state.user.loggedIn" to="/beta">
               <b class="page-link">Go to Feed</b>
@@ -27,19 +29,14 @@
 </template>
 
 <script>
-import Button from "./Button";
-import Searchbar from "./Searchbar";
-import NavProfilePicture from "./NavProfilePicture";
-import NavNotifications from "./NavNotifications";
-import HelpModal from "~/components/Modals/Other/HelpModal";
-import LoginHandler from "~/components/Auth/LoginHandler";
-import CreatePost from "~/components/Modals/Creation/CreatePost";
-import { mapGetters } from "vuex";
+import NavProfilePicture from './NavProfilePicture';
+import HelpModal from '~/components/Modals/Other/HelpModal';
+import LoginHandler from '~/components/Auth/LoginHandler';
+import CreatePost from '~/components/Modals/Creation/CreatePost';
 
 export default {
-  name: "LandingNavHeader",
+  name: 'LandingNavHeader',
   components: {
-    CreatePost,
     NavProfilePicture,
   },
   data() {
@@ -50,7 +47,7 @@ export default {
   computed: {
     isMobile() {
       return window.innerWidth < 768;
-    }
+    },
   },
   methods: {
     newPostModal() {
@@ -58,8 +55,8 @@ export default {
         parent: this,
         component: CreatePost,
         events: {
-          "post-created": postObj => {
-            this.$emit("post-created", postObj);
+          'post-created': postObj => {
+            this.$emit('post-created', postObj);
           },
         },
         hasModalCard: true,

@@ -3,7 +3,8 @@
     :subheader-is-button="owned !== undefined && owned.length ? true : false"
     :subheader-string="owned !== undefined && owned.length ? 'Create a new Project or Space' : ''"
     header-string="Creations"
-    @subheader-clicked="callCreateSpaceModal">
+    @subheader-clicked="callCreateSpaceModal"
+  >
     <div v-for="item in owned" :key="item._id" class="creation">
       <nuxt-link :to="getRoute(item.isProject, item.name)">
         <img :src="item.pictureUrl" />
@@ -25,13 +26,13 @@
 </template>
 
 <script>
-import CardContainer from "./CardContainer";
-import EmptyCreations from "../../svg/EmptyCreations";
-import CreateSpaceModal from "../Modals/Creation/CreateSpaceModal";
-import LoginHandler from "../Auth/LoginHandler";
+import CardContainer from './CardContainer';
+import EmptyCreations from '../../svg/EmptyCreations';
+import CreateSpaceModal from '../Modals/Creation/CreateSpaceModal';
+import LoginHandler from '../Auth/LoginHandler';
 
 export default {
-  name: "Creations",
+  name: 'Creations',
   components: { EmptyCreations, CardContainer },
   computed: {
     owned() {
@@ -43,7 +44,7 @@ export default {
       return isProject ? `/beta/project/${name}` : `/beta/space/${name}`;
     },
     getPrefix(isProject) {
-      return isProject ? "@" : "#";
+      return isProject ? '@' : '#';
     },
     callCreateSpaceModal() {
       if (!this.$store.state.user.loggedIn) {
@@ -85,7 +86,6 @@ img {
   margin-left: 8px;
 }
 .name {
-
   height: 50%;
   color: black;
   text-decoration: none;
@@ -98,7 +98,6 @@ img {
 }
 
 .info {
-
   font-size: 0.75em;
   margin-top: 2px;
   height: 50%;
@@ -114,6 +113,6 @@ img {
 
 .noCreations:hover {
   text-decoration: underline;
-  color: #39C9A0;
+  color: #39c9a0;
 }
 </style>

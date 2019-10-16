@@ -9,7 +9,7 @@ export const mutations = {
 };
 
 export const getters = {
-  activePost( state, getters, rootState) {
+  activePost(state, getters, rootState) {
     return state.list.some(x => x.username === rootState.user.username);
   },
 };

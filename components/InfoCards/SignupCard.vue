@@ -5,23 +5,11 @@
     </h1>
     <div class="lower">
       <div class="row">
-        <a
-          id="twitter"
-          class="image is-48x48"
-          @click="getTwitterCreds"
-        >
-          <img
-            src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png"
-          />
+        <a id="twitter" class="image is-48x48" @click="getTwitterCreds">
+          <img src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png" />
         </a>
-        <a
-          id="github"
-          class="image is-48x48"
-          href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00"
-        >
-          <img
-            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          />
+        <a id="github" class="image is-48x48" href="https://github.com/login/oauth/authorize?client_id=95399e4009a5d2353d00">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
         </a>
       </div>
       <a class="button action" @click="cardModal">Join Beta</a>
@@ -31,10 +19,10 @@
 
 <script>
 import Cookies from 'js-cookie';
-import LoginHandler from "~/components/Auth/LoginHandler";
+import LoginHandler from '~/components/Auth/LoginHandler';
 
 export default {
-  name: "SignupCard",
+  name: 'SignupCard',
   components: {},
   methods: {
     cardModal() {
@@ -48,9 +36,9 @@ export default {
     async getTwitterCreds() {
       const twitterCreds = await this.$axios.$post('api/v1/twitter/signin');
       Cookies.set('firstVisit', true);
-      Cookies.set("twitterToken", twitterCreds.oauth_token);
+      Cookies.set('twitterToken', twitterCreds.oauth_token);
       window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${twitterCreds.oauth_token}`;
-    }
+    },
   },
 };
 </script>

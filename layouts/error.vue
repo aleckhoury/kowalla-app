@@ -13,7 +13,7 @@
           <nuxt-link to="/beta">
             <a class="button action">Head Home</a>
           </nuxt-link>
-          <img src="https://imgflip.com/s/meme/Surprised-Koala.jpg">
+          <img src="https://imgflip.com/s/meme/Surprised-Koala.jpg" />
         </div>
       </div>
     </div>
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import Header from "~/components/Header/Header";
-import MobileHeader from "~/components/Header/Mobile/MobileHeader";
+import Header from '~/components/Header/Header';
+import MobileHeader from '~/components/Header/Mobile/MobileHeader';
 export default {
   components: { Header, MobileHeader },
 

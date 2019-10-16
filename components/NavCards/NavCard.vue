@@ -32,13 +32,13 @@
   </div>
 </template>
 <script>
-import NavCardLink from "./NavCardLink";
+import NavCardLink from './NavCardLink';
 export default {
-  name: "NavCard",
+  name: 'NavCard',
   components: { NavCardLink },
   props: {
-    type: { type: String, default: "" }, // type is either user [logged in user] or profile [profile we're viewing]
-    selector: { type: String, default: "" },
+    type: { type: String, default: '' }, // type is either user [logged in user] or profile [profile we're viewing]
+    selector: { type: String, default: '' },
     profileSubs: {
       type: Object,
       default: () => {
@@ -53,25 +53,25 @@ export default {
       } else {
         return 'Find some cool projects and spaces to subscribe to!';
       }
-    }
+    },
   },
   methods: {
     getProjectId(item) {
-      return item.hasOwnProperty("projectId") ? item.projectId : null;
+      return item.hasOwnProperty('projectId') ? item.projectId : null;
     },
     getSpaceId(item) {
-      return item.hasOwnProperty("spaceId") ? item.spaceId : null;
+      return item.hasOwnProperty('spaceId') ? item.spaceId : null;
     },
     emitClickedEventToParent() {
-      this.$emit("nav-card-link-clicked");
+      this.$emit('nav-card-link-clicked');
     },
   },
 };
 </script>
 <style lang="css" scoped>
-  .empty {
-    padding: 0.5em;
-    font-style: italic;
-    font-size: 14px;
-  }
+.empty {
+  padding: 0.5em;
+  font-style: italic;
+  font-size: 14px;
+}
 </style>

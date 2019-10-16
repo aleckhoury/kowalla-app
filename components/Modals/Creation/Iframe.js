@@ -1,47 +1,44 @@
-import { Node } from "tiptap";
+import { Node } from 'tiptap';
 
 export default class Iframe extends Node {
   get name() {
-    return "iframe";
+    return 'iframe';
   }
 
   get schema() {
     return {
       attrs: {
         src: {
-          default: null
-        }
+          default: null,
+        },
       },
-      group: "block",
+      group: 'block',
       selectable: false,
       parseDOM: [
         {
-          tag: "iframe",
+          tag: 'iframe',
           getAttrs: dom => ({
-            src: dom.getAttribute("src")
-          })
-        }
+            src: dom.getAttribute('src'),
+          }),
+        },
       ],
       toDOM: node => [
-        "iframe",
+        'iframe',
         {
           src: `${node.attrs.src}`,
           frameborder: 0,
-          allowfullscreen: "true",
-          allow:
-            "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen: 'true',
+          allow: 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture',
           // You can set the width and height here also
-        }
-      ]
+        },
+      ],
     };
   }
 
   commands({ type }) {
     return attrs => (state, dispatch) => {
       const { selection } = state;
-      const position = selection.$cursor
-        ? selection.$cursor.pos
-        : selection.$to.pos;
+      const position = selection.$cursor ? selection.$cursor.pos : selection.$to.pos;
       const node = type.create(attrs);
       const transaction = state.tr.insert(position, node);
       dispatch(transaction);

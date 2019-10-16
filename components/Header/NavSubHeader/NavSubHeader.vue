@@ -23,15 +23,8 @@
               <!-- placeholder for right alignment -->
             </div>
 
-            <div
-              v-if="this.$store.state.messages.messages.length > 0"
-              class="level-right"
-            >
-              <div
-                v-for="item in this.$store.state.messages.messages"
-                :key="item"
-                class="level-item"
-              >
+            <div v-if="this.$store.state.messages.messages.length > 0" class="level-right">
+              <div v-for="item in this.$store.state.messages.messages" :key="item" class="level-item">
                 <div class="message">
                   <b>{{ item }}</b>
                 </div>
@@ -45,11 +38,11 @@
 </template>
 
 <script>
-import SortingOptions from "./SortingOptions";
-import Tabs from "./Tabs";
+import SortingOptions from './SortingOptions';
+import Tabs from './Tabs';
 
 export default {
-  name: "NavSubHeader",
+  name: 'NavSubHeader',
   components: { SortingOptions, Tabs },
   props: {},
   computed: {
@@ -57,11 +50,12 @@ export default {
       if (this.headerType === 'NewsFeedActiveTab' || this.headerType === 'sortOnly') {
         return true;
       }
+      return false;
     },
     headerType() {
-      if (this.$route.path.includes('edit')) return "SettingsActiveTab";
-      else if (this.$route.path.includes('posts')) return "Post";
-      else if (this.$route.path === '/beta') return "NewsFeedActiveTab";
+      if (this.$route.path.includes('edit')) return 'SettingsActiveTab';
+      else if (this.$route.path.includes('posts')) return 'Post';
+      else if (this.$route.path === '/beta') return 'NewsFeedActiveTab';
       return 'sortOnly';
     },
   },

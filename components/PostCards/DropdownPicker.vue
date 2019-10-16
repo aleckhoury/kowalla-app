@@ -1,22 +1,17 @@
 <template>
-  <Picker
-    :native="true"
-    :show-skin-tones="false"
-    :show-preview="false"
-    @select="toggleReaction"
-  />
+  <Picker :native="true" :show-skin-tones="false" :show-preview="false" @select="toggleReaction" />
 </template>
 
 <script>
 let Mart;
 if (process.browser) {
-  Mart = require("emoji-mart-vue-fast");
+  Mart = require('emoji-mart-vue-fast');
 }
-let { Picker } = Mart ? Mart : "";
-import "emoji-mart-vue-fast/css/emoji-mart.css";
+let { Picker } = Mart ? Mart : '';
+import 'emoji-mart-vue-fast/css/emoji-mart.css';
 
 export default {
-  name: "DropdownPicker",
+  name: 'DropdownPicker',
   components: { Picker },
   props: {
     toggleReaction: { type: Function, default: () => {} },

@@ -6,42 +6,35 @@
 <script>
 export default {
   // TODO: subscription button has blue outline after interactions, need to fix
-  name: "SubscriptionButton",
+  name: 'SubscriptionButton',
   props: {
     isSubscribed: { type: Boolean, default: false },
     isProject: { type: Boolean, default: false },
-    id: { type: String, default: "" },
+    id: { type: String, default: '' },
   },
   computed: {
     getClasses() {
       return {
-        "is-subscribed": this.isSubscribed,
-        "is-not-subscribed": !this.isSubscribed,
+        'is-subscribed': this.isSubscribed,
+        'is-not-subscribed': !this.isSubscribed,
       };
     },
     getText() {
-      return this.isSubscribed ? "Subscribed" : "Subscribe";
+      return this.isSubscribed ? 'Subscribed' : 'Subscribe';
     },
   },
   methods: {
     handleClick() {
       if (this.isSubscribed) {
-        const type = this.isProject ? "projects" : "spaces";
-        this.$axios.$delete(
-          `/api/v1/profiles/${this.$store.state.user._id}/subs/${type}/${
-            this.id
-          }`
-        );
+        const type = this.isProject ? 'projects' : 'spaces';
+        this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/subs/${type}/${this.id}`);
       } else {
-        this.$axios.$post(
-          `/api/v1/profiles/${this.$store.state.user._id}/subs`,
-          {
-            projectId: this.isProject ? this.id : undefined,
-            spaceId: this.isProject ? undefined : this.id,
-          }
-        );
+        this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
+          projectId: this.isProject ? this.id : undefined,
+          spaceId: this.isProject ? undefined : this.id,
+        });
       }
-      this.$emit("subscription-button-clicked", !this.isSubscribed);
+      this.$emit('subscription-button-clicked', !this.isSubscribed);
     },
   },
 };

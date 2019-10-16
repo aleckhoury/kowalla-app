@@ -3,13 +3,13 @@
     <figure class="media-left">
       <nuxt-link v-if="!isProject" :to="getProfileRoute">
         <p class="image is-48x48 profilePic">
-          <img :src="profile.profilePicture" >
+          <img :src="profile.profilePicture" />
         </p>
       </nuxt-link>
 
       <nuxt-link v-if="isProject" :to="getProjectRoute">
         <p class="image is-48x48 profilePicProject">
-          <img :src="project.profilePicture" >
+          <img :src="project.profilePicture" />
         </p>
       </nuxt-link>
     </figure>
@@ -37,9 +37,7 @@
               <b>@{{ profile.username }}</b>
             </span>
 
-            <span v-if="!isMobile" class="grey"
-            >· {{ createdAtFormatted }}</span
-            >
+            <span v-if="!isMobile" class="grey">· {{ createdAtFormatted }}</span>
 
             <span v-if="isActive">
               ·
@@ -68,11 +66,7 @@
           <font-awesome-icon icon="flag" /> &nbsp;
           <h2><b>Update</b></h2>
         </div>
-        <b-dropdown
-          class="level-right has-text-white"
-          position="is-bottom-left"
-          aria-role="list"
-        >
+        <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
           <font-awesome-icon slot="trigger" icon="angle-down" />
 
           <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
@@ -80,28 +74,17 @@
             Copy link
           </b-dropdown-item>
 
-          <b-dropdown-item
-            v-if="deleteAllowed"
-            key="1"
-            aria-role="listitem"
-            @click="deletePost"
-          >
+          <b-dropdown-item v-if="deleteAllowed" key="1" aria-role="listitem" @click="deletePost">
             <font-awesome-icon icon="trash-alt" />
             Delete
           </b-dropdown-item>
         </b-dropdown>
       </div>
-      <div
-        v-else-if="isProject && isMobile && !isModal"
-        class="update level is-mobile is-size-6"
-      >
-        <div class="mobile level-left"><font-awesome-icon icon="flag" /></div>
-        <b-dropdown
-          :mobile-modal="false"
-          class="mobile level-right has-text-white"
-          position="is-bottom-left"
-          aria-role="list"
-        >
+      <div v-else-if="isProject && isMobile && !isModal" class="update level is-mobile is-size-6">
+        <div class="mobile level-left">
+          <font-awesome-icon icon="flag" />
+        </div>
+        <b-dropdown :mobile-modal="false" class="mobile level-right has-text-white" position="is-bottom-left" aria-role="list">
           <font-awesome-icon slot="trigger" icon="angle-down" />
 
           <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
@@ -109,23 +92,13 @@
             Copy link
           </b-dropdown-item>
 
-          <b-dropdown-item
-            v-if="profile._id === this.$store.state.user._id"
-            key="1"
-            aria-role="listitem"
-            @click="deletePost"
-          >
+          <b-dropdown-item v-if="profile._id === this.$store.state.user._id" key="1" aria-role="listitem" @click="deletePost">
             <font-awesome-icon icon="trash-alt" />
             Delete
           </b-dropdown-item>
         </b-dropdown>
       </div>
-      <b-dropdown
-        v-else
-        :mobile-modal="false"
-        position="is-bottom-left"
-        aria-role="list"
-      >
+      <b-dropdown v-else :mobile-modal="false" position="is-bottom-left" aria-role="list">
         <font-awesome-icon slot="trigger" icon="angle-down" />
 
         <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
@@ -133,12 +106,7 @@
           Copy link
         </b-dropdown-item>
 
-        <b-dropdown-item
-          v-if="profile._id === this.$store.state.user._id"
-          key="1"
-          aria-role="listitem"
-          @click="deletePost"
-        >
+        <b-dropdown-item v-if="profile._id === this.$store.state.user._id" key="1" aria-role="listitem" @click="deletePost">
           <font-awesome-icon icon="trash-alt" />
           Delete
         </b-dropdown-item>
@@ -148,14 +116,14 @@
 </template>
 
 <script>
-const { format } = require("timeago.js");
+const { format } = require('timeago.js');
 export default {
-  name: "PostHeader",
+  name: 'PostHeader',
   props: {
     isActive: { type: Boolean, default: false },
     isModal: { type: Boolean, default: false },
-    createdAt: { type: String, default: "" },
-    postId: { type: String, default: "" },
+    createdAt: { type: String, default: '' },
+    postId: { type: String, default: '' },
     profile: { type: Object, default: () => {} },
     project: { type: Object, default: () => {} },
     space: { type: Object, default: () => {} },
@@ -167,7 +135,7 @@ export default {
   },
   computed: {
     createdAtFormatted() {
-      return format(this.createdAt, "en_US");
+      return format(this.createdAt, 'en_US');
     },
     getProfileRoute() {
       return `/beta/user/${this.profile.username}`;
@@ -179,57 +147,53 @@ export default {
       return `/beta/space/${this.space.name}`;
     },
     deleteAllowed() {
-      if (this.$store.state.user.loggedIn ) {
+      if (this.$store.state.user.loggedIn) {
         if (this.isProject && this.project.admins) {
           return this.project.admins.indexOf(this.$store.state.user._id) > -1;
         }
         return this.profile._id === this.$store.state.user._id;
       }
       return false;
-    }
+    },
   },
   methods: {
     copyPostUrl() {
-      let stringToCopy = "";
+      let stringToCopy = '';
 
       if (this.isProject) {
-        stringToCopy = `https://www.kowalla.co/beta/project/${this.project.name}/posts/${
-          this.postId
-        }`;
+        stringToCopy = `https://www.kowalla.co/beta/project/${this.project.name}/posts/${this.postId}`;
       } else {
-        stringToCopy = `https://www.kowalla.co/beta/space/${this.space.name}/posts/${
-          this.postId
-        }`;
+        stringToCopy = `https://www.kowalla.co/beta/space/${this.space.name}/posts/${this.postId}`;
       }
 
-      let x = document.createElement("input");
+      let x = document.createElement('input');
 
       document.body.appendChild(x);
       x.value = stringToCopy;
       x.select();
 
       try {
-        let successful = document.execCommand("copy");
-        let msg = successful ? "successful" : "unsuccessful";
+        let successful = document.execCommand('copy');
+        let msg = successful ? 'successful' : 'unsuccessful';
         this.$toast.open({
           duration: 4000,
-          message: "Link copied! :)",
-          position: "is-top",
-          type: "is-success",
+          message: 'Link copied! :)',
+          position: 'is-top',
+          type: 'is-success',
         });
       } catch (err) {
         this.$toast.open({
           duration: 4000,
-          message: "Link copy failed, try opening the post and copying the URL directly",
-          position: "is-top",
-          type: "is-danger",
+          message: 'Link copy failed, try opening the post and copying the URL directly',
+          position: 'is-top',
+          type: 'is-danger',
         });
       }
       document.body.removeChild(x);
     },
 
     deletePost() {
-      this.$emit("delete-post", this.postId);
+      this.$emit('delete-post', this.postId);
     },
   },
 };
@@ -299,7 +263,7 @@ span {
   /*left: -50px;*/
   /*margin-top: 1px;*/
   top: 0;
-  content: "";
+  content: '';
   border-bottom: 1.75em solid transparent;
   border-left: 1.75em solid white;
   border-top: 1.75em solid white;

@@ -1,42 +1,22 @@
 <template>
   <div class="size">
-    <div
-      :class="{ 'hide-mobile-header-container': !showNavbar }"
-      class="mobile-header-container is-touch"
-    >
+    <div :class="{ 'hide-mobile-header-container': !showNavbar }" class="mobile-header-container is-touch">
       <!-- Mobile Header Top -->
-      <div
-        class="level half-height is-mobile mobile-header-top-container is-marginless"
-      >
+      <div class="level half-height is-mobile mobile-header-top-container is-marginless">
         <nuxt-link to="/beta">
           <div class="level-left kowalla-logo">
-            <img
-              src="https://i.imgur.com/04hoRgV.png"
-              class="kowalla-logo-picture"
-            />
+            <img src="https://i.imgur.com/04hoRgV.png" class="kowalla-logo-picture" />
             kowalla
           </div>
         </nuxt-link>
 
         <div class="level-right">
           <div class="level-item align-icon" @click="callSearchModal">
-            <font-awesome-icon
-              class="theme-color-dark"
-              icon="search"
-              style="font-size: 20px"
-            />
+            <font-awesome-icon class="theme-color-dark" icon="search" style="font-size: 20px" />
           </div>
 
-          <div
-            v-if="this.$store.state.user.loggedIn"
-            class="level-item align-icon"
-            @click="callNotifModal"
-          >
-            <font-awesome-icon
-              class="theme-color-dark"
-              icon="bell"
-              style="font-size: 20px"
-            />
+          <div v-if="this.$store.state.user.loggedIn" class="level-item align-icon" @click="callNotifModal">
+            <font-awesome-icon class="theme-color-dark" icon="bell" style="font-size: 20px" />
           </div>
 
           <!--<div class="level-item">-->
@@ -62,38 +42,24 @@
           <Tabs :type="headerType" />
         </div>
         <div v-else>
-          <div
-            v-if="headerType === 'Post'"
-            class="is-hidden-desktop sortIcons"
-          >
-            <font-awesome-icon
-              icon="arrow-left"
-              @click="$router.go(-1)"
-            />
+          <div v-if="headerType === 'Post'" class="is-hidden-desktop sortIcons">
+            <font-awesome-icon icon="arrow-left" @click="$router.go(-1)" />
           </div>
           <SortingOptions v-else :is-mobile="true" />
         </div>
       </div>
       <!-- End level -->
     </div>
-    <div
-      v-if="this.$store.state.firstVisit.firstVisit"
-      :class="{ 'hide-mobile-header-container': !showNavbar }"
-      class="hero"
-    >
+    <div v-if="this.$store.state.firstVisit.firstVisit" :class="{ 'hide-mobile-header-container': !showNavbar }" class="hero">
       <div class="bannerStripe"></div>
       <div class="hero-body">
         <h1 class="title is-5">
           Welcome!
-          <div
-            class="delete is-medium is-pulled-right"
-            @click="$store.commit('firstVisit/cancelFirstVisit')"
-          />
+          <div class="delete is-medium is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
         </h1>
         <h2 class="subtitle is-6">
-          Kowalla is the coworking space that lives in your pocket, so you're
-          never more than a tap away from the community and support you need to
-          build your dreams. That means:
+          Kowalla is the coworking space that lives in your pocket, so you're never more than a tap away from the community and support you need to build your
+          dreams. That means:
           <ul>
             <li>
               Reddit-like spaces
@@ -107,26 +73,11 @@
           </ul>
         </h2>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        width="100%"
-        height="13.4rem"
-        fill="#bd56e1"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="13.4rem" fill="#bd56e1">
         <defs>
           <filter id="goo">
-            <feGaussianBlur
-              in="SourceGraphic"
-              stdDeviation="10"
-              result="blur"
-            />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -12"
-              result="goo"
-            />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -12" result="goo" />
             <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
         </defs>
@@ -140,26 +91,22 @@
   </div>
 </template>
 <script>
-import NotificationModal from "~/components/Modals/Other/NotificationModal";
-import NavNotifications from "~/components/Header/NavHeader/NavNotifications";
-import SearchModal from "~/components/Modals/Other/SearchModal";
-import LoginHandler from "~/components/Auth/LoginHandler";
-import SideMenu from "./SideMenu";
-import Tabs from "../NavSubHeader/Tabs";
-import SortingOptions from "../NavSubHeader/SortingOptions";
+import NotificationModal from '~/components/Modals/Other/NotificationModal';
+import SearchModal from '~/components/Modals/Other/SearchModal';
+import LoginHandler from '~/components/Auth/LoginHandler';
+import Tabs from '../NavSubHeader/Tabs';
+import SortingOptions from '../NavSubHeader/SortingOptions';
 
 export default {
-  name: "MobileHeader",
+  name: 'MobileHeader',
   components: {
     SortingOptions,
     Tabs,
-    SideMenu,
-    NavNotifications,
   },
   props: {
     openSidebar: { type: Function, default: () => {} },
-    locationToDisplay: { type: String, default: "" },
-    locationPictureToDisplay: { type: String, default: "" },
+    locationToDisplay: { type: String, default: '' },
+    locationPictureToDisplay: { type: String, default: '' },
     isHome: { type: Boolean, default: false },
   },
   data() {
@@ -175,28 +122,29 @@ export default {
       if (this.headerType === 'Post' || this.headerType === 'sortOnly') {
         return true;
       }
+      return false;
     },
     headerType() {
-      if (this.$route.path.includes('edit')) return "SettingsActiveTab";
-      else if (this.$route.path.includes('posts')) return "Post";
-      else if (this.$route.path === '/beta') return "NewsFeedActiveTab";
+      if (this.$route.path.includes('edit')) return 'SettingsActiveTab';
+      else if (this.$route.path.includes('posts')) return 'Post';
+      else if (this.$route.path === '/beta') return 'NewsFeedActiveTab';
       return 'sortOnly';
     },
   },
   mounted() {
     this.lastScrollPosition = window.pageYOffset;
-    window.addEventListener("scroll", this.onScroll);
+    window.addEventListener('scroll', this.onScroll);
   },
 
   beforeDestroy() {
-    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
     callSearchModal() {
       this.$modal.open({
         parent: this,
         component: SearchModal,
-        props: { modalText: "Search" },
+        props: { modalText: 'Search' },
         width: 300,
         hasModalCard: true,
       });
@@ -213,7 +161,7 @@ export default {
       this.$modal.open({
         parent: this,
         component: NotificationModal,
-        props: { modalText: "Notif" },
+        props: { modalText: 'Notif' },
         width: 1000,
         hasModalCard: true,
       });

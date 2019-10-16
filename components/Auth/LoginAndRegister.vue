@@ -10,28 +10,21 @@
         </b-tab-item>
       </b-tabs>
     </div>
-    <div
-      v-else
-      :class="[loginBox ? 'left' : 'right']"
-      class="card is-paddingless"
-    >
+    <div v-else :class="[loginBox ? 'left' : 'right']" class="card is-paddingless">
       <div :class="[loginBox ? 'left' : 'right', 'coverBox']">
-        <p class="kowalla-logo is-size-1">kowalla</p>
+        <p class="kowalla-logo is-size-1">
+          kowalla
+        </p>
         <p v-if="loginBox" class="has-text-white">
           <small>
-            You new here? Create an account to react, subscribe, and make your
-            own posts!
+            You new here? Create an account to react, subscribe, and make your own posts!
           </small>
         </p>
         <p v-else class="has-text-white">
           <small>Already have an account?</small>
         </p>
-        <a v-if="loginBox" class="button" @click="toggleFlow">
-          <font-awesome-icon icon="arrow-left" />&nbsp; Signup
-        </a>
-        <a v-else class="button" @click="toggleFlow">
-          Login &nbsp;<font-awesome-icon icon="arrow-right" />
-        </a>
+        <a v-if="loginBox" class="button" @click="toggleFlow"> <font-awesome-icon icon="arrow-left" />&nbsp; Signup </a>
+        <a v-else class="button" @click="toggleFlow"> Login &nbsp;<font-awesome-icon icon="arrow-right" /> </a>
       </div>
       <transition name="fade" mode="out-in">
         <LoginForm v-if="loginBox" />
@@ -42,12 +35,12 @@
 </template>
 
 <script>
-import login from "~/mixins/login";
-import RegisterForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
+import login from '~/mixins/login';
+import RegisterForm from './RegisterForm';
+import LoginForm from './LoginForm';
 
 export default {
-  name: "LoginAndRegisterModal",
+  name: 'LoginAndRegisterModal',
   components: { RegisterForm, LoginForm },
   mixins: [login],
   props: {
@@ -130,7 +123,7 @@ div.coverBox p small {
   text-align: center;
 }
 .kowalla-logo {
-  font-family: "Nunito";
+  font-family: 'Nunito';
   font-weight: 900;
   font-size: 2.5em;
   color: #fff;

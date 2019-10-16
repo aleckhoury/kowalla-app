@@ -14,24 +14,22 @@
             {{ item.message }}
           </div>
         </div>
-        <hr v-if="index !== notifications.length - 1">
+        <hr v-if="index !== notifications.length - 1" />
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "NotificationModal",
+  name: 'NotificationModal',
   directives: {
-    "clicked-outside": {
+    'clicked-outside': {
       // can probably make some boilerplate
       bind: function(el, binding, vNode) {
         // Provided expression must evaluate to a function.
-        if (typeof binding.value !== "function") {
+        if (typeof binding.value !== 'function') {
           const compName = vNode.context.name;
-          let warn = `[Vue-click-outside:] provided expression '${
-            binding.expression
-          }' is not a function, but has to be`;
+          let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`;
           if (compName) {
             warn += `Found in component '${compName}'`;
           }
@@ -48,12 +46,12 @@ export default {
         el.__vueClickOutside__ = handler;
 
         // add Event Listeners
-        document.addEventListener("click", handler);
+        document.addEventListener('click', handler);
       },
 
       unbind: function(el, binding) {
         // Remove Event Listeners
-        document.removeEventListener("click", el.__vueClickOutside__);
+        document.removeEventListener('click', el.__vueClickOutside__);
         el.__vueClickOutside__ = null;
       },
     },
@@ -64,34 +62,24 @@ export default {
     };
   },
   async mounted() {
-    let projectIds = this.$store.getters["user/getProjectIds"];
-    let notificationRes = await this.$axios.$post(
-      `/api/v1/profiles/${this.$store.state.user._id}/notifications`,
-      { projectIdsArray: projectIds }
-    );
+    let projectIds = this.$store.getters['user/getProjectIds'];
+    let notificationRes = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { projectIdsArray: projectIds });
     if (notificationRes.notifications.length === 0) {
-      this.notifications = [
-        { title: "No new notifications", message: "", notifIds: [""] },
-      ];
+      this.notifications = [{ title: 'No new notifications', message: '', notifIds: [''] }];
     } else {
       this.notifications = notificationRes.notifications;
     }
   },
   methods: {
     closeModal() {
-      if (this.notifications[0].notifIds[0] !== "") {
+      if (this.notifications[0].notifIds[0] !== '') {
         let notifsToDeleteArray = [];
         for (let i in this.notifications) {
-          if (this.notifications[i].hasOwnProperty("notifIds")) {
-            notifsToDeleteArray = notifsToDeleteArray.concat(
-              this.notifications[i].notifIds
-            );
+          if (this.notifications[i].hasOwnProperty('notifIds')) {
+            notifsToDeleteArray = notifsToDeleteArray.concat(this.notifications[i].notifIds);
           }
         }
-        this.$axios.$delete(
-          `/api/v1/profiles/${this.$store.state.user._id}/notifications`,
-          { data: { notifIds: notifsToDeleteArray } }
-        );
+        this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: notifsToDeleteArray } });
       }
       this.$parent.close();
     },
