@@ -1,6 +1,6 @@
 <template>
   <div class="size">
-    <div v-if="activePost && !isFocusPage" class="create-button">
+    <div v-if="hasActivePost && !isFocusPage" class="create-button">
       <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`">
         <strong class="has-text-white is-size-5">LIVE</strong>
       </nuxt-link>
@@ -20,7 +20,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'MobileFooter',
   computed: {
-    ...mapGetters('coworkers', ['activePost']),
+    ...mapGetters('coworkers', ['hasActivePost']),
     isFocusPage() {
       return this.$route.path.includes('focus');
     },

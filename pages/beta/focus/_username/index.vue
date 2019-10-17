@@ -1,6 +1,6 @@
 <template>
   <div class="focusPage">
-    <div v-if="post.isActive" class="container">
+    <div v-if="post && post.isActive" class="container">
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-centered is-marginless main-margin">
         <!-- post feed -->
         <div class="column">
@@ -152,7 +152,7 @@ export default {
   },
   async mounted() {
     this.post = await this.$axios.$get(`/api/v1/posts/active/${this.$route.params.username}`);
-    if (this.post.isActive === true) {
+    if (this.post && this.post.isActive === true) {
       this.countUpTimer();
       this.editor = await new Editor({
         autoFocus: true,

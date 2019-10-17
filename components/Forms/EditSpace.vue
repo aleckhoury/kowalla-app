@@ -181,10 +181,6 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.box {
-    width: 800px;
-    max-width: 100%;
-}
 .button.action {
     color: white;
     background-color: #39C9A0;

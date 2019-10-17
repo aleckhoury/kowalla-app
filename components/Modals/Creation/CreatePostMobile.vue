@@ -70,7 +70,7 @@
                   <input ref="file" class="file-input" type="file" @change="selectFile(commands.image)" />
                   <font-awesome-icon icon="camera" />
                 </a>
-                <BButton v-if="!activePost" :class="{ isLive: livePost }" class="button" @click="toggleLivePost">
+                <BButton v-if="!hasActivePost" :class="{ isLive: livePost }" class="button" @click="toggleLivePost">
                   <span v-if="!livePost" class="dot" />
                   <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live Post
                 </BButton>
@@ -161,7 +161,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('coworkers', ['activePost']),
+    ...mapGetters('coworkers', ['hasActivePost']),
     postAsList() {
       let list;
       if (!this.livePost) {

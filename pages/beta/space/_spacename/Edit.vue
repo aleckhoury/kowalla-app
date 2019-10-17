@@ -3,7 +3,7 @@
     <div class="container is-fullhd is-hidden-touch">
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <!-- nav pane -->
-        <div class="column is-one-quarter"></div>
+        <div class="column is-one-quarter" />
         <!-- post feed -->
         <div class="column is-one-half">
           <b-tabs id="columnTabs" v-model="activeTab">
