@@ -281,7 +281,6 @@ b-icon {
   padding: 0 2em;
 }
 .card {
-  border-radius: 6px;
   margin-bottom: 0.65em;
 }
 .content {

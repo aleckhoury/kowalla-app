@@ -24,7 +24,7 @@
               />
             </b-field>
 
-            <b-field label="Description">
+            <b-field label="Tell us a bit about this project">
               <b-input v-model="spaceForm.description" maxlength="500" type="textarea" placeholder="We're the world's online coworking space." />
             </b-field>
 
@@ -52,7 +52,7 @@
               />
             </b-field>
 
-            <b-field label="Description">
+            <b-field label="Tell us a bit about this community">
               <b-input
                 v-model="spaceForm.description"
                 maxlength="500"

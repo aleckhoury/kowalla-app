@@ -80,7 +80,6 @@ export default {
   overflow-y: scroll;
   display: flex;
   justify-content: flex-end;
-  border-radius: 6px;
 }
 .box.isMobile {
   max-width: 100%;

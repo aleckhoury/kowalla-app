@@ -186,6 +186,7 @@ module.exports = {
           'faLink',
           'faComments',
           'faAngleDown',
+          'faAngleUp',
           'faTrashAlt',
           'faArrowUp',
           'faBell',

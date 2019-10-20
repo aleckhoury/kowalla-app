@@ -87,6 +87,9 @@ export default {
         this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`);
       });
     }
+    const modalHeight = document.getElementsByClassName('modal-content')[0].offsetHeight;
+    const modalBackground = document.getElementsByClassName('modal-background')[0];
+    modalBackground.style.height = `${modalHeight}px`;
   },
   methods: {
     updateComment(comment) {
@@ -116,7 +119,6 @@ div.card {
   width: 55em;
   max-width: 100%;
   overflow-y: scroll;
-  max-height: 87vh;
 }
 .modal-content {
   border-radius: 6px;
@@ -127,7 +129,6 @@ div.card {
   overflow: visible;
 }
 .content {
-  max-height: 60vh;
   padding: 2em 1em;
   overflow-y: scroll;
   word-break: break-word;

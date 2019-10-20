@@ -65,7 +65,7 @@ export default {
 .card {
   width: 800px;
   max-width: 100%;
-  max-height: 60vh;
+  max-height: 90vh;
   overflow: scroll;
 }
 .button.action {
