@@ -12,7 +12,7 @@
       @delete-post="echoDeletePost"
     />
 
-    <PostTimer v-if="post.isActive" :start-time="post.start" />
+    <PostTimer v-if="post.isActive || post.duration" :start-time="post.start" :duration="post.duration" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
       <!-- eslint-disable-next-line -->
       <div class="content is-marginless" v-html="post.content"></div>

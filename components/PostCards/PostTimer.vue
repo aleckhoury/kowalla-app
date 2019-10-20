@@ -1,7 +1,8 @@
 <template>
   <div class="level">
     <div class="level-item">
-      <span class="liveBox">{{ countUp }}</span>
+      <span v-if="duration" class="time duration">{{ readableDuration }}</span>
+      <span v-else class="time live">{{ countUp }}</span>
     </div>
   </div>
 </template>
@@ -11,14 +12,35 @@ export default {
   name: 'PostTimer',
   props: {
     startTime: { type: String, default: '' },
+    duration: { type: String, default: '' },
   },
   data() {
     return {
       countUp: '',
     };
   },
+  computed: {
+    readableDuration() {
+      let seconds = this.duration / 1000;
+      // 2- Extract hours:
+      let hours = parseInt(seconds / 3600); // 3,600 seconds in 1 hour
+      seconds = seconds % 3600; // seconds remaining after extracting hours
+      // 3- Extract minutes:
+      let minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
+      // 4- Keep only seconds not extracted to minutes:
+      seconds = Math.floor(seconds % 60);
+
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      return `${hours}:${minutes}:${seconds}`;
+    },
+  },
   mounted() {
-    this.countUpTimer();
+    if (!this.duration) {
+      this.countUpTimer();
+    }
   },
   methods: {
     countUpTimer() {
@@ -47,12 +69,17 @@ export default {
 <style scoped>
 .level {
 }
-.liveBox {
+.time {
   border-radius: 6px;
   padding: 0.25em 0.5em;
   width: fit-content;
-  background: #db9dee;
   color: white;
   font-size: 1.5em;
+}
+.live {
+  background: #db9dee;
+}
+.duration {
+  background: #999;
 }
 </style>

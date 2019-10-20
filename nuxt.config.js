@@ -111,7 +111,8 @@ module.exports = {
 
   css: [
     // 'bulma/css/bulma.css',
-    '~/css/main.css',
+    '~/assets/main.css',
+    '~/assets/tiptap.scss',
   ],
 
   /*

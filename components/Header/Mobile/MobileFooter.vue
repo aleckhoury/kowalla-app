@@ -12,7 +12,7 @@
 </template>
 <script>
 import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
-import CreatePost from '~/components/Modals/Creation/CreatePostMobile';
+import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
 import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import { mapGetters } from 'vuex';
@@ -45,7 +45,7 @@ export default {
             post: () => {
               this.$modal.open({
                 parent: this,
-                component: CreatePost,
+                component: CreatePostMobile,
                 width: 400,
                 hasModalCard: true,
                 canCancel: true,

@@ -110,7 +110,7 @@
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import {
   Blockquote,
-  CodeBlock,
+  CodeBlockHighlight,
   HardBreak,
   Heading,
   HorizontalRule,
@@ -130,6 +130,9 @@ import {
 } from 'tiptap-extensions';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
+import javascript from 'highlight.js/lib/languages/javascript';
+import css from 'highlight.js/lib/languages/css';
+import html from 'highlight.js/lib/languages/htmlbars';
 
 export default {
   name: 'Focus',
@@ -159,7 +162,13 @@ export default {
         extensions: [
           new Blockquote(),
           new BulletList(),
-          new CodeBlock(),
+          new CodeBlockHighlight({
+            languages: {
+              javascript,
+              html,
+              css,
+            },
+          }),
           new HardBreak(),
           new Heading({ levels: [1, 2, 3] }),
           new HorizontalRule(),
@@ -190,12 +199,15 @@ export default {
   },
   sockets: {
     confirmManualDisconnect() {
-      this.$router.push('/beta');
+      console.log('Manual disconnect confirmed');
     },
   },
   methods: {
     endCoworkingSession() {
       this.$socket.emit('manual-disconnect');
+      setTimeout(() => {
+        this.$router.push('/beta');
+      }, 500);
     },
     cardModal() {
       this.$modal.open({

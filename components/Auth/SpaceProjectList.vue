@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <a class="button action" @click="$emit('complete-signup')">
+      <a class="button action" @click.once="$emit('complete-signup')">
         Submit
       </a>
     </div>

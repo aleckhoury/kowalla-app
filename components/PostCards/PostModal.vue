@@ -13,7 +13,7 @@
           :is-modal="true"
           @delete-post="echoDeletePost"
         />
-        <PostTimer v-if="post.isActive" :time="post.expiration" />
+        <PostTimer v-if="post.isActive || post.duration" :start-time="post.start" :duration="post.duration" />
         <!-- eslint-disable-next-line -->
         <div class="content is-marginless" v-html="post.content"></div>
         <br />
@@ -87,9 +87,11 @@ export default {
         this.commentList[idx].upvote = await this.$axios.$get(`/api/v1/comments/${comment._id}/${this.$store.state.user._id}/upvote`);
       });
     }
-    const modalHeight = document.getElementsByClassName('modal-content')[0].offsetHeight;
-    const modalBackground = document.getElementsByClassName('modal-background')[0];
-    modalBackground.style.height = `${modalHeight}px`;
+    setTimeout(() => {
+      const modalHeight = document.getElementsByClassName('modal-content')[0].offsetHeight;
+      const modalBackground = document.getElementsByClassName('modal-background')[0];
+      modalBackground.style.height = `${modalHeight}px`;
+    }, 1000);
   },
   methods: {
     updateComment(comment) {

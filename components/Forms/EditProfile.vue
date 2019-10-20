@@ -38,7 +38,7 @@
         <b-input v-model="editForm.description" maxlength="500" type="textarea" />
       </b-field>
 
-      <a class="button action" @click="editProfile(editForm)">
+      <a class="button action" @click.once="editProfile(editForm)">
         Submit
       </a>
     </section>

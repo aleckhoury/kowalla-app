@@ -83,6 +83,9 @@ export default {
       this.$modal.open({
         parent: this,
         component: CreatePost,
+        props: {
+          type: 'navButton',
+        },
         events: {
           'post-created': postObj => {
             this.$emit('post-created', postObj);

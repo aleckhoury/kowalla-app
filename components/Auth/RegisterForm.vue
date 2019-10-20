@@ -29,7 +29,7 @@
         @keyup.native.enter="register(registerForm)"
       />
     </b-field>
-    <a class="button action" @click="register(registerForm)">
+    <a class="button action" @click.once="register(registerForm)">
       Submit
     </a>
   </div>

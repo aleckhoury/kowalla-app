@@ -119,7 +119,7 @@
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import {
   Blockquote,
-  CodeBlock,
+  CodeBlockHighlight,
   HardBreak,
   Heading,
   HorizontalRule,
@@ -140,6 +140,9 @@ import {
 import { mapGetters } from 'vuex';
 import Iframe from './Iframe';
 import EmbedButton from './EmbedButton';
+import javascript from 'highlight.js/lib/languages/javascript';
+import css from 'highlight.js/lib/languages/css';
+import html from 'highlight.js/lib/languages/htmlbars';
 
 export default {
   name: 'CreatePostMobile',
@@ -213,7 +216,13 @@ export default {
       extensions: [
         new Blockquote(),
         new BulletList(),
-        new CodeBlock(),
+        new CodeBlockHighlight({
+          languages: {
+            javascript,
+            html,
+            css,
+          },
+        }),
         new HardBreak(),
         new Heading({ levels: [1, 2, 3] }),
         new HorizontalRule(),

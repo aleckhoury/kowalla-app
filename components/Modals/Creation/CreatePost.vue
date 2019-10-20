@@ -27,7 +27,7 @@
                   <font-awesome-icon icon="underline" />
                 </a>
 
-                <a :class="{ 'is-active': isActive.code() }" class="button is-white" @click="commands.code">
+                <a :class="{ 'is-active': isActive.code_block() }" class="button is-white" @click="commands.code_block">
                   <font-awesome-icon icon="code" />
                 </a>
 
@@ -126,7 +126,7 @@
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import {
   Blockquote,
-  CodeBlock,
+  CodeBlockHighlight,
   HardBreak,
   Heading,
   HorizontalRule,
@@ -147,6 +147,9 @@ import {
 import { mapGetters } from 'vuex';
 import Iframe from './Iframe';
 import EmbedButton from './EmbedButton';
+import javascript from 'highlight.js/lib/languages/javascript';
+import css from 'highlight.js/lib/languages/css';
+import html from 'highlight.js/lib/languages/htmlbars';
 
 export default {
   name: 'CreatePost',
@@ -154,6 +157,9 @@ export default {
     EmbedButton,
     EditorContent,
     EditorMenuBar,
+  },
+  props: {
+    type: { type: String, default: '' },
   },
   data() {
     return {
@@ -220,7 +226,13 @@ export default {
       extensions: [
         new Blockquote(),
         new BulletList(),
-        new CodeBlock(),
+        new CodeBlockHighlight({
+          languages: {
+            javascript,
+            html,
+            css,
+          },
+        }),
         new HardBreak(),
         new Heading({ levels: [1, 2, 3] }),
         new HorizontalRule(),
@@ -244,6 +256,10 @@ export default {
         this.html = getHTML();
       },
     });
+    const defaultPostIn = this.$store.state.user.subscriptions.find(s => s.name === this.$route.params.spacename);
+    if (defaultPostIn !== undefined) {
+      this.postingIn = { name: defaultPostIn.name, id: defaultPostIn._id };
+    }
   },
   async beforeDestroy() {
     if (this.clearPhoto === true) {
@@ -338,6 +354,8 @@ export default {
         if (this.$router.history.current.fullPath === '/beta/focus') {
           this.$router.go();
         }
+      } else if (this.type === 'navButton') {
+        this.$router.push({ path: `/beta/space/${this.postingIn.name}` });
       }
     },
     async selectFile(command) {

@@ -24,6 +24,12 @@
             </span>
 
             · {{ createdAtFormatted }}
+            <span v-if="isActive">
+              ·
+              <span class="liveBox">
+                LIVE
+              </span>
+            </span>
           </small>
         </p>
       </nuxt-link>
@@ -38,13 +44,6 @@
             </span>
 
             <span v-if="!isMobile" class="grey">· {{ createdAtFormatted }}</span>
-
-            <span v-if="isActive">
-              ·
-              <span class="liveBox">
-                LIVE
-              </span>
-            </span>
           </small>
         </p>
       </nuxt-link>
@@ -218,9 +217,6 @@ export default {
   height: 48px;
   width: 48px;
 }
-span {
-  color: #39c9a0;
-}
 
 .grey {
   color: #999;
@@ -244,7 +240,7 @@ span {
 }
 .liveBox {
   border-radius: 3px;
-  padding: 0.125em 0.25em;
+  padding: 0 0.25em 0.125em 0.25em;
   width: fit-content;
   background: red;
   color: white;
