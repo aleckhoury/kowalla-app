@@ -26,8 +26,14 @@
             · {{ createdAtFormatted }}
             <span v-if="isActive">
               ·
-              <span class="liveBox">
+              <span class="status live">
                 LIVE
+              </span>
+            </span>
+            <span v-else-if="duration">
+              ·
+              <span class="status duration">
+                EXPIRED
               </span>
             </span>
           </small>
@@ -121,6 +127,7 @@ export default {
   props: {
     isActive: { type: Boolean, default: false },
     isModal: { type: Boolean, default: false },
+    duration: { type: String, default: '' },
     createdAt: { type: String, default: '' },
     postId: { type: String, default: '' },
     profile: { type: Object, default: () => {} },
@@ -238,12 +245,17 @@ export default {
   color: #39c9a0;
   text-decoration: underline;
 }
-.liveBox {
+.status {
   border-radius: 3px;
   padding: 0 0.25em 0.125em 0.25em;
   width: fit-content;
-  background: red;
   color: white;
+}
+.status.live {
+  background: red;
+}
+.status.duration {
+  background: #bfbfbf;
 }
 .update {
   background-color: #39c9a0;

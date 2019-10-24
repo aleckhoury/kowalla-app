@@ -5,6 +5,7 @@
         <PostHeader
           :is-active="post.isActive"
           :created-at="post.createdAt"
+          :duration="post.duration"
           :profile="profile"
           :project="project"
           :space="space"

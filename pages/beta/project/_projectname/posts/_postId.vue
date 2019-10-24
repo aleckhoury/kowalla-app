@@ -114,15 +114,9 @@ export default {
       return isOwner;
     },
     isSubscribed() {
-      let isSubscribed = false;
-      if (typeof this.$store.state.user.subscriptions !== 'undefined') {
-        for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
-          if (this.$store.state.user.subscriptions[i].name === this.name) {
-            isSubscribed = true;
-          }
-        }
-      }
-      return isSubscribed;
+      const subscribed = this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.projectId === this.projectId) : undefined;
+      const owned = this.$store.state.user.owned ? this.$store.state.user.owned.some(x => x.projectId === this.projectId) : undefined;
+      return !!(subscribed || owned);
     },
   },
   created() {

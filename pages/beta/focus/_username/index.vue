@@ -107,43 +107,16 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-import {
-  Blockquote,
-  CodeBlockHighlight,
-  HardBreak,
-  Heading,
-  HorizontalRule,
-  OrderedList,
-  BulletList,
-  ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Image,
-  Code,
-  Italic,
-  Link,
-  Strike,
-  Underline,
-  History,
-} from 'tiptap-extensions';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
-import javascript from 'highlight.js/lib/languages/javascript';
-import css from 'highlight.js/lib/languages/css';
-import html from 'highlight.js/lib/languages/htmlbars';
+
+import editor from '~/mixins/editor';
 
 export default {
   name: 'Focus',
-  components: {
-    EditorContent,
-    EditorMenuBar,
-  },
-
+  mixins: [editor],
   data() {
     return {
-      editor: null,
       post: {},
       countUp: '',
     };
@@ -156,45 +129,9 @@ export default {
   async mounted() {
     this.post = await this.$axios.$get(`/api/v1/posts/active/${this.$route.params.username}`);
     if (this.post && this.post.isActive === true) {
+      this.defaultContent = this.post.content;
       this.countUpTimer();
-      this.editor = await new Editor({
-        autoFocus: true,
-        extensions: [
-          new Blockquote(),
-          new BulletList(),
-          new CodeBlockHighlight({
-            languages: {
-              javascript,
-              html,
-              css,
-            },
-          }),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new HorizontalRule(),
-          new Image(),
-          new ListItem(),
-          new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History(),
-        ],
-        content: this.post.content,
-        onUpdate: ({ getHTML }) => {
-          this.html = getHTML();
-        },
-      });
-    }
-  },
-  beforeDestroy() {
-    if (this.editor !== null) {
-      this.editor.destroy();
+      this.mixMount();
     }
   },
   sockets: {
@@ -281,6 +218,8 @@ export default {
   height: 100vh;
   background-image: url('https://source.unsplash.com/collection/151521');
   background-size: cover;
+  position: fixed;
+  overflow: scroll;
 }
 .container {
   height: 90%;
@@ -320,7 +259,6 @@ export default {
 }
 .editor__content {
   color: white;
-  max-height: 50vh;
   overflow-y: scroll;
   overflow-wrap: break-word;
 }

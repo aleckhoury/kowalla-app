@@ -3,6 +3,7 @@
     <PostHeader
       :is-active="post.isActive"
       :created-at="post.createdAt"
+      :duration="post.duration"
       :profile="profile"
       :project="project"
       :space="space"
@@ -46,6 +47,7 @@ import Utils from '~/utils/helpers';
 import DropdownPicker from './DropdownPicker';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import Vue from 'vue';
+import highlight from 'highlight.js';
 
 export default {
   name: 'Post',
@@ -144,6 +146,9 @@ export default {
     } catch {
       console.log('some kind of error idk');
     }
+    document.querySelectorAll('.content pre code').forEach(block => {
+      highlight.highlightBlock(block);
+    });
   },
   methods: {
     echoDeletePost(postId) {

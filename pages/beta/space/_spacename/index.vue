@@ -132,7 +132,9 @@ export default {
       return isOwner;
     },
     isSubscribed() {
-      return this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
+      const subscribed = this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
+      const owned = this.$store.state.user.owned ? this.$store.state.user.owned.some(x => x.spaceId === this.spaceId) : undefined;
+      return !!(subscribed || owned);
     },
   },
   created() {

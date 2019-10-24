@@ -91,15 +91,9 @@ export default {
       return isOwner;
     },
     isSubscribed() {
-      let isSubscribed = false;
-      if (typeof this.$store.state.user.subscriptions !== 'undefined') {
-        for (let i = 0; i < this.$store.state.user.subscriptions.length; i++) {
-          if (this.$store.state.user.subscriptions[i].name === this.spaceName) {
-            isSubscribed = true;
-          }
-        }
-      }
-      return isSubscribed;
+      const subscribed = this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
+      const owned = this.$store.state.user.owned ? this.$store.state.user.owned.some(x => x.spaceId === this.spaceId) : undefined;
+      return !!(subscribed || owned);
     },
   },
   created() {

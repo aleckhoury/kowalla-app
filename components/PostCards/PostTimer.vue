@@ -74,12 +74,12 @@ export default {
   padding: 0.25em 0.5em;
   width: fit-content;
   color: white;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 .live {
   background: #db9dee;
 }
 .duration {
-  background: #999;
+  background: #bfbfbf;
 }
 </style>
