@@ -1,6 +1,9 @@
 {
   "name": "Kowalla",
   "version": "1.0.0",
+  "engines": {
+    "node": "11.11.0"
+  },
   "description": "Build Together Here",
   "author": "Kowalla",
   "private": true,
