@@ -30,9 +30,11 @@
     "emoji-mart-vue-fast": "5.4.11",
     "highlight.js": "^9.15.10",
     "js-cookie": "2.2.0",
+    "node-sass": "^4.12.0",
     "nuxt": "2.6.2",
     "nuxt-buefy": "0.3.10",
     "nuxt-fontawesome": "0.4.0",
+    "sass-loader": "^8.0.0",
     "socket.io-client": "2.2.0",
     "timeago.js": "4.0.0-beta.2",
     "tiptap": "1.26.3",
@@ -52,10 +54,8 @@
     "eslint-plugin-vue": "5.2.3",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
-    "node-sass": "^4.12.0",
     "nodemon": "1.19.3",
     "prettier": "1.18.2",
-    "sass-loader": "^8.0.0"
   },
   "husky": {
     "hooks": {
