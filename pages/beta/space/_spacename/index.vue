@@ -26,7 +26,7 @@
           />
           <div id="postFeed" class="columns is-marginless newsfeed-padding">
             <div class="column is-two-thirds">
-              <PostFeed v-if="spaceId" :page-id="spaceId" type="space" />
+              <PostFeed v-if="spaceId" :page-id="spaceId" :is-subscribed="isSubscribed" type="space" />
             </div>
             <div class="column is-one-third">
               <InfoPane>
@@ -76,7 +76,7 @@
           <b>Edit Settings</b>
         </EditButton>
       </div>
-      <PostFeed v-if="spaceId" :page-id="spaceId" :is-mobile="true" type="space" />
+      <PostFeed v-if="spaceId" :page-id="spaceId" :is-mobile="true" :is-subscribed="isSubscribed" type="space" />
     </div>
   </div>
 </template>
@@ -132,7 +132,9 @@ export default {
       return isOwner;
     },
     isSubscribed() {
-      return this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
+      const subscribed = this.$store.state.user.subscriptions ? this.$store.state.user.subscriptions.some(x => x.spaceId === this.spaceId) : undefined;
+      const owned = this.$store.state.user.owned ? this.$store.state.user.owned.some(x => x.spaceId === this.spaceId) : undefined;
+      return !!(subscribed || owned);
     },
   },
   created() {

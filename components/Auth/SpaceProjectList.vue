@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <a class="button action" @click="$emit('complete-signup')">
+      <a class="button action" @click.once="$emit('complete-signup')">
         Submit
       </a>
     </div>
@@ -65,7 +65,7 @@ export default {
 .card {
   width: 800px;
   max-width: 100%;
-  max-height: 60vh;
+  max-height: 90vh;
   overflow: scroll;
 }
 .button.action {

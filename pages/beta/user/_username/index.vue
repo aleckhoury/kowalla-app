@@ -10,7 +10,7 @@
 
         <!-- post feed -->
         <div id="postFeed" class="column is-one-half">
-          <PostFeed v-if="profileId" :page-id="profileId" type="profile" />
+          <PostFeed v-if="profileId" :page-id="profileId" :is-subscribed="false" type="profile" />
         </div>
 
         <!-- info pane -->
@@ -75,7 +75,7 @@
       <DescriptionCard :header-string="`About ${firstName}`" :subheader-on="false" class="newsfeed-margin">
         {{ profileDescription }}
       </DescriptionCard>
-      <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" type="profile" />
+      <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" :is-subscribed="false" type="profile" />
     </div>
   </div>
 </template>

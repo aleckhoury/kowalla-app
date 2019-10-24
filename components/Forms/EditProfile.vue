@@ -5,12 +5,14 @@
         {{ title }}
       </div>
 
-      <b-field label="First name">
-        <b-input v-model="editForm.firstName" maxlength="20" />
-      </b-field>
+      <b-field grouped>
+        <b-field label="First name" expanded>
+          <b-input v-model="editForm.firstName" maxlength="20" />
+        </b-field>
 
-      <b-field label="Last name">
-        <b-input v-model="editForm.lastName" maxlength="20" />
+        <b-field label="Last name" expanded>
+          <b-input v-model="editForm.lastName" maxlength="20" />
+        </b-field>
       </b-field>
 
       <b-field
@@ -18,7 +20,7 @@
         :message="[{ 'No special characters or spaces allowed': formError.username }, { 'Username is too long': formError.usernameLength }]"
         label="Username"
       >
-        <b-input v-model="editForm.username" maxlength="20" />
+        <b-input v-model="editForm.username" icon="at" maxlength="20" />
       </b-field>
       <b-field label="Profile Picture" />
 
@@ -32,11 +34,11 @@
           <font-awesome-icon icon="camera" />
         </a>
       </div>
-      <b-field label="Description">
+      <b-field label="Tell us a bit about yourself">
         <b-input v-model="editForm.description" maxlength="500" type="textarea" />
       </b-field>
 
-      <a class="button action" @click="editProfile(editForm)">
+      <a class="button action" @click.once="editProfile(editForm)">
         Submit
       </a>
     </section>
@@ -152,9 +154,6 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.card {
-    border-radius: 6px;
-}
 .button.action {
     color: white;
     background-color: #39C9A0;

@@ -3,6 +3,7 @@
     <PostHeader
       :is-active="post.isActive"
       :created-at="post.createdAt"
+      :duration="post.duration"
       :profile="profile"
       :project="project"
       :space="space"
@@ -12,7 +13,7 @@
       @delete-post="echoDeletePost"
     />
 
-    <PostTimer v-if="post.isActive" :start-time="post.start" />
+    <PostTimer v-if="post.isActive || post.duration" :start-time="post.start" :duration="post.duration" />
     <div id="content-box" ref="content" :class="{ fullHeight: !overflow }">
       <!-- eslint-disable-next-line -->
       <div class="content is-marginless" v-html="post.content"></div>
@@ -46,6 +47,7 @@ import Utils from '~/utils/helpers';
 import DropdownPicker from './DropdownPicker';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import Vue from 'vue';
+import highlight from 'highlight.js';
 
 export default {
   name: 'Post',
@@ -144,6 +146,9 @@ export default {
     } catch {
       console.log('some kind of error idk');
     }
+    document.querySelectorAll('.content pre code').forEach(block => {
+      highlight.highlightBlock(block);
+    });
   },
   methods: {
     echoDeletePost(postId) {
@@ -281,7 +286,6 @@ b-icon {
   padding: 0 2em;
 }
 .card {
-  border-radius: 6px;
   margin-bottom: 0.65em;
 }
 .content {

@@ -1,6 +1,6 @@
 <template>
   <div class="size">
-    <div v-if="activePost && !isFocusPage" class="create-button">
+    <div v-if="hasActivePost && !isFocusPage" class="create-button">
       <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`">
         <strong class="has-text-white is-size-5">LIVE</strong>
       </nuxt-link>
@@ -12,7 +12,7 @@
 </template>
 <script>
 import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
-import CreatePost from '~/components/Modals/Creation/CreatePostMobile';
+import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
 import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import { mapGetters } from 'vuex';
@@ -20,7 +20,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'MobileFooter',
   computed: {
-    ...mapGetters('coworkers', ['activePost']),
+    ...mapGetters('coworkers', ['hasActivePost']),
     isFocusPage() {
       return this.$route.path.includes('focus');
     },
@@ -45,7 +45,7 @@ export default {
             post: () => {
               this.$modal.open({
                 parent: this,
-                component: CreatePost,
+                component: CreatePostMobile,
                 width: 400,
                 hasModalCard: true,
                 canCancel: true,

@@ -111,7 +111,8 @@ module.exports = {
 
   css: [
     // 'bulma/css/bulma.css',
-    '~/css/main.css',
+    '~/assets/main.css',
+    { src: '~/assets/tiptap.scss', lang: 'scss' },
   ],
 
   /*
@@ -186,6 +187,7 @@ module.exports = {
           'faLink',
           'faComments',
           'faAngleDown',
+          'faAngleUp',
           'faTrashAlt',
           'faArrowUp',
           'faBell',

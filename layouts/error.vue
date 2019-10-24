@@ -40,9 +40,6 @@ div.column {
   font-weight: 500;
   font-size: 3em;
 }
-.card {
-  border-radius: 6px;
-}
 .button.action {
   width: 12em;
   color: white;

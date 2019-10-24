@@ -1,6 +1,6 @@
 <template>
   <div class="focusPage">
-    <div v-if="post.isActive" class="container">
+    <div v-if="post && post.isActive" class="container">
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-centered is-marginless main-margin">
         <!-- post feed -->
         <div class="column">
@@ -107,40 +107,16 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
-import {
-  Blockquote,
-  CodeBlock,
-  HardBreak,
-  Heading,
-  HorizontalRule,
-  OrderedList,
-  BulletList,
-  ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Image,
-  Code,
-  Italic,
-  Link,
-  Strike,
-  Underline,
-  History,
-} from 'tiptap-extensions';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
 
+import editor from '~/mixins/editor';
+
 export default {
   name: 'Focus',
-  components: {
-    EditorContent,
-    EditorMenuBar,
-  },
-
+  mixins: [editor],
   data() {
     return {
-      editor: null,
       post: {},
       countUp: '',
     };
@@ -152,50 +128,23 @@ export default {
   },
   async mounted() {
     this.post = await this.$axios.$get(`/api/v1/posts/active/${this.$route.params.username}`);
-    if (this.post.isActive === true) {
+    if (this.post && this.post.isActive === true) {
+      this.defaultContent = this.post.content;
       this.countUpTimer();
-      this.editor = await new Editor({
-        autoFocus: true,
-        extensions: [
-          new Blockquote(),
-          new BulletList(),
-          new CodeBlock(),
-          new HardBreak(),
-          new Heading({ levels: [1, 2, 3] }),
-          new HorizontalRule(),
-          new Image(),
-          new ListItem(),
-          new OrderedList(),
-          new TodoItem(),
-          new TodoList(),
-          new Bold(),
-          new Code(),
-          new Italic(),
-          new Link(),
-          new Strike(),
-          new Underline(),
-          new History(),
-        ],
-        content: this.post.content,
-        onUpdate: ({ getHTML }) => {
-          this.html = getHTML();
-        },
-      });
-    }
-  },
-  beforeDestroy() {
-    if (this.editor !== null) {
-      this.editor.destroy();
+      this.mixMount();
     }
   },
   sockets: {
     confirmManualDisconnect() {
-      this.$router.push('/beta');
+      console.log('Manual disconnect confirmed');
     },
   },
   methods: {
     endCoworkingSession() {
       this.$socket.emit('manual-disconnect');
+      setTimeout(() => {
+        this.$router.push('/beta');
+      }, 500);
     },
     cardModal() {
       this.$modal.open({
@@ -269,6 +218,8 @@ export default {
   height: 100vh;
   background-image: url('https://source.unsplash.com/collection/151521');
   background-size: cover;
+  position: fixed;
+  overflow: scroll;
 }
 .container {
   height: 90%;
@@ -308,7 +259,6 @@ export default {
 }
 .editor__content {
   color: white;
-  max-height: 50vh;
   overflow-y: scroll;
   overflow-wrap: break-word;
 }

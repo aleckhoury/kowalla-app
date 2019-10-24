@@ -25,6 +25,7 @@
     "cross-env": "5.2.0",
     "debounce": "1.2.0",
     "emoji-mart-vue-fast": "5.4.11",
+    "highlight.js": "^9.15.10",
     "js-cookie": "2.2.0",
     "nuxt": "2.6.2",
     "nuxt-buefy": "0.3.10",
@@ -48,8 +49,10 @@
     "eslint-plugin-vue": "5.2.3",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
+    "node-sass": "^4.12.0",
     "nodemon": "1.19.3",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "sass-loader": "^8.0.0"
   },
   "husky": {
     "hooks": {
@@ -57,7 +60,13 @@
     }
   },
   "lint-staged": {
-    "*.{js,vue}": ["eslint --fix", "git add"],
-    "*.{js,vue,css,md}": ["prettier --write", "git add"]
+    "*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{js,vue,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

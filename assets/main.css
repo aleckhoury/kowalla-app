@@ -5,6 +5,9 @@ html {
 *:focus {
     outline: none;
 }
+.card {
+    border-radius: 6px;
+}
 
 div.dropdown div.button {
     border: 2px solid;
@@ -175,4 +178,19 @@ a span.icon {
     display: unset;
     padding-right: .5em;
     vertical-align: middle;
+}
+
+/* Allow twitter/dribbble-like modal scrolling */
+.modal-background {
+    background-color: transparent;
+}
+.modal-content {
+    max-height: unset;
+    top: 5vh;
+    padding-bottom: 5vh;
+}
+.modal.is-active {
+    display: -webkit-box;
+    overflow: scroll;
+    background-color: rgba(10, 10, 10, 0.86);
 }

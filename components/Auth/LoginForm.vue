@@ -16,7 +16,7 @@
     <b-field label="Password">
       <b-input v-model="loginForm.password" type="password" password-reveal @keyup.native.enter="login(loginForm)" />
     </b-field>
-    <a class="button action" @click="login(loginForm)">
+    <a class="button action" @click.once="login(loginForm)">
       Submit
     </a>
   </div>

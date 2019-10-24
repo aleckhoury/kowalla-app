@@ -63,6 +63,7 @@ export default {
     };
   },
   mounted() {
+    document.title = `Kowalla - Home`;
     this.isMounted = true;
   },
   methods: {},

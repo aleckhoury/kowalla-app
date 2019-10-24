@@ -24,6 +24,18 @@
             </span>
 
             · {{ createdAtFormatted }}
+            <span v-if="isActive">
+              ·
+              <span class="status live">
+                LIVE
+              </span>
+            </span>
+            <span v-else-if="duration">
+              ·
+              <span class="status duration">
+                EXPIRED
+              </span>
+            </span>
           </small>
         </p>
       </nuxt-link>
@@ -38,13 +50,6 @@
             </span>
 
             <span v-if="!isMobile" class="grey">· {{ createdAtFormatted }}</span>
-
-            <span v-if="isActive">
-              ·
-              <span class="liveBox">
-                LIVE
-              </span>
-            </span>
           </small>
         </p>
       </nuxt-link>
@@ -122,6 +127,7 @@ export default {
   props: {
     isActive: { type: Boolean, default: false },
     isModal: { type: Boolean, default: false },
+    duration: { type: String, default: '' },
     createdAt: { type: String, default: '' },
     postId: { type: String, default: '' },
     profile: { type: Object, default: () => {} },
@@ -218,9 +224,6 @@ export default {
   height: 48px;
   width: 48px;
 }
-span {
-  color: #39c9a0;
-}
 
 .grey {
   color: #999;
@@ -242,12 +245,17 @@ span {
   color: #39c9a0;
   text-decoration: underline;
 }
-.liveBox {
+.status {
   border-radius: 3px;
-  padding: 0.125em 0.25em;
+  padding: 0 0.25em 0.125em 0.25em;
   width: fit-content;
-  background: red;
   color: white;
+}
+.status.live {
+  background: red;
+}
+.status.duration {
+  background: #bfbfbf;
 }
 .update {
   background-color: #39c9a0;

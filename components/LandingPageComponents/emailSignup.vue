@@ -67,7 +67,6 @@ export default {
 </script>
 <style type="css" scoped>
 .card {
-  border-radius: 6px;
   padding: 1em 2em 1em 1em;
   width: 30em;
 }

@@ -31,6 +31,7 @@ export default {
     type: { type: String, default: 'NewsFeedActiveTab' },
     isMobile: { type: Boolean, default: false },
     pageId: { type: String, default: '' },
+    isSubscribed: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -56,7 +57,9 @@ export default {
     postingAllowed() {
       const a = this.$store.state.user.loggedIn;
       const b = !this.isMobile;
-      return !!(a && b);
+      const c = this.isSubscribed;
+      const d = this.type !== 'project';
+      return !!(a && b && c && d);
     },
     getPostsUrl() {
       if (this.type === 'NewsFeedActiveTab') {

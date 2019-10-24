@@ -24,7 +24,7 @@
               />
             </b-field>
 
-            <b-field label="Description">
+            <b-field label="Tell us a bit about this project">
               <b-input v-model="spaceForm.description" maxlength="500" type="textarea" placeholder="We're the world's online coworking space." />
             </b-field>
 
@@ -52,7 +52,7 @@
               />
             </b-field>
 
-            <b-field label="Description">
+            <b-field label="Tell us a bit about this community">
               <b-input
                 v-model="spaceForm.description"
                 maxlength="500"
@@ -88,8 +88,20 @@ export default {
       },
     };
   },
+  computed: {
+    formError() {
+      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      return {
+        username: this.spaceForm.name.length ? !regex.test(this.spaceForm.name) : false,
+        usernameLength: this.spaceForm.name.length > 20,
+      };
+    },
+  },
   methods: {
     async createProject(spaceForm) {
+      if (Object.values(this.formError).some(x => x === true)) {
+        return false;
+      }
       try {
         let projectData = await this.$axios.$post('api/v1/projects', {
           name: spaceForm.name,
@@ -130,11 +142,15 @@ export default {
       }
     },
     async createSpace(spaceForm) {
+      if (Object.values(this.formError).some(x => x === true)) {
+        return false;
+      }
       try {
         let spaceData = await this.$axios.$post('api/v1/spaces', {
           name: spaceForm.name,
           description: spaceForm.description,
           isProject: false,
+          profilePicture: spaceForm.profilePicture,
           admins: [this.$store.state.user.username],
         });
         // update local state
@@ -154,8 +170,8 @@ export default {
         });
 
         // change page and close modal
-        this.$router.push({ path: `/beta/space/${spaceData.name}/edit` });
         this.$parent.close();
+        this.$router.push({ path: `/beta/space/${spaceData.name}/edit` });
       } catch (err) {
         console.log(err);
         this.$toast.open({

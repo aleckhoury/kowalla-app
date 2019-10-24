@@ -90,6 +90,9 @@ export default {
 </script>
 
 <style scoped>
+.modal.animation-content {
+  margin: 0;
+}
 .modal-content {
   border-radius: 6px;
   margin: 0;
@@ -105,7 +108,7 @@ div.b-steps.signup {
 .box {
   width: 800px;
   max-width: 100%;
-  max-height: 60vh;
+  max-height: 90vh;
   overflow: scroll;
 }
 </style>

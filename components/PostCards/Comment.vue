@@ -3,7 +3,7 @@
     <article class="media">
       <div class="media-left is-marginless">
         <a @click="toggleUpvote()">
-          <font-awesome-icon :class="{ 'user-upvoted': !!userUpvoted }" icon="arrow-up" class="upvote icon" />
+          <font-awesome-icon :class="{ 'user-upvoted': !!userUpvoted }" icon="angle-up" class="upvote icon" />
         </a>
         <strong>{{ upvoteCount }}</strong>
       </div>
