@@ -631,7 +631,7 @@
         <div class="columns is-vcentered">
           <div class="column has-text-centered is-one-half has-text-black">
             <h2 class="subtitle has-text-black">
-              Join below for details about our 2019 launch. No spam.
+              Join below for details about our 2020 launch. No spam.
             </h2>
             <nuxt-link v-if="this.$store.state.user.loggedIn" class="button action" to="/beta">
               Go to Home Feed &nbsp; <font-awesome-icon icon="arrow-right" />&nbsp;

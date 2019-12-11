@@ -194,3 +194,13 @@ a span.icon {
     overflow: scroll;
     background-color: rgba(10, 10, 10, 0.86);
 }
+@media only screen and (max-width: 600px) {
+    .modal.is-active {
+        display: flex;
+        overflow: scroll;
+        background-color: rgba(10, 10, 10, 0.86);
+    }
+}
+body {
+    background-color: #39C9A0;
+}

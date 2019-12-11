@@ -38,7 +38,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -192,6 +192,9 @@ module.exports = {
           'faArrowUp',
           'faBell',
           'faBold',
+          'faEye',
+          'faEyeSlash',
+          'faExclamationCircle',
           'faFlag',
           'faItalic',
           'faStrikethrough',

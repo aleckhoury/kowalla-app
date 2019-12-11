@@ -18,7 +18,14 @@
         <!-- eslint-disable-next-line -->
         <div class="content is-marginless" v-html="post.content"></div>
         <br />
-        <Reactions :post-id="post._id" :is-feed="false" @toggle="toggleComment" />
+        <Reactions
+          :post-id="post._id"
+          :create-picker="createPicker"
+          :reactions-formatted="reactionsFormatted"
+          :toggle-reaction="toggleReaction"
+          :is-feed="false"
+          @toggle="toggleComment"
+        />
       </div>
       <AddComment v-if="!activeCommentId && this.$store.state.user.loggedIn" :post-id="post._id" :update-comment="updateComment" />
       <Comment v-for="comment in commentList" :key="comment._id" :active-comment="activeCommentId" :comment="comment" :nest-level="0" :toggle="toggleComment" />
@@ -32,11 +39,12 @@ import AddComment from '~/components/PostCards/AddComment';
 import Reactions from '~/components/PostCards/Reactions';
 import PostHeader from '~/components/PostCards/PostHeader';
 import PostTimer from '~/components/PostCards/PostTimer';
-import Utils from '~/utils/helpers';
+import reactions from '~/mixins/reactions';
 
 export default {
   name: 'PostModal',
   components: { AddComment, Comment, Reactions, PostHeader, PostTimer },
+  mixins: [reactions],
   props: {
     isFromNewsfeed: { type: Boolean, default: false },
     fallbackUrl: { type: String, default: '' },
@@ -70,6 +78,7 @@ export default {
     this.profile = this.infoObj.profile;
     this.space = this.infoObj.space;
     this.project = this.infoObj.project;
+    this.reactionsFormatted = this.infoObj.reactionsFormatted;
 
     this.originalPath = this.$route.path;
     if (Object.keys(this.space).length) {
@@ -97,9 +106,6 @@ export default {
   methods: {
     updateComment(comment) {
       this.commentList.unshift(comment);
-    },
-    toggleComment(activeCommentId) {
-      this.activeCommentId = activeCommentId;
     },
     echoDeletePost(postId) {
       this.$emit('delete-post', postId);

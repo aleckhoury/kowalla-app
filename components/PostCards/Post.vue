@@ -43,6 +43,7 @@ import PostTimer from '~/components/PostCards/PostTimer';
 import PostModal from '~/components/PostCards/PostModal.vue';
 import Comment from '~/components/PostCards/Comment.vue';
 import AddComment from '~/components/PostCards/AddComment';
+import reactions from '~/mixins/reactions';
 import Utils from '~/utils/helpers';
 import DropdownPicker from './DropdownPicker';
 import LoginHandler from '~/components/Auth/LoginHandler';
@@ -52,6 +53,7 @@ import highlight from 'highlight.js';
 export default {
   name: 'Post',
   components: { PostTimer, PostHeader, Reactions, Comment, AddComment },
+  mixins: [reactions],
   props: {
     post: { type: Object, default: () => {} },
     isFeed: {
@@ -73,7 +75,6 @@ export default {
       isProject: false,
       overflow: false,
       reactionList: [],
-      reactionsFormatted: [],
       commentList: [],
       activeCommentId: '',
     };
@@ -160,6 +161,7 @@ export default {
         space: this.space,
         project: this.isProject ? this.project : {},
         profile: this.isProject ? {} : this.profile,
+        reactionsFormatted: this.reactionsFormatted,
       };
       if (this.isMobile) {
         if (Object.keys(this.space).length) {
@@ -186,73 +188,8 @@ export default {
         });
       }
     },
-    async toggleReaction(emoji) {
-      if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
-          parent: this,
-          component: LoginHandler,
-          width: 900,
-          hasModalCard: true,
-        });
-      }
-      const savedEmoji = typeof emoji === 'string' ? emoji : emoji.native;
-      let emojiIndex = await this.reactionsFormatted.map(x => x.emoji).indexOf(savedEmoji);
-      const isEmojiObject = typeof emoji === 'object';
-      if (emojiIndex === -1 || this.reactionsFormatted[emojiIndex].userReacted === false) {
-        return this.toggleReactionTrue(savedEmoji, emojiIndex, isEmojiObject);
-      } else if (emojiIndex !== -1 && this.reactionsFormatted[emojiIndex].userReacted === true) {
-        return this.toggleReactionFalse(savedEmoji, emojiIndex);
-      }
-    },
-    async toggleReactionTrue(emoji, index, isEmojiObject) {
-      await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/reactions`, {
-        emoji: emoji,
-        postId: this.post._id,
-      });
-      if (index === -1) {
-        this.reactionsFormatted.push({
-          emoji: emoji,
-          count: 1,
-          userReacted: false,
-        });
-        const newIndex = this.reactionsFormatted.map(x => x.emoji).indexOf(emoji);
-        this.reactionsFormatted[newIndex].userReacted = true;
-      } else {
-        this.reactionsFormatted[index].userReacted = true;
-        this.reactionsFormatted[index].count++;
-      }
-      if (isEmojiObject) {
-        this.$children[1].$refs.dropdown.toggle();
-      }
-    },
-    async toggleReactionFalse(emoji, index) {
-      await this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/reactions/${this.post._id}`, {
-        data: {
-          emoji: emoji,
-        },
-      });
-      this.reactionsFormatted[index].count--;
-      this.reactionsFormatted[index].userReacted = false;
-      if (this.reactionsFormatted[index].count === 0) {
-        this.reactionsFormatted.splice(index, 1);
-      }
-    },
-    createPicker() {
-      if (this.$children[1].$refs.picker.attributes[0].ownerElement.children.length) {
-        return null;
-      }
-      let ComponentClass = Vue.extend(DropdownPicker);
-      let instance = new ComponentClass({
-        propsData: { toggleReaction: this.toggleReaction },
-      });
-      instance.$mount(); // pass nothing
-      this.$children[1].$refs.picker.appendChild(instance.$el);
-    },
     updateComment(comment) {
       this.commentList.unshift(comment);
-    },
-    toggleComment(activeCommentId) {
-      this.activeCommentId = activeCommentId;
     },
   },
 };

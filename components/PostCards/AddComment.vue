@@ -34,7 +34,7 @@ export default {
     };
   },
   methods: {
-    createComment() {
+    async createComment() {
       if (this.comment.length) {
         const commentObj = {
           profileId: this.$store.state.user._id,
@@ -42,9 +42,9 @@ export default {
           content: this.comment,
           commentId: this.commentId ? this.commentId : '',
         };
-        this.$axios.$post('/api/v1/comments', commentObj);
+        const updatedCommentObj = await this.$axios.$post('/api/v1/comments', commentObj);
         this.$store.commit('user/incrementCommentCount');
-        this.updateComment(commentObj);
+        this.updateComment(updatedCommentObj);
         this.comment = '';
         this.resetReply('');
       } else {

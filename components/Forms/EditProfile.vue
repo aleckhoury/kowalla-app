@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     formError() {
-      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      const regex = RegExp('^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$');
       return {
         username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
         usernameLength: this.editForm.username.length > 20,

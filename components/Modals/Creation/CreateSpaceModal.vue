@@ -90,7 +90,7 @@ export default {
   },
   computed: {
     formError() {
-      const regex = RegExp('^(?=.+$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+      const regex = RegExp('^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$');
       return {
         username: this.spaceForm.name.length ? !regex.test(this.spaceForm.name) : false,
         usernameLength: this.spaceForm.name.length > 20,
