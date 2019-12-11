@@ -2,6 +2,9 @@ import Vue from 'vue';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import DropdownPicker from '~/components/PostCards/DropdownPicker';
 
+// NOTE - The $children[1] selector only works in the local environment. Not sure why 🤔
+// NOTE - When testing use $children[1], but when deploying, use $children[1]
+
 const reactions = {
   data() {
     return {
@@ -10,8 +13,7 @@ const reactions = {
   },
   methods: {
     createPicker() {
-      console.log(this);
-      if (this.$children[2].$refs.picker.attributes[0].ownerElement.children.length) {
+      if (this.$children[1].$refs.picker.attributes[0].ownerElement.children.length) {
         return null;
       }
       let ComponentClass = Vue.extend(DropdownPicker);
@@ -19,7 +21,7 @@ const reactions = {
         propsData: { toggleReaction: this.toggleReaction },
       });
       instance.$mount(); // pass nothing
-      this.$children[2].$refs.picker.appendChild(instance.$el);
+      this.$children[1].$refs.picker.appendChild(instance.$el);
     },
     async toggleReaction(emoji) {
       if (!this.$store.state.user.loggedIn) {
@@ -57,7 +59,7 @@ const reactions = {
         this.reactionsFormatted[index].count++;
       }
       if (isEmojiObject) {
-        this.$children[2].$refs.dropdown.toggle();
+        this.$children[1].$refs.dropdown.toggle();
       }
     },
     async toggleReactionFalse(emoji, index) {
