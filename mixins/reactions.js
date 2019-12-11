@@ -10,6 +10,7 @@ const reactions = {
   },
   methods: {
     createPicker() {
+      console.log(this);
       if (this.$children[2].$refs.picker.attributes[0].ownerElement.children.length) {
         return null;
       }
