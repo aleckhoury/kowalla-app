@@ -50,26 +50,6 @@ export default {
     },
   },
   methods: {
-    newPostModal() {
-      this.$modal.open({
-        parent: this,
-        component: CreatePost,
-        events: {
-          'post-created': postObj => {
-            this.$emit('post-created', postObj);
-          },
-        },
-        hasModalCard: true,
-      });
-    },
-    callHelpModal() {
-      this.$modal.open({
-        parent: this,
-        component: HelpModal,
-        width: 900,
-        hasModalCard: true,
-      });
-    },
     cardModal() {
       this.$modal.open({
         parent: this,

@@ -91,6 +91,9 @@ export default {
     window.history.pushState({}, null, `${this.$route.path}`);
   },
   async mounted() {
+    if (this.post.isActive || this.post.duration) {
+      this.childNumber = 2;
+    }
     this.commentList = await this.$axios.$get(`/api/v1/comments/${this.post._id}`);
     if (this.$store.state.user.loggedIn) {
       this.commentList.map(async (comment, idx) => {

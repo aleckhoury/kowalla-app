@@ -9,11 +9,12 @@ const reactions = {
   data() {
     return {
       reactionsFormatted: [],
+      childNumber: 1,
     };
   },
   methods: {
     createPicker() {
-      if (this.$children[1].$refs.picker.attributes[0].ownerElement.children.length) {
+      if (this.$children[this.childNumber].$refs.picker.attributes[0].ownerElement.children.length) {
         return null;
       }
       let ComponentClass = Vue.extend(DropdownPicker);
@@ -21,7 +22,7 @@ const reactions = {
         propsData: { toggleReaction: this.toggleReaction },
       });
       instance.$mount(); // pass nothing
-      this.$children[1].$refs.picker.appendChild(instance.$el);
+      this.$children[this.childNumber].$refs.picker.appendChild(instance.$el);
     },
     async toggleReaction(emoji) {
       if (!this.$store.state.user.loggedIn) {
@@ -59,7 +60,7 @@ const reactions = {
         this.reactionsFormatted[index].count++;
       }
       if (isEmojiObject) {
-        this.$children[1].$refs.dropdown.toggle();
+        this.$children[this.childNumber].$refs.dropdown.toggle();
       }
     },
     async toggleReactionFalse(emoji, index) {

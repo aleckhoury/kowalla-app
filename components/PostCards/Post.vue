@@ -80,6 +80,9 @@ export default {
     };
   },
   async mounted() {
+    if (this.post.isActive || this.post.duration) {
+      this.childNumber = 2;
+    }
     if (this.post.hasOwnProperty('projectId')) {
       this.isProject = true;
       try {
