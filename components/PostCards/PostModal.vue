@@ -120,7 +120,6 @@ export default {
 <style scoped>
 div.card {
   border-radius: 6px 6px 0 0;
-  padding: 0 5em;
 }
 @media only screen and (max-width: 600px) {
   div.card {
@@ -128,7 +127,6 @@ div.card {
   }
 }
 .box {
-  width: 55em;
   max-width: 100%;
   overflow-y: scroll;
 }
@@ -136,7 +134,7 @@ div.card {
   border-radius: 6px;
   margin: 0;
   color: #39c9a0;
-  width: auto;
+  width: 640px;
   height: auto;
   overflow: visible;
 }

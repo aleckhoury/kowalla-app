@@ -1,22 +1,13 @@
 <template>
   <div class="modal-content">
     <div class="box">
-      <div class="level" @click="emitSelection('post')">
-        <font-awesome-icon class="dark-basic-theme icon" icon="pencil-ruler" style="font-size: 16px" />
-
-        Create a new Post
-      </div>
-
-      <div class="level" @click="emitSelection('space')">
-        <font-awesome-icon class="dark-basic-theme icon" icon="user-friends" style="font-size: 16px" />
-
-        Create a new Space
-      </div>
-
-      <div class="level" @click="emitSelection('project')">
-        <font-awesome-icon class="dark-basic-theme icon" icon="project-diagram" style="font-size: 16px" />
-        Create a new Project
-      </div>
+      <BMenu>
+        <BMenuList label="Actions">
+          <BMenuItem icon="pencil-ruler" color="blue" label="Create a New Post" @click="emitSelection('post')"></BMenuItem>
+          <BMenuItem icon="user-friends" label="Create a New Space" @click="emitSelection('space')"></BMenuItem>
+          <BMenuItem icon="project-diagram" label="Create a New Project" @click="emitSelection('project')"></BMenuItem>
+        </BMenuList>
+      </BMenu>
     </div>
   </div>
 </template>
@@ -32,13 +23,8 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.box {
-    margin: 25px;
-    max-width: 100%;
-}
-.icon {
-  width: 20px;
-  margin-right: 4px;
+.menu-list a.icon {
+  color: #39C9A0 !important;
 }
 .modal-content {
     align-self: center;
@@ -46,9 +32,5 @@ export default {
     margin: 0;
     color: #39C9A0;
     width: auto;
-}
-
-.dark-basic-theme {
-  color: #39C9A0;
 }
 </style>

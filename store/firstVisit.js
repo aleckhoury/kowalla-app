@@ -6,7 +6,7 @@ export const state = () => ({
 
 export const mutations = {
   cancelFirstVisit(state) {
-    Cookies.set('firstVisit', true);
+    Cookies.set('firstVisit', true, { expires: 3650 });
     state.firstVisit = !Cookies.get('firstVisit');
   },
   setFirstVisit(state) {

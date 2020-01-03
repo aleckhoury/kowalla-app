@@ -15,9 +15,9 @@
             <font-awesome-icon class="theme-color-dark" icon="search" style="font-size: 20px" />
           </div>
 
-          <div v-if="this.$store.state.user.loggedIn" class="level-item align-icon" @click="callNotifModal">
-            <font-awesome-icon class="theme-color-dark" icon="bell" style="font-size: 20px" />
-          </div>
+          <!--          <div v-if="this.$store.state.user.loggedIn" class="level-item align-icon" @click="callNotifModal">-->
+          <!--            <font-awesome-icon class="theme-color-dark" icon="bell" style="font-size: 20px" />-->
+          <!--          </div>-->
 
           <!--<div class="level-item">-->
           <img

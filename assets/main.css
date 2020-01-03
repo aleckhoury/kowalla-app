@@ -33,7 +33,6 @@ div.dropdown div.button {
     border-radius: 6px;
     margin: 0;
     color: #39C9A0;
-    width: auto;
 }
 
 .mobile-main-margin {
@@ -178,6 +177,7 @@ a span.icon {
     display: unset;
     padding-right: .5em;
     vertical-align: middle;
+    color: #39C9A0;
 }
 
 /* Allow twitter/dribbble-like modal scrolling */
@@ -200,6 +200,9 @@ a span.icon {
         overflow: scroll;
         background-color: rgba(10, 10, 10, 0.86);
     }
+}
+.dropdown:hover {
+    cursor: pointer;
 }
 body {
     background-color: #39C9A0;

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state">
+  <div>
     <Header class="is-hidden-touch" />
     <MobileHeader :open-sidebar="openSidebar" class="is-hidden-desktop" />
     <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" class="is-hidden-desktop" />
@@ -27,20 +27,20 @@ export default {
     },
   },
   mounted() {
-    this.$socket.emit('checkUsers', this.$store.state.coworkers.list.length);
+    this.$socket.emit('checkUsers', this.state.coworkers.list.length);
   },
   sockets: {
     updateUsers(data) {
       this.$store.commit('coworkers/SOCKET_JOIN', data);
     },
     checkForUser(data) {
-      if (data === this.$store.state.user.username) {
+      if (data === this.state.user.username) {
         this.$socket.emit('join', {
-          username: this.$store.state.user.username,
-          profilePicture: this.$store.state.user.profilePicture,
+          username: this.state.user.username,
+          profilePicture: this.state.user.profilePicture,
         });
       } else {
-        this.$socket.emit('checkUsers', this.$store.state.coworkers.list.length);
+        this.$socket.emit('checkUsers', this.state.coworkers.list.length);
       }
     },
   },

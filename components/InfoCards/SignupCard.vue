@@ -35,7 +35,7 @@ export default {
     },
     async getTwitterCreds() {
       const twitterCreds = await this.$axios.$post('api/v1/twitter/signin');
-      Cookies.set('firstVisit', true);
+      Cookies.set('firstVisit', true, { expires: 3650 });
       Cookies.set('twitterToken', twitterCreds.oauth_token);
       window.location = `https://api.twitter.com/oauth/authenticate?oauth_token=${twitterCreds.oauth_token}`;
     },

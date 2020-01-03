@@ -31,13 +31,13 @@
 
         <div class="level-right">
           <div v-if="this.$store.state.user.loggedIn" class="level-item">
-            <Button @kow-button-click="newPostModal">
+            <Button @kow-button-click="newCreateModal">
               <b>New</b>
             </Button>
 
             <Searchbar />
 
-            <NavNotifications :has-notifications="this.$store.state.user.hasNotifications" />
+            <!--            <NavNotifications :has-notifications="this.$store.state.user.hasNotifications" />-->
 
             <NavProfilePicture />
           </div>
@@ -55,10 +55,11 @@
 import Button from './Button';
 import Searchbar from './Searchbar';
 import NavProfilePicture from './NavProfilePicture';
-import NavNotifications from './NavNotifications';
 import HelpModal from '~/components/Modals/Other/HelpModal';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
+import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
+import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -67,7 +68,6 @@ export default {
     Button,
     Searchbar,
     NavProfilePicture,
-    NavNotifications,
   },
   data() {
     return {
@@ -79,20 +79,51 @@ export default {
     ...mapGetters('coworkers', ['hasActivePost']),
   },
   methods: {
-    newPostModal() {
-      this.$modal.open({
-        parent: this,
-        component: CreatePost,
-        props: {
-          type: 'navButton',
-        },
-        events: {
-          'post-created': postObj => {
-            this.$emit('post-created', postObj);
+    newCreateModal() {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+        });
+      } else {
+        this.$modal.open({
+          parent: this,
+          component: MobileCreateModal,
+          width: 400,
+          hasModalCard: true,
+          canCancel: true,
+          events: {
+            post: () => {
+              this.$modal.open({
+                parent: this,
+                component: CreatePost,
+                hasModalCard: true,
+                canCancel: true,
+              });
+            },
+            space: () => {
+              this.$modal.open({
+                parent: this,
+                component: CreateSpaceModal,
+                width: 900,
+                hasModalCard: true,
+                props: { type: 1 },
+              });
+            },
+            project: () => {
+              this.$modal.open({
+                parent: this,
+                component: CreateSpaceModal,
+                width: 900,
+                hasModalCard: true,
+                props: { type: 0 },
+              });
+            },
           },
-        },
-        hasModalCard: true,
-      });
+        });
+      }
     },
     callHelpModal() {
       this.$modal.open({

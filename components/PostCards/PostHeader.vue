@@ -66,44 +66,44 @@
       </p>
     </div>
     <div class="media-right">
-      <div v-if="isProject && !isMobile && !isModal" class="update level is-size-6">
-        <div class="level-left">
-          <font-awesome-icon icon="flag" /> &nbsp;
-          <h2><b>Update</b></h2>
-        </div>
-        <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">
-          <font-awesome-icon slot="trigger" icon="angle-down" />
+      <!--      <div v-if="isProject && !isMobile && !isModal" class="update level is-size-6">-->
+      <!--        <div class="level-left">-->
+      <!--          <font-awesome-icon icon="flag" /> &nbsp;-->
+      <!--          <h2><b>Update</b></h2>-->
+      <!--        </div>-->
+      <!--        <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">-->
+      <!--          <font-awesome-icon slot="trigger" icon="angle-down" />-->
 
-          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
-            <font-awesome-icon icon="link" />
-            Copy link
-          </b-dropdown-item>
+      <!--          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">-->
+      <!--            <font-awesome-icon icon="link" />-->
+      <!--            Copy link-->
+      <!--          </b-dropdown-item>-->
 
-          <b-dropdown-item v-if="deleteAllowed" key="1" aria-role="listitem" @click="deletePost">
-            <font-awesome-icon icon="trash-alt" />
-            Delete
-          </b-dropdown-item>
-        </b-dropdown>
-      </div>
-      <div v-else-if="isProject && isMobile && !isModal" class="update level is-mobile is-size-6">
-        <div class="mobile level-left">
-          <font-awesome-icon icon="flag" />
-        </div>
-        <b-dropdown :mobile-modal="false" class="mobile level-right has-text-white" position="is-bottom-left" aria-role="list">
-          <font-awesome-icon slot="trigger" icon="angle-down" />
+      <!--          <b-dropdown-item v-if="deleteAllowed" key="1" aria-role="listitem" @click="deletePost">-->
+      <!--            <font-awesome-icon icon="trash-alt" />-->
+      <!--            Delete-->
+      <!--          </b-dropdown-item>-->
+      <!--        </b-dropdown>-->
+      <!--      </div>-->
+      <!--      <div v-else-if="isProject && isMobile && !isModal" class="update level is-mobile is-size-6">-->
+      <!--        <div class="mobile level-left">-->
+      <!--          <font-awesome-icon icon="flag" />-->
+      <!--        </div>-->
+      <!--        <b-dropdown :mobile-modal="false" class="mobile level-right has-text-white" position="is-bottom-left" aria-role="list">-->
+      <!--          <font-awesome-icon slot="trigger" icon="angle-down" />-->
 
-          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
-            <font-awesome-icon icon="link" />
-            Copy link
-          </b-dropdown-item>
+      <!--          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">-->
+      <!--            <font-awesome-icon icon="link" />-->
+      <!--            Copy link-->
+      <!--          </b-dropdown-item>-->
 
-          <b-dropdown-item v-if="profile._id === this.$store.state.user._id" key="1" aria-role="listitem" @click="deletePost">
-            <font-awesome-icon icon="trash-alt" />
-            Delete
-          </b-dropdown-item>
-        </b-dropdown>
-      </div>
-      <b-dropdown v-else :mobile-modal="false" position="is-bottom-left" aria-role="list">
+      <!--          <b-dropdown-item v-if="profile._id === this.$store.state.user._id" key="1" aria-role="listitem" @click="deletePost">-->
+      <!--            <font-awesome-icon icon="trash-alt" />-->
+      <!--            Delete-->
+      <!--          </b-dropdown-item>-->
+      <!--        </b-dropdown>-->
+      <!--      </div>-->
+      <b-dropdown :mobile-modal="false" position="is-bottom-left" aria-role="list">
         <font-awesome-icon slot="trigger" icon="angle-down" />
 
         <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">

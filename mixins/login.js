@@ -70,7 +70,7 @@ const login = {
           password: registerForm.password,
         });
         await Cookies.set('token', token);
-        await Cookies.set('firstVisit', true);
+        await Cookies.set('firstVisit', true, { expires: 3650 });
         const user = await this.$axios.$get(`api/v1/users/${registerForm.username}`);
         const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
         const { owned, subscriptions } = subs.subscriptions;

@@ -23,7 +23,7 @@ export default {
       const { isNew, token, user } = await this.$axios.$post('api/v1/github/signin', {
         code: this.$route.query.code,
       });
-      await Cookies.set('firstVisit', true);
+      await Cookies.set('firstVisit', true, { expires: 3650 });
       await Cookies.set('token', token);
       const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
 

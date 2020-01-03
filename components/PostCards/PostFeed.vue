@@ -160,4 +160,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card:first-of-type {
+  border-radius: 6px 6px 0 0;
+}
+.card {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+</style>

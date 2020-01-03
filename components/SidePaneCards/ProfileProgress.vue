@@ -187,7 +187,7 @@ text {
   display: unset;
 }
 .items {
-  padding: 0 1em 1em 1em;
+  padding: 0 0.5em 0.5em 0.5em;
 }
 .isMobile.items {
   padding: 0;

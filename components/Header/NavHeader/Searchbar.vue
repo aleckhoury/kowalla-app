@@ -109,7 +109,6 @@ export default {
 
 <style lang="css" scoped>
 .searchbar-container {
-
   margin: 6px 0;
 }
 
