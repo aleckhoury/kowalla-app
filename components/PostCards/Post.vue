@@ -225,9 +225,6 @@ b-icon {
 .media-content {
   padding: 0 2em;
 }
-.card {
-  margin-bottom: 0.65em;
-}
 .content {
   word-break: break-word;
   margin-left: 8px;
