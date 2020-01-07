@@ -23,8 +23,8 @@
         <p v-else class="has-text-white">
           <small>Already have an account?</small>
         </p>
-        <a v-if="loginBox" class="button" @click="toggleFlow"> <font-awesome-icon icon="arrow-left" />&nbsp; Signup </a>
-        <a v-else class="button" @click="toggleFlow"> Login &nbsp;<font-awesome-icon icon="arrow-right" /> </a>
+        <a v-if="loginBox" class="button" @click="toggleFlow"> <font-awesome-icon icon="angle-left" />&nbsp; Signup </a>
+        <a v-else class="button" @click="toggleFlow"> Login &nbsp;<font-awesome-icon icon="angle-right" /> </a>
       </div>
       <transition name="fade" mode="out-in">
         <LoginForm v-if="loginBox" />

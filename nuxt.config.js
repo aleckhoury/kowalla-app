@@ -112,6 +112,7 @@ module.exports = {
   css: [
     // 'bulma/css/bulma.css',
     '~/assets/main.css',
+    '~/assets/emoji-mart.css',
     { src: '~/assets/tiptap.scss', lang: 'scss' },
   ],
 
@@ -180,10 +181,11 @@ module.exports = {
         set: '@fortawesome/free-solid-svg-icons',
         icons: [
           'faArrowRight',
-          'faArrowLeft',
+          'faAngleRight',
+          'faAngleLeft',
           'faPlus',
           'faSearch',
-          'faSmile',
+          'faLaugh',
           'faLink',
           'faComments',
           'faAngleDown',

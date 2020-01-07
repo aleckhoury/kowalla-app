@@ -44,7 +44,7 @@
             <b-field label="Space name">
               <b-input
                 v-model="spaceForm.name"
-                placeholder="StreetwearStartup"
+                placeholder="SideProject"
                 pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
                 icon="hashtag"
                 validation-message="No special characters or spaces allowed"
@@ -57,7 +57,7 @@
                 v-model="spaceForm.description"
                 maxlength="500"
                 type="textarea"
-                placeholder="The place to be if you want to build your own streetwear company."
+                placeholder="A community for sharing and receiving constructive feedback on side projects"
               />
             </b-field>
 

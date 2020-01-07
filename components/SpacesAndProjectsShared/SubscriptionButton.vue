@@ -1,7 +1,7 @@
 <template>
-  <button :class="getClasses" class="sub-button" @click="handleClick">
+  <BButton :class="classes" class="sub-button" @click="handleClick">
     <b>{{ getText }}</b>
-  </button>
+  </BButton>
 </template>
 <script>
 export default {
@@ -13,7 +13,7 @@ export default {
     id: { type: String, default: '' },
   },
   computed: {
-    getClasses() {
+    classes() {
       return {
         'is-subscribed': this.isSubscribed,
         'is-not-subscribed': !this.isSubscribed,
@@ -41,35 +41,31 @@ export default {
 </script>
 <style lang="css" scoped>
 .sub-button {
-  height: 45px;
-  width: 180px;
-  border-radius: 6px;
-  border: 2px solid #2F8168;
   margin: 6px;
+  color: #0a2049;
+  border: 1px solid #0a2049;
+  background-color: white;
 
   font-size: 0.875em;
-  cursor: pointer;
 }
-
-.sub-button:focus {
-  outline: none;
+.button.is-black.is-inverted.is-outlined {
+  /*background-color: #39C9A0;*/
+  /*color: white;*/
 }
 
 .is-subscribed {
   color: white;
-  background-color: #39C9A0;
+  border: 1px solid white;
+  background-color: #0a2049;
 }
 
 .is-subscribed:hover{
-  border: 2px solid white;
-}
-
-.is-not-subscribed {
-  color: #39C9A0;
+  color: #0a2049;
   background-color: white;
 }
 
 .is-not-subscribed:hover{
-  border: 2px solid #39C9A0;
+  color: white;
+  background-color: #0a2049;
 }
 </style>

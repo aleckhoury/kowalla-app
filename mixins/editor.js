@@ -19,6 +19,7 @@ import {
   Underline,
   History,
   TrailingNode,
+  Placeholder,
 } from 'tiptap-extensions';
 import Iframe from '~/components/Modals/Creation/Iframe';
 import EmbedButton from '~/components/Modals/Creation/EmbedButton';
@@ -140,6 +141,13 @@ const editor = {
           new Underline(),
           new History(),
           new TrailingNode(),
+          new Placeholder({
+            emptyEditorClass: 'is-editor-empty',
+            emptyNodeClass: 'is-empty',
+            emptyNodeText: 'What are you working on?',
+            showOnlyWhenEditable: true,
+            showOnlyCurrent: true,
+          }),
           // Custom Extensions
           new Iframe(),
         ],

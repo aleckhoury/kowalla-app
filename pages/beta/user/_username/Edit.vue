@@ -3,7 +3,9 @@
     <div class="container is-fullhd is-hidden-touch">
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <!-- nav pane -->
-        <div class="column is-one-quarter"></div>
+        <div class="column is-one-quarter">
+          <EditInfo />
+        </div>
 
         <!-- post feed -->
         <div class="column is-one-half">
@@ -53,12 +55,15 @@
 <script>
 import EditProfile from '~/components/Forms/EditProfile';
 import IntegrationCard from '../../../../components/Forms/IntegrationCard';
+import EditInfo from '../../../../components/SidePaneCards/EditInfo';
+
 export default {
   middleware: 'tabs',
   name: 'Edit',
   components: {
     IntegrationCard,
     EditProfile,
+    EditInfo,
   },
 
   data() {

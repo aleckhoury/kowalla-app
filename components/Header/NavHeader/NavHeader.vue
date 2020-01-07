@@ -31,9 +31,9 @@
 
         <div class="level-right">
           <div v-if="this.$store.state.user.loggedIn" class="level-item">
-            <Button @kow-button-click="newCreateModal">
+            <BButton type="is-black" inverted outlined @click="newCreateModal">
               <b>New</b>
-            </Button>
+            </BButton>
 
             <Searchbar />
 
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import Button from './Button';
 import Searchbar from './Searchbar';
 import NavProfilePicture from './NavProfilePicture';
 import HelpModal from '~/components/Modals/Other/HelpModal';
@@ -65,7 +64,6 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'NavHeader',
   components: {
-    Button,
     Searchbar,
     NavProfilePicture,
   },
@@ -175,8 +173,13 @@ export default {
   cursor: pointer;
 }
 
-.main-theme {
-  background-color: #39C9A0;
+.button {
+  margin-right: 6px;
+}
+
+.button.is-black.is-inverted.is-outlined:hover {
+  background-color: white;
+  color: #39C9A0;
 }
 
 .kowalla-logo-picture {

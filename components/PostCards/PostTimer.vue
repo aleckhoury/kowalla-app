@@ -68,6 +68,7 @@ export default {
 
 <style scoped>
 .level {
+  margin-bottom: 0;
 }
 .time {
   border-radius: 6px;

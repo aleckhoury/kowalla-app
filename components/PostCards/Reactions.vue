@@ -21,7 +21,7 @@
       </a>
       <b-dropdown v-if="this.$store.state.user.loggedIn" ref="dropdown" mobile-modal>
         <a slot="trigger" class="button is-outlined level-item" @click="createPicker">
-          <font-awesome-icon icon="smile" />
+          <font-awesome-icon icon="laugh" />
         </a>
         <b-dropdown-item custom>
           <div ref="picker" />

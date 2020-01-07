@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <div class="box rows">
-      <div class="level is-paddingless">
-        <span class="level-left is-size-4"
-          ><b>{{ name }}</b></span
-        >
-        <b-switch :value="isActive" class="level-right" size="is-medium" @input="toggleIntegration"></b-switch>
-      </div>
-      <div class="level is-paddingless">
-        {{ description }}
-      </div>
+  <div class="box rows">
+    <div class="level is-paddingless">
+      <span class="level-left is-size-4"
+        ><b>{{ name }}</b></span
+      >
+      <b-switch :value="isActive" class="level-right" size="is-medium" @input="toggleIntegration"></b-switch>
+    </div>
+    <div class="level is-paddingless">
+      {{ description }}
     </div>
   </div>
 </template>

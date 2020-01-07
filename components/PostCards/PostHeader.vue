@@ -14,42 +14,44 @@
       </nuxt-link>
     </figure>
     <div class="card-content is-paddingless">
-      <nuxt-link v-if="isProject" :to="getProjectRoute" class="no-decor">
-        <p>
-          <strong>{{ project.name }}</strong>
+      <p v-if="isProject">
+        <nuxt-link :to="getProjectRoute" class="no-decor">
+          <strong class="underline">{{ project.name }}</strong>
 
-          <small class="grey">
-            <span :to="getProjectRoute" class="grey underline">
+          <small>
+            <span :to="getProjectRoute" class="grey">
               <b>@{{ project.name }}</b>
             </span>
-
-            · {{ createdAtFormatted }}
-            <span v-if="isActive">
-              ·
-              <span class="status live">
-                LIVE
-              </span>
-            </span>
-            <span v-else-if="duration">
-              ·
-              <span class="status duration">
-                EXPIRED
-              </span>
-            </span>
           </small>
-        </p>
-      </nuxt-link>
+        </nuxt-link>
+
+        <small>
+          · <span :class="{ link: !isModal }" @click="showPost()">{{ createdAtFormatted }}</span>
+          <span v-if="isActive">
+            ·
+            <span class="status live" @click="showPost()">
+              LIVE
+            </span>
+          </span>
+          <span v-else-if="duration">
+            ·
+            <span class="status duration" @click="showPost()">
+              EXPIRED
+            </span>
+          </span>
+        </small>
+      </p>
 
       <nuxt-link v-if="!isProject" :to="getProfileRoute" class="no-decor">
         <p>
-          <strong>{{ profile.firstName }} {{ profile.lastName }}</strong>
+          <strong class="underline">{{ profile.firstName }}{{ profile.lastName ? ` ${profile.lastName}` : '' }}</strong>
 
-          <small class="grey">
-            <span :to="getProfileRoute" class="grey underline">
+          <small>
+            <span :to="getProfileRoute" class="grey">
               <b>@{{ profile.username }}</b>
             </span>
 
-            <span v-if="!isMobile" class="grey">· {{ createdAtFormatted }}</span>
+            <span class="grey">· {{ createdAtFormatted }}</span>
           </small>
         </p>
       </nuxt-link>
@@ -59,11 +61,23 @@
         <nuxt-link :to="getSpaceRoute" class="space underline">
           <b>#{{ space.name }}</b>
         </nuxt-link>
+        <span v-if="isProject && profile.username">
+          <span class="grey">by</span>
+          <nuxt-link :to="getProfileRoute" class="space underline grey">
+            <b>{{ profile.username }}</b>
+          </nuxt-link>
+        </span>
+      </p>
+      <p v-else-if="isProject && profile.username">
+        <span class="grey">by</span>
+        <nuxt-link :to="getProfileRoute" class="space underline grey">
+          <b>{{ profile.username }}</b>
+        </nuxt-link>
       </p>
 
-      <p class="created-at-mobile">
-        <span v-if="isMobile && !isProject" class="grey">{{ createdAtFormatted }}</span>
-      </p>
+      <!--      <p class="created-at-mobile">-->
+      <!--        <span v-if="isMobile && !isProject" class="grey">{{ createdAtFormatted }}</span>-->
+      <!--      </p>-->
     </div>
     <div class="media-right">
       <!--      <div v-if="isProject && !isMobile && !isModal" class="update level is-size-6">-->
@@ -163,6 +177,10 @@ export default {
     },
   },
   methods: {
+    showPost() {
+      window.history.pushState({}, '');
+      this.$emit('open-post');
+    },
     copyPostUrl() {
       let stringToCopy = '';
 
@@ -228,10 +246,7 @@ export default {
 .grey {
   color: #999;
 }
-.created-at-mobile {
-  font-size: 0.75em;
-  padding-top: -0.5em;
-}
+
 .space {
   color: #39c9a0;
 }
@@ -239,6 +254,11 @@ export default {
 .no-decor {
   text-decoration: none;
   color: black;
+}
+
+.link:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .underline:hover {
@@ -250,6 +270,7 @@ export default {
   padding: 0 0.25em 0.125em 0.25em;
   width: fit-content;
   color: white;
+  cursor: pointer;
 }
 .status.live {
   background: red;

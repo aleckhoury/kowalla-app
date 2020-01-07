@@ -43,7 +43,7 @@
         </div>
         <div v-else>
           <div v-if="headerType === 'Post'" class="is-hidden-desktop sortIcons">
-            <font-awesome-icon icon="arrow-left" @click="$router.go(-1)" />
+            <font-awesome-icon icon="angle-left" @click="$router.go(-1)" />
           </div>
           <SortingOptions v-else :is-mobile="true" />
         </div>

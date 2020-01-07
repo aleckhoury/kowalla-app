@@ -10,6 +10,7 @@
       :is-project="isProject"
       :is-mobile="isMobile"
       :post-id="post._id"
+      @open-post="openPost"
       @delete-post="echoDeletePost"
     />
 
@@ -88,6 +89,9 @@ export default {
       try {
         if (this.post.projectId) {
           this.project = await this.$axios.$get(`/api/v1/projects/${this.post.projectId}`);
+        }
+        if (this.post.profileId) {
+          this.profile = await this.$axios.$get(`/api/v1/profiles/${this.post.profileId}`);
         }
         if (this.post.spaceId) {
           this.space = await this.$axios.$get(`/api/v1/spaces/${this.post.spaceId}`);

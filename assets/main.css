@@ -94,6 +94,18 @@ div.emoji-mart {
     margin: 0 auto;
 }
 
+div.emoji-mart.emoji-mart-emoji {
+    padding: 3px;
+}
+
+.emoji-mart. span.emoji-mart-emoji {
+    padding: 3px;
+}
+
+.emoji-mart-category.emoji-mart-emoji span {
+    font-size: 22px !important;
+}
+
 ul[data-type="todo_list"] {
     padding-left: 0;
 }
@@ -203,6 +215,17 @@ a span.icon {
 }
 .dropdown:hover {
     cursor: pointer;
+}
+div.ProseMirror {
+    min-height: 150px;
+}
+.ProseMirror p.is-empty:first-child::before {
+    content: attr(data-empty-text);
+    float: left;
+    color: #aaa;
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
 }
 body {
     background-color: #39C9A0;

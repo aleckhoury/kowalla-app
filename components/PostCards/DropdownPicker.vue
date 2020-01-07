@@ -1,5 +1,5 @@
 <template>
-  <Picker :native="true" :show-skin-tones="false" :show-preview="false" @select="toggleReaction" />
+  <Picker :show-skin-tones="false" :show-preview="false" @select="toggleReaction" />
 </template>
 
 <script>
@@ -8,7 +8,6 @@ if (process.browser) {
   Mart = require('emoji-mart-vue-fast');
 }
 let { Picker } = Mart ? Mart : '';
-import 'emoji-mart-vue-fast/css/emoji-mart.css';
 
 export default {
   name: 'DropdownPicker',
