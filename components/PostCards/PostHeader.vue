@@ -71,7 +71,7 @@
       <p v-else-if="isProject && profile.username">
         <span class="grey">by</span>
         <nuxt-link :to="getProfileRoute" class="space underline grey">
-          <b>{{ profile.username }}</b>
+          <b>@{{ profile.username }}</b>
         </nuxt-link>
       </p>
 
