@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="size">
     <NavHeader />
-    <NavSubHeader v-if="!this.$route.path.includes('focus')" />
+    <NavSubHeader v-if="!this.$route.path.includes('/live/')" />
     <div v-if="this.$store.state.firstVisit.firstVisit" class="hero">
       <div class="bannerStripe"></div>
       <div class="hero-body">

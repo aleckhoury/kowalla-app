@@ -45,7 +45,7 @@ export default {
         });
       } else {
         await this.$router.push({
-          path: `/beta`,
+          path: `/feed`,
         });
       }
     } else if (this.$route.query.oauth_token) {
@@ -77,7 +77,7 @@ export default {
           });
         } else {
           await this.$router.push({
-            path: `/beta`,
+            path: `/feed`,
           });
         }
       }

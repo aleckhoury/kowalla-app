@@ -83,7 +83,7 @@ export default {
       await Object.assign(user, { subscriptions });
 
       await this.$store.commit('user/setUser', user);
-      this.$router.push({ path: `/beta/space/all` });
+      this.$router.push({ path: `/space/all` });
     },
   },
 };

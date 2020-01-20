@@ -84,7 +84,7 @@ export default {
           break;
         }
       }
-      if (!isOwner) this.$router.push({ path: `/beta/space/${this.name}` });
+      if (!isOwner) this.$router.push({ path: `/space/${this.name}` });
     }
     // get project details
     this.infoRes = await this.$axios.$get(`/api/v1/spaces/space/${this.name}`);

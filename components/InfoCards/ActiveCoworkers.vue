@@ -2,7 +2,7 @@
   <div v-if="this.$store.state.coworkers.list.length" class="activeCoworkers">
     <h3><b>Users coworking right now:</b></h3>
     <BTooltip v-for="(user, index) in this.$store.state.coworkers.list" :key="index" :label="user.username" type="is-light" position="is-top" animated>
-      <nuxt-link :to="`/beta/user/${user.username}`">
+      <nuxt-link :to="`/user/${user.username}`">
         <span class="notify-badge" />
         <img :src="user.profilePicture" class="coworkerPic" />
       </nuxt-link>

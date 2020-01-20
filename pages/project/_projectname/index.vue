@@ -15,71 +15,147 @@
           <Subscriptions />
         </div>
 
-        <!-- post feed -->
-        <div class="column is-one-half">
-          <Post id="projectPost" :key="post._id" :post="post" :is-mobile="false" :truncate="false" @delete-post="removePostFromPostList" />
-        </div>
+        <div class="column is-three-quarters">
+          <Banner
+            :id="projectId"
+            :banner-url="bannerPictureUrl"
+            :banner-title="name"
+            :is-subscribed="isSubscribed"
+            :is-owner="isOwner"
+            banner-title-prefix="@"
+            @subscription-button-clicked="updateSubscriptions"
+          />
 
-        <!-- info pane -->
-        <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
-          <InfoPane>
-            <DescriptionCard :subheader-on="false" header-string="Description">
-              {{ projectDescription }}
-            </DescriptionCard>
-            <ProfileCard
-              :name="projectName"
-              :username="name"
-              :profile-picture-url="projectProfilePictureUrl"
-              :subheader-string="`View ${name}'s stats`"
-              :stats="projectStats"
-              type="project"
-            />
-            <ProfileCard
-              :name="`${adminFirstName} ${adminLastName}`"
-              :username="adminUsername"
-              :profile-picture-url="adminProfilePictureUrl"
-              :subheader-string="`View ${adminFirstName}'s profile`"
-              :subheader-url="`/beta/user/${adminUsername}`"
-              :stats="profileStats"
-              type="user"
-            />
-            <EditButton v-if="this.$store.state.user.username === adminUsername" @edit-button-clicked="editProject">
-              <b>Edit Settings</b>
-            </EditButton>
-            <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
-          </InfoPane>
+          <!-- new columns for description, profile and project cards -->
+          <div class="columns is-marginless newsfeed-padding">
+            <div class="column is-half">
+              <DescriptionCard :subheader-on="false" header-string="Description">
+                {{ projectDescription }}
+              </DescriptionCard>
+
+              <EditButton v-if="this.$store.state.user.username === adminUsername" @edit-button-clicked="editProject">
+                <b>Edit Settings</b>
+              </EditButton>
+            </div>
+
+            <div class="column is-one-quarter info">
+              <ProfileCard
+                :name="projectName"
+                :username="name"
+                :profile-picture-url="projectProfilePictureUrl"
+                :subheader-string="`View ${name}'s stats`"
+                :stats="projectStats"
+                type="project"
+              />
+            </div>
+            <div class="column is-one-quarter info">
+              <ProfileCard
+                :name="`${adminFirstName} ${adminLastName}`"
+                :username="adminUsername"
+                :profile-picture-url="adminProfilePictureUrl"
+                :subheader-string="`View ${adminFirstName}'s profile`"
+                :subheader-url="`/user/${adminUsername}`"
+                :stats="profileStats"
+                type="user"
+              />
+            </div>
+          </div>
+
+          <!-- new columns for content and info pane -->
+          <div id="postFeed" class="columns is-marginless">
+            <!-- post feed -->
+            <div class="column is-two-thirds">
+              <PostFeed v-if="projectId" :page-id="projectId" type="project" />
+            </div>
+
+            <!-- info pane -->
+            <div class="column is-one-third">
+              <InfoPane>
+                <SignupCard v-if="!this.$store.state.user.loggedIn" class="fullWidth" />
+              </InfoPane>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Mobile -->
     <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="is-marginless is-hidden-desktop mobile-main-margin">
-      <Post :key="post._id" :post="post" :is-mobile="true" :truncate="false" @delete-post="removePostFromPostList" />
+      <Banner
+        :id="projectId"
+        :banner-url="bannerPictureUrl"
+        :banner-title="name"
+        :is-subscribed="isSubscribed"
+        :is-owner="isOwner"
+        banner-title-prefix="@"
+        is-mobile
+        @subscription-button-clicked="updateSubscriptions"
+      />
+
+      <DescriptionCard :subheader-on="false" class="newsfeed-margin" header-string="Description">
+        {{ projectDescription }}
+      </DescriptionCard>
+
+      <div class="columns is-marginless is-mobile is-centered is-centered is-multiline">
+        <div class="column isMobile is-narrow">
+          <ProfileCard
+            :name="projectName"
+            :username="name"
+            :profile-picture-url="projectProfilePictureUrl"
+            :subheader-string="`View ${name}'s stats`"
+            :stats="projectStats"
+            type="project"
+            is-mobile
+          />
+        </div>
+
+        <div class="column isMobile is-narrow">
+          <ProfileCard
+            :name="`${adminFirstName} ${adminLastName}`"
+            :username="adminUsername"
+            :profile-picture-url="adminProfilePictureUrl"
+            :subheader-string="`View ${adminFirstName}'s profile`"
+            :subheader-url="`/user/${adminUsername}`"
+            :stats="profileStats"
+            type="user"
+            is-mobile
+          />
+        </div>
+      </div>
+
+      <div>
+        <EditButton v-if="this.$store.state.user.username === adminUsername" @edit-button-clicked="editProject">
+          <b>Edit Settings</b>
+        </EditButton>
+      </div>
+      <PostFeed v-if="projectId" :page-id="projectId" :is-mobile="true" type="project" />
     </div>
   </div>
 </template>
 
 <script>
+import Banner from '~/components/SpacesAndProjectsShared/Banner';
 import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import EditButton from '~/components/InfoCards/EditButton';
 import SignupCard from '~/components/InfoCards/SignupCard';
-import Post from '~/components/PostCards/Post';
-import Creations from '../../../../../components/SidePaneCards/Creations';
-import Subscriptions from '../../../../../components/SidePaneCards/Subscriptions';
+import PostFeed from '~/components/PostCards/PostFeed';
+import Subscriptions from '~/components/SidePaneCards/Subscriptions';
+import Creations from '../../../components/SidePaneCards/Creations';
 
 export default {
   name: 'ProjectPage',
   components: {
-    Subscriptions,
     Creations,
+    Subscriptions,
+    PostFeed,
     SignupCard,
+    Banner,
     DescriptionCard,
     ProfileCard,
     InfoPane,
     EditButton,
-    Post,
   },
 
   data() {
@@ -98,7 +174,6 @@ export default {
       adminProfilePictureUrl: '',
       projectStats: [],
       profileStats: [],
-      post: {},
     };
   },
   computed: {
@@ -124,13 +199,11 @@ export default {
   },
   async mounted() {
     // #############
-    // Can probably add all these to a util function to save space in each index.vue
+    // Can probably add all these to a util function to save space in each feed.vue
     // #############
 
     // get project details
     let infoRes = await this.$axios.$get(`/api/v1/projects/project/${this.name}`);
-    this.post = await this.$axios.$get(`/api/v1/posts/${this.$route.params.postId}`);
-
     this.bannerPictureUrl = infoRes.headerPicture;
     this.projectProfilePictureUrl = infoRes.profilePicture;
     this.projectId = infoRes._id;
@@ -158,7 +231,6 @@ export default {
       name: 'Replies',
       stat: adminRes.commentCount,
     });
-
     document.title = `Kowalla - @${this.name}`;
   },
   methods: {
@@ -178,11 +250,8 @@ export default {
     },
     editProject() {
       this.$router.push({
-        path: `/beta/project/${this.name}/edit`,
+        path: `/project/${this.name}/edit`,
       });
-    },
-    async removePostFromPostList() {
-      await this.$axios.$delete(`/api/v1/posts/${this.post._id}`);
     },
   },
 };
@@ -194,5 +263,8 @@ export default {
 }
 div.level {
   top: 0;
+}
+div.column.is-one-quarter.info {
+  height: auto;
 }
 </style>

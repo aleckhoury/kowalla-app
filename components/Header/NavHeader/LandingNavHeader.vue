@@ -4,12 +4,12 @@
       <nav class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
-            <nuxt-link to="/beta">
+            <nuxt-link to="/feed">
               <p class="kowalla-logo">
                 kowalla
               </p>
             </nuxt-link>
-            <nuxt-link v-if="!this.$store.state.user.loggedIn" to="/beta">
+            <nuxt-link v-if="!this.$store.state.user.loggedIn" to="/feed">
               <b class="page-link">Go to Feed</b>
             </nuxt-link>
           </div>

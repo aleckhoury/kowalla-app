@@ -74,7 +74,7 @@ export default {
           let responseData = await this.$axios.$get(`/api/v1/profiles/${option.profileId}`);
 
           this.$router.push({
-            path: `/beta/user/${responseData.username}`,
+            path: `/user/${responseData.username}`,
           });
         }
 
@@ -82,7 +82,7 @@ export default {
           let responseData = await this.$axios.$get(`/api/v1/projects/${option.projectId}`);
 
           this.$router.push({
-            path: `/beta/project/${responseData.name}`,
+            path: `/project/${responseData.name}`,
           });
         }
 
@@ -90,7 +90,7 @@ export default {
           let responseData = await this.$axios.$get(`/api/v1/spaces/${option.spaceId}`);
 
           this.$router.push({
-            path: `/beta/space/${responseData.name}`,
+            path: `/space/${responseData.name}`,
           });
         }
       }

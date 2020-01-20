@@ -122,7 +122,7 @@ const login = {
         await this.$store.commit('user/setUser', user);
         await this.$emit('close');
         if (this.$route.path === '/') {
-          this.$router.push('/beta');
+          this.$router.push('/feed');
         } else {
           this.$router.go();
         }

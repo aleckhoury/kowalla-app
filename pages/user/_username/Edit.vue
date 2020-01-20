@@ -54,8 +54,8 @@
 
 <script>
 import EditProfile from '~/components/Forms/EditProfile';
-import IntegrationCard from '../../../../components/Forms/IntegrationCard';
-import EditInfo from '../../../../components/SidePaneCards/EditInfo';
+import IntegrationCard from '../../../components/Forms/IntegrationCard';
+import EditInfo from '../../../components/SidePaneCards/EditInfo';
 
 export default {
   middleware: 'tabs',
@@ -88,7 +88,7 @@ export default {
   async mounted() {
     if (this.username !== this.$store.state.user.username) {
       this.$router.push({
-        path: `/beta/user/${this.username}`,
+        path: `/user/${this.username}`,
       });
     }
 

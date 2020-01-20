@@ -53,9 +53,9 @@ export default {
       return false;
     },
     headerType() {
-      if (this.$route.path.includes('edit')) return 'SettingsActiveTab';
-      else if (this.$route.path.includes('posts')) return 'Post';
-      else if (this.$route.path === '/beta') return 'NewsFeedActiveTab';
+      if (this.$route.path.includes('/edit/')) return 'SettingsActiveTab';
+      else if (this.$route.path.includes('/posts/')) return 'Post';
+      else if (this.$route.path === '/feed') return 'NewsFeedActiveTab';
       return 'sortOnly';
     },
   },

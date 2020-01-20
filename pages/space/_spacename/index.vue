@@ -89,8 +89,8 @@ import EditButton from '~/components/InfoCards/EditButton';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
 import SignupCard from '~/components/InfoCards/SignupCard';
 import PostFeed from '~/components/PostCards/PostFeed';
-import Subscriptions from '../../../../components/SidePaneCards/Subscriptions';
-import Creations from '../../../../components/SidePaneCards/Creations';
+import Subscriptions from '../../../components/SidePaneCards/Subscriptions';
+import Creations from '../../../components/SidePaneCards/Creations';
 
 export default {
   name: 'Space',
@@ -169,7 +169,7 @@ export default {
     },
     editSpace() {
       this.$router.push({
-        path: `/beta/space/${this.spaceName}/edit`,
+        path: `/space/${this.spaceName}/edit`,
       });
     },
   },

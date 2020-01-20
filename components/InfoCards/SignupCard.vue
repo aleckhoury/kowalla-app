@@ -12,7 +12,7 @@
           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
         </a>
       </div>
-      <a class="button action" @click="cardModal">Join Beta</a>
+      <a class="button action" @click="cardModal">Sign Up</a>
     </div>
   </div>
 </template>

@@ -105,7 +105,7 @@ export default {
           break;
         }
       }
-      if (!isOwner) this.$router.push({ path: `/beta/user/${this.name}` });
+      if (!isOwner) this.$router.push({ path: `/user/${this.name}` });
     }
     // get project details
     this.infoRes = await this.$axios.$get(`/api/v1/projects/project/${this.name}`);

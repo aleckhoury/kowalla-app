@@ -48,8 +48,8 @@ import EditButton from '~/components/InfoCards/EditButton';
 import ProfileCard from '~/components/InfoCards/ProfileCard';
 import SignupCard from '~/components/InfoCards/SignupCard';
 import Post from '~/components/PostCards/Post';
-import Creations from '../../../../../components/SidePaneCards/Creations';
-import Subscriptions from '../../../../../components/SidePaneCards/Subscriptions';
+import Creations from '../../../../components/SidePaneCards/Creations';
+import Subscriptions from '../../../../components/SidePaneCards/Subscriptions';
 
 export default {
   name: 'SpacePost',
@@ -136,7 +136,7 @@ export default {
     },
     editSpace() {
       this.$router.push({
-        path: `/beta/space/${this.spaceName}/edit`,
+        path: `/space/${this.spaceName}/edit`,
       });
     },
     async removePostFromPostList() {

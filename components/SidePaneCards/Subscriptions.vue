@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     getRoute(isProject, name) {
-      return isProject ? `/beta/project/${name}` : `/beta/space/${name}`;
+      return isProject ? `/project/${name}` : `/space/${name}`;
     },
     getPrefix(isProject) {
       return isProject ? '@' : '#';

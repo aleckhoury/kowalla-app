@@ -130,7 +130,7 @@ export default {
 
         // change page and close modal
         this.$parent.close();
-        this.$router.push(`/beta/project/${projectData.name}/edit`);
+        this.$router.push(`/project/${projectData.name}/edit`);
       } catch (err) {
         console.log(err);
         this.$toast.open({
@@ -171,7 +171,7 @@ export default {
 
         // change page and close modal
         this.$parent.close();
-        this.$router.push({ path: `/beta/space/${spaceData.name}/edit` });
+        this.$router.push({ path: `/space/${spaceData.name}/edit` });
       } catch (err) {
         console.log(err);
         this.$toast.open({

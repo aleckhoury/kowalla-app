@@ -64,16 +64,16 @@ export default {
         // eventually, we'll want to direct right to the comment in question
         if (item.hasOwnProperty('commentId') && item.hasOwnProperty('postId')) {
           this.$router.push({
-            path: `/beta/space/${item.spaceName}/posts/${item.postId}`,
+            path: `/space/${item.spaceName}/posts/${item.postId}`,
           });
         } else if (!item.hasOwnProperty('commentId') && item.hasOwnProperty('postId')) {
           this.$router.push({
-            path: `/beta/space/${item.spaceName}/posts/${item.postId}`,
+            path: `/space/${item.spaceName}/posts/${item.postId}`,
           });
         }
       } else if (item.hasOwnProperty('projectName')) {
         this.$router.push({
-          path: `/beta/project/${item.projectName}`,
+          path: `/project/${item.projectName}`,
         });
       }
     },

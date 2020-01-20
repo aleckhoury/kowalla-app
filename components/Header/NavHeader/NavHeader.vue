@@ -4,7 +4,7 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <nuxt-link class="kowalla-logo" to="/beta">
+            <nuxt-link class="kowalla-logo" to="/feed">
               <img src="https://i.imgur.com/04hoRgV.png" class="kowalla-logo-picture" />
               kowalla
             </nuxt-link>
@@ -23,8 +23,8 @@
           </div>
 
           <div v-if="hasActivePost" class="level-item">
-            <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`" class="page-link has-text-white">
-              <b>Focus</b>
+            <nuxt-link :to="`/live/${this.$store.state.user.username}`" class="page-link has-text-white">
+              <b>LIVE</b>
             </nuxt-link>
           </div>
         </div>

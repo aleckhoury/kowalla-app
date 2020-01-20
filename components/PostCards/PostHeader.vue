@@ -64,7 +64,7 @@
         <span v-if="isProject && profile.username">
           <span class="grey">by</span>
           <nuxt-link :to="getProfileRoute" class="space underline grey">
-            <b>{{ profile.username }}</b>
+            <b>@{{ profile.username }}</b>
           </nuxt-link>
         </span>
       </p>
@@ -158,13 +158,13 @@ export default {
       return format(this.createdAt, 'en_US');
     },
     getProfileRoute() {
-      return `/beta/user/${this.profile.username}`;
+      return `/user/${this.profile.username}`;
     },
     getProjectRoute() {
-      return `/beta/project/${this.project.name}`;
+      return `/project/${this.project.name}`;
     },
     getSpaceRoute() {
-      return `/beta/space/${this.space.name}`;
+      return `/space/${this.space.name}`;
     },
     deleteAllowed() {
       if (this.$store.state.user.loggedIn) {
@@ -185,9 +185,9 @@ export default {
       let stringToCopy = '';
 
       if (this.isProject) {
-        stringToCopy = `https://www.kowalla.co/beta/project/${this.project.name}/posts/${this.postId}`;
+        stringToCopy = `https://www.kowalla.co/project/${this.project.name}/posts/${this.postId}`;
       } else {
-        stringToCopy = `https://www.kowalla.co/beta/space/${this.space.name}/posts/${this.postId}`;
+        stringToCopy = `https://www.kowalla.co/space/${this.space.name}/posts/${this.postId}`;
       }
 
       let x = document.createElement('input');

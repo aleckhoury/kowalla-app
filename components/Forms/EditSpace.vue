@@ -166,7 +166,7 @@ export default {
           spaceId: spaceData._id,
         };
         this.$store.commit('user/editOwned', subObj);
-        this.$router.push({ path: `/beta/space/${editForm.name}` });
+        this.$router.push({ path: `/space/${editForm.name}` });
       } catch (err) {
         console.log(err);
         this.$toast.open({

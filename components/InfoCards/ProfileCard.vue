@@ -51,7 +51,7 @@ export default {
       return this.stats[i].name;
     },
     getRoute() {
-      return `/beta/${this.type}/${this.username}`;
+      return `/${this.type}/${this.username}`;
     },
   },
 };

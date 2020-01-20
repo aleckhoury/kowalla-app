@@ -29,7 +29,7 @@ export default {
     },
 
     getRoute() {
-      return this.projectId !== null ? `/beta/project/${this.name}` : `/beta/space/${this.name}`;
+      return this.projectId !== null ? `/project/${this.name}` : `/space/${this.name}`;
     },
   },
   methods: {

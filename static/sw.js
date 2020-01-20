@@ -10,7 +10,7 @@ workbox.precaching.precacheAndRoute([
     "revision": "09511b9109c14d39d72337fd9b8ef83b"
   },
   {
-    "url": "/_nuxt/pages/beta/focus/_username/index.js",
+    "url": "/_nuxt/pages/beta/live/_username/index.js",
     "revision": "afdad7157b89f9a55ce07f3cdb8c67fb"
   },
   {

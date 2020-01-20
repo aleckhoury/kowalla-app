@@ -247,12 +247,12 @@ const editor = {
           username: this.$store.state.user.username,
           profilePicture: this.$store.state.user.profilePicture,
         });
-        this.$router.push({ path: `/beta/focus/${this.$store.state.user.username}` });
-        if (this.$route.name.contains('focus')) {
+        this.$router.push({ path: `/live/${this.$store.state.user.username}` });
+        if (this.$route.name.contains('live')) {
           this.$router.go();
         }
       } else if (this.type === 'navButton') {
-        this.$router.push({ path: `/beta/space/${this.postingIn.name}` });
+        this.$router.push({ path: `/space/${this.postingIn.name}` });
       }
     },
     async selectFile(command) {

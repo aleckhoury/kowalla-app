@@ -113,7 +113,7 @@ import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
 import editor from '~/mixins/editor';
 
 export default {
-  name: 'Focus',
+  name: 'Live',
   mixins: [editor],
   data() {
     return {
@@ -143,7 +143,7 @@ export default {
     endCoworkingSession() {
       this.$socket.emit('manual-disconnect');
       setTimeout(() => {
-        this.$router.push('/beta');
+        this.$router.push('/feed');
       }, 500);
     },
     cardModal() {

@@ -3,7 +3,7 @@
     <div :class="{ 'hide-mobile-header-container': !showNavbar }" class="mobile-header-container is-touch">
       <!-- Mobile Header Top -->
       <div class="level half-height is-mobile mobile-header-top-container is-marginless">
-        <nuxt-link to="/beta">
+        <nuxt-link to="/feed">
           <div class="level-left kowalla-logo">
             <img src="https://i.imgur.com/04hoRgV.png" class="kowalla-logo-picture" />
             kowalla
@@ -125,9 +125,9 @@ export default {
       return false;
     },
     headerType() {
-      if (this.$route.path.includes('edit')) return 'SettingsActiveTab';
-      else if (this.$route.path.includes('posts')) return 'Post';
-      else if (this.$route.path === '/beta') return 'NewsFeedActiveTab';
+      if (this.$route.path.includes('/edit/')) return 'SettingsActiveTab';
+      else if (this.$route.path.includes('/posts/')) return 'Post';
+      else if (this.$route.path === '/feed') return 'NewsFeedActiveTab';
       return 'sortOnly';
     },
   },

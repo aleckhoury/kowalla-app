@@ -172,9 +172,9 @@ export default {
       };
       if (this.isMobile) {
         if (Object.keys(this.space).length) {
-          this.$router.push(`/beta/space/${this.space.name}/posts/${this.post._id}`);
+          this.$router.push(`/space/${this.space.name}/posts/${this.post._id}`);
         } else {
-          this.$router.push(`/beta/project/${this.project.name}/posts/${this.post._id}`);
+          this.$router.push(`/project/${this.project.name}/posts/${this.post._id}`);
         }
       } else {
         this.$modal.open({

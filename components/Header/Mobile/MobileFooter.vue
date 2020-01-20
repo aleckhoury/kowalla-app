@@ -1,7 +1,7 @@
 <template>
   <div class="size">
     <div v-if="hasActivePost && !isFocusPage" class="create-button">
-      <nuxt-link :to="`/beta/focus/${this.$store.state.user.username}`">
+      <nuxt-link :to="`/live/${this.$store.state.user.username}`">
         <strong class="has-text-white is-size-5">LIVE</strong>
       </nuxt-link>
     </div>
@@ -22,7 +22,7 @@ export default {
   computed: {
     ...mapGetters('coworkers', ['hasActivePost']),
     isFocusPage() {
-      return this.$route.path.includes('focus');
+      return this.$route.path.includes('/live/');
     },
   },
   methods: {

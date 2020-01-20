@@ -36,12 +36,12 @@
 
 <script>
 import SignupCard from '~/components/InfoCards/SignupCard';
-import ActiveCoworkers from '../../components/InfoCards/ActiveCoworkers';
+import ActiveCoworkers from '../components/InfoCards/ActiveCoworkers';
 import PostFeed from '~/components/PostCards/PostFeed';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
-import Subscriptions from '../../components/SidePaneCards/Subscriptions';
-import Creations from '../../components/SidePaneCards/Creations';
-import ProfileProgress from '../../components/SidePaneCards/ProfileProgress';
+import Subscriptions from '../components/SidePaneCards/Subscriptions';
+import Creations from '../components/SidePaneCards/Creations';
+import ProfileProgress from '../components/SidePaneCards/ProfileProgress';
 
 export default {
   middleware: 'tabs',

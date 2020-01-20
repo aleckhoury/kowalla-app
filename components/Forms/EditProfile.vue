@@ -138,7 +138,7 @@ export default {
         if (this.isOnboarding) {
           this.$store.commit('onboarding/incrementActiveStep');
         } else {
-          this.$router.push({ path: `/beta/user/${profileData.username}` });
+          this.$router.push({ path: `/user/${profileData.username}` });
         }
       } catch (err) {
         console.log(err);

@@ -86,8 +86,8 @@ import DescriptionCard from '~/components/InfoCards/DescriptionCard';
 import InfoPane from '~/components/InfoCards/InfoPane';
 import SignupCard from '~/components/InfoCards/SignupCard';
 import PostFeed from '~/components/PostCards/PostFeed';
-import Subscriptions from '../../../../components/SidePaneCards/Subscriptions';
-import Creations from '../../../../components/SidePaneCards/Creations';
+import Subscriptions from '../../../components/SidePaneCards/Subscriptions';
+import Creations from '../../../components/SidePaneCards/Creations';
 
 export default {
   name: 'User',

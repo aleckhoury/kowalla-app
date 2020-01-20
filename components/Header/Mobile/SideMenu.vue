@@ -15,10 +15,10 @@
           </div>
         </div>
         <BMenuList label="Menu">
-          <nuxt-link :to="`/beta/user/${this.$store.state.user.username}`" class="page-link is-paddingless" @click.native="closeActions">
+          <nuxt-link :to="`/user/${this.$store.state.user.username}`" class="page-link is-paddingless" @click.native="closeActions">
             <BMenuItem icon="user-alt" label="Profile" />
           </nuxt-link>
-          <nuxt-link :to="`/beta/user/${this.$store.state.user.username}/edit`" class="page-link is-paddingless" @click.native="closeActions">
+          <nuxt-link :to="`/user/${this.$store.state.user.username}/edit`" class="page-link is-paddingless" @click.native="closeActions">
             <BMenuItem icon="cog" label="Settings" />
           </nuxt-link>
           <BMenuItem icon="sign-out-alt" label="Logout" @click="logout"></BMenuItem>

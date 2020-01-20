@@ -11,11 +11,11 @@
             <h2 class="subtitle">
               Kowalla empowers you to build projects anywhere. We give you the space and accountability of a coworking space, without the desk.
             </h2>
-            <nuxt-link v-if="this.$store.state.user.loggedIn" class="topButton button action" to="/beta">
+            <nuxt-link v-if="this.$store.state.user.loggedIn" class="topButton button action" to="/feed">
               Go to Home Feed &nbsp; <font-awesome-icon icon="arrow-right" />&nbsp;
             </nuxt-link>
             <a v-else class="topButton button action" @click="cardModal">
-              Join Beta &nbsp;
+              Sign Up &nbsp;
               <font-awesome-icon icon="envelope" />&nbsp; <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
               <font-awesome-icon :icon="['fab', 'github']" />
             </a>
@@ -631,13 +631,13 @@
         <div class="columns is-vcentered">
           <div class="column has-text-centered is-one-half has-text-black">
             <h2 class="subtitle has-text-black">
-              Join below for details about our 2020 launch. No spam.
+              Join below to start coworking with others across the world.
             </h2>
-            <nuxt-link v-if="this.$store.state.user.loggedIn" class="button action" to="/beta">
+            <nuxt-link v-if="this.$store.state.user.loggedIn" class="button action" to="/feed">
               Go to Home Feed &nbsp; <font-awesome-icon icon="arrow-right" />&nbsp;
             </nuxt-link>
             <a v-else class="button action" @click="cardModal">
-              Join Beta &nbsp;
+              Sign Up &nbsp;
               <font-awesome-icon icon="envelope" />&nbsp; <font-awesome-icon :icon="['fab', 'twitter']" />&nbsp;
               <font-awesome-icon :icon="['fab', 'github']" />
             </a>
@@ -756,15 +756,16 @@ export default {
 /*max-width: 45%;*/
 /*}*/
 .hero-body.first #mobile {
-  margin-top: 5em;
+  margin-top: 7em;
   right: 2em;
   width: 13% !important;
   position: absolute;
   height: auto;
 }
 .hero-body.first #web {
-  margin-top: -1em;
-  width: 45% !important;
+  margin-top: -2em;
+  width: 48% !important;
+  right: 3em;
   position: absolute;
   height: auto;
 }

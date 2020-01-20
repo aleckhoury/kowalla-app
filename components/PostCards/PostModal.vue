@@ -82,9 +82,9 @@ export default {
 
     this.originalPath = this.$route.path;
     if (Object.keys(this.space).length) {
-      window.history.pushState({}, null, `/beta/space/${this.space.name}/posts/${this.post._id}`);
+      window.history.pushState({}, null, `/space/${this.space.name}/posts/${this.post._id}`);
     } else {
-      window.history.pushState({}, null, `/beta/project/${this.project.name}/posts/${this.post._id}`);
+      window.history.pushState({}, null, `/project/${this.project.name}/posts/${this.post._id}`);
     }
   },
   beforeDestroy() {
