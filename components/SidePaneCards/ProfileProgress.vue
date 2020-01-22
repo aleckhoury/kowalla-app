@@ -92,6 +92,7 @@ export default {
     },
     profileProgress() {
       if (Object.keys(this.user).length) {
+        const profilePics = ['kowalla-dev', 'pbs', 'avatars'];
         const progress = [
           {
             step: this.user.description.length > 3,
@@ -114,7 +115,7 @@ export default {
             content: 'Write your first post',
           },
           {
-            step: this.user.profilePicture.includes('kowalla-dev'),
+            step: profilePics.some(el => this.user.profilePicture.includes(el)),
             key: 'profilePicture',
             content: 'Upload your profile picture',
           },
