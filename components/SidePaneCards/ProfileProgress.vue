@@ -97,7 +97,7 @@ export default {
           {
             step: this.user.description.length > 3,
             key: 'description',
-            content: 'Filled out a description',
+            content: 'Fill out a description',
           },
           {
             step: this.user.subscriptions.length > 2,

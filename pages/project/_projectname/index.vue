@@ -214,7 +214,7 @@ export default {
 
     // fill project stats
     this.projectStats.push({ name: 'Subs', stat: infoRes.subscribers });
-    this.projectStats.push({ name: 'Rep', stat: infoRes.reputation });
+    this.projectStats.push({ name: 'Karma', stat: infoRes.reputation });
     this.projectStats.push({ name: 'Posts', stat: infoRes.postCount });
 
     // get admin details
@@ -225,7 +225,7 @@ export default {
     this.adminProfilePictureUrl = adminRes.profilePicture;
 
     // fill profil estats
-    this.profileStats.push({ name: 'Rep', stat: adminRes.reputation });
+    this.profileStats.push({ name: 'Karma', stat: adminRes.reputation });
     this.profileStats.push({ name: 'Posts', stat: adminRes.postCount });
     this.profileStats.push({
       name: 'Replies',

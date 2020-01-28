@@ -1,101 +1,70 @@
 <template>
-  <div v-clicked-outside="closeModal" class="modal-content">
+  <div class="modal-content">
     <div class="box">
-      <!--{{modalText}}-->
-      <div v-for="(item, index) in notifications" :key="item.notifIds[0]">
-        <!-- Notif object -->
-        <div @click="getLink(item)">
-          <div>
-            <!-- Notif title -->
-            <b>{{ item.title }}</b>
+      <BMenu>
+        <BMenuList label="Notifications">
+          <div v-for="(item, idx) in notifications.slice(0, 10)" :key="idx" aria-role="listitem">
+            <nuxt-link :to="item.link" class="container">
+              <div class="profilePic">
+                <img :src="item.profilePicture" />
+              </div>
+              <div class="content" v-html="item.content" />
+            </nuxt-link>
           </div>
-          <div>
-            <!-- Notif message -->
-            {{ item.message }}
+          <div v-if="!notifications.length" aria-role="listitem">
+            <div>
+              <strong>No new notifications</strong>
+            </div>
           </div>
-        </div>
-        <hr v-if="index !== notifications.length - 1" />
-      </div>
+        </BMenuList>
+      </BMenu>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'NotificationModal',
-  directives: {
-    'clicked-outside': {
-      // can probably make some boilerplate
-      bind: function(el, binding, vNode) {
-        // Provided expression must evaluate to a function.
-        if (typeof binding.value !== 'function') {
-          const compName = vNode.context.name;
-          let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`;
-          if (compName) {
-            warn += `Found in component '${compName}'`;
-          }
-
-          console.warn(warn);
-        }
-        // Define Handler and cache it on the element
-        const bubble = binding.modifiers.bubble;
-        const handler = e => {
-          if (bubble || (!el.contains(e.target) && el !== e.target)) {
-            binding.value(e);
-          }
-        };
-        el.__vueClickOutside__ = handler;
-
-        // add Event Listeners
-        document.addEventListener('click', handler);
-      },
-
-      unbind: function(el, binding) {
-        // Remove Event Listeners
-        document.removeEventListener('click', el.__vueClickOutside__);
-        el.__vueClickOutside__ = null;
-      },
-    },
+  name: 'MobileCreateModal',
+  props: {
+    notifications: { type: Array, default: () => [] },
   },
-  data() {
-    return {
-      notifications: [],
-    };
-  },
-  async mounted() {
-    let projectIds = this.$store.getters['user/getProjectIds'];
-    let notificationRes = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { projectIdsArray: projectIds });
-    if (notificationRes.notifications.length === 0) {
-      this.notifications = [{ title: 'No new notifications', message: '', notifIds: [''] }];
-    } else {
-      this.notifications = notificationRes.notifications;
-    }
-  },
-  methods: {
-    closeModal() {
-      if (this.notifications[0].notifIds[0] !== '') {
-        let notifsToDeleteArray = [];
-        for (let i in this.notifications) {
-          if (this.notifications[i].hasOwnProperty('notifIds')) {
-            notifsToDeleteArray = notifsToDeleteArray.concat(this.notifications[i].notifIds);
-          }
-        }
-        this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: notifsToDeleteArray } });
-      }
-      this.$parent.close();
+  watch: {
+    async $route() {
+      await this.$parent.close();
     },
   },
 };
 </script>
 <style lang="css" scoped>
-.box {
-    margin: 0;
-    max-width: 100%;
-    text-align: center;
+.menu-list a.icon {
+  color: #39C9A0 !important;
 }
 .modal-content {
-    border-radius: 6px;
-    margin: 0;
-    color: #39C9A0;
-    width: auto;
+  align-self: center;
+  border-radius: 6px;
+  margin: 0;
+  color: #39C9A0;
+  width: auto;
+}
+.container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  align-items: center;
+  justify-items: left;
+}
+.profilePic img {
+  border-radius: 6px;
+  height: 48px;
+  width: 48px;
+}
+.content {
+  overflow-wrap: break-word;
+  color: black;
+  padding-left: 10px;
+  max-width: 100%;
+  height: 100%;
+  white-space: normal;
 }
 </style>

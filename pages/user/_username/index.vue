@@ -134,7 +134,7 @@ export default {
       this.profileDescription = infoRes.description;
       this.profilePictureUrl = infoRes.profilePicture;
       this.profileId = infoRes._id;
-      this.profileStats.push({ name: 'Rep', stat: infoRes.reputation });
+      this.profileStats.push({ name: 'Karma', stat: infoRes.reputation });
       this.profileStats.push({ name: 'Posts', stat: infoRes.postCount });
       this.profileStats.push({ name: 'Replies', stat: infoRes.commentCount });
 

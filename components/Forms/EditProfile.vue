@@ -34,7 +34,11 @@
           <font-awesome-icon icon="camera" />
         </a>
       </div>
-      <b-field label="Tell us a bit about yourself">
+      <b-field
+        label="Tell us a bit about yourself"
+        :type="{ 'is-danger': formError.description }"
+        :message="[{ 'This field is required': formError.description }]"
+      >
         <b-input v-model="editForm.description" maxlength="500" type="textarea" />
       </b-field>
 
@@ -75,6 +79,7 @@ export default {
       return {
         username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
         usernameLength: this.editForm.username.length > 20,
+        description: !this.editForm.description.length,
       };
     },
   },

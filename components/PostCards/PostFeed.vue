@@ -1,17 +1,19 @@
 <template>
-  <div id="postFeed">
-    <CreatePost v-if="postingAllowed" @post-created="addPostToPostList" />
-    <b-tabs id="columnTabs" v-model="activeTab">
-      <b-tab-item>
-        <EmptyPostList v-if="!postList.length" />
-        <Post v-for="post in postList" :key="post._id" :post="post" :is-mobile="isMobile" :is-feed="true" @delete-post="removePostFromPostList" />
-      </b-tab-item>
-      <b-tab-item>
-        <EmptyPostList v-if="!subscribedPostList.length" />
-        <Post v-for="post in subscribedPostList" :key="post._id" :post="post" :is-mobile="isMobile" :is-feed="true" @delete-post="removePostFromPostList" />
-      </b-tab-item>
-    </b-tabs>
-  </div>
+  <transition name="fade">
+    <div v-if="isMounted" id="postFeed">
+      <CreatePost v-if="postingAllowed" @post-created="addPostToPostList" />
+      <b-tabs id="columnTabs" v-model="activeTab">
+        <b-tab-item>
+          <EmptyPostList v-if="!postList.length" />
+          <Post v-for="post in postList" :key="post._id" :post="post" :is-mobile="isMobile" :is-feed="true" @delete-post="removePostFromPostList" />
+        </b-tab-item>
+        <b-tab-item>
+          <EmptyPostList v-if="!subscribedPostList.length" />
+          <Post v-for="post in subscribedPostList" :key="post._id" :post="post" :is-mobile="isMobile" :is-feed="true" @delete-post="removePostFromPostList" />
+        </b-tab-item>
+      </b-tabs>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -93,6 +95,7 @@ export default {
     // await this.scroll();
     this.func = debounce(this.scroll, 150);
     window.addEventListener('scroll', this.func, false);
+    this.isMounted = true;
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.func);
@@ -167,5 +170,13 @@ export default {
 .card {
   border-radius: 0;
   margin-bottom: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter, .fade-leave-to
+  /* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

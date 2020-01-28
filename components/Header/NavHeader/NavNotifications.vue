@@ -1,25 +1,18 @@
 <template lang="html">
-  <b-dropdown position="is-bottom-left" aria-role="list" mobile-modal @active-change="notifsSelected">
-    <font-awesome-icon
-      slot="trigger"
-      :class="{
-        'has-notifs': hasNotifications,
-        'theme-color': !hasNotifications,
-      }"
-      icon="bell"
-      class="margin"
-    />
-    <b-dropdown-item v-for="item in notifications" :key="item.notifIds[0]" aria-role="listitem">
-      <!-- Notif object -->
-      <div @click="getLink(item)">
-        <div>
-          <!-- Notif title -->
-          <b>{{ item.title }}</b>
+  <b-dropdown position="is-bottom-left" aria-role="list" class="level-item" mobile-modal @active-change="viewNotifications">
+    <div v-if="viewedNotifications.length" slot="trigger" class="circle">{{ viewedNotifications.length }}</div>
+    <font-awesome-icon v-else slot="trigger" icon="bell" class="notif-icon" />
+    <b-dropdown-item v-for="(item, idx) in notifications.slice(0, 10)" :key="idx" aria-role="listitem">
+      <nuxt-link :to="item.link" class="container">
+        <div class="profilePic">
+          <img :src="item.profilePicture" />
         </div>
-        <div>
-          <!-- Notif message -->
-          {{ item.message }}
-        </div>
+        <div class="content" v-html="item.content" />
+      </nuxt-link>
+    </b-dropdown-item>
+    <b-dropdown-item v-if="!notifications.length" aria-role="listitem">
+      <div>
+        <strong>No new notifications</strong>
       </div>
     </b-dropdown-item>
   </b-dropdown>
@@ -28,53 +21,39 @@
 <script>
 export default {
   name: 'NavNotifications',
-  props: { hasNotifications: { type: Boolean, default: false } },
   data() {
     return {
       notifications: [],
     };
   },
-  methods: {
-    async notifsSelected(bool) {
-      if (bool) {
-        let projectIds = this.$store.getters['user/getProjectIds'];
-        let notificationRes = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { projectIdsArray: projectIds });
-
-        if (notificationRes.notifications.length === 0) {
-          this.notifications = [{ title: 'No new notifications', message: '', notifIds: [''] }];
-        } else {
-          this.notifications = notificationRes.notifications;
-        }
-        //
-      } else {
-        //delete the seen notifications
-        if (this.notifications[0].notifIds[0] !== '') {
-          let notifsToDeleteArray = [];
-          for (let i in this.notifications) {
-            if (this.notifications[i].hasOwnProperty('notifIds')) {
-              notifsToDeleteArray = notifsToDeleteArray.concat(this.notifications[i].notifIds);
-            }
-          }
-          this.$axios.$delete(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: notifsToDeleteArray } });
-        }
-      }
+  computed: {
+    viewedNotifications() {
+      return this.notifications.filter(x => x.viewed === false);
     },
-    getLink(item) {
-      if (item.hasOwnProperty('spaceName')) {
-        // eventually, we'll want to direct right to the comment in question
-        if (item.hasOwnProperty('commentId') && item.hasOwnProperty('postId')) {
-          this.$router.push({
-            path: `/space/${item.spaceName}/posts/${item.postId}`,
-          });
-        } else if (!item.hasOwnProperty('commentId') && item.hasOwnProperty('postId')) {
-          this.$router.push({
-            path: `/space/${item.spaceName}/posts/${item.postId}`,
-          });
+  },
+  watch: {
+    async $route(to, from) {
+      await this.getNotifications();
+    },
+  },
+  async mounted() {
+    await this.getNotifications();
+  },
+  methods: {
+    async getNotifications() {
+      let { result } = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`);
+      this.notifications = result;
+    },
+    viewNotifications(isActive) {
+      if (isActive && this.notifications.length) {
+        this.notifications.forEach(x => (x.viewed = true));
+        let viewedNotifs = [];
+        for (let i in this.notifications) {
+          if (this.notifications[i]._id) {
+            viewedNotifs = viewedNotifs.concat(this.notifications[i]._id);
+          }
         }
-      } else if (item.hasOwnProperty('projectName')) {
-        this.$router.push({
-          path: `/project/${item.projectName}`,
-        });
+        this.$axios.$put(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: viewedNotifs } });
       }
     },
   },
@@ -82,18 +61,44 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.theme-color {
+.notif-icon {
+  height: 21px;
+  width: auto !important;
   color: #2F8168;
 }
-
-.has-notifs {
+.circle {
+  background-color: #ac28da;
   color: white;
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  font-size: 12px;
+  height: 22px;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 22px;
 }
-
-.margin {
-  margin: 6px;
+.container {
+  width: 300px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  align-items: center;
+  justify-items: left;
 }
-.dropdown {
-  margin-left: 0.5em;
+.profilePic img {
+  border-radius: 6px;
+  height: 48px;
+  width: 48px;
+}
+.content {
+  overflow-wrap: break-word;
+  color: black;
+  padding-left: 10px;
+  max-width: 100%;
+  height: 100%;
+  white-space: normal;
 }
 </style>

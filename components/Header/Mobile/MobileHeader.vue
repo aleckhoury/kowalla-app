@@ -15,21 +15,22 @@
             <font-awesome-icon class="theme-color-dark" icon="search" style="font-size: 20px" />
           </div>
 
-          <!--          <div v-if="this.$store.state.user.loggedIn" class="level-item align-icon" @click="callNotifModal">-->
-          <!--            <font-awesome-icon class="theme-color-dark" icon="bell" style="font-size: 20px" />-->
-          <!--          </div>-->
+          <div v-if="this.$store.state.user.loggedIn" class="level-item align-icon" @click="callNotifModal">
+            <div v-if="viewedNotifications.length" slot="trigger" class="circle">{{ viewedNotifications.length }}</div>
+            <font-awesome-icon v-else class="theme-color-dark" icon="bell" style="font-size: 20px" />
+          </div>
 
-          <!--<div class="level-item">-->
-          <img
-            v-if="this.$store.state.user.loggedIn"
-            :src="this.$store.state.user.profilePicture"
-            class="nav-profile-picture level-item"
-            @click="openSidebar()"
-          />
-          <b v-else class="has-text-white" @click="cardModal">
-            Login/Sign Up
-          </b>
-          <!--</div>-->
+          <div class="level-item">
+            <img
+              v-if="this.$store.state.user.loggedIn"
+              :src="this.$store.state.user.profilePicture"
+              class="nav-profile-picture level-item"
+              @click="openSidebar()"
+            />
+            <b v-else class="has-text-white" @click="cardModal">
+              Login/Sign Up
+            </b>
+          </div>
         </div>
         <!-- end level-right -->
       </div>
@@ -115,14 +116,12 @@ export default {
       lastScrollPosition: 0,
       scrollValue: 0,
       toggleSidebar: false,
+      notifications: [],
     };
   },
   computed: {
     isEmpty() {
-      if (this.headerType === 'Post' || this.headerType === 'sortOnly') {
-        return true;
-      }
-      return false;
+      return this.headerType === 'Post' || this.headerType === 'sortOnly';
     },
     headerType() {
       if (this.$route.path.includes('/edit/')) return 'SettingsActiveTab';
@@ -130,10 +129,19 @@ export default {
       else if (this.$route.path === '/feed') return 'NewsFeedActiveTab';
       return 'sortOnly';
     },
+    viewedNotifications() {
+      return this.notifications.filter(x => x.viewed === false);
+    },
   },
-  mounted() {
+  watch: {
+    async $route(to, from) {
+      await this.getNotifications();
+    },
+  },
+  async mounted() {
     this.lastScrollPosition = window.pageYOffset;
     window.addEventListener('scroll', this.onScroll);
+    await this.getNotifications();
   },
 
   beforeDestroy() {
@@ -158,10 +166,11 @@ export default {
       });
     },
     callNotifModal() {
+      this.viewNotifications();
       this.$modal.open({
         parent: this,
         component: NotificationModal,
-        props: { modalText: 'Notif' },
+        props: { notifications: this.notifications },
         width: 1000,
         hasModalCard: true,
       });
@@ -181,6 +190,23 @@ export default {
       else {
         this.showNavbar = window.pageYOffset < this.lastScrollPosition;
         this.lastScrollPosition = window.pageYOffset;
+      }
+    },
+    async getNotifications() {
+      let { result } = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`);
+      console.log(result);
+      this.notifications = result;
+    },
+    viewNotifications() {
+      if (this.notifications.length) {
+        this.notifications.forEach(x => (x.viewed = true));
+        let viewedNotifs = [];
+        for (let i in this.notifications) {
+          if (this.notifications[i]._id) {
+            viewedNotifs = viewedNotifs.concat(this.notifications[i]._id);
+          }
+        }
+        this.$axios.$put(`/api/v1/profiles/${this.$store.state.user._id}/notifications`, { data: { notifIds: viewedNotifs } });
       }
     },
   },
@@ -353,5 +379,17 @@ circle {
 .b-tabs:not(:last-child) {
   margin-bottom: 0 !important;
   position: absolute;
+}
+.circle {
+  background-color: #ac28da;
+  color: white;
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  font-size: 12px;
+  height: 22px;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 22px;
 }
 </style>

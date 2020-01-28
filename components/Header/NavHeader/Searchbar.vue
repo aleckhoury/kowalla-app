@@ -2,7 +2,7 @@
   <b-autocomplete
     v-model="name"
     :data="filteredDataArray"
-    class="searchbar-container"
+    class="searchbar-container level-item"
     placeholder="Search"
     icon="search"
     field="name"

@@ -54,7 +54,7 @@ export default {
   width: 42px;
   border-radius: 6px;
   cursor: pointer;
-  margin: 6px;
+  margin-right: 0.75em;
 }
 .dropdown-item {
   color: #4a4a4a;
@@ -66,5 +66,8 @@ export default {
   font-size: 1em;
   color: black;
   text-decoration: none;
+}
+.dropdown + .dropdown {
+  margin-left: 0;
 }
 </style>

@@ -78,6 +78,7 @@ export default {
       reactionList: [],
       commentList: [],
       activeCommentId: '',
+      count: 0,
     };
   },
   async mounted() {
@@ -129,6 +130,7 @@ export default {
     }
     try {
       this.reactionList = await this.$axios.$get(`/api/v1/posts/${this.post._id}/reactions`);
+      this.count = this.count + 1;
       if (this.reactionList.length) {
         this.reactionList.forEach(x => {
           const userReacted = x.profileId === this.$store.state.user._id;
@@ -151,8 +153,8 @@ export default {
           }
         });
       }
-    } catch {
-      console.log('some kind of error idk');
+    } catch (err) {
+      console.log(err);
     }
     document.querySelectorAll('.content pre code').forEach(block => {
       highlight.highlightBlock(block);
@@ -196,6 +198,7 @@ export default {
       }
     },
     updateComment(comment) {
+      comment.isNew = true;
       this.commentList.unshift(comment);
     },
   },

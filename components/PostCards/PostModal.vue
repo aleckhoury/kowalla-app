@@ -73,6 +73,11 @@ export default {
       post: {},
     };
   },
+  watch: {
+    $route(to, from) {
+      this.$parent.close();
+    },
+  },
   created() {
     this.post = this.postObj;
     this.profile = this.infoObj.profile;
@@ -108,6 +113,7 @@ export default {
   },
   methods: {
     updateComment(comment) {
+      comment.isNew = true;
       this.commentList.unshift(comment);
     },
     echoDeletePost(postId) {

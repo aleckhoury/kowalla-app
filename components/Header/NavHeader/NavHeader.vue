@@ -37,7 +37,7 @@
 
             <Searchbar />
 
-            <!--            <NavNotifications :has-notifications="this.$store.state.user.hasNotifications" />-->
+            <NavNotifications />
 
             <NavProfilePicture />
           </div>
@@ -59,6 +59,7 @@ import LoginHandler from '~/components/Auth/LoginHandler';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
 import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
+import NavNotifications from './NavNotifications';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -66,6 +67,7 @@ export default {
   components: {
     Searchbar,
     NavProfilePicture,
+    NavNotifications,
   },
   data() {
     return {

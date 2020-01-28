@@ -10,7 +10,9 @@
       <div class="media-content">
         <div class="content">
           <p id="reply">
-            <small>@{{ profile.username }} · {{ createdAtFormatted }}</small>
+            <nuxt-link :to="`/user/${profile.username}`">
+              <small>@{{ profile.username }} · {{ createdAtFormatted }}</small>
+            </nuxt-link>
             <br />
             {{ comment.content }}
             <br />
@@ -64,14 +66,11 @@ export default {
       profile: {},
       replyList: [],
       activeNestedCommentId: '',
-      upvote: {},
+      userUpvoted: false,
       upvoteCount: 0,
     };
   },
   computed: {
-    userUpvoted() {
-      return !!this.upvote.userUpvoted;
-    },
     createdAtFormatted() {
       return format(this.comment.createdAt, 'en_US');
     },
@@ -85,11 +84,12 @@ export default {
       this.replyList = await this.$axios.$get(`/api/v1/comments/${this.comment.postId}/${this.comment._id}`);
       const upvoteCountObj = await this.$axios.$get(`/api/v1/upvotes/count/${this.comment._id}`);
       this.upvoteCount = upvoteCountObj.count;
-      // this.replyList.map(async (nestComment, idx) => {
-      //   this.replyList[idx].upvote =
-      // });
-      if (this.$store.state.user.loggedIn) {
-        this.upvote = await this.$axios.$get(`/api/v1/comments/${this.comment._id}/${this.$store.state.user._id}/upvote`);
+      if (this.$store.state.user.loggedIn && !this.comment.isNew) {
+        const upvote = await this.$axios.$get(`/api/v1/comments/${this.comment._id}/${this.$store.state.user._id}/upvote`);
+        this.userUpvoted = upvote.userUpvoted;
+      } else {
+        this.userUpvoted = !this.userUpvoted;
+        this.upvoteCount = 1;
       }
     } catch {
       console.log('error grabbing some values');
@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     updateComment(comment) {
+      comment.isNew = true;
       this.replyList.unshift(comment);
     },
     toggleReply() {
@@ -115,10 +116,10 @@ export default {
       }
     },
     async toggleUpvote() {
-      this.upvote.userUpvoted = !this.upvote.userUpvoted;
-      if (this.upvote.userUpvoted) this.upvoteCount++;
+      this.userUpvoted = !this.userUpvoted;
+      if (this.userUpvoted) this.upvoteCount++;
       else this.upvoteCount--;
-      if (!this.upvote.userUpvoted) {
+      if (!this.userUpvoted) {
         await this.$axios.$delete(`/api/v1/comments/${this.comment._id}/${this.$store.state.user._id}/upvote`);
       } else {
         await this.$axios.$post(`/api/v1/comments/upvote`, {
