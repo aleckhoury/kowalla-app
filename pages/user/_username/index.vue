@@ -5,7 +5,8 @@
         <!-- nav pane -->
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
-          <Subscriptions />
+          <Subscriptions v-if="this.$store.state.user.loggedIn" />
+          <Discover />
         </div>
 
         <!-- post feed -->
@@ -19,25 +20,13 @@
             <SignupCard v-if="!this.$store.state.user.loggedIn" />
             <ProfileCard :name="`${firstName} ${lastName}`" :profile-picture-url="profilePictureUrl" :username="username" :stats="profileStats" type="user" />
 
-            <DescriptionCard :header-string="`About ${firstName}`" :subheader-on="false">
+            <DescriptionCard :header-string="`About ${firstName}`">
               {{ profileDescription }}
             </DescriptionCard>
-            <!--            <CardContainer-->
-            <!--              v-if="-->
-            <!--                profileSubs.owned.length > 0 &&-->
-            <!--                  this.$store.state.user.username !== username-->
-            <!--              "-->
-            <!--              :header-string="`Made by ${firstName}`"-->
-            <!--              :subheader-on="false"-->
-            <!--              header-on-->
-            <!--            >-->
-            <!--              &lt;!&ndash; need to make NavCard more flexible &ndash;&gt;-->
-            <!--              <NavCard-->
-            <!--                :profile-subs="profileSubs"-->
-            <!--                type="profile"-->
-            <!--                selector="owned"-->
-            <!--              />-->
-            <!--            </CardContainer>-->
+            <CardContainer v-if="profileSubs.owned.length > 0 && this.$store.state.user.username !== username" :header-string="`Made by ${firstName}`">
+              <!-- need to make NavCard more flexible -->
+              <NavCard :profile-subs="profileSubs" type="profile" selector="owned" />
+            </CardContainer>
 
             <!--            <CardContainer-->
             <!--              v-if="-->
@@ -72,7 +61,7 @@
         />
       </div>
 
-      <DescriptionCard :header-string="`About ${firstName}`" :subheader-on="false" class="newsfeed-margin">
+      <DescriptionCard :header-string="`About ${firstName}`" class="newsfeed-margin">
         {{ profileDescription }}
       </DescriptionCard>
       <PostFeed v-if="profileId" :page-id="profileId" :is-mobile="true" :is-subscribed="false" type="profile" />
@@ -87,7 +76,10 @@ import InfoPane from '~/components/InfoCards/InfoPane';
 import SignupCard from '~/components/InfoCards/SignupCard';
 import PostFeed from '~/components/PostCards/PostFeed';
 import Subscriptions from '../../../components/SidePaneCards/Subscriptions';
+import Discover from '../../../components/SidePaneCards/Discover';
 import Creations from '../../../components/SidePaneCards/Creations';
+import CardContainer from '../../../components/SidePaneCards/CardContainer';
+import NavCard from '../../../components/NavCards/NavCard';
 
 export default {
   name: 'User',
@@ -99,6 +91,9 @@ export default {
     DescriptionCard,
     SignupCard,
     PostFeed,
+    Discover,
+    CardContainer,
+    NavCard,
   },
 
   data() {

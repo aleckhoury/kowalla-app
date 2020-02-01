@@ -194,7 +194,6 @@ export default {
     },
     async getNotifications() {
       let { result } = await this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/notifications`);
-      console.log(result);
       this.notifications = result;
     },
     viewNotifications() {

@@ -1,6 +1,11 @@
 <template>
-  <CardContainer :header-string="headerString">
-    <div v-for="sub in subscriptions" :key="sub._id" class="subscription">
+  <CardContainer
+    header-string="Subscriptions"
+    :subheader-is-button="subscriptions !== undefined && subscriptions.length > 4 ? true : false"
+    :subheader-string="subscriptions !== undefined && subscriptions.length > 4 ? 'View All Subscriptions' : ''"
+    @subheader-clicked="callSubscriptionListModal"
+  >
+    <div v-for="sub in subscriptions.slice(0, 4)" :key="sub._id" class="subscription">
       <nuxt-link :to="getRoute(sub.isProject, sub.name)">
         <img :src="sub.pictureUrl" />
       </nuxt-link>
@@ -10,7 +15,7 @@
           <b>{{ getPrefix(sub.isProject) }}{{ sub.name }}</b>
         </nuxt-link>
 
-        <div class="info">{{ sub.numSubs }} users</div>
+        <div class="info">{{ sub.numSubs }} subscribers</div>
       </div>
     </div>
     <div v-if="subscriptions === undefined || !subscriptions.length" class="noSubs">
@@ -23,24 +28,15 @@
 <script>
 import CardContainer from './CardContainer';
 import EmptySubs from '../../svg/EmptySubs';
+import LoginHandler from '../Auth/LoginHandler';
+import SubscriptionList from '../Modals/Other/SubscriptionList';
 
 export default {
   name: 'Subscriptions',
   components: { EmptySubs, CardContainer },
-  asyncComputed: {
-    subscriptions: {
-      get() {
-        if (this.$store.state.user.loggedIn) {
-          return this.$store.state.user.subscriptions;
-        }
-        return this.$axios.$get('/api/v1/profiles/subs/default');
-      },
-      default: [],
-    },
-  },
   computed: {
-    headerString() {
-      return this.$store.state.user.loggedIn ? 'Subscriptions' : 'Discover';
+    subscriptions() {
+      return this.$store.state.user.subscriptions;
     },
   },
   methods: {
@@ -49,6 +45,22 @@ export default {
     },
     getPrefix(isProject) {
       return isProject ? '@' : '#';
+    },
+    callSubscriptionListModal() {
+      if (!this.$store.state.user.loggedIn) {
+        return this.$modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+        });
+      }
+      this.$modal.open({
+        parent: this,
+        component: SubscriptionList,
+        width: 900,
+        hasModalCard: true,
+      });
     },
   },
 };

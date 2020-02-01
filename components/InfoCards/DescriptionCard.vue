@@ -1,11 +1,5 @@
 <template>
-  <CardContainer
-    :header-string="headerString"
-    :subheader-string="subheaderString"
-    :subheader-url="subheaderUrl"
-    :subheader-on="subheaderOn"
-    :header-on="headerOn"
-  >
+  <CardContainer :header-string="headerString" :subheader-string="subheaderString" :subheader-url="subheaderUrl">
     <div class="description-string">
       <slot />
     </div>
@@ -24,8 +18,6 @@ export default {
     headerString: { type: String, default: '' },
     subheaderString: { type: String, default: '' },
     subheaderUrl: { type: String, default: '' },
-    headerOn: { type: Boolean, default: true },
-    subheaderOn: { type: Boolean, default: true },
   },
 };
 </script>

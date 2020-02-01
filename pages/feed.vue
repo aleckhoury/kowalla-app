@@ -11,7 +11,7 @@
         <!-- nav pane -->
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
-          <Subscriptions />
+          <Subscriptions v-if="this.$store.state.user.loggedIn" />
         </div>
 
         <div class="column is-one-half is-marginless">
@@ -22,6 +22,7 @@
           <SignupCard v-if="!this.$store.state.user.loggedIn" />
           <ActiveCoworkers />
           <ProfileProgress />
+          <Discover />
         </div>
       </div>
     </div>
@@ -40,6 +41,7 @@ import ActiveCoworkers from '../components/InfoCards/ActiveCoworkers';
 import PostFeed from '~/components/PostCards/PostFeed';
 import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 import Subscriptions from '../components/SidePaneCards/Subscriptions';
+import Discover from '../components/SidePaneCards/Discover';
 import Creations from '../components/SidePaneCards/Creations';
 import ProfileProgress from '../components/SidePaneCards/ProfileProgress';
 
@@ -55,6 +57,7 @@ export default {
     SignupCard,
     PostFeed,
     ProfileProgress,
+    Discover,
   },
 
   data() {

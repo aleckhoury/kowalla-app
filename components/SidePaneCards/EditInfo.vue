@@ -14,11 +14,6 @@ import EditIntegrations from '../../svg/EditIntegrations';
 export default {
   name: 'EditInfo',
   components: { CardContainer, EditIntegrations },
-  computed: {
-    headerString() {
-      return this.$store.state.user.loggedIn ? 'Subscriptions' : 'Discover';
-    },
-  },
   methods: {
     getRoute(isProject, name) {
       return isProject ? `/project/${name}` : `/space/${name}`;

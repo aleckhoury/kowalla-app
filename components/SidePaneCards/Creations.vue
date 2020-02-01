@@ -15,7 +15,7 @@
           <b>{{ getPrefix(item.isProject) }}{{ item.name }}</b>
         </nuxt-link>
 
-        <div class="info">{{ item.numSubs }} users</div>
+        <div class="info">{{ item.numSubs }} subscribers</div>
       </div>
     </div>
     <div v-if="owned === undefined || !owned.length" class="noCreations" @click="callCreateSpaceModal">

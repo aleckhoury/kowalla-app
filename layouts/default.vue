@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header class="is-hidden-touch" />
-    <MobileHeader :open-sidebar="openSidebar" class="is-hidden-desktop" />
-    <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" class="is-hidden-desktop" />
+    <MobileHeader v-if="isMobile" :open-sidebar="openSidebar" />
+    <Header v-else />
+    <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" />
     <nuxt />
-    <MobileFooter class="is-hidden-desktop" />
+    <MobileFooter v-if="isMobile" />
   </div>
 </template>
 <script>
@@ -12,7 +12,6 @@ import Header from '../components/Header/Header';
 import MobileHeader from '../components/Header/Mobile/MobileHeader';
 import MobileFooter from '../components/Header/Mobile/MobileFooter';
 import SideMenu from '../components/Header/Mobile/SideMenu';
-import Utils from '~/utils/helpers';
 
 export default {
   components: { SideMenu, MobileHeader, MobileFooter, Header },
@@ -24,6 +23,9 @@ export default {
   computed: {
     state() {
       return this.$store.state;
+    },
+    isMobile() {
+      return process.browser ? window.innerWidth < 768 : false;
     },
   },
   mounted() {

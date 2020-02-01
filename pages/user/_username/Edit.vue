@@ -26,7 +26,9 @@
             </b-tab-item>
           </b-tabs>
         </div>
-        <div class="column is-one-quarter" />
+        <div class="column is-one-quarter">
+          <ProfileProgress />
+        </div>
       </div>
     </div>
 
@@ -56,6 +58,7 @@
 import EditProfile from '~/components/Forms/EditProfile';
 import IntegrationCard from '../../../components/Forms/IntegrationCard';
 import EditInfo from '../../../components/SidePaneCards/EditInfo';
+import ProfileProgress from '../../../components/SidePaneCards/ProfileProgress';
 
 export default {
   middleware: 'tabs',
@@ -64,6 +67,7 @@ export default {
     IntegrationCard,
     EditProfile,
     EditInfo,
+    ProfileProgress,
   },
 
   data() {

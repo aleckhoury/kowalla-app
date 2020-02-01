@@ -4,7 +4,8 @@
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
-          <Subscriptions />
+          <Subscriptions v-if="this.$store.state.user.loggedIn" />
+          <Discover />
         </div>
 
         <div class="column is-one-half">
@@ -22,7 +23,7 @@
               type="project"
             />
 
-            <DescriptionCard :subheader-on="false" header-string="Description">
+            <DescriptionCard header-string="Description">
               {{ spaceDescription }}
             </DescriptionCard>
 
@@ -50,6 +51,7 @@ import SignupCard from '~/components/InfoCards/SignupCard';
 import Post from '~/components/PostCards/Post';
 import Creations from '../../../../components/SidePaneCards/Creations';
 import Subscriptions from '../../../../components/SidePaneCards/Subscriptions';
+import Discover from '../../../../components/SidePaneCards/Discover';
 
 export default {
   name: 'SpacePost',
@@ -62,6 +64,7 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
+    Discover,
   },
 
   data() {

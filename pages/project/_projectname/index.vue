@@ -12,7 +12,8 @@
         <!-- nav pane -->
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
-          <Subscriptions />
+          <Subscriptions v-if="this.$store.state.user.loggedIn" />
+          <Discover />
         </div>
 
         <div class="column is-three-quarters">
@@ -29,7 +30,7 @@
           <!-- new columns for description, profile and project cards -->
           <div class="columns is-marginless newsfeed-padding">
             <div class="column is-half">
-              <DescriptionCard :subheader-on="false" header-string="Description">
+              <DescriptionCard header-string="Description">
                 {{ projectDescription }}
               </DescriptionCard>
 
@@ -92,7 +93,7 @@
         @subscription-button-clicked="updateSubscriptions"
       />
 
-      <DescriptionCard :subheader-on="false" class="newsfeed-margin" header-string="Description">
+      <DescriptionCard class="newsfeed-margin" header-string="Description">
         {{ projectDescription }}
       </DescriptionCard>
 
@@ -142,6 +143,7 @@ import EditButton from '~/components/InfoCards/EditButton';
 import SignupCard from '~/components/InfoCards/SignupCard';
 import PostFeed from '~/components/PostCards/PostFeed';
 import Subscriptions from '~/components/SidePaneCards/Subscriptions';
+import Discover from '../../../components/SidePaneCards/Discover';
 import Creations from '../../../components/SidePaneCards/Creations';
 
 export default {
@@ -156,6 +158,7 @@ export default {
     ProfileCard,
     InfoPane,
     EditButton,
+    Discover,
   },
 
   data() {

@@ -180,6 +180,7 @@ div.column.is-one-quarter {
     position: sticky !important;
     top: 110px;
     height: 86vh;
+    overflow: scroll;
 }
 div.column.is-one-quarter.firstVisit {
     top: 18rem;

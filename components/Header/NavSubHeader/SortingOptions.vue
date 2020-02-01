@@ -1,10 +1,10 @@
 <template lang="html">
   <div class="sorting">
-    <div v-if="isMobile" class="is-hidden-desktop sortIcons">
+    <div v-if="isMobile" class="sortIcons">
       <font-awesome-icon v-if="this.$store.state.sorting.feed === 'Newest'" icon="sort-amount-down" @click="handleCommand('Oldest')" />
       <font-awesome-icon v-else icon="sort-amount-up" @click="handleCommand('Newest')" />
     </div>
-    <b-dropdown v-else class="dropdown-container is-hidden-touch" aria-role="list" hoverable>
+    <b-dropdown v-else class="dropdown-container" aria-role="list" hoverable>
       <div slot="trigger" class="dropdown-selector">
         <b class="font theme-color">{{ this.$store.state.sorting.feed }}</b>
         <font-awesome-icon icon="angle-down" class="theme-color selector-child" />

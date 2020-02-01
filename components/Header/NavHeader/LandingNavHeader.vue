@@ -30,7 +30,6 @@
 
 <script>
 import NavProfilePicture from './NavProfilePicture';
-import HelpModal from '~/components/Modals/Other/HelpModal';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 

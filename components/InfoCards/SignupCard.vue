@@ -47,6 +47,7 @@ export default {
 .profile-card-container {
   width: 100%;
   border-radius: 6px;
+  margin-bottom: 10px;
 }
 .cardTitle {
   padding: 0.25em;
