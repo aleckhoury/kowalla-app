@@ -197,7 +197,7 @@ text {
 .completed {
   padding: 0 1em;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
   align-self: flex-end;
   animation-duration: 2s;
