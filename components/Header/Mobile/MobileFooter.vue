@@ -28,14 +28,14 @@ export default {
   methods: {
     callMobileCreateModal() {
       if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
+        return this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,
           hasModalCard: true,
         });
       } else {
-        this.$modal.open({
+        this.$buefy.modal.open({
           parent: this,
           component: MobileCreateModal,
           width: 400,
@@ -43,7 +43,7 @@ export default {
           canCancel: true,
           events: {
             post: () => {
-              this.$modal.open({
+              this.$buefy.modal.open({
                 parent: this,
                 component: CreatePostMobile,
                 width: 400,
@@ -52,7 +52,7 @@ export default {
               });
             },
             space: () => {
-              this.$modal.open({
+              this.$buefy.modal.open({
                 parent: this,
                 component: CreateSpaceModal,
                 width: 900,
@@ -61,7 +61,7 @@ export default {
               });
             },
             project: () => {
-              this.$modal.open({
+              this.$buefy.modal.open({
                 parent: this,
                 component: CreateSpaceModal,
                 width: 900,

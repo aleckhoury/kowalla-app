@@ -102,7 +102,7 @@ export default {
     },
     toggleReply() {
       if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
+        return this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,

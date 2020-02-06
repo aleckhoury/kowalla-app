@@ -48,14 +48,14 @@ export default {
     },
     callCreateSpaceModal() {
       if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
+        return this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,
           hasModalCard: true,
         });
       }
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: CreateSpaceModal,
         width: 900,

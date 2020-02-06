@@ -20,12 +20,12 @@ export const getters = {
 //       `/api/v1/posts/active/${this.$store.state.user.username}`
 //     );
 //     if (post.isActive) {
-//       await this.$socket.emit("join", {
+//       await this.$socket.client.emit("join", {
 //         username: this.$store.state.user.username,
 //         profilePicture: this.$store.state.user.profilePicture,
 //       });
 //     } else {
-//       this.$socket.emit("checkUsers", this.$store.state.coworkers.list.length);
+//       this.$socket.client.emit("checkUsers", this.$store.state.coworkers.list.length);
 //     }
 //   }
 // };

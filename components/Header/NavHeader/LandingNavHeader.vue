@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     cardModal() {
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: LoginHandler,
         props: {

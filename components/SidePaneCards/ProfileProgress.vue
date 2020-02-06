@@ -155,7 +155,7 @@ export default {
       }
     },
     openInviteModal() {
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: InviteCode,
         hasModalCard: true,

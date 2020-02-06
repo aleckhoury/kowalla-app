@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     callSearchModal() {
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: SearchModal,
         props: { modalText: 'Search' },
@@ -158,7 +158,7 @@ export default {
       });
     },
     cardModal() {
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: LoginHandler,
         width: 900,
@@ -167,7 +167,7 @@ export default {
     },
     callNotifModal() {
       this.viewNotifications();
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: NotificationModal,
         props: { notifications: this.notifications },

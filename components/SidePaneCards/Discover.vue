@@ -1,6 +1,6 @@
 <template>
   <CardContainer header-string="Discover">
-    <div v-for="item in discoveries.slice(0, 5)" :key="item._id" class="subscription">
+    <div v-for="item in discoveries.slice(0, 5)" :key="item.name" class="subscription">
       <nuxt-link :to="getRoute(item.isProject, item.name)">
         <img :src="item.profilePicture" />
       </nuxt-link>

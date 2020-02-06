@@ -243,7 +243,7 @@ const editor = {
       this.s3Loading = false;
       this.$parent.close();
       if (this.livePost) {
-        this.$socket.emit('join', {
+        this.$socket.client.emit('join', {
           username: this.$store.state.user.username,
           profilePicture: this.$store.state.user.profilePicture,
         });

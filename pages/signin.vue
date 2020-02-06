@@ -36,7 +36,7 @@ export default {
       await this.$store.commit('user/setUser', user);
       if (isNew) {
         this.isLoading = false;
-        await this.$modal.open({
+        await this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,
@@ -68,7 +68,7 @@ export default {
         await this.$store.commit('user/setUser', user);
         if (isNew) {
           this.isLoading = false;
-          await this.$modal.open({
+          await this.$buefy.modal.open({
             parent: this,
             component: LoginHandler,
             width: 900,

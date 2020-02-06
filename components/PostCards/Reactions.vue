@@ -27,7 +27,10 @@
           <div ref="picker" />
         </b-dropdown-item>
       </b-dropdown>
-      <div v-if="isFeed" class="comments level-item" @click="showPost()"><font-awesome-icon class="commentIcon" icon="comments" /> Comments</div>
+      <div v-if="isFeed" class="comments level-item" @click="showPost()">
+        <span v-if="commentCount">{{ commentCount }}&nbsp;</span>
+        <font-awesome-icon v-else class="commentIcon" icon="comments" /> Comments
+      </div>
       <div v-else class="comments level-item" @click="toggleReply()"><font-awesome-icon class="commentIcon" icon="comments" /> Reply</div>
     </div>
   </div>
@@ -47,9 +50,17 @@ export default {
     isFeed: { type: Boolean, default: true },
   },
   data() {
-    return {};
+    return {
+      commentCount: '',
+    };
   },
   computed: {
+    displayCount() {
+      if (this.commentCount === undefined || this.commentCount === 0) {
+        return '';
+      }
+      return this.commentCount;
+    },
     reactionCount() {
       let count = 0;
       if (this.reactionsFormatted.length > 3) {
@@ -67,11 +78,13 @@ export default {
       return count;
     },
   },
-  async mounted() {},
+  async mounted() {
+    this.commentCount = await this.$axios.$get(`/api/v1/comments/count/${this.postId}`);
+  },
   methods: {
     toggleReply() {
       if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
+        return this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,
@@ -82,14 +95,14 @@ export default {
     },
     cardModal() {
       if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
+        return this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,
           hasModalCard: true,
         });
       }
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: ReactionModal,
         props: {

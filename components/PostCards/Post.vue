@@ -179,7 +179,7 @@ export default {
           this.$router.push(`/project/${this.project.name}/posts/${this.post._id}`);
         }
       } else {
-        this.$modal.open({
+        this.$buefy.modal.open({
           parent: this,
           component: PostModal,
           props: {

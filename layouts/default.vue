@@ -29,7 +29,7 @@ export default {
     },
   },
   mounted() {
-    this.$socket.emit('checkUsers', this.state.coworkers.list.length);
+    this.$socket.client.emit('checkUsers', this.state.coworkers.list.length);
   },
   sockets: {
     updateUsers(data) {
@@ -37,12 +37,12 @@ export default {
     },
     checkForUser(data) {
       if (data === this.state.user.username) {
-        this.$socket.emit('join', {
+        this.$socket.client.emit('join', {
           username: this.state.user.username,
           profilePicture: this.state.user.profilePicture,
         });
       } else {
-        this.$socket.emit('checkUsers', this.state.coworkers.list.length);
+        this.$socket.client.emit('checkUsers', this.state.coworkers.list.length);
       }
     },
   },

@@ -26,7 +26,7 @@ const reactions = {
     },
     async toggleReaction(emoji) {
       if (!this.$store.state.user.loggedIn) {
-        return this.$modal.open({
+        return this.$buefy.modal.open({
           parent: this,
           component: LoginHandler,
           width: 900,

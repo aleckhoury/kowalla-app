@@ -49,7 +49,7 @@ export default {
           type: 'is-danger',
         });
       }
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: CreatePost,
         events: {

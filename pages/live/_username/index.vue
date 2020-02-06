@@ -141,13 +141,13 @@ export default {
   },
   methods: {
     endCoworkingSession() {
-      this.$socket.emit('manual-disconnect');
+      this.$socket.client.emit('manual-disconnect');
       setTimeout(() => {
         this.$router.push('/feed');
       }, 500);
     },
     cardModal() {
-      this.$modal.open({
+      this.$buefy.modal.open({
         parent: this,
         component: this.isMobile ? CreatePostMobile : CreatePost,
         props: {
