@@ -82,7 +82,7 @@ export default {
         id = split[1];
         src = `https://player.twitch.tv/?channel=${id}`;
       } else {
-        return this.$toast.open({
+        return this.$buefy.toast.open({
           duration: 3000,
           message: 'Invalid Link',
           position: 'is-top',

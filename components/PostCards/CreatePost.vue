@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="box level">
-      <span class="level-left is-size-4"><b>Create a post...</b></span>
-      <a class="button action" @click="cardModal()"><b>Create</b></a>
+      <a class="button action" @click="startCoworking()"><b>Start Coworking</b></a>
     </div>
   </div>
 </template>
 
 <script>
 import CreatePost from '~/components/Modals/Creation/CreatePost';
+import ProjectList from '../Modals/Other/ProjectList';
 
 export default {
   name: 'CreatePost',
@@ -17,6 +17,7 @@ export default {
       userDropdown: false,
       commDropdown: false,
       editor: null,
+      selectedProject: {},
     };
   },
   computed: {
@@ -35,14 +36,57 @@ export default {
       if (list.length) {
         return list;
       }
-
       return [];
+    },
+    projects() {
+      return this.$store.state.user.owned.filter(x => x.isProject);
     },
   },
   methods: {
+    startCoworking() {
+      if (this.projects.length) {
+        if (this.projects.length === 1) {
+          //  Has one project, start post
+          this.selectedProject = this.projects[0];
+          this.createPost();
+        } else if (this.projects.length > 1) {
+          this.$buefy.modal.open({
+            parent: this,
+            component: ProjectList,
+            hasModalCard: true,
+            events: {
+              'select-project': project => {
+                this.selectedProject = project;
+                this.createPost();
+              },
+            },
+          });
+        }
+      } else {
+        // Has no projects, create project dialog and then start post
+      }
+    },
+    async createPost() {
+      await this.$axios.$post('/api/v1/posts', {
+        profileId: this.$store.state.user._id,
+        projectId: this.selectedProject.projectId,
+        content: `<h3>I'm working on @${this.selectedProject.name}!</h3><p>Today my goals are:</p>`,
+        duration: null,
+        start: new Date(),
+        end: null,
+        isActive: true,
+        username: this.$store.state.user.username,
+      });
+      this.$store.commit('user/incrementPostCount');
+      this.$socket.client.emit('join', {
+        username: this.$store.state.user.username,
+        profilePicture: this.$store.state.user.profilePicture,
+      });
+      this.$router.push({ path: `/live/${this.$store.state.user.username}` });
+    },
     cardModal() {
       if (!this.postInList || !this.postInList.length) {
-        return this.$toast.open({
+        return this.$buefy.toast.open({
           duration: 4000,
           message: 'You need to subscribe to a space to create a post in it!',
           position: 'is-top',
@@ -90,7 +134,7 @@ div .modal-content {
   min-height: 80%;
 }
 .button.action {
-  width: 12em;
+  width: 100%;
   color: white;
   background-color: #39c9a0;
   border-color: #39c9a0;

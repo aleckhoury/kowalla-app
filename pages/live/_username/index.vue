@@ -9,7 +9,7 @@
               <b>Live Post</b>
             </h2>
             <div class="media-content">
-              <no-ssr>
+              <client-only>
                 <editor-menu-bar :editor="editor">
                   <div slot-scope="{ commands, isActive }" class="field has-addons">
                     <a :class="{ 'is-active': isActive.bold() }" class="button is-white" @click="commands.bold">
@@ -74,7 +74,7 @@
                 <div class="editor content">
                   <editor-content :editor="editor" class="editor__content focusEditor" />
                 </div>
-              </no-ssr>
+              </client-only>
             </div>
           </div>
           <div class="endContainer is-hidden-desktop">
@@ -118,7 +118,7 @@ export default {
   data() {
     return {
       post: {},
-      countUp: '',
+      countUp: '00:00:00',
     };
   },
   computed: {
@@ -200,7 +200,7 @@ export default {
         command({ src: image.file });
       } catch (err) {
         console.log(err);
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: "There was an error with your file. Please confirm it's less than 10MB and a png, jpeg, or gif.",
           position: 'is-top',

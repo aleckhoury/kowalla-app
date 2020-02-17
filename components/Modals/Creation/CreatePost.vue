@@ -8,7 +8,7 @@
           </figure>
         </div>
         <div class="media-content">
-          <no-ssr>
+          <client-only>
             <editor-menu-bar :editor="editor">
               <div slot-scope="{ commands, isActive }" class="field has-addons">
                 <BTooltip label="Bold" type="is-light" position="is-top">
@@ -82,33 +82,42 @@
                     <font-awesome-icon icon="camera" />
                   </a>
                 </BTooltip>
-                <BTooltip
-                  label="A live post shows your profile as active on the home feed, and lets you live blog your work to showcase to others"
-                  type="is-light"
-                  position="is-top"
-                  multilined
-                >
-                  <BButton v-if="!hasActivePost" :class="{ isLive: livePost }" class="button" @click="toggleLivePost">
-                    <span v-if="!livePost" class="dot" />
-                    <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live Post
+                <div class="toggle">
+                  <BButton :class="activeType === 'cowork' ? 'selected' : ''" disabled @click="toggleLivePost('cowork')">
+                    <font-awesome-icon icon="users" />&nbsp; Cowork
                   </BButton>
-                </BTooltip>
-                <BTooltip label="Embed a video/live stream from Youtube or Twitch into your post" type="is-light" position="is-top" multilined>
-                  <EmbedButton v-if="embedIsActive" :command="commands.iframe" @enterUrl="insertVideo" />
-                </BTooltip>
+                  <BButton :class="activeType === 'discussion' ? 'selected' : ''" @click="toggleLivePost('discussion')">
+                    <font-awesome-icon icon="comment-dots" />&nbsp; Discussion
+                  </BButton>
+                </div>
+
+                <!--                <BTooltip-->
+                <!--                  label="A live post shows your profile as active on the home feed, and lets you live blog your work to showcase to others"-->
+                <!--                  type="is-light"-->
+                <!--                  position="is-top"-->
+                <!--                  multilined-->
+                <!--                >-->
+                <!--                  <BButton v-if="!hasActivePost" :class="{ isLive: livePost }" class="button" @click="toggleLivePost">-->
+                <!--                    <span v-if="!livePost" class="dot" />-->
+                <!--                    <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live Post-->
+                <!--                  </BButton>-->
+                <!--                </BTooltip>-->
+                <!--                <BTooltip label="Embed a video/live stream from Youtube or Twitch into your post" type="is-light" position="is-top" multilined>-->
+                <!--                  <EmbedButton v-if="embedIsActive" :command="commands.iframe" @enterUrl="insertVideo" />-->
+                <!--                </BTooltip>-->
               </div>
             </editor-menu-bar>
             <div class="editor content">
               <editor-content :editor="editor" class="editor__content" />
             </div>
-          </no-ssr>
+          </client-only>
           <div class="level is-paddingless">
             <a :class="{ 'is-loading': s3Loading }" class="level-item button action post" @click="createPost()">
-              <b v-if="livePost">Start Coworking</b>
+              <b v-if="isLivePost">Start Coworking</b>
               <b v-else>Post</b>
             </a>
             <div class="level-right">
-              <b v-if="postAsList.length" class="level-item has-text-grey">as</b>
+              <b v-if="postAsList.length" class="has-text-grey">on</b>
               <b-dropdown v-if="postAsList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list" required>
                 <div slot="trigger" class="dropdown-selector">
                   <b class="font theme-color">@{{ postingAs.name }}</b>
@@ -116,19 +125,16 @@
                 </div>
                 <b-dropdown-item v-for="item in postAsList" :key="item._id" aria-role="listitem" @click="postingAs = item"> @{{ item.name }} </b-dropdown-item>
               </b-dropdown>
-              <b v-if="postInList.length" class="level-item has-text-grey">in</b>
-              <div>
-                <b-dropdown v-if="postInList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
-                  <div slot="trigger" class="dropdown-selector">
-                    <b class="font theme-color">{{ postingIn.name === 'Select' ? postingIn.name : `#${postingIn.name}` }}</b>
-                    <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
-                  </div>
-                  <b-dropdown-item v-for="item in postInList" :key="item._id" aria-role="listitem" @click="postingIn = item">
-                    {{ item.name === 'Select' ? item.name : `#${item.name}` }}
-                  </b-dropdown-item>
-                </b-dropdown>
-                <span v-if="postingAs.type === 'project'" class="optional"><i>Optional</i></span>
-              </div>
+              <b v-if="!isLivePost && postInList.length" class="level-item has-text-grey">in</b>
+              <b-dropdown v-if="!isLivePost && postInList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
+                <div slot="trigger" class="dropdown-selector">
+                  <b class="font theme-color">{{ postingIn.name === 'Select' ? postingIn.name : `#${postingIn.name}` }}</b>
+                  <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
+                </div>
+                <b-dropdown-item v-for="item in postInList" :key="item._id" aria-role="listitem" @click="postingIn = item">
+                  {{ item.name === 'Select' ? item.name : `#${item.name}` }}
+                </b-dropdown-item>
+              </b-dropdown>
             </div>
           </div>
         </div>
@@ -145,7 +151,10 @@ export default {
   mixins: [editor],
   mounted() {
     this.mixMount();
-    this.getDefaultSpace();
+    console.log(this.$route);
+    if (this.$route.name.includes('space')) {
+      this.getDefaultSpace();
+    }
   },
 };
 </script>
@@ -175,7 +184,6 @@ span {
   overflow: visible;
 }
 .field {
-  margin: 1em 0;
   display: flex;
   flex-wrap: wrap;
 }
@@ -251,5 +259,24 @@ img {
   position: fixed;
   font-size: 10px;
   color: #7f828b;
+}
+.toggle {
+  display: flex;
+  border: 1px solid lightgrey;
+  border-radius: 50px;
+}
+.toggle button {
+  border-radius: 50px !important;
+  border: none;
+  font-weight: 600;
+
+  &.selected {
+    background: #39c9a0;
+    color: white;
+  }
+
+  &:last-child {
+    margin-left: 3px;
+  }
 }
 </style>

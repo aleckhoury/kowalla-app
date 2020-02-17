@@ -8,6 +8,7 @@
               <div class="profilePic">
                 <img :src="item.profilePicture" />
               </div>
+              <!-- eslint-disable-next-line -->
               <div class="content" v-html="item.content" />
             </nuxt-link>
           </div>

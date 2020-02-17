@@ -1,32 +1,32 @@
 <template>
   <div class="card-header">
     <figure class="media-left">
-      <nuxt-link v-if="!isProject" :to="getProfileRoute">
+      <nuxt-link :to="getProfileRoute">
         <p class="image is-48x48 profilePic">
           <img :src="profile.profilePicture" />
         </p>
       </nuxt-link>
 
-      <nuxt-link v-if="isProject" :to="getProjectRoute">
-        <p class="image is-48x48 profilePicProject">
-          <img :src="project.profilePicture" />
-        </p>
-      </nuxt-link>
+      <!--      <nuxt-link v-if="isProject" :to="getProjectRoute">-->
+      <!--        <p class="image is-48x48 profilePicProject">-->
+      <!--          <img :src="project.profilePicture" />-->
+      <!--        </p>-->
+      <!--      </nuxt-link>-->
     </figure>
     <div class="card-content is-paddingless">
       <p v-if="isProject">
-        <nuxt-link :to="getProjectRoute" class="no-decor">
-          <strong class="underline">{{ project.name }}</strong>
+        <nuxt-link :to="getProfileRoute" class="no-decor">
+          <strong class="underline">{{ profile.firstName }}{{ profile.lastName ? ` ${profile.lastName}` : '' }}</strong>
 
           <small>
-            <span :to="getProjectRoute" class="grey">
-              <b>@{{ project.name }}</b>
+            <span class="grey">
+              <b>@{{ profile.username }}</b>
             </span>
           </small>
         </nuxt-link>
 
         <small>
-          · <span :class="{ link: !isModal }" @click="showPost()">{{ createdAtFormatted }}</span>
+          · <span class="grey link" @click="showPost()">{{ createdAtFormatted }}</span>
           <span v-if="isActive">
             ·
             <span class="status live" @click="showPost()">
@@ -56,7 +56,7 @@
         </p>
       </nuxt-link>
 
-      <p v-if="space.name">
+      <p v-if="space.name && !isProject">
         Posted in
         <nuxt-link :to="getSpaceRoute" class="space underline">
           <b>#{{ space.name }}</b>
@@ -69,10 +69,14 @@
         </span>
       </p>
       <p v-else-if="isProject && profile.username">
-        <span class="grey">by</span>
-        <nuxt-link :to="getProfileRoute" class="space underline grey">
-          <b>@{{ profile.username }}</b>
+        working on
+        <nuxt-link :to="getProjectRoute" class="space underline">
+          <b>@{{ project.name }}</b>
         </nuxt-link>
+        <!--        <span class="grey">by</span>-->
+        <!--        <nuxt-link :to="getProfileRoute" class="space underline grey">-->
+        <!--          <b>@{{ profile.username }}</b>-->
+        <!--        </nuxt-link>-->
       </p>
 
       <!--      <p class="created-at-mobile">-->
@@ -199,14 +203,14 @@ export default {
       try {
         let successful = document.execCommand('copy');
         let msg = successful ? 'successful' : 'unsuccessful';
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: 'Link copied! :)',
           position: 'is-top',
           type: 'is-success',
         });
       } catch (err) {
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: 'Link copy failed, try opening the post and copying the URL directly',
           position: 'is-top',
@@ -224,6 +228,13 @@ export default {
 </script>
 
 <style scoped>
+.card-content {
+  font-size: 14px;
+  line-height: normal;
+}
+.card-content small {
+  font-size: 12px;
+}
 .media-left {
   margin-right: 0.5em;
 }
@@ -258,7 +269,6 @@ export default {
 
 .link:hover {
   cursor: pointer;
-  text-decoration: underline;
 }
 
 .underline:hover {

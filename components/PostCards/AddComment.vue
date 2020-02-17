@@ -48,7 +48,7 @@ export default {
         this.comment = '';
         this.resetReply('');
       } else {
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: 'You cannot post a blank comment.',
           position: 'is-top',

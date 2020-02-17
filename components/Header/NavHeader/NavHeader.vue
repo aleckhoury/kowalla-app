@@ -32,7 +32,7 @@
         <div class="level-right">
           <div v-if="this.$store.state.user.loggedIn" class="level-item">
             <BButton type="is-black" inverted outlined @click="newCreateModal">
-              <b>New</b>
+              <font-awesome-icon id="feather" icon="feather" />
             </BButton>
 
             <Searchbar />
@@ -90,38 +90,9 @@ export default {
       } else {
         this.$buefy.modal.open({
           parent: this,
-          component: MobileCreateModal,
-          width: 400,
+          component: CreatePost,
           hasModalCard: true,
           canCancel: true,
-          events: {
-            post: () => {
-              this.$buefy.modal.open({
-                parent: this,
-                component: CreatePost,
-                hasModalCard: true,
-                canCancel: true,
-              });
-            },
-            space: () => {
-              this.$buefy.modal.open({
-                parent: this,
-                component: CreateSpaceModal,
-                width: 900,
-                hasModalCard: true,
-                props: { type: 1 },
-              });
-            },
-            project: () => {
-              this.$buefy.modal.open({
-                parent: this,
-                component: CreateSpaceModal,
-                width: 900,
-                hasModalCard: true,
-                props: { type: 0 },
-              });
-            },
-          },
         });
       }
     },
@@ -188,4 +159,8 @@ export default {
   height: 50px;
   vertical-align: middle;
 }
+  #feather {
+    font-size: 1.5em;
+    width: 1.5em;
+  }
 </style>

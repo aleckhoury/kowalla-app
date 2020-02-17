@@ -1,9 +1,9 @@
 <template>
   <CardContainer
     :subheader-is-button="owned !== undefined && owned.length ? true : false"
-    :subheader-string="owned !== undefined && owned.length ? 'Create a new Project or Space' : ''"
+    :subheader-string="owned !== undefined && owned.length ? 'Create a new Project' : ''"
     header-string="Creations"
-    @subheader-clicked="callCreateSpaceModal"
+    @subheader-clicked="callCreateProjectModal"
   >
     <div v-for="item in owned" :key="item._id" class="creation">
       <nuxt-link :to="getRoute(item.isProject, item.name)">
@@ -18,9 +18,9 @@
         <div class="info">{{ item.numSubs }} subscribers</div>
       </div>
     </div>
-    <div v-if="owned === undefined || !owned.length" class="noCreations" @click="callCreateSpaceModal">
+    <div v-if="owned === undefined || !owned.length" class="noCreations" @click="callCreateProjectModal">
       <EmptyCreations />
-      <span>You haven't created any spaces or projects. Start here!</span>
+      <span>You haven't created any projects. Start here!</span>
     </div>
   </CardContainer>
 </template>
@@ -28,7 +28,7 @@
 <script>
 import CardContainer from './CardContainer';
 import EmptyCreations from '../../svg/EmptyCreations';
-import CreateSpaceModal from '../Modals/Creation/CreateSpaceModal';
+import CreateProjectModal from '../Modals/Creation/CreateProjectModal';
 import LoginHandler from '../Auth/LoginHandler';
 
 export default {
@@ -46,7 +46,7 @@ export default {
     getPrefix(isProject) {
       return isProject ? '@' : '#';
     },
-    callCreateSpaceModal() {
+    callCreateProjectModal() {
       if (!this.$store.state.user.loggedIn) {
         return this.$buefy.modal.open({
           parent: this,
@@ -57,7 +57,7 @@ export default {
       }
       this.$buefy.modal.open({
         parent: this,
-        component: CreateSpaceModal,
+        component: CreateProjectModal,
         width: 900,
         hasModalCard: true,
       });

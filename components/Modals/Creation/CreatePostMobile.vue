@@ -3,7 +3,7 @@
     <div class="box">
       <article class="media">
         <div class="media-content">
-          <no-ssr>
+          <client>
             <editor-menu-bar :editor="editor">
               <div slot-scope="{ commands, isActive }" class="field has-addons">
                 <a :class="{ 'is-active': isActive.bold() }" class="button is-white" @click="commands.bold">
@@ -70,17 +70,24 @@
                   <input ref="file" class="file-input" type="file" @change="selectFile(commands.image)" />
                   <font-awesome-icon icon="camera" />
                 </a>
-                <BButton v-if="!hasActivePost" :class="{ isLive: livePost }" class="button" @click="toggleLivePost">
-                  <span v-if="!livePost" class="dot" />
-                  <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live Post
-                </BButton>
-                <EmbedButton v-if="embedIsActive" :command="commands.iframe" @enterUrl="insertVideo" />
+                <BField>
+                  <p class="control">
+                    <button class="button">
+                      Cowork
+                    </button>
+                  </p>
+                  <p class="control">
+                    <button class="button">
+                      Discuss
+                    </button>
+                  </p>
+                </BField>
               </div>
             </editor-menu-bar>
             <div class="editor content">
               <editor-content :editor="editor" class="editor__content" />
             </div>
-          </no-ssr>
+          </client>
           <div class="level is-paddingless">
             <a :class="{ 'is-loading': s3Loading }" class="level-item button action post" @click="createPost()">
               <b v-if="livePost">Start Coworking</b>

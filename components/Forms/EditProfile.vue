@@ -102,7 +102,7 @@ export default {
         this.editForm.profilePicture = image.file;
       } catch (err) {
         console.log(err);
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 5000,
           message: 'There was an error uploading your profile picture. Please try again.',
           position: 'is-top',
@@ -147,7 +147,7 @@ export default {
         }
       } catch (err) {
         console.log(err);
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: err.response.data.errors.username.message,
           position: 'is-top',

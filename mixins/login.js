@@ -42,7 +42,7 @@ const login = {
     async register(registerForm) {
       // if (Object.values(this.formError).some(v => v === false)) { return false; }
       if (this.registerForm.email === '' || this.registerForm.username === '' || this.registerForm.password === '') {
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: 'Please fill out the full form',
           position: 'is-top',
@@ -51,7 +51,7 @@ const login = {
 
         return null;
       } else if (Object.values(this.formError).some(x => x === true) || !this.validPass) {
-        return this.$toast.open({
+        return this.$buefy.toast.open({
           duration: 4000,
           message: 'Invalid information',
           position: 'is-top',
@@ -84,7 +84,7 @@ const login = {
         this.$store.commit('onboarding/incrementActiveStep');
       } catch (err) {
         console.log(err);
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: err.response.data.message,
           position: 'is-top',
@@ -94,7 +94,7 @@ const login = {
     },
     async login(loginForm) {
       if (this.loginForm.usernameOrEmail === '' || this.loginForm.password === '') {
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: 'Please fill out the full form',
           position: 'is-top',
@@ -128,7 +128,7 @@ const login = {
         }
       } catch (err) {
         console.log(err);
-        this.$toast.open({
+        this.$buefy.toast.open({
           duration: 4000,
           message: err.response.data.message,
           position: 'is-top',

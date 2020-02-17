@@ -221,6 +221,10 @@ module.exports = {
           'faSignOutAlt',
           'faAt',
           'faHashtag',
+          'faFeather',
+          'faUsers',
+          'faCommentDots',
+          'faQuestionCircle',
         ],
       },
       {

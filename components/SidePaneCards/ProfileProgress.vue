@@ -90,6 +90,9 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    projects() {
+      return this.user.owned.filter(x => x.isProject);
+    },
     profileProgress() {
       if (Object.keys(this.user).length) {
         const profilePics = ['kowalla-dev', 'pbs', 'avatars'];
@@ -105,7 +108,7 @@ export default {
             content: 'Subscribe to your first space or project',
           },
           {
-            step: Boolean(this.user.owned.length),
+            step: Boolean(this.projects.length),
             key: 'owned',
             content: 'Create your first project',
           },

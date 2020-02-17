@@ -3,30 +3,49 @@
     <div class="box">
       <section>
         <div class="title">
-          Create a Space
+          Build your project on Kowalla!
+        </div>
+        <div class="subtitle">
+          Creating a project enables you to cowork with other creators like you.
+          <span class="small">(<span @click="openProjectInfoModal">What does this mean?</span>)</span>
+        </div>
+        <div class="container">
+          <div>
+            <b-field label="Project Display Name">
+              <b-input v-model="spaceForm.projectName" maxlength="20" placeholder="Kowalla" />
+            </b-field>
+
+            <b-field>
+              <template slot="label">
+                Project Username
+                <BTooltip
+                  multilined
+                  type="is-light"
+                  label="Your project username can't contain special characters besides '_' and must be 20 characters or less."
+                >
+                  <font-awesome-icon icon="question-circle" />
+                </BTooltip>
+              </template>
+              <b-input
+                v-model="spaceForm.name"
+                pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+                validation-message="No special characters or spaces allowed"
+                icon="at"
+                maxlength="20"
+                placeholder="Kowalla"
+              />
+            </b-field>
+          </div>
+          <div>
+            <EmptyCreations />
+          </div>
+
+          <b-field class="description" label="Description - Tell us a bit about your project">
+            <b-input v-model="spaceForm.description" maxlength="500" type="textarea" placeholder="We're the world's online coworking space." />
+          </b-field>
         </div>
 
-        <b-field label="Space name">
-          <b-input
-            v-model="spaceForm.name"
-            placeholder="SideProject"
-            pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-            icon="hashtag"
-            validation-message="No special characters or spaces allowed"
-            maxlength="20"
-          />
-        </b-field>
-
-        <b-field label="Tell us a bit about this community">
-          <b-input
-            v-model="spaceForm.description"
-            maxlength="500"
-            type="textarea"
-            placeholder="A community for sharing and receiving constructive feedback on side projects"
-          />
-        </b-field>
-
-        <a class="button action" @click="createSpace(spaceForm)">
+        <a class="button action" @click="createProject(spaceForm)">
           Create
         </a>
       </section>
@@ -34,8 +53,11 @@
   </div>
 </template>
 <script>
+import ProjectInfo from '../Other/ProjectInfo';
+import EmptyCreations from '../../../svg/EmptyCreations';
 export default {
   name: 'CreateSpaceModal',
+  components: { EmptyCreations },
   props: {
     type: { type: Number, default: 0 },
   },
@@ -61,6 +83,14 @@ export default {
     },
   },
   methods: {
+    openProjectInfoModal() {
+      return this.$buefy.modal.open({
+        parent: this,
+        component: ProjectInfo,
+        width: 700,
+        hasModalCard: true,
+      });
+    },
     async createProject(spaceForm) {
       if (Object.values(this.formError).some(x => x === true)) {
         return false;
@@ -148,20 +178,48 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .box {
-    width: 800px;
-    max-width: 100%;
+  width: 800px;
+  max-width: 100%;
 }
 .modal-content {
-    border-radius: 6px;
-    margin: 0;
-    color: #39C9A0;
-    width: auto;
+  border-radius: 6px;
+  margin: 0;
+  color: #39c9a0;
+  width: auto;
 }
 .button.action {
   color: white;
   background-color: #39c9a0;
   border-color: #39c9a0;
+}
+.b-tooltip {
+  vertical-align: middle;
+  color: grey;
+  font-size: 14px;
+}
+.small {
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  & span {
+    color: #39c9a0;
+  }
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+
+  & #emptyCreations {
+    display: block;
+    margin: 0 auto;
+  }
+
+  & .field.description {
+    grid-column: span 2;
+  }
 }
 </style>

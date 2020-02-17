@@ -6,7 +6,7 @@
       </nuxt-link>
     </div>
     <div v-else-if="!isFocusPage" class="create-button" @click="callMobileCreateModal">
-      <font-awesome-icon icon="plus" class="dark-basic-theme" style="font-size: 24px" />
+      <font-awesome-icon icon="feather" class="dark-basic-theme" style="font-size: 24px" />
     </div>
   </div>
 </template>
