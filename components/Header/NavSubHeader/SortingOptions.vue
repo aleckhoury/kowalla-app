@@ -102,6 +102,7 @@ export default {
 .sortIcons {
   color: #999;
   font-size: 1.8em;
-  margin-left: 85vw;
+  position: absolute;
+  right: 10px;
 }
 </style>

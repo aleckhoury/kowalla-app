@@ -1,8 +1,8 @@
 <template>
   <div>
-    <img id="coworkingNow" src="../static/coworking_now.png" />
-    <img id="liveHeader" src="../static/live_header.png" />
-    <img id="focusPage" src="../static/focus_page.png" />
+    <img id="coworkingNow" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/coworking_now.png" />
+    <img id="liveHeader" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/live_header.png" />
+    <img id="focusPage" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/focus_page.png" />
     <svg id="ProjectBlobTwo" viewBox="0 0 510 510" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(300,300)">
         <path
@@ -25,7 +25,7 @@ export default {
   margin: 0 auto;
   display: block;
   height: 500px;
-  background-color: white;
+  max-width: 100%;
 }
 img {
   position: absolute;
@@ -37,7 +37,7 @@ img {
   box-shadow: 7px 10px 20px -15px rgba(0, 0, 0, 0.8);
 }
 #coworkingNow {
-  width: 30%;
+  width: 37%;
   top: 20%;
 }
 #liveHeader {
@@ -46,5 +46,21 @@ img {
 }
 #focusPage {
   bottom: 0;
+}
+@media only screen and (max-width: 600px) {
+  img {
+    width: 90%;
+  }
+  #coworkingNow {
+    width: 50%;
+    top: 25%;
+  }
+  #liveHeader {
+    right: 0;
+    top: 43%;
+  }
+  #ProjectBlobTwo {
+    height: auto;
+  }
 }
 </style>

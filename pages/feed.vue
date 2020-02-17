@@ -12,6 +12,7 @@
         <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="column is-one-quarter">
           <Creations />
           <Subscriptions v-if="this.$store.state.user.loggedIn" />
+          <Discover />
         </div>
 
         <div class="column is-one-half is-marginless">
@@ -22,14 +23,12 @@
           <SignupCard v-if="!this.$store.state.user.loggedIn" />
           <ActiveCoworkers />
           <ProfileProgress />
-          <Discover />
         </div>
       </div>
     </div>
 
     <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless is-hidden-desktop mobile-main-margin">
       <ActiveCoworkers />
-      <SortingOptions :is-mobile="true" />
       <PostFeed :is-mobile="true" type="NewsFeedActiveTab" />
     </div>
   </div>
@@ -39,7 +38,6 @@
 import SignupCard from '~/components/InfoCards/SignupCard';
 import ActiveCoworkers from '../components/InfoCards/ActiveCoworkers';
 import PostFeed from '~/components/PostCards/PostFeed';
-import SortingOptions from '~/components/Header/NavSubHeader/SortingOptions';
 import Subscriptions from '../components/SidePaneCards/Subscriptions';
 import Discover from '../components/SidePaneCards/Discover';
 import Creations from '../components/SidePaneCards/Creations';
@@ -52,7 +50,6 @@ export default {
   components: {
     Creations,
     Subscriptions,
-    SortingOptions,
     ActiveCoworkers,
     SignupCard,
     PostFeed,

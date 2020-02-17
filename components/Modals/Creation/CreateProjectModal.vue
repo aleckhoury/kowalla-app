@@ -9,43 +9,38 @@
           Creating a project enables you to cowork with other creators like you.
           <span class="small">(<span @click="openProjectInfoModal">What does this mean?</span>)</span>
         </div>
-        <div class="container">
-          <div>
-            <b-field label="Project Display Name">
-              <b-input v-model="spaceForm.projectName" maxlength="20" placeholder="Kowalla" />
-            </b-field>
+        <form ref="form">
+          <div class="container">
+            <div>
+              <b-field label="Project Display Name*">
+                <b-input v-model="projectForm.projectName" required maxlength="50" validation-message="Project Name is required" placeholder="Kowalla" />
+              </b-field>
 
-            <b-field>
-              <template slot="label">
-                Project Username
-                <BTooltip
-                  multilined
-                  type="is-light"
-                  label="Your project username can't contain special characters besides '_' and must be 20 characters or less."
-                >
-                  <font-awesome-icon icon="question-circle" />
-                </BTooltip>
-              </template>
-              <b-input
-                v-model="spaceForm.name"
-                pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-                validation-message="No special characters or spaces allowed"
-                icon="at"
-                maxlength="20"
-                placeholder="Kowalla"
-              />
+              <b-field :type="formError.username ? 'is-danger' : ''" :message="formError.username ? 'No special characters or spaces allowed' : ''">
+                <template slot="label">
+                  Project Username*
+                  <BTooltip
+                    multilined
+                    type="is-light"
+                    label="Your project username can't contain special characters besides '_' and must be 20 characters or less."
+                  >
+                    <font-awesome-icon icon="question-circle" />
+                  </BTooltip>
+                </template>
+                <b-input v-model="projectForm.name" required validation-message="Project Username is required" icon="at" maxlength="20" placeholder="Kowalla" />
+              </b-field>
+            </div>
+            <div>
+              <EmptyCreations />
+            </div>
+
+            <b-field class="description" label="Description - Tell us a bit about your project*">
+              <b-input v-model="projectForm.description" required maxlength="500" type="textarea" placeholder="We're the world's online coworking space." />
             </b-field>
           </div>
-          <div>
-            <EmptyCreations />
-          </div>
+        </form>
 
-          <b-field class="description" label="Description - Tell us a bit about your project">
-            <b-input v-model="spaceForm.description" maxlength="500" type="textarea" placeholder="We're the world's online coworking space." />
-          </b-field>
-        </div>
-
-        <a class="button action" @click="createProject(spaceForm)">
+        <a class="button action" @click="createProject(projectForm)">
           Create
         </a>
       </section>
@@ -60,16 +55,18 @@ export default {
   components: { EmptyCreations },
   props: {
     type: { type: Number, default: 0 },
+    startCoworking: { type: Boolean, default: false },
   },
   data() {
     return {
-      spaceForm: {
+      projectForm: {
         name: '',
         projectName: '',
         description: '', // text area
         profilePicture: '', // need to add upload
         headerPicture: '', // need to add upload
         admins: [], // just the current user for now
+        isValid: true,
       },
     };
   },
@@ -77,8 +74,7 @@ export default {
     formError() {
       const regex = RegExp('^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$');
       return {
-        username: this.spaceForm.name.length ? !regex.test(this.spaceForm.name) : false,
-        usernameLength: this.spaceForm.name.length > 20,
+        username: this.projectForm.name.length ? !regex.test(this.projectForm.name) : false,
       };
     },
   },
@@ -91,18 +87,18 @@ export default {
         hasModalCard: true,
       });
     },
-    async createProject(spaceForm) {
-      if (Object.values(this.formError).some(x => x === true)) {
+    async createProject(projectForm) {
+      if (!this.$refs.form.checkValidity() || this.formError.username) {
         return false;
       }
       try {
         let projectData = await this.$axios.$post('api/v1/projects', {
-          name: spaceForm.name,
-          projectName: spaceForm.projectName,
+          name: projectForm.name,
+          projectName: projectForm.projectName,
           isProject: true,
-          description: spaceForm.description,
-          profilePicture: spaceForm.profilePicture,
-          headerPicture: spaceForm.headerPicture,
+          description: projectForm.description,
+          profilePicture: projectForm.profilePicture,
+          headerPicture: projectForm.headerPicture,
           admins: [this.$store.state.user.username],
         });
         // update local state
@@ -120,56 +116,17 @@ export default {
         this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
           projectId: projectData._id,
         });
-
-        // change page and close modal
         this.$parent.close();
-        this.$router.push(`/project/${projectData.name}/edit`);
+        if (this.startCoworking) {
+          this.$emit('select-project', subObj);
+        } else {
+          this.$router.push(`/project/${projectData.name}`);
+        }
       } catch (err) {
         console.log(err);
         this.$buefy.toast.open({
           duration: 4000,
           message: err.response.data.errors.projectName.message,
-          position: 'is-top',
-          type: 'is-danger',
-        });
-      }
-    },
-    async createSpace(spaceForm) {
-      if (Object.values(this.formError).some(x => x === true)) {
-        return false;
-      }
-      try {
-        let spaceData = await this.$axios.$post('api/v1/spaces', {
-          name: spaceForm.name,
-          description: spaceForm.description,
-          isProject: false,
-          profilePicture: spaceForm.profilePicture,
-          admins: [this.$store.state.user.username],
-        });
-        // update local state
-        let subInfo = {
-          name: spaceData.name,
-          pictureUrl: spaceData.profilePicture,
-          isProject: false,
-          numSubs: 7,
-          spaceId: spaceData._id,
-        };
-        let subObj = { subBool: true, ...subInfo };
-
-        // this will also update server-side subscriptions
-        this.$store.dispatch('user/updateOwned', subObj);
-        this.$axios.$post(`/api/v1/profiles/${this.$store.state.user._id}/subs`, {
-          spaceId: spaceData._id,
-        });
-
-        // change page and close modal
-        this.$parent.close();
-        this.$router.push({ path: `/space/${spaceData.name}/edit` });
-      } catch (err) {
-        console.log(err);
-        this.$buefy.toast.open({
-          duration: 4000,
-          message: err.response.data.errors.name.message,
           position: 'is-top',
           type: 'is-danger',
         });

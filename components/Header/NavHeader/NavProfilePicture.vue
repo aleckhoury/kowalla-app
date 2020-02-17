@@ -14,6 +14,10 @@
       </nuxt-link>
     </b-dropdown-item>
 
+    <b-dropdown-item aria-role="listitem" @click="callCreateSpace()">
+      Create a new Space
+    </b-dropdown-item>
+
     <b-dropdown-item aria-role="listitem" @click="logout()">
       Logout
     </b-dropdown-item>
@@ -22,6 +26,7 @@
 
 <script>
 import Cookies from 'js-cookie';
+import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
 
 export default {
   name: 'NavProfilePicture',
@@ -43,6 +48,14 @@ export default {
       this.$store.commit('activeTabs/updateNewsFeedActiveTab', 0);
       this.$store.commit('onboarding/resetActiveStep');
       this.$router.go();
+    },
+    callCreateSpace() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: CreateSpaceModal,
+        width: 900,
+        hasModalCard: true,
+      });
     },
   },
 };

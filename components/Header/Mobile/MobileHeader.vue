@@ -39,14 +39,12 @@
       <!-- Mobile Header Bottom -->
       <div class="level mobile-header-bottom-container is-mobile">
         <!-- Level item -->
-        <div v-if="!isEmpty" class="level-item">
-          <Tabs :type="headerType" />
+        <div v-if="headerType === 'Post'" class="is-hidden-desktop sortIcons">
+          <font-awesome-icon icon="angle-left" @click="$router.go(-1)" />
         </div>
-        <div v-else>
-          <div v-if="headerType === 'Post'" class="is-hidden-desktop sortIcons">
-            <font-awesome-icon icon="angle-left" @click="$router.go(-1)" />
-          </div>
-          <SortingOptions v-else :is-mobile="true" />
+        <div v-else class="level-item">
+          <Tabs v-if="!isEmpty" :type="headerType" />
+          <SortingOptions :is-mobile="true" />
         </div>
       </div>
       <!-- End level -->
@@ -354,9 +352,7 @@ ul li {
 .sortIcons svg {
   color: #999;
   font-size: 1.8em;
-  margin-right: 85vw;
   z-index: 12;
-  position: unset;
   background: transparent !important;
 }
 circle {

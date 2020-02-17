@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="box level">
-      <a class="button action" @click="startCoworking()"><b>Start Coworking</b></a>
+      <a v-if="hasActivePost" class="button action" :loading="loading" @click="openPostModal()">
+        <b> Start a Discussion {{ spaceString }} </b>
+      </a>
+      <a v-else class="button action" :loading="loading" @click="startCoworking()"><b>Start Coworking</b></a>
     </div>
   </div>
 </template>
@@ -9,6 +12,9 @@
 <script>
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import ProjectList from '../Modals/Other/ProjectList';
+import LoginHandler from '../Auth/LoginHandler';
+import CreateProjectModal from '../Modals/Creation/CreateProjectModal';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CreatePost',
@@ -18,9 +24,11 @@ export default {
       commDropdown: false,
       editor: null,
       selectedProject: {},
+      loading: false,
     };
   },
   computed: {
+    ...mapGetters('coworkers', ['hasActivePost']),
     postInList() {
       let list = [];
       this.$store.state.user.subscriptions.forEach(function(sub) {
@@ -41,15 +49,51 @@ export default {
     projects() {
       return this.$store.state.user.owned.filter(x => x.isProject);
     },
+    spaceString() {
+      return this.$route.path.includes('/space/') ? `in #${this.$route.params.spacename}` : '';
+    },
   },
   methods: {
+    emitPost(post) {
+      console.log('test');
+      console.log(post);
+      this.$emit('post-created', post);
+    },
+    openPostModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: CreatePost,
+        hasModalCard: true,
+        canCancel: true,
+        events: {
+          'post-created': post => {
+            this.emitPost(post);
+          },
+        },
+      });
+    },
     startCoworking() {
+      if (this.loading) {
+        return false;
+      }
+      this.loading = true;
+      if (!this.$store.state.user.loggedIn) {
+        setTimeout(() => (this.loading = false), 500);
+        return this.$buefy.modal.open({
+          parent: this,
+          component: LoginHandler,
+          width: 900,
+          hasModalCard: true,
+        });
+      }
       if (this.projects.length) {
+        //  Has one project, start post
         if (this.projects.length === 1) {
-          //  Has one project, start post
           this.selectedProject = this.projects[0];
           this.createPost();
+          //  Has multiple projects, choose one, start post
         } else if (this.projects.length > 1) {
+          setTimeout(() => (this.loading = false), 500);
           this.$buefy.modal.open({
             parent: this,
             component: ProjectList,
@@ -63,7 +107,21 @@ export default {
           });
         }
       } else {
+        setTimeout(() => (this.loading = false), 500);
         // Has no projects, create project dialog and then start post
+        this.$buefy.modal.open({
+          parent: this,
+          component: CreateProjectModal,
+          width: 900,
+          props: { startCoworking: true },
+          hasModalCard: true,
+          events: {
+            'select-project': project => {
+              this.selectedProject = project;
+              this.createPost();
+            },
+          },
+        });
       }
     },
     async createPost() {
@@ -82,6 +140,7 @@ export default {
         username: this.$store.state.user.username,
         profilePicture: this.$store.state.user.profilePicture,
       });
+      setTimeout(() => (this.loading = false), 500);
       this.$router.push({ path: `/live/${this.$store.state.user.username}` });
     },
     cardModal() {

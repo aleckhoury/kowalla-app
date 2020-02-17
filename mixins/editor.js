@@ -26,6 +26,8 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import css from 'highlight.js/lib/languages/css';
 import html from 'highlight.js/lib/languages/htmlbars';
 import { mapGetters } from 'vuex';
+import Confirm from '~/components/Modals/Utility/confirm';
+import CreateProjectModal from '../components/Modals/Creation/CreateProjectModal';
 
 const editor = {
   name: 'Editor',
@@ -52,14 +54,13 @@ const editor = {
   computed: {
     ...mapGetters('coworkers', ['hasActivePost']),
     postAsList() {
+      const user = this.$store.state.user;
       let list = [];
-      if (this.isLivePost) {
-        this.$store.state.user.owned.forEach(function(owned) {
-          if (owned.isProject) {
-            list.push({ name: owned.name, id: owned.projectId, type: 'project' });
-          }
-        });
-      }
+      user.owned.forEach(function(owned) {
+        if (owned.isProject) {
+          list.push({ name: owned.name, id: owned.projectId, type: 'project' });
+        }
+      });
       return list;
     },
     postInList() {
@@ -148,32 +149,53 @@ const editor = {
       let defaultPostIn;
       const subscribed = this.$store.state.user.subscriptions.find(s => s.name === this.$route.params.spacename);
       const owned = this.$store.state.user.owned.find(s => s.name === this.$route.params.spacename);
-      console.log(subscribed);
-      console.log(owned);
       if (subscribed !== undefined) {
         defaultPostIn = subscribed;
       } else if (owned !== undefined) {
         defaultPostIn = owned;
       }
       if (defaultPostIn !== undefined) {
-        this.postingIn = { name: defaultPostIn.name, spaceId: defaultPostIn.spaceId };
+        this.postingIn = { name: defaultPostIn.name, id: defaultPostIn.spaceId };
       }
     },
     toggleLivePost(type) {
-      this.activeType = type;
       if (type === 'cowork') {
         if (this.postAsList.some(x => x.type === 'project')) {
+          this.activeType = type;
           this.postingAs = this.postAsList[0];
         } else {
-          this.$buefy.toast.open({
-            duration: 6000,
-            message: 'Working on something? You must create a project in order to make a live post!',
-            position: 'is-top',
-            type: 'is-danger',
+          this.$buefy.modal.open({
+            parent: this,
+            component: Confirm,
+            width: 900,
+            props: {
+              title: 'You must create a project first',
+              content: 'Would you like to create a project and start coworking?',
+              confirm: 'Yes, Create a Project',
+            },
+            hasModalCard: true,
+            events: {
+              confirm: () => {
+                this.$buefy.modal.open({
+                  parent: this,
+                  component: CreateProjectModal,
+                  width: 900,
+                  props: { startCoworking: true },
+                  hasModalCard: true,
+                  events: {
+                    'select-project': () => {
+                      this.activeType = type;
+                      this.postingAs = this.postAsList[0];
+                    },
+                  },
+                });
+              },
+            },
           });
         }
       } else {
-        this.postingAs = this.postAsList[0];
+        this.activeType = type;
+        this.postingAs = undefined;
       }
     },
     async createPost() {
@@ -202,7 +224,7 @@ const editor = {
         return null;
       }
       // force the user to post it to a space
-      if (this.postingAs.type === 'user' && this.postingIn.spaceId === undefined) {
+      if (this.postingAs.type !== 'project' && this.postingIn.id === undefined) {
         this.$buefy.toast.open({
           duration: 5000,
           message: 'You must select a space to post in',
@@ -215,8 +237,8 @@ const editor = {
 
       let postObj = await this.$axios.$post('/api/v1/posts', {
         profileId: this.$store.state.user._id,
-        projectId: this.postingAs.id !== this.$store.state.user._id ? this.postingAs.id : undefined,
-        spaceId: this.postingIn.spaceId || undefined,
+        projectId: this.postingAs.id,
+        spaceId: this.postingIn.id || undefined,
         content: this.html,
         duration: null,
         start: new Date(),

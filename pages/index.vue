@@ -49,8 +49,8 @@
             </h2>
           </div>
           <div class="column">
-            <img id="web" class="is-hidden-mobile" src="../static/screenshot_web.png" />
-            <img id="mobile" class="is-hidden-mobile" src="../static/screenshot.png" />
+            <img id="web" class="is-hidden-mobile" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/screenshot_web.png" />
+            <img id="mobile" class="is-hidden-mobile" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/screenshot.png" />
           </div>
         </div>
       </div>

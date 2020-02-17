@@ -27,19 +27,7 @@
         <div class="circle" :class="{ selected: activeTab === 0 }" @click="activeTab = 0">1</div>
         <div class="circle" :class="{ selected: activeTab === 1 }" @click="activeTab = 1">2</div>
       </div>
-      <div>
-        <!--        1. Coworking is associated with projects. This shows others what you're working on, when you're working on it, and creates a page for your project.-->
-        <!--        <br />-->
-        <!--        image of post header-->
-        <!--        <br />-->
-        <!--        2. Coworking shows in 3 ways on Kowalla:-->
-        <!--        <br />-->
-        <!--        1. When you cowork, it creates a post where talk about what you're working on-->
-        <!--        <br />-->
-        <!--        2. You show up as coworking in the top right for everyone on the site so others know they're not working alone-->
-        <!--        <br />-->
-        <!--        3. You get a private page to focus on your work while still contributing to the-->
-      </div>
+      <div></div>
     </div>
   </div>
 </template>
@@ -100,5 +88,10 @@ export default {
 }
 .steps {
   text-align: center;
+}
+@media only screen and (max-width: 600px) {
+  img {
+    width: 80% !important;
+  }
 }
 </style>

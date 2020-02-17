@@ -213,6 +213,12 @@ a span.icon {
         overflow: scroll;
         background-color: rgba(10, 10, 10, 0.86);
     }
+    .modal-content {
+        max-height: 90vh;
+    }
+    .box {
+        overflow: scroll;
+    }
 }
 .dropdown:hover {
     cursor: pointer;

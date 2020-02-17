@@ -57,11 +57,9 @@ export default {
       return undefined;
     },
     postingAllowed() {
-      const a = this.$store.state.user.loggedIn;
-      const b = !this.isMobile;
-      const c = this.isSubscribed;
-      const d = this.type !== 'project';
-      return !!(a && b && c && d);
+      const a = this.isSubscribed;
+      const b = this.type !== 'project';
+      return !!(a && b);
     },
     getPostsUrl() {
       if (this.type === 'NewsFeedActiveTab') {

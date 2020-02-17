@@ -1,7 +1,7 @@
 <template>
   <div>
-    <img id="projectPage" src="../static/project_page.png" />
-    <img id="workingOn" src="../static/working_on.png" />
+    <img id="projectPage" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/project_page.png" />
+    <img id="workingOn" src="https://kowalla-dev.s3.us-east-2.amazonaws.com/internal/working_on.png" />
     <svg id="ProjectBlobOne" viewBox="0 0 550 550" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(300,300)">
         <path
@@ -24,6 +24,7 @@ export default {
   margin: 0 auto;
   display: block;
   height: 500px;
+  max-width: 100%;
 }
 img {
   position: absolute;
@@ -40,5 +41,13 @@ img {
 #workingOn {
   right: 0;
   bottom: 20%;
+}
+@media only screen and (max-width: 600px) {
+  img {
+    width: 90%;
+  }
+  #ProjectBlobOne {
+    height: auto;
+  }
 }
 </style>

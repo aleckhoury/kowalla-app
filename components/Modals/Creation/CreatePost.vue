@@ -83,28 +83,22 @@
                   </a>
                 </BTooltip>
                 <div class="toggle">
-                  <BButton :class="activeType === 'cowork' ? 'selected' : ''" disabled @click="toggleLivePost('cowork')">
-                    <font-awesome-icon icon="users" />&nbsp; Cowork
-                  </BButton>
-                  <BButton :class="activeType === 'discussion' ? 'selected' : ''" @click="toggleLivePost('discussion')">
-                    <font-awesome-icon icon="comment-dots" />&nbsp; Discussion
-                  </BButton>
+                  <BTooltip
+                    label="Coworking on Kowalla shows others you're working in real time, and creates a post that lets you update it as you work"
+                    type="is-light"
+                    position="is-top"
+                    multilined
+                  >
+                    <BButton :class="activeType === 'cowork' ? 'selected' : ''" :disabled="hasActivePost" @click="toggleLivePost('cowork')">
+                      <font-awesome-icon icon="users" />&nbsp; Cowork
+                    </BButton>
+                  </BTooltip>
+                  <BTooltip label="You can post a discussion in any space you're subscribed to" type="is-light" position="is-top" multilined>
+                    <BButton :class="activeType === 'discussion' ? 'selected' : ''" @click="toggleLivePost('discussion')">
+                      <font-awesome-icon icon="comment-dots" />&nbsp; Discussion
+                    </BButton>
+                  </BTooltip>
                 </div>
-
-                <!--                <BTooltip-->
-                <!--                  label="A live post shows your profile as active on the home feed, and lets you live blog your work to showcase to others"-->
-                <!--                  type="is-light"-->
-                <!--                  position="is-top"-->
-                <!--                  multilined-->
-                <!--                >-->
-                <!--                  <BButton v-if="!hasActivePost" :class="{ isLive: livePost }" class="button" @click="toggleLivePost">-->
-                <!--                    <span v-if="!livePost" class="dot" />-->
-                <!--                    <font-awesome-icon v-else icon="check" class="is-white checkmark" />Live Post-->
-                <!--                  </BButton>-->
-                <!--                </BTooltip>-->
-                <!--                <BTooltip label="Embed a video/live stream from Youtube or Twitch into your post" type="is-light" position="is-top" multilined>-->
-                <!--                  <EmbedButton v-if="embedIsActive" :command="commands.iframe" @enterUrl="insertVideo" />-->
-                <!--                </BTooltip>-->
               </div>
             </editor-menu-bar>
             <div class="editor content">
@@ -117,8 +111,8 @@
               <b v-else>Post</b>
             </a>
             <div class="level-right">
-              <b v-if="postAsList.length" class="has-text-grey">on</b>
-              <b-dropdown v-if="postAsList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list" required>
+              <b v-if="isLivePost" class="has-text-grey">on</b>
+              <b-dropdown v-if="isLivePost" class="level-item dropdown-container" position="is-bottom-left" aria-role="list" required>
                 <div slot="trigger" class="dropdown-selector">
                   <b class="font theme-color">@{{ postingAs.name }}</b>
                   <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
@@ -264,6 +258,10 @@ img {
   display: flex;
   border: 1px solid lightgrey;
   border-radius: 50px;
+
+  & .b-tooltip:last-child button {
+    margin-left: 3px;
+  }
 }
 .toggle button {
   border-radius: 50px !important;
@@ -273,10 +271,6 @@ img {
   &.selected {
     background: #39c9a0;
     color: white;
-  }
-
-  &:last-child {
-    margin-left: 3px;
   }
 }
 </style>

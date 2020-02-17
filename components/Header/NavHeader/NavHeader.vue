@@ -58,7 +58,6 @@ import HelpModal from '~/components/Modals/Other/HelpModal';
 import LoginHandler from '~/components/Auth/LoginHandler';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
-import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
 import NavNotifications from './NavNotifications';
 import { mapGetters } from 'vuex';
 
