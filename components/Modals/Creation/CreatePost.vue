@@ -145,7 +145,6 @@ export default {
   mixins: [editor],
   mounted() {
     this.mixMount();
-    console.log(this.$route);
     if (this.$route.name.includes('space')) {
       this.getDefaultSpace();
     }

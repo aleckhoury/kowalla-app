@@ -1,13 +1,12 @@
 <template>
   <div class="size">
     <div :class="{ 'hide-mobile-header-container': !showNavbar }" class="mobile-header-container is-touch">
-      <!-- Mobile Header Top -->
       <div class="level half-height is-mobile mobile-header-top-container is-marginless">
         <nuxt-link to="/feed">
-          <div class="level-left kowalla-logo">
+          <span class="level-left kowalla-logo">
             <img src="https://i.imgur.com/04hoRgV.png" class="kowalla-logo-picture" />
             kowalla
-          </div>
+          </span>
         </nuxt-link>
 
         <div class="level-right">
@@ -27,18 +26,13 @@
               class="nav-profile-picture level-item"
               @click="openSidebar()"
             />
-            <b v-else class="has-text-white" @click="cardModal">
+            <strong v-else class="has-text-white" @click="cardModal">
               Login/Sign Up
-            </b>
+            </strong>
           </div>
         </div>
-        <!-- end level-right -->
       </div>
-      <!-- top mobile header -->
-
-      <!-- Mobile Header Bottom -->
       <div class="level mobile-header-bottom-container is-mobile">
-        <!-- Level item -->
         <div v-if="headerType === 'Post'" class="is-hidden-desktop sortIcons">
           <font-awesome-icon icon="angle-left" @click="$router.go(-1)" />
         </div>
@@ -47,14 +41,13 @@
           <SortingOptions :is-mobile="true" />
         </div>
       </div>
-      <!-- End level -->
     </div>
     <div v-if="this.$store.state.firstVisit.firstVisit" :class="{ 'hide-mobile-header-container': !showNavbar }" class="hero">
       <div class="bannerStripe"></div>
       <div class="hero-body">
         <h1 class="title is-5">
           Welcome!
-          <div class="delete is-medium is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
+          <span class="delete is-medium is-pulled-right" @click="$store.commit('firstVisit/cancelFirstVisit')" />
         </h1>
         <h2 class="subtitle is-6">
           Kowalla is the coworking space that lives in your pocket, so you're never more than a tap away from the community and support you need to build your
@@ -86,13 +79,12 @@
         </g>
       </svg>
     </div>
-    <!-- End mobile header bottom -->
   </div>
 </template>
 <script>
 import NotificationModal from '~/components/Modals/Other/NotificationModal';
 import SearchModal from '~/components/Modals/Other/SearchModal';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 import Tabs from '../NavSubHeader/Tabs';
 import SortingOptions from '../NavSubHeader/SortingOptions';
 
@@ -245,48 +237,12 @@ export default {
   height: 42px;
 }
 
-.on-bottom {
-  position: relative;
-  bottom: 0;
-  right: 0;
-}
-
-.selector {
-  border: 2px solid #39C9A0;
-  color: #39C9A0;
-  border-radius: 6px;
-  padding: 5px;
-  height: 40px;
-}
-
-.margin-adjust {
-  margin: 0px 0px 0px -4px;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .half-height {
   height: 50px;
 }
 
-.mobile-nav-profile-picture {
-  height: 40px;
-  width: 40px;
-  border: 1px solid #E0DDDD;
-  border-radius: 6px;
-}
 
-.mobile-nav-link-picture {
-  height: 30px;
-  width: 30px;
-  border-radius: 6px;
-}
-
-.kowalla-logo-picture {
+img.kowalla-logo-picture {
   height: 35px;
   width: 35px;
   margin-right: 5px;

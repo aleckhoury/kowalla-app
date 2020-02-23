@@ -42,6 +42,7 @@ import Subscriptions from '../components/SidePaneCards/Subscriptions';
 import Discover from '../components/SidePaneCards/Discover';
 import Creations from '../components/SidePaneCards/Creations';
 import ProfileProgress from '../components/SidePaneCards/ProfileProgress';
+import CreateProject from '../components/Onboarding/CreateProject';
 
 export default {
   middleware: 'tabs',
@@ -66,7 +67,16 @@ export default {
     document.title = `Kowalla - Home`;
     this.isMounted = true;
   },
-  methods: {},
+  methods: {
+    onboardModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: CreateProject,
+        width: 900,
+        hasModalCard: true,
+      });
+    },
+  },
 };
 </script>
 

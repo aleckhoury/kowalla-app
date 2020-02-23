@@ -56,13 +56,6 @@
                 <a :class="{ 'is-active': isActive.blockquote() }" class="button is-white" @click="commands.blockquote">
                   <font-awesome-icon icon="quote-right" />
                 </a>
-                <!--<a-->
-                <!--class="button is-white is-white"-->
-                <!--:class="{ 'is-active': isActive.code_block() }"-->
-                <!--@click="commands.code_block"-->
-                <!--&gt;-->
-                <!--<font-awesome-icon icon="code" />-->
-                <!--</a>-->
                 <a class="button is-white" @click="commands.horizontal_rule">
                   <font-awesome-icon icon="minus" />
                 </a>
@@ -70,18 +63,23 @@
                   <input ref="file" class="file-input" type="file" @change="selectFile(commands.image)" />
                   <font-awesome-icon icon="camera" />
                 </a>
-                <BField>
-                  <p class="control">
-                    <button class="button">
-                      Cowork
-                    </button>
-                  </p>
-                  <p class="control">
-                    <button class="button">
-                      Discuss
-                    </button>
-                  </p>
-                </BField>
+                <div class="toggle">
+                  <BTooltip
+                    label="Coworking on Kowalla shows others you're working in real time, and creates a post that lets you update it as you work"
+                    type="is-light"
+                    position="is-right"
+                    multilined
+                  >
+                    <BButton :class="activeType === 'cowork' ? 'selected' : ''" :disabled="hasActivePost" @click="toggleLivePost('cowork')">
+                      <font-awesome-icon icon="users" />&nbsp; Cowork
+                    </BButton>
+                  </BTooltip>
+                  <BTooltip label="You can post a discussion in any space you're subscribed to" type="is-light" position="is-top" multilined>
+                    <BButton :class="activeType === 'discussion' ? 'selected' : ''" @click="toggleLivePost('discussion')">
+                      <font-awesome-icon icon="comment-dots" />&nbsp; Discussion
+                    </BButton>
+                  </BTooltip>
+                </div>
               </div>
             </editor-menu-bar>
             <div class="editor content">
@@ -90,20 +88,20 @@
           </client>
           <div class="level is-paddingless">
             <a :class="{ 'is-loading': s3Loading }" class="level-item button action post" @click="createPost()">
-              <b v-if="livePost">Start Coworking</b>
+              <b v-if="isLivePost">Start Coworking</b>
               <b v-else>Post</b>
             </a>
             <div class="level-item postDetails">
-              <b v-if="postAsList.length" class="has-text-grey">as</b>
-              <b-dropdown v-if="postAsList.length" class="dropdown-container" position="is-bottom-left" aria-role="list" required>
+              <b v-if="isLivePost" class="has-text-grey">on</b>
+              <b-dropdown v-if="isLivePost" class="level-item dropdown-container" position="is-bottom-left" aria-role="list" required>
                 <div slot="trigger" class="dropdown-selector">
                   <b class="font theme-color">@{{ postingAs.name }}</b>
                   <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
                 </div>
                 <b-dropdown-item v-for="item in postAsList" :key="item._id" aria-role="listitem" @click="postingAs = item"> @{{ item.name }} </b-dropdown-item>
               </b-dropdown>
-              <b v-if="postInList.length" class="has-text-grey">in</b>
-              <b-dropdown v-if="postInList.length" class="dropdown-container" position="is-bottom-left" aria-role="list">
+              <b v-if="!isLivePost && postInList.length" class="has-text-grey">in</b>
+              <b-dropdown v-if="!isLivePost && postInList.length" class="level-item dropdown-container" position="is-bottom-left" aria-role="list">
                 <div slot="trigger" class="dropdown-selector">
                   <b class="font theme-color">{{ postingIn.name === 'Select' ? postingIn.name : `#${postingIn.name}` }}</b>
                   <font-awesome-icon icon="angle-down" class="theme-color selector-child" />
@@ -112,7 +110,6 @@
                   {{ item.name === 'Select' ? item.name : `#${item.name}` }}
                 </b-dropdown-item>
               </b-dropdown>
-              <span v-if="postingAs.type === 'project'" class="optional"><i>Optional</i></span>
             </div>
           </div>
         </div>
@@ -134,7 +131,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 span {
   color: #39c9a0;
 }
@@ -163,15 +160,17 @@ span {
 .field {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+.button {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 .button.action {
   color: white;
   background-color: #39c9a0;
   border-color: #39c9a0;
 }
-/*.post {*/
-/*margin-right: 0.75em;*/
-/*}*/
 .is-white:hover {
   background-color: #e9ebee;
 }
@@ -238,5 +237,29 @@ img {
 }
 .postDetails {
   font-size: 12px;
+}
+.toggle {
+  display: flex;
+  border: 1px solid lightgrey;
+  border-radius: 50px;
+
+  & .b-tooltip:last-child button {
+    margin-left: 3px;
+  }
+}
+.toggle button {
+  border-radius: 50px !important;
+  border: none;
+  font-weight: 600;
+
+  &.selected {
+    background: #39c9a0;
+    color: white;
+  }
+}
+@media screen and (max-width: 768px) {
+  .media-content {
+    overflow-x: hidden;
+  }
 }
 </style>

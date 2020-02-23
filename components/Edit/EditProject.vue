@@ -1,12 +1,16 @@
 <template>
   <div class="box">
     <section>
-      <div class="title">Edit {{ name }}</div>
+      <div class="title">Edit @{{ name }}</div>
+
+      <b-field label="Project Name">
+        <b-input v-model="editForm.projectName" maxlength="50" />
+      </b-field>
 
       <b-field
         :type="{ 'is-danger': formError.name || formError.nameLength }"
-        :message="[{ 'No special characters or spaces allowed': formError.name }, { 'Space Name is too long': formError.nameLength }]"
-        label="Space name"
+        :message="[{ 'No special characters or spaces allowed': formError.name }, { 'Project Username is too long': formError.nameLength }]"
+        label="Project Username"
       >
         <b-input
           v-model="editForm.name"
@@ -33,7 +37,7 @@
 
       <div class="picSection">
         <p class="bannerPic">
-          <img :src="editForm.headerPicture" onerror="this.src='https://gradientjoy.com/1000x250'" />
+          <img :src="editForm.headerPicture" onerror="this.src='https://gradientjoy.com/1000x300'" />
         </p>
         <a class="button action">
           <input ref="bannerPicFile" class="file-input" type="file" @change="selectFile('banner')" />
@@ -46,7 +50,7 @@
       <b-field label="Description">
         <b-input v-model="editForm.description" maxlength="500" type="textarea" />
       </b-field>
-      <a class="button action" @click="editSpace(editForm)">
+      <a class="button action" @click="editProject(editForm)">
         Submit
       </a>
     </section>
@@ -54,13 +58,14 @@
 </template>
 <script>
 export default {
-  name: 'CreateSpaceModal',
+  name: 'EditProjectForm',
   props: {
     name: { type: String, default: '' },
+    projectName: { type: String, default: '' },
     headerPicture: { type: String, default: '' },
     profilePicture: { type: String, default: '' },
     description: { type: String, default: '' },
-    spaceId: { type: String, default: '' },
+    projectId: { type: String, default: '' },
   },
   data() {
     return {
@@ -68,6 +73,7 @@ export default {
       bannerPicFile: '',
       editForm: {
         name: this.name,
+        projectName: this.projectName,
         description: this.description, // text area
         profilePicture: this.profilePicture, // need to add upload
         headerPicture: this.headerPicture, // need to add upload
@@ -100,7 +106,7 @@ export default {
     },
     async uploadImage(type) {
       const formData = new FormData();
-      formData.append('picType', 'space');
+      formData.append('picType', 'project');
       if (type === 'profile') {
         try {
           formData.append('file', this.profilePicFile);
@@ -116,8 +122,8 @@ export default {
           });
         }
       } else {
+        formData.append('file', this.bannerPicFile);
         try {
-          formData.append('file', this.bannerPicFile);
           const image = await this.$axios.$post('/api/v1/bannerPicUpload', formData);
           this.editForm.headerPicture = image.file;
         } catch (err) {
@@ -131,13 +137,13 @@ export default {
         }
       }
     },
-    async editSpace(editForm) {
+    async editProject(editForm) {
       if (this.profilePicture !== editForm.profilePicture) {
         await this.uploadImage('profile');
         if (this.profilePicture.includes('https://kowalla-dev')) {
           const fileName = this.profilePicture.split('profile-pics/')[1];
-          await this.$axios.$post('/api/v1/imageDelete', {
-            bucket: `kowalla-dev/space/profile-pics`,
+          this.$axios.$post('/api/v1/imageDelete', {
+            bucket: `kowalla-dev/project/profile-pics`,
             fileName,
           });
         }
@@ -146,14 +152,14 @@ export default {
         await this.uploadImage('banner');
         if (this.headerPicture.includes('https://kowalla-dev')) {
           const fileName = this.profilePicture.split('profile-pics/')[1];
-          await this.$axios.$post('/api/v1/imageDelete', {
-            bucket: `kowalla-dev/space/banner-pics`,
+          this.$axios.$post('/api/v1/imageDelete', {
+            bucket: `kowalla-dev/project/banner-pics`,
             fileName,
           });
         }
       }
       try {
-        let spaceData = await this.$axios.$put(`api/v1/spaces/${this.spaceId}`, {
+        let projectData = await this.$axios.$put(`api/v1/projects/${this.projectId}`, {
           name: editForm.name, // will need to update local state
           description: editForm.description,
           profilePicture: editForm.profilePicture,
@@ -161,17 +167,20 @@ export default {
         });
         // update state with changes -> should probably check for changes
         let subObj = {
-          name: editForm.name,
-          pictureUrl: editForm.profilePicture,
-          spaceId: spaceData._id,
+          name: projectData.name,
+          pictureUrl: projectData.profilePicture,
+          projectId: projectData._id,
         };
+        //this.$store.dispatch('user/editOwned', subObj)
         this.$store.commit('user/editOwned', subObj);
-        this.$router.push({ path: `/space/${editForm.name}` });
+
+        // if name returned isn't the same as we started with
+        this.$router.push({ path: `/project/${projectData.name}` });
       } catch (err) {
         console.log(err);
         this.$buefy.toast.open({
           duration: 4000,
-          message: err.response.data.errors.username.message,
+          message: err.response.data.message,
           position: 'is-top',
           type: 'is-danger',
         });

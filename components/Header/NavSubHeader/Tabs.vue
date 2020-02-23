@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 
 export default {
   name: 'Tabs',

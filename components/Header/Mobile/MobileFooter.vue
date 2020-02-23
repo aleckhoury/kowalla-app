@@ -11,10 +11,8 @@
   </div>
 </template>
 <script>
-import MobileCreateModal from '~/components/Modals/Creation/MobileCreateModal';
 import CreatePostMobile from '~/components/Modals/Creation/CreatePostMobile';
-import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -37,39 +35,10 @@ export default {
       } else {
         this.$buefy.modal.open({
           parent: this,
-          component: MobileCreateModal,
+          component: CreatePostMobile,
           width: 400,
           hasModalCard: true,
           canCancel: true,
-          events: {
-            post: () => {
-              this.$buefy.modal.open({
-                parent: this,
-                component: CreatePostMobile,
-                width: 400,
-                hasModalCard: true,
-                canCancel: true,
-              });
-            },
-            space: () => {
-              this.$buefy.modal.open({
-                parent: this,
-                component: CreateSpaceModal,
-                width: 900,
-                hasModalCard: true,
-                props: { type: 1 },
-              });
-            },
-            project: () => {
-              this.$buefy.modal.open({
-                parent: this,
-                component: CreateSpaceModal,
-                width: 900,
-                hasModalCard: true,
-                props: { type: 0 },
-              });
-            },
-          },
         });
       }
     },

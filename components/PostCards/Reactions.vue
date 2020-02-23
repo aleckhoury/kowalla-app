@@ -38,7 +38,7 @@
 
 <script>
 import ReactionModal from './ReactionModal';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 
 export default {
   name: 'Reactions',

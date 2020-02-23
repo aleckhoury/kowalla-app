@@ -80,7 +80,7 @@ export default {
   width: 22px;
 }
 .container {
-  width: 300px;
+  width: 325px;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: auto;
@@ -101,5 +101,8 @@ export default {
   max-width: 100%;
   height: 100%;
   white-space: normal;
+}
+.dropdown-item {
+  padding-right: 1rem;
 }
 </style>

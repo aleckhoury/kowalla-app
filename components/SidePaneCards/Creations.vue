@@ -28,8 +28,8 @@
 <script>
 import CardContainer from './CardContainer';
 import EmptyCreations from '../../svg/EmptyCreations';
-import CreateProjectModal from '../Modals/Creation/CreateProjectModal';
-import LoginHandler from '../Auth/LoginHandler';
+import CreateProjectModal from '../Create/CreateProjectModal';
+import LoginHandler from '../Onboarding/LoginHandler';
 
 export default {
   name: 'Creations',

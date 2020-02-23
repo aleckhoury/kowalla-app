@@ -4,45 +4,53 @@
       <div class="title">
         {{ title }}
       </div>
+      <form ref="form">
+        <div class="container">
+          <div>
+            <b-field label="First name" expanded>
+              <b-input v-model="editForm.firstName" required validation-message="This field is required" maxlength="20" />
+            </b-field>
 
-      <b-field grouped>
-        <b-field label="First name" expanded>
-          <b-input v-model="editForm.firstName" maxlength="20" />
-        </b-field>
+            <b-field label="Last name" expanded>
+              <b-input v-model="editForm.lastName" required validation-message="This field is required" maxlength="20" />
+            </b-field>
 
-        <b-field label="Last name" expanded>
-          <b-input v-model="editForm.lastName" maxlength="20" />
-        </b-field>
-      </b-field>
+            <b-field :type="formError.username ? 'is-danger' : ''" :message="formError.username ? 'No special characters or spaces allowed' : ''">
+              <template slot="label">
+                Username
+                <BTooltip
+                  multilined
+                  position="is-right"
+                  type="is-light"
+                  label="Your username can't contain special characters besides '_' and must be 20 characters or less."
+                >
+                  <font-awesome-icon icon="question-circle" />
+                </BTooltip>
+              </template>
+              <b-input v-model="editForm.username" icon="at" required validation-message="This field is required" maxlength="20" />
+            </b-field>
+          </div>
+          <div>
+            <div class="profilePicSection">
+              <b-field label="Profile Picture" />
+              <p class="profilePic">
+                <img :src="editForm.profilePicture" />
+              </p>
+              <a class="button action">
+                <input ref="file" class="file-input" type="file" @change="selectFile()" />
+                <span class="profilePicAction">{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
+                <font-awesome-icon icon="camera" />
+              </a>
+            </div>
+          </div>
 
-      <b-field
-        :type="{ 'is-danger': formError.username || formError.usernameLength }"
-        :message="[{ 'No special characters or spaces allowed': formError.username }, { 'Username is too long': formError.usernameLength }]"
-        label="Username"
-      >
-        <b-input v-model="editForm.username" icon="at" maxlength="20" />
-      </b-field>
-      <b-field label="Profile Picture" />
+          <b-field class="description" label="Tell us a bit about yourself">
+            <b-input v-model="editForm.description" required validation-message="This field is required" maxlength="500" type="textarea" />
+          </b-field>
+        </div>
+      </form>
 
-      <div class="profilePicSection">
-        <p class="profilePic">
-          <img :src="editForm.profilePicture" />
-        </p>
-        <a class="button action">
-          <input ref="file" class="file-input" type="file" @change="selectFile()" />
-          <span class="profilePicAction">{{ editForm.profilePicture ? 'Change' : 'Add' }} Profile Picture</span>
-          <font-awesome-icon icon="camera" />
-        </a>
-      </div>
-      <b-field
-        label="Tell us a bit about yourself"
-        :type="{ 'is-danger': formError.description }"
-        :message="[{ 'This field is required': formError.description }]"
-      >
-        <b-input v-model="editForm.description" maxlength="500" type="textarea" />
-      </b-field>
-
-      <a class="button action" @click.once="editProfile(editForm)">
+      <a class="button action" @click="editProfile(editForm)">
         Submit
       </a>
     </section>
@@ -78,8 +86,6 @@ export default {
       const regex = RegExp('^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$');
       return {
         username: this.editForm.username.length ? !regex.test(this.editForm.username) : false,
-        usernameLength: this.editForm.username.length > 20,
-        description: !this.editForm.description.length,
       };
     },
   },
@@ -140,16 +146,12 @@ export default {
           username: profileData.username,
         };
         this.$store.commit('user/editProfile', editObj);
-        if (this.isOnboarding) {
-          this.$store.commit('onboarding/incrementActiveStep');
-        } else {
-          this.$router.push({ path: `/user/${profileData.username}` });
-        }
+        this.$router.push({ path: `/user/${profileData.username}` });
       } catch (err) {
         console.log(err);
         this.$buefy.toast.open({
           duration: 4000,
-          message: err.response.data.errors.username.message,
+          message: err.response.data.message,
           position: 'is-top',
           type: 'is-danger',
         });
@@ -158,20 +160,50 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .button.action {
-    color: white;
-    background-color: #39C9A0;
-    border-color: #39C9A0;
-    margin-bottom: 1.75em;
+  color: white;
+  background-color: #39c9a0;
+  border-color: #39c9a0;
+  margin-bottom: 1.75em;
 }
 .profilePic img {
-    width: 180px;
-    height: 180px;
-    border-radius: 6px;
-    object-fit: cover;
+  width: 150px;
+  height: 150px;
+  border-radius: 6px;
+  object-fit: cover;
 }
 .profilePicSection {
-    text-align: center;
+  text-align: center;
+  padding: 1em;
+}
+.b-tooltip {
+  vertical-align: middle;
+  color: grey;
+  font-size: 14px;
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+
+  & #emptyCreations {
+    display: block;
+    margin: 0 auto;
+  }
+
+  & .field.description {
+    grid-column: span 2;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .button.action {
+    width: 150px;
+    font-size: 15px;
+  }
+  .profilePic img {
+    width: 120px;
+    height: 120px;
+  }
 }
 </style>

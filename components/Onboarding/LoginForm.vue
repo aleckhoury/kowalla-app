@@ -1,6 +1,6 @@
 <template>
-  <div :class="{ register: true, isMobile }">
-    <span class="title">Create Account</span>
+  <div :class="{ login: true, isMobile }">
+    <span class="title">Welcome Back!</span>
     <div class="row">
       <a class="image is-48x48 twitter" @click="getTwitterCreds">
         <img src="https://seeklogo.com/images/T/twitter-2012-negative-logo-5C6C1F1521-seeklogo.com.png" />
@@ -9,27 +9,16 @@
         <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" />
       </a>
     </div>
-    <b-field label="Email">
-      <b-input v-model="registerForm.email" :has-counter="false" type="email" maxlength="320" @keyup.native.enter="register(registerForm)" />
-    </b-field>
-    <b-field
-      :type="{ 'is-danger': formError.username || formError.usernameLength }"
-      :message="[{ 'No special characters or spaces allowed': formError.username }, { 'Username is too long': formError.usernameLength }]"
-      label="Username"
-    >
-      <b-input v-model="registerForm.username" maxlength="20" @keyup.native.enter="register(registerForm)" />
-    </b-field>
-    <b-field label="Password">
-      <b-input
-        v-model="registerForm.password"
-        pattern=".{8,}"
-        validation-message="Passwords must be 8 characters or more (We recommend more!)"
-        type="password"
-        password-reveal
-        @keyup.native.enter="register(registerForm)"
-      />
-    </b-field>
-    <a class="button action" @click.once="register(registerForm)">
+    <form ref="loginForm">
+      <b-field label="Username or Email">
+        <b-input ref="loginUsername" v-model="loginForm.usernameOrEmail" required @keyup.native.enter="login(loginForm)" />
+      </b-field>
+
+      <b-field label="Password">
+        <b-input ref="loginPassword" v-model="loginForm.password" required type="password" password-reveal @keyup.native.enter="login(loginForm)" />
+      </b-field>
+    </form>
+    <a class="button action" :class="{ 'is-loading': loading }" @click="login(loginForm)">
       Submit
     </a>
   </div>
@@ -39,7 +28,7 @@
 import login from '~/mixins/login';
 
 export default {
-  name: 'RegisterForm',
+  name: 'LoginForm',
   mixins: [login],
   props: {
     isMobile: { type: Boolean, default: false },
@@ -47,13 +36,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
   color: #39c9a0;
   text-align: center;
   font-size: 2.5em;
 }
-.register {
+.login {
   margin: auto 0;
   width: 60%;
   display: flex;
@@ -62,15 +51,16 @@ export default {
   align-items: center;
   overflow-y: scroll;
 }
-.register.isMobile {
+.login.isMobile {
   width: 100%;
 }
 .image img {
   border: 1px solid lightgray;
   border-radius: 6px;
 }
-div.field {
+form {
   width: 80%;
+  margin-bottom: 0.75rem;
 }
 .button.action {
   font-weight: bold;

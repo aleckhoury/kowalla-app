@@ -47,7 +47,7 @@ import AddComment from '~/components/PostCards/AddComment';
 import reactions from '~/mixins/reactions';
 import Utils from '~/utils/helpers';
 import DropdownPicker from './DropdownPicker';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 import Vue from 'vue';
 import highlight from 'highlight.js';
 

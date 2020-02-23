@@ -21,6 +21,8 @@
           <nuxt-link :to="`/user/${this.$store.state.user.username}/edit`" class="page-link is-paddingless" @click.native="closeActions">
             <BMenuItem icon="cog" label="Settings" />
           </nuxt-link>
+          <BMenuItem icon="at" label="Create a New Project" @click="callCreateProject"></BMenuItem>
+          <BMenuItem icon="hashtag" label="Create a New Space" @click="callCreateSpace"></BMenuItem>
           <BMenuItem icon="sign-out-alt" label="Logout" @click="logout"></BMenuItem>
         </BMenuList>
         <!--<BMenuList label="Subscriptions">-->
@@ -38,6 +40,8 @@
 <script>
 import Cookies from 'js-cookie';
 import ProfileProgress from '../../SidePaneCards/ProfileProgress';
+import CreateSpaceModal from '../../Create/CreateSpaceModal';
+import CreateProjectModal from '../../Create/CreateProjectModal';
 
 export default {
   name: 'SideMenu',
@@ -64,6 +68,22 @@ export default {
       this.$store.commit('activeTabs/updateNewsFeedActiveTab', 0);
       this.$store.commit('onboarding/resetActiveStep');
       this.$router.go();
+    },
+    callCreateProject() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: CreateProjectModal,
+        width: 900,
+        hasModalCard: true,
+      });
+    },
+    callCreateSpace() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: CreateSpaceModal,
+        width: 900,
+        hasModalCard: true,
+      });
     },
     closeActions() {
       this.delayOpen = false;

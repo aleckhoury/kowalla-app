@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import EditSpaceForm from '~/components/Forms/EditSpace';
+import EditSpaceForm from '~/components/Edit/EditSpace';
 
 export default {
   name: 'Edit',

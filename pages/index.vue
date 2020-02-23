@@ -649,7 +649,7 @@
 </template>
 
 <script>
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 import LandingNavHeader from '../components/Header/NavHeader/LandingNavHeader';
 
 export default {

@@ -6,129 +6,60 @@
           <img :src="profile.profilePicture" />
         </p>
       </nuxt-link>
-
-      <!--      <nuxt-link v-if="isProject" :to="getProjectRoute">-->
-      <!--        <p class="image is-48x48 profilePicProject">-->
-      <!--          <img :src="project.profilePicture" />-->
-      <!--        </p>-->
-      <!--      </nuxt-link>-->
     </figure>
     <div class="card-content is-paddingless">
-      <p v-if="isProject">
+      <div v-if="isProject" class="link">
         <nuxt-link :to="getProfileRoute" class="no-decor">
           <strong class="underline">{{ profile.firstName }}{{ profile.lastName ? ` ${profile.lastName}` : '' }}</strong>
-
-          <small>
-            <span class="grey">
-              <b>@{{ profile.username }}</b>
-            </span>
-          </small>
+          <strong class="grey">@{{ profile.username }}</strong>
         </nuxt-link>
-
-        <small>
-          · <span class="grey link" @click="showPost()">{{ createdAtFormatted }}</span>
+        <span @click="showPost()">
+          · <span class="grey link">{{ createdAtFormatted }}</span>
           <span v-if="isActive">
             ·
-            <span class="status live" @click="showPost()">
+            <span class="status live">
               LIVE
             </span>
           </span>
           <span v-else-if="duration">
             ·
-            <span class="status duration" @click="showPost()">
+            <span class="status duration">
               EXPIRED
             </span>
           </span>
-        </small>
-      </p>
-
-      <nuxt-link v-if="!isProject" :to="getProfileRoute" class="no-decor">
-        <p>
-          <strong class="underline">{{ profile.firstName }}{{ profile.lastName ? ` ${profile.lastName}` : '' }}</strong>
-
-          <small>
-            <span :to="getProfileRoute" class="grey">
-              <b>@{{ profile.username }}</b>
-            </span>
-
-            <span class="grey">· {{ createdAtFormatted }}</span>
-          </small>
-        </p>
-      </nuxt-link>
-
-      <p v-if="space.name && !isProject">
-        Posted in
-        <nuxt-link :to="getSpaceRoute" class="space underline">
-          <b>#{{ space.name }}</b>
-        </nuxt-link>
-        <span v-if="isProject && profile.username">
-          <span class="grey">by</span>
-          <nuxt-link :to="getProfileRoute" class="space underline grey">
-            <b>@{{ profile.username }}</b>
-          </nuxt-link>
         </span>
-      </p>
-      <p v-else-if="isProject && profile.username">
-        working on
-        <nuxt-link :to="getProjectRoute" class="space underline">
-          <b>@{{ project.name }}</b>
-        </nuxt-link>
-        <!--        <span class="grey">by</span>-->
-        <!--        <nuxt-link :to="getProfileRoute" class="space underline grey">-->
-        <!--          <b>@{{ profile.username }}</b>-->
-        <!--        </nuxt-link>-->
-      </p>
-
-      <!--      <p class="created-at-mobile">-->
-      <!--        <span v-if="isMobile && !isProject" class="grey">{{ createdAtFormatted }}</span>-->
-      <!--      </p>-->
+        <p>
+          <span>working on</span>
+          <nuxt-link :to="getProjectRoute" class="space underline">
+            <strong>@{{ project.name }}</strong>
+          </nuxt-link>
+        </p>
+      </div>
+      <div v-else>
+        <p>
+          <nuxt-link :to="getProfileRoute" class="no-decor link">
+            <strong class="underline">{{ profile.firstName }}{{ profile.lastName ? ` ${profile.lastName}` : '' }}</strong>
+            <span :to="getProfileRoute" class="grey">
+              <strong>@{{ profile.username }}</strong>
+            </span>
+          </nuxt-link>
+          <span class="grey link" @click="showPost()">· {{ createdAtFormatted }}</span>
+        </p>
+        <p>
+          <span>posted in</span>
+          <nuxt-link :to="getSpaceRoute" class="space underline">
+            <strong>#{{ space.name }}</strong>
+          </nuxt-link>
+        </p>
+      </div>
     </div>
     <div class="media-right">
-      <!--      <div v-if="isProject && !isMobile && !isModal" class="update level is-size-6">-->
-      <!--        <div class="level-left">-->
-      <!--          <font-awesome-icon icon="flag" /> &nbsp;-->
-      <!--          <h2><b>Update</b></h2>-->
-      <!--        </div>-->
-      <!--        <b-dropdown class="level-right has-text-white" position="is-bottom-left" aria-role="list">-->
-      <!--          <font-awesome-icon slot="trigger" icon="angle-down" />-->
-
-      <!--          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">-->
-      <!--            <font-awesome-icon icon="link" />-->
-      <!--            Copy link-->
-      <!--          </b-dropdown-item>-->
-
-      <!--          <b-dropdown-item v-if="deleteAllowed" key="1" aria-role="listitem" @click="deletePost">-->
-      <!--            <font-awesome-icon icon="trash-alt" />-->
-      <!--            Delete-->
-      <!--          </b-dropdown-item>-->
-      <!--        </b-dropdown>-->
-      <!--      </div>-->
-      <!--      <div v-else-if="isProject && isMobile && !isModal" class="update level is-mobile is-size-6">-->
-      <!--        <div class="mobile level-left">-->
-      <!--          <font-awesome-icon icon="flag" />-->
-      <!--        </div>-->
-      <!--        <b-dropdown :mobile-modal="false" class="mobile level-right has-text-white" position="is-bottom-left" aria-role="list">-->
-      <!--          <font-awesome-icon slot="trigger" icon="angle-down" />-->
-
-      <!--          <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">-->
-      <!--            <font-awesome-icon icon="link" />-->
-      <!--            Copy link-->
-      <!--          </b-dropdown-item>-->
-
-      <!--          <b-dropdown-item v-if="profile._id === this.$store.state.user._id" key="1" aria-role="listitem" @click="deletePost">-->
-      <!--            <font-awesome-icon icon="trash-alt" />-->
-      <!--            Delete-->
-      <!--          </b-dropdown-item>-->
-      <!--        </b-dropdown>-->
-      <!--      </div>-->
       <b-dropdown :mobile-modal="false" position="is-bottom-left" aria-role="list">
         <font-awesome-icon slot="trigger" icon="angle-down" />
-
         <b-dropdown-item key="0" aria-role="listitem" @click="copyPostUrl">
           <font-awesome-icon icon="link" />
           Copy link
         </b-dropdown-item>
-
         <b-dropdown-item v-if="profile._id === this.$store.state.user._id" key="1" aria-role="listitem" @click="deletePost">
           <font-awesome-icon icon="trash-alt" />
           Delete
@@ -169,15 +100,6 @@ export default {
     },
     getSpaceRoute() {
       return `/space/${this.space.name}`;
-    },
-    deleteAllowed() {
-      if (this.$store.state.user.loggedIn) {
-        if (this.isProject && this.project.admins) {
-          return this.project.admins.indexOf(this.$store.state.user._id) > -1;
-        }
-        return this.profile._id === this.$store.state.user._id;
-      }
-      return false;
     },
   },
   methods: {

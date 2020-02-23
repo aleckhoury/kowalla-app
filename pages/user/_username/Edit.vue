@@ -3,9 +3,7 @@
     <div class="container is-fullhd is-hidden-touch">
       <div :class="{ firstVisit: this.$store.state.firstVisit.firstVisit }" class="columns is-marginless main-margin">
         <!-- nav pane -->
-        <div class="column is-one-quarter">
-          <EditInfo />
-        </div>
+        <div class="column is-one-quarter"></div>
 
         <!-- post feed -->
         <div class="column is-one-half">
@@ -20,9 +18,6 @@
                 :description="profileDescription"
                 :profile-id="profileId"
               />
-            </b-tab-item>
-            <b-tab-item>
-              <IntegrationCard v-for="(int, idx) in integrationList" :key="idx" :name="int.name" :description="int.description" />
             </b-tab-item>
           </b-tabs>
         </div>
@@ -46,27 +41,20 @@
             :profile-id="profileId"
           />
         </b-tab-item>
-        <b-tab-item>
-          <IntegrationCard v-for="(int, idx) in integrationList" :key="idx" :name="int.name" :description="int.description" />
-        </b-tab-item>
       </b-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import EditProfile from '~/components/Forms/EditProfile';
-import IntegrationCard from '../../../components/Forms/IntegrationCard';
-import EditInfo from '../../../components/SidePaneCards/EditInfo';
+import EditProfile from '~/components/Edit/EditProfile';
 import ProfileProgress from '../../../components/SidePaneCards/ProfileProgress';
 
 export default {
   middleware: 'tabs',
   name: 'Edit',
   components: {
-    IntegrationCard,
     EditProfile,
-    EditInfo,
     ProfileProgress,
   },
 

@@ -9,7 +9,7 @@
         <b-field label="Space name">
           <b-input
             v-model="spaceForm.name"
-            placeholder="SideProject"
+            placeholder="SideProjects"
             pattern="^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
             icon="hashtag"
             validation-message="No special characters or spaces allowed"
@@ -98,7 +98,7 @@ export default {
         console.log(err);
         this.$buefy.toast.open({
           duration: 4000,
-          message: err.response.data.errors.projectName.message,
+          message: err.response.data.message,
           position: 'is-top',
           type: 'is-danger',
         });
@@ -139,7 +139,7 @@ export default {
         console.log(err);
         this.$buefy.toast.open({
           duration: 4000,
-          message: err.response.data.errors.name.message,
+          message: err.response.data.message,
           position: 'is-top',
           type: 'is-danger',
         });
