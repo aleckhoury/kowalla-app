@@ -16,7 +16,6 @@
         </div>
 
         <div class="column is-one-half is-marginless">
-          <button @click="onboardModal()">YEET TEST</button>
           <PostFeed type="NewsFeedActiveTab" />
         </div>
         <!-- info pane -->
