@@ -19,7 +19,7 @@
 
 <script>
 import Cookies from 'js-cookie';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 
 export default {
   name: 'SignupCard',

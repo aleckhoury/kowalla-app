@@ -27,31 +27,29 @@
                     <font-awesome-icon icon="question-circle" />
                   </BTooltip>
                 </template>
-                <b-input v-model="projectForm.name" required validation-message="Project Username is required" icon="at" maxlength="20" placeholder="Kowalla" />
+                <b-input v-model="projectForm.name" required validation-message="Project Username is required" icon="at" maxlength="20" placeholder="kowalla" />
               </b-field>
             </div>
             <div>
               <EmptyCreations />
             </div>
 
-            <b-field class="description" label="Description - Tell us a bit about your project*">
+            <b-field class="description" label="Description* - Tell us a bit about your project*">
               <b-input v-model="projectForm.description" required maxlength="500" type="textarea" placeholder="We're the world's online coworking space." />
             </b-field>
           </div>
         </form>
 
-        <a class="button action" @click="createProject(projectForm)">
-          Create
-        </a>
+        <a class="button action level-item" @click="createProject(projectForm)"> Create Project{{ startCoworking ? ' & Start Coworking' : '' }} </a>
       </section>
     </div>
   </div>
 </template>
 <script>
-import ProjectInfo from '../Other/ProjectInfo';
-import EmptyCreations from '../../../svg/EmptyCreations';
+import ProjectInfo from '../Modals/Other/ProjectInfo';
+import EmptyCreations from '../../svg/EmptyCreations';
 export default {
-  name: 'CreateSpaceModal',
+  name: 'CreateProjectModal',
   components: { EmptyCreations },
   props: {
     type: { type: Number, default: 0 },
@@ -126,7 +124,7 @@ export default {
         console.log(err);
         this.$buefy.toast.open({
           duration: 4000,
-          message: err.response.data.errors.projectName.message,
+          message: err.response.data.message,
           position: 'is-top',
           type: 'is-danger',
         });

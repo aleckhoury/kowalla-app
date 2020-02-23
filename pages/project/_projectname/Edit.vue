@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import EditProjectForm from '~/components/Forms/EditProject';
+import EditProjectForm from '~/components/Edit/EditProject';
 
 export default {
   name: 'ProjectEdit',

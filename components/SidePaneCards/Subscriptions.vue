@@ -28,7 +28,7 @@
 <script>
 import CardContainer from './CardContainer';
 import EmptySubs from '../../svg/EmptySubs';
-import LoginHandler from '../Auth/LoginHandler';
+import LoginHandler from '../Onboarding/LoginHandler';
 import SubscriptionList from '../Modals/Other/SubscriptionList';
 
 export default {

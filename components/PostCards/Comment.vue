@@ -47,7 +47,7 @@
 <script>
 import AddComment from './AddComment';
 const { format } = require('timeago.js');
-import LoginHandler from '../Auth/LoginHandler';
+import LoginHandler from '../Onboarding/LoginHandler';
 
 export default {
   name: 'Comment',

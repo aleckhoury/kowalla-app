@@ -207,6 +207,9 @@ a span.icon {
     overflow: scroll;
     background-color: rgba(10, 10, 10, 0.86);
 }
+div.ProseMirror {
+    min-height: 150px;
+}
 @media only screen and (max-width: 600px) {
     .modal.is-active {
         display: flex;
@@ -219,12 +222,12 @@ a span.icon {
     .box {
         overflow: scroll;
     }
+    div.ProseMirror {
+        height: 50vh;
+    }
 }
 .dropdown:hover {
     cursor: pointer;
-}
-div.ProseMirror {
-    min-height: 150px;
 }
 .ProseMirror p.is-empty:first-child::before {
     content: attr(data-empty-text);

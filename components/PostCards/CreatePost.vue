@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="box level">
-      <a v-if="hasActivePost" class="button action" :loading="loading" @click="openPostModal()">
+      <a v-if="hasActivePost || isSpace" class="button action" :class="{ 'is-loading': loading }" @click="openPostModal()">
         <b> Start a Discussion {{ spaceString }} </b>
       </a>
-      <a v-else class="button action" :loading="loading" @click="startCoworking()"><b>Start Coworking</b></a>
+      <a v-else class="button action" :class="{ 'is-loading': loading }" @click="startCoworking()"><b>Start Coworking</b></a>
     </div>
   </div>
 </template>
@@ -12,8 +12,8 @@
 <script>
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 import ProjectList from '../Modals/Other/ProjectList';
-import LoginHandler from '../Auth/LoginHandler';
-import CreateProjectModal from '../Modals/Creation/CreateProjectModal';
+import LoginHandler from '../Onboarding/LoginHandler';
+import CreateProjectModal from '../Create/CreateProjectModal';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -49,14 +49,15 @@ export default {
     projects() {
       return this.$store.state.user.owned.filter(x => x.isProject);
     },
+    isSpace() {
+      return this.$route.path.includes('/space/');
+    },
     spaceString() {
       return this.$route.path.includes('/space/') ? `in #${this.$route.params.spacename}` : '';
     },
   },
   methods: {
     emitPost(post) {
-      console.log('test');
-      console.log(post);
       this.$emit('post-created', post);
     },
     openPostModal() {

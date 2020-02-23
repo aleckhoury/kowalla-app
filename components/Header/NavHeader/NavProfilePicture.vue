@@ -26,7 +26,7 @@
 
 <script>
 import Cookies from 'js-cookie';
-import CreateSpaceModal from '~/components/Modals/Creation/CreateSpaceModal';
+import CreateSpaceModal from '~/components/Create/CreateSpaceModal';
 
 export default {
   name: 'NavProfilePicture',

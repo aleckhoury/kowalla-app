@@ -1,10 +1,10 @@
 <template>
   <div>
-    <MobileHeader v-if="isMobile" :open-sidebar="openSidebar" />
-    <Header v-else />
+    <Header class="is-hidden-touch" />
+    <MobileHeader :open-sidebar="openSidebar" class="is-hidden-desktop" />
     <SideMenu v-if="isOpen" :is-open="isOpen" :close-sidebar="openSidebar" />
     <nuxt />
-    <MobileFooter v-if="isMobile" />
+    <MobileFooter class="is-hidden-desktop" />
   </div>
 </template>
 <script>
@@ -23,9 +23,6 @@ export default {
   computed: {
     state() {
       return this.$store.state;
-    },
-    isMobile() {
-      return process.browser ? window.innerWidth < 768 : false;
     },
   },
   mounted() {

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 import DropdownPicker from '~/components/PostCards/DropdownPicker';
 
 // NOTE - The $children[1] selector only works in the local environment. Not sure why 🤔

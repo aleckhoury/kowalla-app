@@ -27,7 +27,7 @@ import css from 'highlight.js/lib/languages/css';
 import html from 'highlight.js/lib/languages/htmlbars';
 import { mapGetters } from 'vuex';
 import Confirm from '~/components/Modals/Utility/confirm';
-import CreateProjectModal from '../components/Modals/Creation/CreateProjectModal';
+import CreateProjectModal from '../components/Create/CreateProjectModal';
 
 const editor = {
   name: 'Editor',

@@ -6,22 +6,11 @@
       </b-step-item>
 
       <b-step-item :clickable="false">
-        <EditProfile
-          v-if="user._id"
-          :class="isMobile ? 'mobile' : ''"
-          :is-onboarding="true"
-          :first-name="user.firstName"
-          :last-name="user.lastName"
-          :username="user.username"
-          :profile-picture="user.profilePicture"
-          :description="user.profileDescription"
-          :profile-id="user._id"
-          title="Complete Profile Details"
-        />
+        <CreateProfile v-if="user._id" :class="isMobile ? 'mobile' : ''" />
       </b-step-item>
 
       <b-step-item :clickable="false">
-        <SpaceProjectList @complete-signup="completeSignup" />
+        <CreateProject :is-mobile="isMobile" @complete-signup="completeSignup" />
       </b-step-item>
     </b-steps>
   </div>
@@ -29,15 +18,15 @@
 
 <script>
 import LoginAndRegister from './LoginAndRegister';
-import EditProfile from '~/components/Forms/EditProfile';
-import SpaceProjectList from './SpaceProjectList';
+import CreateProfile from './CreateProfile';
+import CreateProject from './CreateProject';
 
 export default {
   name: 'LoginHandler',
   components: {
-    SpaceProjectList,
+    CreateProject,
+    CreateProfile,
     LoginAndRegister,
-    EditProfile,
   },
   props: {
     initialState: { type: Number, default: 0 },
@@ -76,14 +65,16 @@ export default {
     },
     async completeSignup() {
       this.$parent.close();
-      const user = this.$store.state.user;
-      const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
+      // TODO Revisit later. This code was used when we showed communities/projects to discover at first,
+      // TODO just keeping logic until I see how the rest of this goes
+      // const user = this.$store.state.user;
+      // // const subs = await this.$axios.$get(`/api/v1/profiles/${user._id}/subs`);
+      //
+      // const { subscriptions } = subs.subscriptions;
+      // await Object.assign(user, { subscriptions });
 
-      const { subscriptions } = subs.subscriptions;
-      await Object.assign(user, { subscriptions });
-
-      await this.$store.commit('user/setUser', user);
-      this.$router.push({ path: `/space/all` });
+      // await this.$store.commit('user/setUser', user);
+      this.$router.push({ path: `/feed` });
     },
   },
 };
@@ -105,10 +96,10 @@ export default {
 div.b-steps.signup {
   border-radius: 6px;
 }
-.box {
-  width: 800px;
-  max-width: 100%;
-  max-height: 90vh;
-  overflow: scroll;
-}
+/*.box {*/
+/*  width: 800px;*/
+/*  max-width: 100%;*/
+/*  max-height: 90vh;*/
+/*  overflow: scroll;*/
+/*}*/
 </style>

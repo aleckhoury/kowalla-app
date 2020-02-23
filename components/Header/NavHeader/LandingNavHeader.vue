@@ -30,7 +30,7 @@
 
 <script>
 import NavProfilePicture from './NavProfilePicture';
-import LoginHandler from '~/components/Auth/LoginHandler';
+import LoginHandler from '~/components/Onboarding/LoginHandler';
 import CreatePost from '~/components/Modals/Creation/CreatePost';
 
 export default {
