@@ -12,63 +12,77 @@
               <client-only>
                 <editor-menu-bar :editor="editor">
                   <div slot-scope="{ commands, isActive }" class="field has-addons">
-                    <a :class="{ 'is-active': isActive.bold() }" class="button is-white" @click="commands.bold">
-                      <font-awesome-icon icon="bold" />
-                    </a>
-
-                    <a :class="{ 'is-active': isActive.italic() }" class="button is-white" @click="commands.italic">
-                      <font-awesome-icon icon="italic" />
-                    </a>
-
-                    <a :class="{ 'is-active': isActive.strike() }" class="button is-white" @click="commands.strike">
-                      <font-awesome-icon icon="strikethrough" />
-                    </a>
-
-                    <a :class="{ 'is-active': isActive.underline() }" class="button is-white" @click="commands.underline">
-                      <font-awesome-icon icon="underline" />
-                    </a>
-
-                    <a :class="{ 'is-active': isActive.code() }" class="button is-white" @click="commands.code">
-                      <font-awesome-icon icon="code" />
-                    </a>
-
-                    <!--<a-->
-                    <!--class="button is-white"-->
-                    <!--:class="{ 'is-active': isActive.paragraph() }"-->
-                    <!--@click="commands.paragraph"-->
-                    <!--&gt;-->
-                    <!--<font-awesome-icon icon="paragraph" />-->
-                    <!--</a>-->
-
-                    <a :class="{ 'is-active': isActive.heading({ level: 1 }) }" class="button is-white" @click="commands.heading({ level: 1 })">
-                      H1
-                    </a>
-
-                    <a :class="{ 'is-active': isActive.heading({ level: 2 }) }" class="button is-white" @click="commands.heading({ level: 2 })">
-                      H2
-                    </a>
-                    <a :class="{ 'is-active': isActive.heading({ level: 3 }) }" class="button is-white" @click="commands.heading({ level: 3 })">
-                      H3
-                    </a>
-                    <a :class="{ 'is-active': isActive.todo_list() }" class="button is-white" @click="commands.todo_list">
-                      <font-awesome-icon icon="tasks" />
-                    </a>
-                    <a :class="{ 'is-active': isActive.bullet_list() }" class="button is-white" @click="commands.bullet_list">
-                      <font-awesome-icon icon="list-ul" />
-                    </a>
-                    <a :class="{ 'is-active': isActive.ordered_list() }" class="button is-white" @click="commands.ordered_list">
-                      <font-awesome-icon icon="list-ol" />
-                    </a>
-                    <a :class="{ 'is-active': isActive.blockquote() }" class="button is-white" @click="commands.blockquote">
-                      <font-awesome-icon icon="quote-right" />
-                    </a>
-                    <a class="button is-white" @click="commands.horizontal_rule">
-                      <font-awesome-icon icon="minus" />
-                    </a>
-                    <a class="button is-white">
-                      <input ref="file" class="file-input" type="file" @change="selectFile(commands.image)" />
-                      <font-awesome-icon icon="camera" />
-                    </a>
+                    <BTooltip label="Bold" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.bold() }" class="button is-white" @click="commands.bold">
+                        <font-awesome-icon icon="bold" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Italic" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.italic() }" class="button is-white" @click="commands.italic">
+                        <font-awesome-icon icon="italic" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Strikethrough" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.strike() }" class="button is-white" @click="commands.strike">
+                        <font-awesome-icon icon="strikethrough" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Underline" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.underline() }" class="button is-white" @click="commands.underline">
+                        <font-awesome-icon icon="underline" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Code Block" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.code_block() }" class="button is-white" @click="commands.code_block">
+                        <font-awesome-icon icon="code" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Heading 1" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.heading({ level: 1 }) }" class="button is-white" @click="commands.heading({ level: 1 })">
+                        H1
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Heading 2" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.heading({ level: 2 }) }" class="button is-white" @click="commands.heading({ level: 2 })">
+                        H2
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Heading 3" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.heading({ level: 3 }) }" class="button is-white" @click="commands.heading({ level: 3 })">
+                        H3
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="To Do List" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.todo_list() }" class="button is-white" @click="commands.todo_list">
+                        <font-awesome-icon icon="tasks" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Bullet List" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.bullet_list() }" class="button is-white" @click="commands.bullet_list">
+                        <font-awesome-icon icon="list-ul" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Numbered List" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.ordered_list() }" class="button is-white" @click="commands.ordered_list">
+                        <font-awesome-icon icon="list-ol" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Blockquote" type="is-light" position="is-top">
+                      <a :class="{ 'is-active': isActive.blockquote() }" class="button is-white" @click="commands.blockquote">
+                        <font-awesome-icon icon="quote-right" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Horizontal Rule" type="is-light" position="is-top">
+                      <a class="button is-white" @click="commands.horizontal_rule">
+                        <font-awesome-icon icon="minus" />
+                      </a>
+                    </BTooltip>
+                    <BTooltip label="Upload Photo" type="is-light" position="is-top">
+                      <a class="button is-white">
+                        <input ref="file" class="file-input" type="file" @change="selectFile(commands.image)" />
+                        <font-awesome-icon icon="camera" />
+                      </a>
+                    </BTooltip>
                   </div>
                 </editor-menu-bar>
                 <div class="editor content">
@@ -172,16 +186,11 @@ export default {
         minutes = minutes < 10 ? '0' + minutes : minutes;
         seconds = seconds < 10 ? '0' + seconds : seconds;
 
-        if (seconds === 30 || seconds.toString() === '00') {
+        if (seconds % 5 === 0) {
           self.updatePost();
         }
         self.countUp = `${hours}:${minutes}:${seconds}`;
       }, 1000);
-    },
-    updatePost() {
-      this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
-        content: this.html,
-      });
     },
     async selectFile(command) {
       this.file = this.$refs.file.files[0];
