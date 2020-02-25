@@ -49,6 +49,7 @@ const editor = {
       clearPhoto: false,
       photoUrl: '',
       defaultContent: '<p></p>',
+      updated: false,
     };
   },
   computed: {
@@ -98,6 +99,7 @@ const editor = {
       }
       await this.editor.destroy();
     }
+    this.updatePost();
   },
   methods: {
     mixMount() {
@@ -142,8 +144,17 @@ const editor = {
         content: this.defaultContent,
         onUpdate: ({ getHTML }) => {
           this.html = getHTML();
+          this.updated = true;
         },
       });
+    },
+    updatePost() {
+      if (this.updated) {
+        this.$axios.$put(`/api/v1/profile/posts/${this.post._id}`, {
+          content: this.html,
+        });
+        this.updated = false;
+      }
     },
     getDefaultSpace() {
       let defaultPostIn;
